@@ -1,17 +1,22 @@
 package com.dxt;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.TabHost;
 
 public class MainActivity extends Activity {
 	private TabHost tabHost;
+	private ImageButton askquestion;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +24,11 @@ public class MainActivity extends Activity {
 		//Œﬁ±ÍÃ‚
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
+		
+		askquestion=(ImageButton) this.findViewById(R.id.img_askquestion);
+		
+		askquestion.setOnClickListener(questionListener);
+		
 		tabHost = (TabHost) this.findViewById(R.id.TabHost01);
 		tabHost.setup();
 
@@ -109,4 +119,15 @@ public class MainActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	private OnClickListener questionListener=new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent toAskQuestionActivity=new Intent();
+			toAskQuestionActivity.setClass(getApplicationContext(), com.dxt.view.CameraActivityTest.class);
+			startActivity(toAskQuestionActivity);
+		}
+	};
 }

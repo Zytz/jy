@@ -1,0 +1,631 @@
+package com.dxt.view;
+
+import java.io.File;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Point;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnPreparedListener;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceHolder.Callback;
+import android.view.SurfaceView;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.dxt.R;
+import com.dxt.util.DisplayUtil;
+import com.dxt.util.SDCardMedia;
+import com.dxt.util.TimeFormate;
+
+public class MediaPlayerActivity extends Activity {
+	
+	private TextView nameText, currentTime, maxTime;
+	private Button  checkButton;
+	//private ImageButton volumeButton;
+	private ImageView goView;
+	private SeekBar timebar;
+	//private ProgressBar volumeBar;
+	//private LinearLayout volumeLayout;
+	private String path;
+	private String filepath="mnt/sdcard/external_sd/video/电击小子-1.MP4";
+	private String[] filepaths;
+	//private Map<String, Object> videoMap;
+	private MediaPlayer mediaPlayer;
+	private AudioManager audioManager;
+	private SurfaceView surfaceView;
+	private ProgressDialog dialog;
+	private boolean pause, filechanged, Handlerpost;
+	private int position;
+	private int Index;
+	private int count;
+	//private int maxVolume, curVolume, i;
+	private boolean isMute, hasFile, isComeFromList, volumeBarVisible;
+	private static final int LIST = 1, UPDATELIST = 2, ABOUT = 3, EXIT = 4;
+	private static final int FILE_RESULT_CODE = 1;
+	private static final int LIST_RESULT_CODE = 2;
+	private static final int UPDATE_RESULT_CODE = 3;
+
+	private static final String TAG = "MediaPlay";
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+
+		mediaPlayer = new MediaPlayer();
+/*		nameText = (TextView) findViewById(R.id.filename);*/
+		currentTime = (TextView) findViewById(R.id.curtime);
+		maxTime = (TextView) findViewById(R.id.maxtime);
+/*		chooseButon = (Button) findViewById(R.id.choose);*/
+	//	checkButton = (Button) findViewById(R.id.check);
+/*		volumeButton = (ImageButton) findViewById(R.id.volumebutton);
+		volumeLayout = (LinearLayout) findViewById(R.id.volumeLayout);
+		volumeBar = (ProgressBar) findViewById(R.id.volumeBar);*/
+	//	chooseButon.setOnClickListener(new ChooseListenet());
+		//checkButton.setOnClickListener(new CheckListenet());
+		goView = (ImageView) findViewById(R.id.gobutton);
+		timebar = (SeekBar) findViewById(R.id.timebar);
+		timebar.setOnSeekBarChangeListener(new SeekBarListener());
+		surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
+
+		surfaceView.setOnTouchListener(new TouchListener());
+		// 把输送给surfaceView的视频画面，直接显示到屏幕上,不要维持它自身的缓冲区
+		surfaceView.getHolder()
+				.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+		// surfaceView.getHolder().setFixedSize(176, 144);
+		// surfaceView.getHolder().setKeepScreenOn(true);
+		// surfaceView.getHolder().se
+		surfaceView.getHolder().addCallback(new SurfaceCallback());
+		audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+	//	maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);// 取得最大音量
+		//volumeBar.setMax(maxVolume);
+		// serach for last if has lastpath
+		// nameText.setText("上次播放:"+lastpath);
+	}
+
+	/*
+	 * 当SurfaceView所在的Activity离开了前台,SurfaceView会被destroy,
+	 * 当Activity又回到了前台时，SurfaceView会被重新创建，并且是在OnResume()方法之后被创建
+	 */
+	private final class SurfaceCallback implements Callback {
+		public void surfaceChanged(SurfaceHolder holder, int format, int width,
+				int height) {
+		}
+
+		public void surfaceCreated(SurfaceHolder holder) // 创建SurfaceView时开始从上次位置播放或重新播放
+		{
+			if (isComeFromList) {
+				playMedia();
+				isComeFromList = false;
+				/*curVolume = audioManager
+						.getStreamVolume(AudioManager.STREAM_MUSIC);// 取得当前音量
+*/			} else if (position > 0 && path != null) {
+				play(position);
+				position = 0;
+			}
+		}
+
+		public void surfaceDestroyed(SurfaceHolder holder) // 离开SurfaceView时停止播放，保存播放位置
+		{
+			if (mediaPlayer.isPlaying()) {
+				position = mediaPlayer.getCurrentPosition();
+				mediaPlayer.stop();
+			}
+		}
+	}
+
+	@Override
+	protected void onDestroy()// Activity销毁时释放mediaPlayer，保存已添加过视频列表，再次打开时用
+	{
+		mediaPlayer.release();
+		mediaPlayer = null;
+		super.onDestroy();
+	}
+/*
+	class ChooseListenet implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+			ChooseFile();
+		}
+	}
+
+	public void ChooseFile()// 选择视频文件
+	{
+		Intent intent = new Intent();
+		intent.setClassName(this, "fly.ChooseFile.FileChooserActivity");
+		startActivityForResult(intent, FILE_RESULT_CODE);
+	}*/
+
+/*	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)// 得到不同Activity的返回结果
+	{
+		Bundle bundle = null;
+		switch (requestCode) {
+		case FILE_RESULT_CODE: // 处理文件选择返回的结果
+			if (data != null && (bundle = data.getExtras()) != null) {
+				List<String> filelist = bundle.getStringArrayList("filelist");
+				count = filelist.size();
+				filepaths = new String[count];
+				int i = 0;
+				for (Iterator<String> iterator = filelist.iterator(); iterator
+						.hasNext(); i++) {
+					filepaths[i] = (String) iterator.next();
+				}
+				hasFile = data.getBooleanExtra("hasFile", false);
+				if (hasFile) {
+					filepath = filepaths[0];
+					boolean exist = SDCardMedia.addVideos(filepaths);// 把选择结果添加到播放列表中
+					nameText.setText(filepath.substring(filepath
+							.lastIndexOf("/") + 1));
+					if (exist)
+						Toast.makeText(this, R.string.existInList, 1).show();
+					else
+						Toast.makeText(this, R.string.success, 1).show();
+				} else
+					Toast.makeText(this, R.string.NoFileSelected, 1).show();
+			}
+			break;
+		case LIST_RESULT_CODE: // 处理从播放列表返回的结果
+			if (data != null && (bundle = data.getExtras()) != null) {
+				videoMap = new HashMap<String, Object>();
+				videoMap.put("title", bundle.getString("title"));
+				videoMap.put("path", bundle.getString("path"));
+				videoMap.put("type", bundle.getString("type"));
+				videoMap.put("size", bundle.getLong("size"));
+				nameText.setText((String) videoMap.get("title"));
+				filepath = (String) videoMap.get("path");
+				isComeFromList = true;// 在这里只需要将该标志设为true即可，无需启动MediaPlayer,因为返回Activity时在SurfaceCallback里会判断该标志自动播放
+				filepaths = SDCardMedia.getAllPaths();
+				count = filepaths.length;
+			}
+			break;
+		case UPDATE_RESULT_CODE: // 处理选择更新方式返回的结果
+			if (data != null) {
+				int choice = data.getIntExtra("choice", 0);
+				if (choice == 1) {
+					Intent intent = new Intent();
+					intent.setClassName(this,
+							"fly.ChooseFile.FileChooserActivity");
+					startActivityForResult(intent, FILE_RESULT_CODE);
+				} else {
+					showUpdateDialog(); // 显示等待对话框
+				}
+			}
+			break;
+		}
+	}*/
+
+	private void showUpdateDialog() // 显示等待对话框
+	{
+		dialog = new ProgressDialog(this);
+		dialog.setTitle("请稍后");// 设置ProgressDialog 标题
+		dialog.setMessage("正在扫描存储卡......");// 设置ProgressDialog提示信息
+		dialog.setIcon(R.drawable.search);// 设置ProgressDialog标题图标
+		dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);// 设置进度条风格，风格为圆形，旋转的
+		dialog.setIndeterminate(false);// 设置ProgressDialog 的进度条是否不明确 false
+										// 就是不设置为不明确
+		dialog.setCancelable(true); // 设置ProgressDialog 是否可以按退回键取消
+		dialog.show();
+		String rootpath = Environment.getExternalStorageDirectory().getPath();
+		new Thread(new UpdateThread(rootpath)).start();// 启动子线程，在子线程中扫描SD卡
+	}
+
+	class UpdateThread implements Runnable {
+		private String rootpath;
+
+		public UpdateThread(String rootpath) {
+			this.rootpath = rootpath;
+		}
+
+		@Override
+		public void run() {
+			int count = SDCardMedia.scanSDMedia(rootpath);// 扫描SD卡上的视频文件
+			dialog.cancel();
+			Message msg = handler.obtainMessage();
+			Bundle bundle = msg.getData();
+			bundle.putInt("count", count);
+			msg.setData(bundle);
+			handler.sendMessage(msg);// 扫描完毕发送消息，给出提示
+		}
+	}
+
+	Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			int count = msg.getData().getInt("count");
+			Toast.makeText(MediaPlayerActivity.this,
+					"共更新了" + count + "条记录，请点击查看列表按钮或按MENU键查看", 1).show();
+		}
+	};
+
+
+/**
+ * 
+ * 音量控制
+ */
+	/*public void setvolume(View v)
+	{
+		switch (v.getId()) {
+		case R.id.volumebutton:
+			if (mediaPlayer.isPlaying()) {
+				if (isMute) {
+					audioManager
+							.setStreamMute(AudioManager.STREAM_MUSIC, false);
+					volumeButton.setImageResource(R.drawable.volume);
+				} else {
+					audioManager.setStreamMute(AudioManager.STREAM_MUSIC, true);
+					volumeButton.setImageResource(R.drawable.mute);
+				}
+				isMute = !isMute;
+			}
+			break;
+		case R.id.upbutton:
+			if (!isMute && mediaPlayer.isPlaying()) {
+				curVolume++;
+				if (curVolume > maxVolume)
+					curVolume = maxVolume;
+				mediaPlayer.setVolume(curVolume, curVolume);
+				volumeBar.setProgress(curVolume);
+				volumeLayout.setVisibility(ViewGroup.VISIBLE);
+				volumeBarVisible = true;
+			}
+
+			break;
+		case R.id.downbutton:
+			if (!isMute && mediaPlayer.isPlaying()) {
+				curVolume--;
+				if (curVolume < 0)
+					curVolume = 0;
+				mediaPlayer.setVolume(curVolume, curVolume);
+				volumeBar.setProgress(curVolume);
+				volumeLayout.setVisibility(ViewGroup.VISIBLE);
+				volumeBarVisible = true;
+			}
+			break;
+		}
+	}*/
+
+	public void mediaplay(View v)// 播放控制
+	{
+		switch (v.getId()) {
+		case R.id.playbutton:
+			playMedia();
+			break;
+			
+		case R.id.fullscreen:
+			fullScreenPlay();
+			break;
+	//	case R.id.pausebutton:
+		//	pauseMedia();
+		//	break;
+		//case R.id.resetbutton:
+		//	fullScreenPlay();
+		//	break;
+		//case R.id.stopbutton:
+		//	stopMedia();
+		//	break;
+	//	case R.id.backbutton:
+		//	playLastMedia();
+		//	break;
+		//case R.id.nextbutton:
+		//	palyNextMedia();
+		//	break;
+		case R.id.gobutton:
+			continueMedia();
+			break;
+		}
+	}
+/*
+ * 播放视频有两种方式，一种是http 另外一种是在线本地播放
+ */
+	public void playMedia()// 播放视频
+	{
+		
+		if (filepath != null && !filepath.equals("")) {
+			if (filepath.startsWith("http"))// 在线播放HTTP视频资源
+			{
+				path = filepath;
+				if (pause)
+					goView.setVisibility(ViewGroup.INVISIBLE);
+				play(0);
+				filechanged = true;
+			/*	curVolume = audioManager
+						.getStreamVolume(AudioManager.STREAM_MUSIC);// 取得当前音量
+*/				if (!Handlerpost) {
+					updateBarHandler.post(updateThread);
+					Handlerpost = true;
+				}
+			} else// 播放本地视频
+			{
+				File file = new File(filepath);
+				if (file.exists()) {
+					path = file.getAbsolutePath();
+					if (pause)
+						goView.setVisibility(ViewGroup.INVISIBLE);
+					play(0);
+					filechanged = true;
+				/*	curVolume = audioManager
+							.getStreamVolume(AudioManager.STREAM_MUSIC);// 取得当前音量
+*/					if (!Handlerpost) {
+						updateBarHandler.post(updateThread);
+						Handlerpost = true;
+					}
+				} else {
+					path = null;
+					
+				}
+			}
+		} else
+			Toast.makeText(this, R.string.notchoose, 1).show();
+	}
+
+	public void pauseMedia() // 暂停播放
+	{
+		if (mediaPlayer.isPlaying()) {
+			mediaPlayer.pause();
+			pause = true;
+			goView.setVisibility(ViewGroup.VISIBLE);
+		} else {
+			continueMedia();
+		}
+	}
+
+	public void replayMedia() // 重播
+	{
+		if (mediaPlayer.isPlaying()) {
+			// mediaPlayer.seekTo(0);
+
+			// mediaPlayer.reset();
+			mediaPlayer.setDisplay(surfaceView.getHolder());
+			Point p = DisplayUtil.getScreenMetrics(getApplicationContext());
+			surfaceView.getHolder().setFixedSize(p.y, p.x);
+			Log.v(TAG, "PX :" + p.x + " PY:" + p.y);
+			// mediaPlayer.seekTo();
+		} else {
+			if (path != null) {
+				if (pause)
+					goView.setVisibility(ViewGroup.INVISIBLE);
+				play(0);
+			}
+		}
+		if (path != null) {
+			if (!Handlerpost) {
+				updateBarHandler.post(updateThread);
+				Handlerpost = true;
+			}
+		}
+	}
+
+	public void fullScreenPlay(){
+		Point p = DisplayUtil.getScreenMetrics(getApplicationContext());
+		surfaceView.getHolder().setFixedSize(p.y, p.x);
+		Log.v(TAG, "PX :" + p.x + " PY:" + p.y);
+		mediaPlayer.setDisplay(surfaceView.getHolder());
+		mediaPlayer.start();
+		playMedia();
+	}
+	public void stopMedia()// 停止播放
+	{
+		if (mediaPlayer.isPlaying()) {
+			mediaPlayer.stop();
+			timebar.setProgress(0);
+			currentTime.setText("00:00:00");
+			maxTime.setText("00:00:00");
+		}
+	}
+
+	public void playLastMedia() // 播放上一个视频
+	{
+		if (filepath != null && !filepath.equals("")) {
+			Index--;
+			if (Index == -1)
+				Index = count - 1;
+			filepath = filepaths[Index];
+			path = filepath;
+			if (pause)
+				goView.setVisibility(ViewGroup.INVISIBLE);
+			play(0);
+			filechanged = true;
+			nameText.setText(filepath.substring(filepath.lastIndexOf("/") + 1));
+			if (!Handlerpost) {
+				updateBarHandler.post(updateThread);
+				Handlerpost = true;
+			}
+		} else
+			Toast.makeText(this, R.string.notchoose, 1).show();
+	}
+
+	public void palyNextMedia() // 播放下一个视频
+	{
+		Log.v(TAG, "begin paly");
+		if (filepath != null && !filepath.equals("")) {
+			Index++;
+			if (Index == count)
+				Index = 0;
+			filepath = filepaths[Index];
+			path = filepath;
+			if (pause)
+				goView.setVisibility(ViewGroup.INVISIBLE);
+			play(0);
+			filechanged = true;
+			nameText.setText(filepath.substring(filepath.lastIndexOf("/") + 1));
+			if (!Handlerpost) {
+				updateBarHandler.post(updateThread);
+				Handlerpost = true;
+			}
+		} else
+			Toast.makeText(this, R.string.notchoose, 1).show();
+	}
+
+	public void continueMedia()// 继续播放暂停的视频
+	{
+		if (pause) {
+			goView.setVisibility(ViewGroup.INVISIBLE);
+			mediaPlayer.start();
+			pause = false;
+		}
+	}
+
+	private void play(int position)// 设置mediaPlayer播放视频
+	{
+		try {
+			mediaPlayer.reset();
+			mediaPlayer.setDataSource(path);
+			mediaPlayer.setDisplay(surfaceView.getHolder());
+			mediaPlayer.prepare();// 缓冲
+			mediaPlayer.setOnPreparedListener(new PrepareListener(position));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private final class PrepareListener implements OnPreparedListener// 监听mediaPlayer是否缓冲完毕
+	{
+		private int position;
+
+		public PrepareListener(int position) {
+			this.position = position;
+		}
+
+		public void onPrepared(MediaPlayer mp)// 缓冲完毕
+		{
+			mediaPlayer.start();// 播放视频
+			if (position > 0)
+				mediaPlayer.seekTo(position);
+		}
+	}
+
+	class TouchListener implements OnTouchListener// SurfaceView触摸监听类
+	{
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			if (event.getAction() == MotionEvent.ACTION_DOWN)// 触摸屏幕时停止播放并显示停止控件
+			{
+				if (mediaPlayer.isPlaying()) {
+					mediaPlayer.pause();
+					pause = true;
+
+					goView.setVisibility(ViewGroup.VISIBLE);
+				}
+				return true;
+			}
+			return false;
+		}
+	}
+
+	Handler updateBarHandler = new Handler()// 内部消息队列类，主要获取updateThread发来的CurrentPosition和MaxPosition设置给SeekBar
+	{
+		public void handleMessage(Message msg) {
+			if (mediaPlayer.isPlaying()) {
+				if (filechanged) {
+					timebar.setMax(msg.getData().getInt("MaxPosition") - 1);
+					maxTime.setText(new TimeFormate(mediaPlayer.getDuration())
+							.formatetime());
+					filechanged = false;
+				}
+				timebar.setProgress(msg.getData().getInt("CurrentPosition"));
+				currentTime.setText(new TimeFormate(mediaPlayer
+						.getCurrentPosition()).formatetime());
+/*				if (volumeBarVisible)// 设置音量提示条为不可见
+				{
+					i++;
+					if (i == 4) {
+						volumeBarVisible = false;
+						i = 0;
+						volumeLayout.setVisibility(ViewGroup.INVISIBLE);
+					}
+				}*/
+			}
+			updateBarHandler.post(updateThread);
+		}
+
+	};
+	Runnable updateThread = new Runnable()// 内部线程类，主要获取mediaPlayer的CurrentPosition和MaxPosition发送给Handler处理
+	{
+		int CurrentPosition = 0, MaxPosition = 0;
+
+		@Override
+		public void run() {
+			Message msg = updateBarHandler.obtainMessage();
+			Bundle bundle = msg.getData();
+			CurrentPosition = mediaPlayer.getCurrentPosition();
+			bundle.putInt("CurrentPosition", CurrentPosition);
+			if (filechanged) {
+				MaxPosition = mediaPlayer.getDuration();
+				bundle.putInt("MaxPosition", MaxPosition);
+			}
+			msg.setData(bundle);
+			try {
+				Thread.sleep(500);// 设置当前线程睡眠500毫秒
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			if ((CurrentPosition > MaxPosition - 1)
+					&& (CurrentPosition != 0 && MaxPosition != 0)) {
+				updateBarHandler.removeCallbacks(updateThread);
+				CurrentPosition = 0;
+				MaxPosition = 0;
+				Handlerpost = false;
+			} else {
+				updateBarHandler.sendMessage(msg);
+			}
+		}
+	};
+
+	private class SeekBarListener implements SeekBar.OnSeekBarChangeListener// SeekBar监听类
+	{
+		int startPosition;
+
+		@Override
+		public void onProgressChanged(SeekBar seekBar, int progress,
+				boolean fromUser) {
+			currentTime.setText(new TimeFormate(seekBar.getProgress())
+					.formatetime());
+		}
+
+		@Override
+		public void onStartTrackingTouch(SeekBar seekBar) {
+			startPosition = seekBar.getProgress();
+		}
+
+		@Override
+		public void onStopTrackingTouch(SeekBar seekBar) // 当用户结束对滑块的滑动时，将mediaPlayer播放位置设为滑块结束对应位置
+		{
+			currentTime.setText(new TimeFormate(seekBar.getProgress())
+					.formatetime());
+			if (mediaPlayer.isPlaying())
+				mediaPlayer.seekTo(seekBar.getProgress());
+			else
+				seekBar.setProgress(startPosition);
+		}
+	}
+
+	private void showAboutDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Product Information");
+		builder.setMessage("Soft Name: \nVideoPlayer Version1.0 \nAuthor: \nMade By FlyLiang,\n@2012,June,CUMT");
+		Dialog dialog = builder.create();
+		dialog.show();
+	}
+}

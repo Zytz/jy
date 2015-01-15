@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dxt.view.CameraActivityTest" >
+
+
+     <Button
+        android:id="@+id/btn_creama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+       
+        android:text="begin photo"
+        tools:context=".CameraActivityTest" />
+    
+    <ImageView 
+        android:id="@+id/img_creama"
+        android:layout_width="150dip"
+        android:layout_height="150dip"
+        android:layout_margin="15dip"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btn_creama"
+        android:scaleType="fitXY"
+        android:background="@drawable/ic_launcher"
+        />
+    <TextView 
+        android:id="@+id/text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_creama"
+        android:textSize="16sp"
+        android:background="#22000000"
+        
+        />
+</RelativeLayout>

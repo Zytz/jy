@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/gray"
+    android:keepScreenOn="true"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <SurfaceView
+            android:id="@+id/surfaceView"
+            android:layout_width="320dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="hello" />
+
+        <ImageView
+            android:id="@+id/gobutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/app_name"
+            android:onClick="mediaplay"
+            android:src="@drawable/go"
+            android:visibility="gone" />
+        
+        <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="280dp"
+        android:orientation="horizontal" >
+    	<ImageButton
+			    	 android:layout_width="30dp"
+			    	 android:layout_height="wrap_content"
+			    	 android:src="@drawable/video_pause_media_normal"
+			    	 android:id="@+id/playbutton"
+			    	 android:onClick="mediaplay"
+			    	 android:contentDescription="@string/app_name"
+			    	/>
+        <TextView
+            android:id="@+id/curtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time"
+            android:textColor="@drawable/yellow"
+            android:textSize="12dp" />
+        <SeekBar
+            android:id="@+id/timebar"
+            android:layout_width="160dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="4dp" />
+
+        <TextView
+            android:id="@+id/maxtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="@string/time"
+            android:textColor="@drawable/yellow"
+            android:textSize="12dp" />
+
+           	<ImageButton
+	    	 android:layout_width="30dp"
+	    	 android:layout_height="wrap_content"
+	    	 android:src="@drawable/video_normal_screen_normal"
+	    	 android:id="@+id/fullscreen"
+	    	 android:onClick="mediaplay"
+	    	 android:contentDescription="@string/app_name"
+	    	/>
+    </LinearLayout>
+    </FrameLayout>
+
+    
+
+</LinearLayout>

@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.dxt.view.CameraActivityTest"/>
+        <activity android:name=".view.CameraActivityTest"/>
     </application>
 
 </manifest>

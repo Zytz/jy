@@ -25,7 +25,6 @@ import com.dxt.R;
 
 public class CameraActivityTest extends Activity{
 
-	private Button creama = null;
 	private String TAG="dxt";
 
 	private ImageView img = null;
@@ -53,11 +52,11 @@ public class CameraActivityTest extends Activity{
 	private void init() {
 		// TODO Auto-generated method stub
 
-		creama = (Button) findViewById(R.id.btn_creama);
+		//creama = (Button) findViewById(R.id.btn_creama);
 
-		img = (ImageView) findViewById(R.id.img_creama);
+		img = (ImageView) findViewById(R.id.img_camera);
 
-		creama.setOnClickListener(listener);
+		img.setOnClickListener(listener);
 		text = (TextView) findViewById(R.id.text);
 	}
 

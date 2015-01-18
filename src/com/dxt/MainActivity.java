@@ -58,7 +58,7 @@ public class MainActivity extends TabActivity {
 		tabHost.addTab(tabHost
 				.newTabSpec("tab_3")
 				.setContent(new Intent(this,ProblemList.class))
-				.setIndicator("难题棒",
+				.setIndicator("难题榜",
 						this.getResources().getDrawable(R.color.red)));
 		tabHost.setCurrentTab(0);
 	}

@@ -16,11 +16,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dxt.R;
+
 
 
 public class CameraActivityTest extends Activity{

@@ -7,7 +7,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Point;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -38,15 +37,11 @@ import com.dxt.util.DisplayUtil;
 import com.dxt.util.SDCardMedia;
 import com.dxt.util.TimeFormate;
 
+
 public class MediaPlayerActivity extends Activity {
-	
 	private TextView nameText, currentTime, maxTime;
-	private Button  checkButton;
-	//private ImageButton volumeButton;
 	private ImageView goView;
 	private SeekBar timebar;
-	//private ProgressBar volumeBar;
-	//private LinearLayout volumeLayout;
 	private String path;
 	private String filepath="mnt/sdcard/external_sd/video/电击小子-1.MP4";
 	private String[] filepaths;
@@ -71,19 +66,11 @@ public class MediaPlayerActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.video);
 
 		mediaPlayer = new MediaPlayer();
-/*		nameText = (TextView) findViewById(R.id.filename);*/
 		currentTime = (TextView) findViewById(R.id.curtime);
 		maxTime = (TextView) findViewById(R.id.maxtime);
-/*		chooseButon = (Button) findViewById(R.id.choose);*/
-	//	checkButton = (Button) findViewById(R.id.check);
-/*		volumeButton = (ImageButton) findViewById(R.id.volumebutton);
-		volumeLayout = (LinearLayout) findViewById(R.id.volumeLayout);
-		volumeBar = (ProgressBar) findViewById(R.id.volumeBar);*/
-	//	chooseButon.setOnClickListener(new ChooseListenet());
-		//checkButton.setOnClickListener(new CheckListenet());
 		goView = (ImageView) findViewById(R.id.gobutton);
 		timebar = (SeekBar) findViewById(R.id.timebar);
 		timebar.setOnSeekBarChangeListener(new SeekBarListener());
@@ -93,15 +80,8 @@ public class MediaPlayerActivity extends Activity {
 		// 把输送给surfaceView的视频画面，直接显示到屏幕上,不要维持它自身的缓冲区
 		surfaceView.getHolder()
 				.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-		// surfaceView.getHolder().setFixedSize(176, 144);
-		// surfaceView.getHolder().setKeepScreenOn(true);
-		// surfaceView.getHolder().se
 		surfaceView.getHolder().addCallback(new SurfaceCallback());
 		audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-	//	maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);// 取得最大音量
-		//volumeBar.setMax(maxVolume);
-		// serach for last if has lastpath
-		// nameText.setText("上次播放:"+lastpath);
 	}
 
 	/*
@@ -118,9 +98,7 @@ public class MediaPlayerActivity extends Activity {
 			if (isComeFromList) {
 				playMedia();
 				isComeFromList = false;
-				/*curVolume = audioManager
-						.getStreamVolume(AudioManager.STREAM_MUSIC);// 取得当前音量
-*/			} else if (position > 0 && path != null) {
+		} else if (position > 0 && path != null) {
 				play(position);
 				position = 0;
 			}
@@ -142,79 +120,6 @@ public class MediaPlayerActivity extends Activity {
 		mediaPlayer = null;
 		super.onDestroy();
 	}
-/*
-	class ChooseListenet implements OnClickListener {
-		@Override
-		public void onClick(View v) {
-			ChooseFile();
-		}
-	}
-
-	public void ChooseFile()// 选择视频文件
-	{
-		Intent intent = new Intent();
-		intent.setClassName(this, "fly.ChooseFile.FileChooserActivity");
-		startActivityForResult(intent, FILE_RESULT_CODE);
-	}*/
-
-/*	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)// 得到不同Activity的返回结果
-	{
-		Bundle bundle = null;
-		switch (requestCode) {
-		case FILE_RESULT_CODE: // 处理文件选择返回的结果
-			if (data != null && (bundle = data.getExtras()) != null) {
-				List<String> filelist = bundle.getStringArrayList("filelist");
-				count = filelist.size();
-				filepaths = new String[count];
-				int i = 0;
-				for (Iterator<String> iterator = filelist.iterator(); iterator
-						.hasNext(); i++) {
-					filepaths[i] = (String) iterator.next();
-				}
-				hasFile = data.getBooleanExtra("hasFile", false);
-				if (hasFile) {
-					filepath = filepaths[0];
-					boolean exist = SDCardMedia.addVideos(filepaths);// 把选择结果添加到播放列表中
-					nameText.setText(filepath.substring(filepath
-							.lastIndexOf("/") + 1));
-					if (exist)
-						Toast.makeText(this, R.string.existInList, 1).show();
-					else
-						Toast.makeText(this, R.string.success, 1).show();
-				} else
-					Toast.makeText(this, R.string.NoFileSelected, 1).show();
-			}
-			break;
-		case LIST_RESULT_CODE: // 处理从播放列表返回的结果
-			if (data != null && (bundle = data.getExtras()) != null) {
-				videoMap = new HashMap<String, Object>();
-				videoMap.put("title", bundle.getString("title"));
-				videoMap.put("path", bundle.getString("path"));
-				videoMap.put("type", bundle.getString("type"));
-				videoMap.put("size", bundle.getLong("size"));
-				nameText.setText((String) videoMap.get("title"));
-				filepath = (String) videoMap.get("path");
-				isComeFromList = true;// 在这里只需要将该标志设为true即可，无需启动MediaPlayer,因为返回Activity时在SurfaceCallback里会判断该标志自动播放
-				filepaths = SDCardMedia.getAllPaths();
-				count = filepaths.length;
-			}
-			break;
-		case UPDATE_RESULT_CODE: // 处理选择更新方式返回的结果
-			if (data != null) {
-				int choice = data.getIntExtra("choice", 0);
-				if (choice == 1) {
-					Intent intent = new Intent();
-					intent.setClassName(this,
-							"fly.ChooseFile.FileChooserActivity");
-					startActivityForResult(intent, FILE_RESULT_CODE);
-				} else {
-					showUpdateDialog(); // 显示等待对话框
-				}
-			}
-			break;
-		}
-	}*/
 
 	private void showUpdateDialog() // 显示等待对话框
 	{
@@ -260,55 +165,49 @@ public class MediaPlayerActivity extends Activity {
 	};
 
 
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		if (item.getItemId() == LIST)// 按下播放列表菜单项
+		{
+			ShowMediaList();// 显示播放列表
+		}
+		if (item.getItemId() == UPDATELIST)// 按下更新列表菜单项
+		{
+			//Intent intent = new Intent(this, UpdateMediaListActivity.class);
+			//startActivityForResult(intent, UPDATE_RESULT_CODE);
+		}
+		if (item.getItemId() == ABOUT) // 按下关于菜单项
+		{
+			showAboutDialog();
+		}
+		if (item.getItemId() == EXIT)// 按下退出菜单项
+		{
+			finish();
+		}
+		return super.onMenuItemSelected(featureId, item);
+	}
+
+	private void ShowMediaList() // 显示视频列表
+	{
+		//Intent intent = new Intent(this, MediaListActivity.class);
+		//startActivityForResult(intent, LIST_RESULT_CODE);
+	}
+
+	class CheckListenet implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+			ShowMediaList();// 查看视频列表
+		}
+	}
 /**
  * 
  * 音量控制
  */
-	/*public void setvolume(View v)
-	{
-		switch (v.getId()) {
-		case R.id.volumebutton:
-			if (mediaPlayer.isPlaying()) {
-				if (isMute) {
-					audioManager
-							.setStreamMute(AudioManager.STREAM_MUSIC, false);
-					volumeButton.setImageResource(R.drawable.volume);
-				} else {
-					audioManager.setStreamMute(AudioManager.STREAM_MUSIC, true);
-					volumeButton.setImageResource(R.drawable.mute);
-				}
-				isMute = !isMute;
-			}
-			break;
-		case R.id.upbutton:
-			if (!isMute && mediaPlayer.isPlaying()) {
-				curVolume++;
-				if (curVolume > maxVolume)
-					curVolume = maxVolume;
-				mediaPlayer.setVolume(curVolume, curVolume);
-				volumeBar.setProgress(curVolume);
-				volumeLayout.setVisibility(ViewGroup.VISIBLE);
-				volumeBarVisible = true;
-			}
-
-			break;
-		case R.id.downbutton:
-			if (!isMute && mediaPlayer.isPlaying()) {
-				curVolume--;
-				if (curVolume < 0)
-					curVolume = 0;
-				mediaPlayer.setVolume(curVolume, curVolume);
-				volumeBar.setProgress(curVolume);
-				volumeLayout.setVisibility(ViewGroup.VISIBLE);
-				volumeBarVisible = true;
-			}
-			break;
-		}
-	}*/
 
 	public void mediaplay(View v)// 播放控制
 	{
 		switch (v.getId()) {
+		
 		case R.id.playbutton:
 			playMedia();
 			break;
@@ -350,9 +249,7 @@ public class MediaPlayerActivity extends Activity {
 					goView.setVisibility(ViewGroup.INVISIBLE);
 				play(0);
 				filechanged = true;
-			/*	curVolume = audioManager
-						.getStreamVolume(AudioManager.STREAM_MUSIC);// 取得当前音量
-*/				if (!Handlerpost) {
+				if (!Handlerpost) {
 					updateBarHandler.post(updateThread);
 					Handlerpost = true;
 				}
@@ -365,15 +262,13 @@ public class MediaPlayerActivity extends Activity {
 						goView.setVisibility(ViewGroup.INVISIBLE);
 					play(0);
 					filechanged = true;
-				/*	curVolume = audioManager
-							.getStreamVolume(AudioManager.STREAM_MUSIC);// 取得当前音量
-*/					if (!Handlerpost) {
+					if (!Handlerpost) {
 						updateBarHandler.post(updateThread);
 						Handlerpost = true;
 					}
 				} else {
 					path = null;
-					
+					//Toast.makeText(this, R.string.filenoexsit, 1).show();
 				}
 			}
 		} else
@@ -394,14 +289,10 @@ public class MediaPlayerActivity extends Activity {
 	public void replayMedia() // 重播
 	{
 		if (mediaPlayer.isPlaying()) {
-			// mediaPlayer.seekTo(0);
-
-			// mediaPlayer.reset();
 			mediaPlayer.setDisplay(surfaceView.getHolder());
 			Point p = DisplayUtil.getScreenMetrics(getApplicationContext());
 			surfaceView.getHolder().setFixedSize(p.y, p.x);
 			Log.v(TAG, "PX :" + p.x + " PY:" + p.y);
-			// mediaPlayer.seekTo();
 		} else {
 			if (path != null) {
 				if (pause)
@@ -547,15 +438,6 @@ public class MediaPlayerActivity extends Activity {
 				timebar.setProgress(msg.getData().getInt("CurrentPosition"));
 				currentTime.setText(new TimeFormate(mediaPlayer
 						.getCurrentPosition()).formatetime());
-/*				if (volumeBarVisible)// 设置音量提示条为不可见
-				{
-					i++;
-					if (i == 4) {
-						volumeBarVisible = false;
-						i = 0;
-						volumeLayout.setVisibility(ViewGroup.INVISIBLE);
-					}
-				}*/
 			}
 			updateBarHandler.post(updateThread);
 		}
@@ -620,7 +502,6 @@ public class MediaPlayerActivity extends Activity {
 				seekBar.setProgress(startPosition);
 		}
 	}
-
 	private void showAboutDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Product Information");

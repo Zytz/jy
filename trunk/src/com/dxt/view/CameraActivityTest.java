@@ -21,11 +21,10 @@ import android.widget.TextView;
 
 import com.dxt.R;
 
+public class CameraActivityTest extends Activity {
 
 
-public class CameraActivityTest extends Activity{
-
-	private String TAG="dxt";
+	private String TAG = "dxt";
 
 	private ImageView img = null;
 
@@ -48,11 +47,10 @@ public class CameraActivityTest extends Activity{
 
 	}
 
-
 	private void init() {
 		// TODO Auto-generated method stub
 
-		//creama = (Button) findViewById(R.id.btn_creama);
+		// creama = (Button) findViewById(R.id.btn_creama);
 
 		img = (ImageView) findViewById(R.id.img_camera);
 
@@ -118,7 +116,7 @@ public class CameraActivityTest extends Activity{
 		if (bundle != null) {
 			Bitmap photo = bundle.getParcelable("data");
 			if (photo == null) {
-				//img.setImageResource(R.drawable.abc_ic_clear_normal);
+				// img.setImageResource(R.drawable.abc_ic_clear_normal);
 				Log.v(TAG, "photo is null");
 			} else {
 				img.setImageBitmap(photo);

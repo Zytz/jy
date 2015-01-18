@@ -63,7 +63,7 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.video);
 		login = (Button) findViewById(R.id.login);
 		regist = (Button) findViewById(R.id.regist);
 		login.setOnClickListener(new View.OnClickListener() {

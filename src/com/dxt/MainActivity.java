@@ -36,17 +36,17 @@ public class MainActivity extends Activity {
 				.newTabSpec("tab_1")
 				.setContent(R.id.LinearLayout1)
 				.setIndicator("TAB1",
-						this.getResources().getDrawable(R.drawable.black)));
+						this.getResources().getDrawable(R.color.black)));
 		tabHost.addTab(tabHost
 				.newTabSpec("tab_2")
 				.setContent(R.id.LinearLayout2)
 				.setIndicator("TAB2",
-						this.getResources().getDrawable(R.drawable.blue)));
+						this.getResources().getDrawable(R.color.blue)));
 		tabHost.addTab(tabHost
 				.newTabSpec("tab_3")
 				.setContent(R.id.LinearLayout3)
 				.setIndicator("TAB3",
-						this.getResources().getDrawable(R.drawable.red)));
+						this.getResources().getDrawable(R.color.red)));
 		tabHost.setCurrentTab(1);
 	}
 

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/gray"
+    android:background="@color/gray"
     android:keepScreenOn="true"
     android:orientation="vertical" >
 
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/time"
-            android:textColor="@drawable/yellow"
+            android:textColor="@color/yellow"
             android:textSize="12dp" />
         <SeekBar
             android:id="@+id/timebar"
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="@string/time"
-            android:textColor="@drawable/yellow"
+            android:textColor="@color/yellow"
             android:textSize="12dp" />
 
            	<ImageButton

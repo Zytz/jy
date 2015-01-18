@@ -25,7 +25,7 @@
     </LinearLayout>
 
     <TabHost
-        android:id="@+id/TabHost01"
+        android:id="@android:id/tabhost"
         android:layout_below="@id/main_header"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
@@ -44,7 +44,7 @@
                 android:id="@android:id/tabcontent"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" >
-
+<!-- 
                 <LinearLayout
                     android:id="@+id/LinearLayout1"
                     android:layout_width="fill_parent"
@@ -82,7 +82,7 @@
                         android:layout_height="wrap_content"
                         android:text="three" >
                     </TextView>
-                </LinearLayout>
+                </LinearLayout> -->
             </FrameLayout>
         </LinearLayout>
     </TabHost>

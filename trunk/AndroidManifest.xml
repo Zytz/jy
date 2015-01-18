@@ -23,9 +23,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.CameraActivityTest"/>
+        <activity android:name=".view.MediaPlayerActivity"/>
         <activity android:name=".IssueActivity"/>
         <activity android:name=".HighScoreIssue"/>
         <activity android:name=".ProblemList"/>
+
     </application>
 
 </manifest>

@@ -13,13 +13,19 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageButton;
+
+import android.widget.ImageView;
 import android.widget.RadioButton;
+
+
 import android.widget.TabHost;
 import android.widget.Toast;
 
 public class MainActivity extends TabActivity {
 	private TabHost tabHost;
 	private ImageButton askquestion;
+
+
 	private RadioButton main_footbar_news;
 	private RadioButton main_footbar_question;
 	private RadioButton main_footbar_tweet;
@@ -32,7 +38,7 @@ public class MainActivity extends TabActivity {
 		setContentView(R.layout.activity_main);
 		askquestion=(ImageButton) this.findViewById(R.id.img_askquestion);
 		askquestion.setOnClickListener(questionListener);
-		
+
 		main_footbar_news =(RadioButton) this.findViewById(R.id.main_footbar_news);
 		main_footbar_question =(RadioButton) this.findViewById(R.id.main_footbar_question);
 		main_footbar_tweet =(RadioButton) this.findViewById(R.id.main_footbar_tweet);
@@ -132,7 +138,7 @@ public class MainActivity extends TabActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	//进入到照相的跳转
 	private OnClickListener questionListener=new OnClickListener() {
 		
 		@Override
@@ -143,6 +149,9 @@ public class MainActivity extends TabActivity {
 			startActivity(toAskQuestionActivity);
 		}
 	};
+
+	
+
 	
 	private OnClickListener footerListener =new OnClickListener() {
 		
@@ -155,6 +164,9 @@ public class MainActivity extends TabActivity {
 					break;
 				case R.id.main_footbar_question:
 					Toast.makeText(getApplicationContext(), "main_footbar_question", Toast.LENGTH_LONG).show();
+					Intent toVideoActivity=new Intent();
+					toVideoActivity.setClass(getApplicationContext(), com.dxt.view.MediaPlayerActivity.class);
+					startActivity(toVideoActivity);
 					break;
 				case R.id.main_footbar_tweet:
 					Toast.makeText(getApplicationContext(), "main_footbar_tweet", Toast.LENGTH_LONG).show();
@@ -163,4 +175,5 @@ public class MainActivity extends TabActivity {
 			}
 		}
 	};
+
 }

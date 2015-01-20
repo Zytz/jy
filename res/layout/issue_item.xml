@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/widget33"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="标题"
+            android:textColor="@color/green" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="19:14"
+            android:textColor="@color/gray" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/widget36"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="0.00"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="问题内容" />
+
+        <ImageView
+            android:id="@+id/picture"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/widget39"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/portait"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:layout_marginRight="4dp"
+            />
+
+        <TextView
+            android:id="@+id/widget41"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:text="昵称" />
+
+        <TextView
+            android:id="@+id/widget42"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+        <TextView
+            android:id="@+id/widget44"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="回答" />
+
+        <Button
+            android:id="@+id/widget46"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="立刻回答" />
+    </LinearLayout>
+
+</LinearLayout>

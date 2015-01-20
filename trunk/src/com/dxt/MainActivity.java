@@ -2,7 +2,6 @@ package com.dxt;
 
 import android.app.TabActivity;
 import android.content.Intent;
-import android.graphics.RadialGradient;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -13,18 +12,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageButton;
-
-import android.widget.ImageView;
 import android.widget.RadioButton;
-
-
 import android.widget.TabHost;
 import android.widget.Toast;
 
+@SuppressWarnings("deprecation")
 public class MainActivity extends TabActivity {
 	private TabHost tabHost;
 	private ImageButton askquestion;
-
+	private GestureDetector detector;
 
 	private RadioButton main_footbar_news;
 	private RadioButton main_footbar_question;
@@ -47,6 +43,26 @@ public class MainActivity extends TabActivity {
 		main_footbar_question.setOnClickListener(footerListener);
 		main_footbar_tweet.setOnClickListener(footerListener);
 	
+
+		detector = new GestureDetector(this,
+				new GestureDetector.SimpleOnGestureListener() {
+
+					@Override
+					public boolean onFling(MotionEvent e1, MotionEvent e2,
+							float velocityX, float velocityY) {
+						if ((e2.getRawX() - e1.getRawX()) > 80) {
+							showNext();
+							return true;
+						}
+
+						if ((e1.getRawX() - e2.getRawX()) > 80) {
+							showPre();
+							return true;
+						}
+						return super.onFling(e1, e2, velocityX, velocityY);
+					}
+
+				});
 		
 		tabHost = getTabHost();
 		tabHost.setup();
@@ -69,26 +85,6 @@ public class MainActivity extends TabActivity {
 		tabHost.setCurrentTab(0);
 	}
 
-	@SuppressWarnings("deprecation")
-	private GestureDetector detector = new GestureDetector(
-			new GestureDetector.SimpleOnGestureListener() {
-
-				@Override
-				public boolean onFling(MotionEvent e1, MotionEvent e2,
-						float velocityX, float velocityY) {
-					if ((e2.getRawX() - e1.getRawX()) > 80) {
-						showNext();
-						return true;
-					}
-
-					if ((e1.getRawX() - e2.getRawX()) > 80) {
-						showPre();
-						return true;
-					}
-					return super.onFling(e1, e2, velocityX, velocityY);
-				}
-
-			});
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
@@ -161,6 +157,7 @@ public class MainActivity extends TabActivity {
 			switch(v.getId()){
 				case R.id.main_footbar_news:
 					Toast.makeText(getApplicationContext(), "main_footbar_news", Toast.LENGTH_LONG).show();
+					v.setPressed(true);
 					break;
 				case R.id.main_footbar_question:
 					Toast.makeText(getApplicationContext(), "main_footbar_question", Toast.LENGTH_LONG).show();

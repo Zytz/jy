@@ -167,6 +167,9 @@ public class MainActivity extends TabActivity {
 					break;
 				case R.id.main_footbar_tweet:
 					Toast.makeText(getApplicationContext(), "main_footbar_tweet", Toast.LENGTH_LONG).show();
+					Intent intent =new Intent();
+					intent.setClass(getApplicationContext(), LoginActivity.class);
+					startActivity(intent);
 					break;
 				default: break;
 			}

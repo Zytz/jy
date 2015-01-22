@@ -27,6 +27,7 @@
         <activity android:name=".IssueActivity"/>
         <activity android:name=".HighScoreIssue"/>
         <activity android:name=".ProblemList"/>
+         <activity android:name=".LoginActivity"/>
 
     </application>
 

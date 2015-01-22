@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="10dp"
-            android:text="@string/username"
+            android:text="@string/login_label_username"
             android:textSize="18sp" />
 
         <EditText
@@ -39,7 +39,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.02"
             android:paddingLeft="10dp"
-            android:text="@string/password"
+            android:text="@string/login_label_password"
             android:textSize="18sp" />
 
         <EditText
@@ -148,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="260dp"
-            android:text="@string/regist" />
+            android:text="@string/login_register_link" />
 
     </LinearLayout>
 

@@ -1,12 +1,19 @@
 package com.dxt;
 
 import java.io.IOException;
+import java.util.Random;
 
 import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.dxt.model.Student;
+import com.dxt.model.StudentRegist;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,29 +22,24 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.dxt.model.User;
-
-public class LoginActivity extends Activity {
-	final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
-	final static String SERVICE_URL = "http://210.40.65.202:8080/daxuetong/services/UserService?wsdl";
+public class RegistFirst extends Activity {
+	final static String SERVICE_NS = "http://impl.service.ws.test.gary.com";
+	final static String SERVICE_URL = "http://210.40.65.242:8080/testWebServiceCXF/StudentService";
 	final static String TAG = "dxt";
 
-	private static final int SUCCESS = 1;
-	private static final int ERROR = -1;
-	private String faultMessage;
-	private String username;
-	private String password;
-	private Button login;
-	private Button toRegist;
-	private User user = new User();
+	private Button sendmobilenumber;
+	private String mobilenumber;
+	private String yangzhengma;
+	private StudentRegist student = new StudentRegist();
+
 	private String userInfo;
+	private String faultMessage;
+
 	private Handler handler = new UIHander();
 
 	private final class UIHander extends Handler {
@@ -46,17 +48,15 @@ public class LoginActivity extends Activity {
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub
 			switch (msg.what) {
-			case SUCCESS:
-				Toast.makeText(getApplicationContext(), "登入成功！",
+			case 1:
+				Toast.makeText(getApplicationContext(), "发送成功！",
 						Toast.LENGTH_LONG).show();
 				Intent intent = new Intent();
-				/*
-				 * intent.setClass(LoginActivity.this, SearchBooks.class);
-				 * startActivity(intent);
-				 */
+				intent.setClass(RegistFirst.this, SearchBooks.class);
+				startActivity(intent);
 				break;
-			case ERROR:
-				Toast.makeText(getApplicationContext(), faultMessage,
+			case -1:
+				Toast.makeText(getApplicationContext(), "发送失败！",
 						Toast.LENGTH_LONG).show();
 				break;
 			}
@@ -66,38 +66,29 @@ public class LoginActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.login);
-		
-		toRegist=(Button) findViewById(R.id.toregist_button);
-		
-		toRegist.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent toResistIntent=new Intent();
-				toResistIntent.setClass(LoginActivity.this, Regist.class);
-				startActivity(toResistIntent);
-			}
-		});
-		
-		login = (Button) findViewById(R.id.signin_button);
-		
-		login.setOnClickListener(new View.OnClickListener() {
+		setContentView(R.layout.regist_first);
+		sendmobilenumber = (Button) findViewById(R.id.sendmobilenumber);
+		sendmobilenumber.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				// EditText et=findViewById(R.id.u)
-				username = ((EditText) findViewById(R.id.username)).getText()
-						.toString().trim();
-				password = ((EditText) findViewById(R.id.password)).getText()
-						.toString().trim();
-				user.setLoginName(username);
-				user.setPassword(password);
-				userInfo = JSON.toJSONString(user);
+				mobilenumber = ((EditText) findViewById(R.id.mobilenumber))
+						.getText().toString().trim();
+
+				Random rand = new Random();
+				int min = 100000;
+				int yanzhengmaRandom = rand.nextInt(99999);
+				yangzhengma = min + yanzhengmaRandom + "";
+
+				student.setMobilename(mobilenumber);
+				student.setYangzhengma(yangzhengma);
+
+				userInfo = JSON.toJSONString(student);
 				Log.v(TAG, userInfo);
+				
 				new Thread() {
 
 					@Override
@@ -105,7 +96,7 @@ public class LoginActivity extends Activity {
 						// TODO Auto-generated method stub
 						HttpTransportSE ht = new HttpTransportSE(SERVICE_URL);
 						ht.debug = true;
-						SoapObject request = new SoapObject(SERVICE_NS, "login");
+						SoapObject request = new SoapObject(SERVICE_NS, "registRemoteService");
 						request.addProperty("userInfo", userInfo);
 						SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 								SoapEnvelope.VER11);
@@ -148,4 +139,5 @@ public class LoginActivity extends Activity {
 			}
 		});
 	}
+
 }

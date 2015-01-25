@@ -25,7 +25,7 @@ import com.dxt.model.Student;
 
 public class Regist extends Activity {
 	final static String SERVICE_NS = "http://impl.service.ws.test.gary.com";
-    final static String SERVICE_URL = "http://192.168.1.119:8080/testWebServiceCXF/StudentService";
+    final static String SERVICE_URL = "http://210.40.65.242:8080/testWebServiceCXF/StudentService";
 	private String name;
 	private String password;
 	private int age;

@@ -29,17 +29,21 @@ import android.widget.Toast;
 
 public class RegistFirst extends Activity {
 	final static String SERVICE_NS = "http://impl.service.ws.test.gary.com";
-	final static String SERVICE_URL = "http://210.40.65.242:8080/testWebServiceCXF/StudentService";
+	final static String SERVICE_URL = "http://210.40.65.242:8080/daxuetong/services/UserService?wsdl";
 	final static String TAG = "dxt";
 
 	private Button sendmobilenumber;
+	private Button queren;
+	
 	private String mobilenumber;
+	
+	
 	private String yangzhengma;
 	private StudentRegist student = new StudentRegist();
 
 	private String userInfo;
 	private String faultMessage;
-
+	private String retMessage;
 	private Handler handler = new UIHander();
 
 	private final class UIHander extends Handler {
@@ -51,9 +55,6 @@ public class RegistFirst extends Activity {
 			case 1:
 				Toast.makeText(getApplicationContext(), "发送成功！",
 						Toast.LENGTH_LONG).show();
-				Intent intent = new Intent();
-				intent.setClass(RegistFirst.this, SearchBooks.class);
-				startActivity(intent);
 				break;
 			case -1:
 				Toast.makeText(getApplicationContext(), "发送失败！",
@@ -77,16 +78,16 @@ public class RegistFirst extends Activity {
 				// TODO Auto-generated method stub
 				mobilenumber = ((EditText) findViewById(R.id.mobilenumber))
 						.getText().toString().trim();
-
+				
 				Random rand = new Random();
 				int min = 100000;
 				int yanzhengmaRandom = rand.nextInt(99999);
+				if(mobilenumber.length()!=11){
+					Toast.makeText(getApplicationContext(), "您输入的位数不对", 1).show();
+				}
 				yangzhengma = min + yanzhengmaRandom + "";
-
-				student.setMobilename(mobilenumber);
-				student.setYangzhengma(yangzhengma);
-
-				userInfo = JSON.toJSONString(student);
+				mobilenumber=mobilenumber+yangzhengma;
+				userInfo = JSON.toJSONString(mobilenumber);
 				Log.v(TAG, userInfo);
 				
 				new Thread() {
@@ -109,7 +110,7 @@ public class RegistFirst extends Activity {
 								String name = result.getProperty(0).toString();
 								JSONObject ob = JSONObject.parseObject(name);
 								int status = ob.getIntValue("status");
-								String retMessage = ob.getString("message");
+								retMessage = ob.getString("message");
 								Log.v(TAG, status + "");
 								Log.v(TAG, " retMessage :" + retMessage);
 								Message message = new Message();
@@ -138,6 +139,25 @@ public class RegistFirst extends Activity {
 				}.start();
 			}
 		});
+		
+		
+	queren=(Button) findViewById(R.id.regist);
+	queren.setOnClickListener(new View.OnClickListener() {
+		
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			yangzhengma = ((EditText) findViewById(R.id.yanzhemgma))
+					.getText().toString().trim();
+			System.out.println(yangzhengma);
+			System.out.println(retMessage);
+			if(yangzhengma.equals(retMessage)){
+				
+				Toast.makeText(getApplicationContext(), "验证码验证成功", 1).show();
+			}else{
+				Toast.makeText(getApplicationContext(), "@@@@@", 1).show();
+			}
+		}
+	});
 	}
 
 }

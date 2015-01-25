@@ -28,7 +28,7 @@
         <activity android:name=".HighScoreIssue"/>
         <activity android:name=".ProblemList"/>
          <activity android:name=".LoginActivity"/>
-
+         <activity android:name="com.dxt.Regist" />
     </application>
 
 </manifest>

@@ -26,7 +26,7 @@ import com.dxt.model.User;
 
 public class LoginActivity extends Activity {
 	final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
-	final static String SERVICE_URL = "http://210.40.65.202:8080/daxuetong/services/UserService?wsdl";
+	final static String SERVICE_URL = "http://210.40.65.242:8080/daxuetong/services/UserService?wsdl";
 	final static String TAG = "dxt";
 
 	private static final int SUCCESS = 1;
@@ -77,7 +77,7 @@ public class LoginActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent toResistIntent=new Intent();
-				toResistIntent.setClass(LoginActivity.this, Regist.class);
+				toResistIntent.setClass(LoginActivity.this, RegistFirst.class);
 				startActivity(toResistIntent);
 			}
 		});

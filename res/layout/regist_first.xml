@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    >
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -14,21 +13,21 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="10dp"
-            android:text="@string/login_label_username"
+            android:text="@string/regist_label_mobilenumber"
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/mobilenumber"
             android:layout_width="80dp"
             android:layout_height="fill_parent"
             android:layout_weight="0.22"
-            android:ems="10"
             android:inputType="text"
-            android:paddingLeft="60dp" >
+            android:paddingLeft="6dp" >
 
             <requestFocus />
         </EditText>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -39,36 +38,36 @@
             android:layout_height="match_parent"
             android:layout_weight="0.02"
             android:paddingLeft="10dp"
-            android:text="@string/login_label_password"
+            android:text="@string/regist_label_yanzhengma"
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/yanzhemgma"
             android:layout_width="80dp"
             android:layout_height="fill_parent"
             android:layout_weight="0.23"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:paddingLeft="60dp" />
+            android:inputType="text"
+            android:paddingLeft="6dp" />
     </LinearLayout>
-    <LinearLayout 
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
-        <Button 
-            android:layout_marginLeft="200dp"
-            android:text="@string/login_label_signin"
-            android:id="@+id/login"
+
+        <Button
+            android:id="@+id/sendmobilenumber"
             android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:text="@string/regist_label_sendmobilenumber" />
 
         <Button
             android:id="@+id/regist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/login_label_regist"/>
-            
+            android:layout_marginLeft="20dp"
+            android:text="@string/regist_label_queren" />
     </LinearLayout>
 
 </LinearLayout>

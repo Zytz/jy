@@ -148,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="260dp"
-            android:text="@string/login_register_link" />
+            android:text="@string/login_label_regist" />
 
     </LinearLayout>
 

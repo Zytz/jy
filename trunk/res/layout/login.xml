@@ -39,7 +39,7 @@
       	android:layout_height="wrap_content"
       	android:layout_below="@id/username"
       	android:layout_marginTop="3dp"
-      	android:text="@string/login_label_password"
+      	android:text="@string/label_password"
       	style="@style/AppBaseTheme"/>
       <EditText 
       	android:id="@+id/password"

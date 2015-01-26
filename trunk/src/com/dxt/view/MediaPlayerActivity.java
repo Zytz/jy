@@ -9,7 +9,6 @@ import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Point;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -22,13 +21,13 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
-import android.view.Window;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -59,7 +58,7 @@ public class MediaPlayerActivity extends ListActivity {
 	private ImageView goView;
 	private SeekBar timebar;
 	private String path;
-	private String filepath="mnt/sdcard/external_sd/video/电击小子-1.MP4";
+	private String filepath;
 	private String[] filepaths;
 	//private Map<String, Object> videoMap;
 	private MediaPlayer mediaPlayer;
@@ -123,9 +122,12 @@ public class MediaPlayerActivity extends ListActivity {
 
 		surfaceView.setOnTouchListener(new TouchListener());
 		// 把输送给surfaceView的视频画面，直接显示到屏幕上,不要维持它自身的缓冲区
-		surfaceView.getHolder()
-				.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-		surfaceView.getHolder().addCallback(new SurfaceCallback());
+        surfaceView.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        surfaceView.getHolder().setFixedSize(176, 100);
+        surfaceView.getHolder().setKeepScreenOn(true);
+        surfaceView.getHolder().addCallback(new SurfaceCallback());
+		
+		
 		audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 	}
 
@@ -516,6 +518,7 @@ public class MediaPlayerActivity extends ListActivity {
 	public void palyNextMedia() // 播放下一个视频
 	{
 		Log.v(TAG, "begin paly");
+		filepath=curPath;
 		if (filepath != null && !filepath.equals("")) {
 			Index++;
 			if (Index == count)

@@ -13,16 +13,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="130dp"
-            android:text="我的提问" />
+            android:layout_marginLeft="120dp"
+            android:layout_gravity="center"
+            android:text="@string/camera_label_myquestion" 
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="30dp"
-            android:text="提交" />
+            android:text="@string/camera_label_submit" />
     </LinearLayout>
 
     <LinearLayout
@@ -52,7 +55,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="请用最精炼的语言，描述你的作业问题，一次只能问一题，更容易找到大神的回答哦" />
+            android:hint="@string/camera_label_promt" />
     </LinearLayout>
 
     <LinearLayout

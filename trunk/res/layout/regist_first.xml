@@ -5,117 +5,97 @@
     android:orientation="vertical"
     android:background="@drawable/background_login"
      >
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" 
-        android:background="@drawable/background_login_div"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingLeft="10dp"
-            android:text="@string/regist_label_mobilenumber"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/mobilenumber"
-            android:layout_width="80dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.22"
-            android:inputType="text"
-            android:paddingLeft="6dp" >
-
-            <requestFocus />
-        </EditText>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.02"
-            android:paddingLeft="10dp"
-            android:text="@string/regist_label_yanzhengma"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/yanzhemgma"
-            android:layout_width="80dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.23"
-            android:inputType="text"
-            android:paddingLeft="6dp" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.02"
-            android:paddingLeft="10dp"
-            android:text="@string/label_password"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="80dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.23"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:paddingLeft="60dp" />
-    </LinearLayout>
-     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.02"
-            android:paddingLeft="10dp"
-            android:text="@string/label_retpassword"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/repetpassword"
-            android:layout_width="80dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.23"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:paddingLeft="60dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/sendmobilenumber"
+	<RelativeLayout 
+  	    android:id="@+id/regist_div"
+  	    android:layout_width="fill_parent"
+  		android:layout_height="wrap_content"
+  		android:padding="15dip"        
+    	android:layout_margin="15dip" 
+    	android:background="@drawable/background_login_div" >
+    	
+    	 <TextView
+    	    android:id="@+id/regist_user_mobile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="1dp"
-            android:text="@string/regist_label_sendmobilenumber" />
+            android:layout_alignParentTop="true"
+    		android:layout_marginTop="5dp"
+            android:text="@string/regist_label_mobilenumber"
+           />
+        <EditText
+            style="@style/my_edittext_style"
+            android:id="@+id/mobilenumber"
+            android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:layout_below="@id/regist_user_mobile"
+            android:inputType="text"
+            android:singleLine="true"/>
+        
+        
+         <TextView
+            android:id="@+id/regist_user_yanzhengma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+    		android:layout_below="@id/mobilenumber"
+    		android:layout_marginTop="5dp"
+            android:text="@string/regist_label_yanzhengma"/>
+        <EditText
+            style="@style/my_edittext_style"
+            android:id="@+id/yanzhemgma"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:layout_below="@id/regist_user_yanzhengma"/>
+      
+        
+        <TextView
+             android:id="@+id/regist_user_password"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignLeft="@+id/password"
+             android:layout_below="@+id/yanzhemgma"
+             android:text="@string/label_password" />
+        <EditText
+            style="@style/my_edittext_style"
+            android:id="@+id/password"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:layout_below="@id/regist_user_password" />
+        
+        
+        <TextView
+             android:id="@+id/regist_user_repeatpassword"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignLeft="@+id/password"
+             android:layout_below="@+id/password"
+             android:text="@string/label_retpassword" /> 
+        <EditText
+            style="@style/my_edittext_style"
+            android:id="@+id/repeatpassword"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:layout_below="@id/regist_user_repeatpassword" />
 
-        <Button
+        
+          <Button
             android:id="@+id/regist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="@string/regist_label_queren" />
-    </LinearLayout>
+            android:layout_below="@id/repeatpassword"
+      		android:layout_alignRight="@id/repeatpassword"
+            android:text="@string/regist_label_queren"
+            android:background="@drawable/login_btn_selector" />
+
+         <Button
+             android:id="@+id/sendmobilenumber"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_below="@+id/repeatpassword"
+             android:background="@drawable/login_btn_selector"
+             android:text="@string/regist_label_sendmobilenumber" />
+
+    </RelativeLayout>
 
 </LinearLayout>

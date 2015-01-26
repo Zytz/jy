@@ -22,6 +22,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -69,6 +70,7 @@ public class RegistFirst extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.regist_first);
 		sendmobilenumber = (Button) findViewById(R.id.sendmobilenumber);
 		sendmobilenumber.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +118,6 @@ public class RegistFirst extends Activity {
 								Message message = new Message();
 								if (status == 1) {
 									message.what = 1;
-									System.out.println(retMessage);
 								} else if (status == 0) {
 									message.what = -1;
 									faultMessage = ob.getString("message");
@@ -148,13 +149,11 @@ public class RegistFirst extends Activity {
 			// TODO Auto-generated method stub
 			yangzhengma = ((EditText) findViewById(R.id.yanzhemgma))
 					.getText().toString().trim();
-			System.out.println(yangzhengma);
-			System.out.println(retMessage);
 			if(yangzhengma.equals(retMessage)){
 				
 				Toast.makeText(getApplicationContext(), "验证码验证成功", 1).show();
 			}else{
-				Toast.makeText(getApplicationContext(), "@@@@@", 1).show();
+				Toast.makeText(getApplicationContext(), "服务器未开通，请开通", 1).show();
 			}
 		}
 	});

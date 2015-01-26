@@ -1,12 +1,15 @@
 package com.dxt.view;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -25,7 +28,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +41,19 @@ import com.dxt.util.SDCardMedia;
 import com.dxt.util.TimeFormate;
 
 
-public class MediaPlayerActivity extends Activity {
+public class MediaPlayerActivity extends ListActivity {
+	private List<String> items = null;
+	private List<String> paths = null;
+	private List<String> files = null;
+	private String rootPath = "/";
+	private String curPath = "/";
+	private TextView mPath;
+    private int clicktime;
+    private List<Integer> CheckedPostions;
+    private ArrayList<String> filelist;
+    private ArrayList<String> pathlist;
+    private boolean folderClicked=false;//,hasFile;
+	
 	private TextView nameText, currentTime, maxTime;
 	private ImageView goView;
 	private SeekBar timebar;
@@ -65,6 +82,34 @@ public class MediaPlayerActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.video);
+		
+		mPath = (TextView) findViewById(R.id.mPath);
+		files = new ArrayList<String>();
+		filelist=new ArrayList<String>();
+		pathlist=new ArrayList<String>();
+	    CheckedPostions = new ArrayList<Integer>();
+		Button buttonConfirm = (Button) findViewById(R.id.buttonConfirm);
+		buttonConfirm.setOnClickListener(new OnClickListener()
+		{
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		Button buttonCancle = (Button) findViewById(R.id.buttonCancle);
+		buttonCancle.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) 
+			{
+			}
+		});
+		rootPath=Environment.getExternalStorageDirectory().getPath();
+		curPath=rootPath;
+		getFileDir(rootPath);
+		pathlist.add(rootPath);
+		
 
 		mediaPlayer = new MediaPlayer();
 		currentTime = (TextView) findViewById(R.id.curtime);
@@ -82,6 +127,127 @@ public class MediaPlayerActivity extends Activity {
 		audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 	}
 
+	private void getFileDir(String filePath)
+	{
+		mPath.setText(filePath);
+		items = new ArrayList<String>();
+		paths = new ArrayList<String>();
+		File f = new File(filePath);
+		File[] files = f.listFiles();
+		if (!filePath.equals(rootPath)||files==null)
+		{
+			items.add("b1");
+			paths.add(rootPath);
+			items.add("b2");
+			paths.add(f.getParent());
+		}
+		if(files!=null)
+		{
+			for (int i = 0; i < files.length; i++) 
+			{
+				File file = files[i];
+				items.add(file.getName());
+				paths.add(file.getPath());
+			}
+		}
+		setListAdapter(new FileAdapter(this, items, paths));
+	}
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id)
+	{
+		File file = new File(paths.get(position));
+		if (file.isDirectory()) 
+		{
+			CheckedPostions.clear();
+			FileAdapter.setCheckItem(CheckedPostions);
+			curPath = paths.get(position);
+			getFileDir(curPath);
+			if(!pathlist.contains(curPath))
+			    pathlist.add(curPath);
+			folderClicked=true;
+		} 
+		else 
+		{
+			if(getMIMEType(file).equals("video"))
+			{
+				if(clicktime==0)
+				{
+				    curPath+=File.separator+file.getName();
+				    files.add(curPath);
+				    folderClicked=false;
+				}
+				else
+				{ 
+					if(!folderClicked)//在同一个目录下进行选择
+					{
+						StringBuffer filename=new StringBuffer(curPath);
+						String prevChoosefile=filename.substring(filename.lastIndexOf("/")+1);
+						if(!prevChoosefile.equals(file.getName()))//再次选择的文件与上次选择的不一样
+						{
+						   curPath=filename.substring(0, filename.lastIndexOf("/")+1)+file.getName();
+						   if(!files.contains(curPath))
+						       files.add(curPath);
+							else
+						       files.remove(curPath);
+						}
+						else
+						{
+							if(files.contains(curPath))
+							   files.remove(curPath);
+							else
+							   files.add(curPath);
+						}
+					}
+					else//进入另一个目录下选择
+					{
+						curPath+=File.separator+file.getName();
+					    files.add(curPath);
+					    folderClicked=false;
+					}
+				}
+				if(!CheckedPostions.contains(position))
+				{
+					CheckedPostions.add(position);
+					FileAdapter.setCheckItem(CheckedPostions);
+				}
+				else
+				{
+					CheckedPostions.remove(new Integer(position));
+					FileAdapter.setCheckItem(CheckedPostions);
+				}
+				setListAdapter(new FileAdapter(this, items, paths));
+				clicktime++;
+			}
+		}	 
+	}
+	private String getMIMEType(File f) 
+	{
+		String type = "";
+		String fName = f.getName();
+		String end = fName.substring(fName.lastIndexOf(".") + 1, fName.length()).toLowerCase();
+		if (end.equals("m4a") || end.equals("mp3") || end.equals("mid")||end.equals("xmf") || end.equals("ogg") || end.equals("wav"))
+		{
+			type = "audio";
+		} 
+		else if (end.equals("3gp") || end.equals("mp4")||end.equals("rmvb")||end.equals("avi")||
+				 end.equals("flv")||end.equals("rm")||end.equals("mkv")) 
+		{
+			type = "video";
+		} 
+		else if (end.equals("jpg") || end.equals("gif") || end.equals("png")||
+				 end.equals("jpeg") || end.equals("bmp"))
+		{
+			type = "image";
+		} 
+		else 
+		{
+			type = "*";
+		}
+		return type;
+	}
+	
+	
+	
 	/*
 	 * 当SurfaceView所在的Activity离开了前台,SurfaceView会被destroy,
 	 * 当Activity又回到了前台时，SurfaceView会被重新创建，并且是在OnResume()方法之后被创建

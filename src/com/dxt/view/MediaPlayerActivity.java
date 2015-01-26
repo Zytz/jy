@@ -1,8 +1,8 @@
 package com.dxt.view;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -42,17 +42,9 @@ import com.dxt.util.TimeFormate;
 
 
 public class MediaPlayerActivity extends ListActivity {
-	private List<String> items = null;
-	private List<String> paths = null;
-	private List<String> files = null;
-	private String rootPath = "/";
-	private String curPath = "/";
-	private TextView mPath;
-    private int clicktime;
-    private List<Integer> CheckedPostions;
-    private ArrayList<String> filelist;
-    private ArrayList<String> pathlist;
-    private boolean folderClicked=false;//,hasFile;
+	
+	private  List<Map<String, Object>> videoDataList;
+	private  Map<String, Object> videoMap;
 	
 	private TextView nameText, currentTime, maxTime;
 	private ImageView goView;
@@ -83,34 +75,6 @@ public class MediaPlayerActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.video);
-		
-		mPath = (TextView) findViewById(R.id.mPath);
-		files = new ArrayList<String>();
-		filelist=new ArrayList<String>();
-		pathlist=new ArrayList<String>();
-	    CheckedPostions = new ArrayList<Integer>();
-		Button buttonConfirm = (Button) findViewById(R.id.buttonConfirm);
-		buttonConfirm.setOnClickListener(new OnClickListener()
-		{
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		Button buttonCancle = (Button) findViewById(R.id.buttonCancle);
-		buttonCancle.setOnClickListener(new OnClickListener() 
-		{
-			public void onClick(View v) 
-			{
-			}
-		});
-		rootPath=Environment.getExternalStorageDirectory().getPath();
-		curPath=rootPath;
-		getFileDir(rootPath);
-		pathlist.add(rootPath);
-		
 
 		mediaPlayer = new MediaPlayer();
 		currentTime = (TextView) findViewById(R.id.curtime);
@@ -129,127 +93,30 @@ public class MediaPlayerActivity extends ListActivity {
 		
 		
 		audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-	}
-
-	private void getFileDir(String filePath)
-	{
-		mPath.setText(filePath);
-		items = new ArrayList<String>();
-		paths = new ArrayList<String>();
-		File f = new File(filePath);
-		File[] files = f.listFiles();
-		if (!filePath.equals(rootPath)||files==null)
-		{
-			items.add("b1");
-			paths.add(rootPath);
-			items.add("b2");
-			paths.add(f.getParent());
-		}
-		if(files!=null)
-		{
-			for (int i = 0; i < files.length; i++) 
-			{
-				File file = files[i];
-				items.add(file.getName());
-				paths.add(file.getPath());
-			}
-		}
-		setListAdapter(new FileAdapter(this, items, paths));
-	}
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id)
-	{
-		File file = new File(paths.get(position));
-		if (file.isDirectory()) 
-		{
-			CheckedPostions.clear();
-			FileAdapter.setCheckItem(CheckedPostions);
-			curPath = paths.get(position);
-			getFileDir(curPath);
-			if(!pathlist.contains(curPath))
-			    pathlist.add(curPath);
-			folderClicked=true;
-		} 
-		else 
-		{
-			if(getMIMEType(file).equals("video"))
-			{
-				if(clicktime==0)
-				{
-				    curPath+=File.separator+file.getName();
-				    files.add(curPath);
-				    folderClicked=false;
-				}
-				else
-				{ 
-					if(!folderClicked)//在同一个目录下进行选择
-					{
-						StringBuffer filename=new StringBuffer(curPath);
-						String prevChoosefile=filename.substring(filename.lastIndexOf("/")+1);
-						if(!prevChoosefile.equals(file.getName()))//再次选择的文件与上次选择的不一样
-						{
-						   curPath=filename.substring(0, filename.lastIndexOf("/")+1)+file.getName();
-						   if(!files.contains(curPath))
-						       files.add(curPath);
-							else
-						       files.remove(curPath);
-						}
-						else
-						{
-							if(files.contains(curPath))
-							   files.remove(curPath);
-							else
-							   files.add(curPath);
-						}
-					}
-					else//进入另一个目录下选择
-					{
-						curPath+=File.separator+file.getName();
-					    files.add(curPath);
-					    folderClicked=false;
-					}
-				}
-				if(!CheckedPostions.contains(position))
-				{
-					CheckedPostions.add(position);
-					FileAdapter.setCheckItem(CheckedPostions);
-				}
-				else
-				{
-					CheckedPostions.remove(new Integer(position));
-					FileAdapter.setCheckItem(CheckedPostions);
-				}
-				setListAdapter(new FileAdapter(this, items, paths));
-				clicktime++;
-			}
-		}	 
-	}
-	private String getMIMEType(File f) 
-	{
-		String type = "";
-		String fName = f.getName();
-		String end = fName.substring(fName.lastIndexOf(".") + 1, fName.length()).toLowerCase();
-		if (end.equals("m4a") || end.equals("mp3") || end.equals("mid")||end.equals("xmf") || end.equals("ogg") || end.equals("wav"))
-		{
-			type = "audio";
-		} 
-		else if (end.equals("3gp") || end.equals("mp4")||end.equals("rmvb")||end.equals("avi")||
-				 end.equals("flv")||end.equals("rm")||end.equals("mkv")) 
-		{
-			type = "video";
-		} 
-		else if (end.equals("jpg") || end.equals("gif") || end.equals("png")||
-				 end.equals("jpeg") || end.equals("bmp"))
-		{
-			type = "image";
-		} 
-		else 
-		{
-			type = "*";
-		}
-		return type;
+		
+		//显示媒体列表
+		ShowMediaList();
 	}
 	
+	
+	private void ShowMediaList() 
+	{
+		getAllVideos();
+		setListAdapter(new MediaAdapter(this, R.layout.media_row, videoDataList));
+	}
+	
+	private void getAllVideos() 
+	{
+		videoDataList=new SDCardMedia(this).getAllVideos();		
+	}
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) //条目点击时，返回结果
+	{
+		videoMap = videoDataList.get(position);
+		//点击事件获取路径
+		String str=(String) videoMap.get("path");
+		Log.v("path", str);
+	}
 	
 	
 	/*
@@ -353,12 +220,6 @@ public class MediaPlayerActivity extends ListActivity {
 			finish();
 		}
 		return super.onMenuItemSelected(featureId, item);
-	}
-
-	private void ShowMediaList() // 显示视频列表
-	{
-		//Intent intent = new Intent(this, MediaListActivity.class);
-		//startActivityForResult(intent, LIST_RESULT_CODE);
 	}
 
 	class CheckListenet implements OnClickListener {
@@ -518,7 +379,6 @@ public class MediaPlayerActivity extends ListActivity {
 	public void palyNextMedia() // 播放下一个视频
 	{
 		Log.v(TAG, "begin paly");
-		filepath=curPath;
 		if (filepath != null && !filepath.equals("")) {
 			Index++;
 			if (Index == count)

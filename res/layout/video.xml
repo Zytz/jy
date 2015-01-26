@@ -73,5 +73,5 @@
 	    	/>
     </LinearLayout>
     </FrameLayout>
-	<include layout="@layout/fileselect"/>
+	<include layout="@layout/medialist"/>
 </LinearLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="cancel">取消</string>
+	<string name="ok">确定</string>
     <string name="app_name">大学通</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">你好</string>

@@ -57,7 +57,7 @@
       	android:layout_alignRight="@id/password"
       	android:text="@string/login_label_signin"
       	android:background="@drawable/login_btn_selector" />
-            <!-- 登录button -->
+            <!-- 注册button -->
       <Button 
       	android:id="@+id/toregist_button"
       	android:layout_width="wrap_content"

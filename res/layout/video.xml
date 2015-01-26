@@ -73,7 +73,5 @@
 	    	/>
     </LinearLayout>
     </FrameLayout>
-
-    
-
+	<include layout="@layout/fileselect"/>
 </LinearLayout>

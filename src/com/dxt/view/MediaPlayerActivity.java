@@ -115,6 +115,7 @@ public class MediaPlayerActivity extends ListActivity {
 		videoMap = videoDataList.get(position);
 		//点击事件获取路径
 		String str=(String) videoMap.get("path");
+		filepath=str;
 		Log.v("path", str);
 	}
 	

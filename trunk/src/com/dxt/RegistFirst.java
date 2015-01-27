@@ -30,7 +30,7 @@ import android.widget.Toast;
 
 public class RegistFirst extends Activity {
 	final static String SERVICE_NS = "http://impl.service.ws.test.gary.com";
-	final static String SERVICE_URL = "http://210.40.65.242:8080/daxuetong/services/UserService?wsdl";
+	final static String SERVICE_URL = "http://10.82.21.244:8080/daxuetong/services/UserService?wsdl";
 	final static String TAG = "dxt";
 
 	private Button sendmobilenumber;
@@ -150,7 +150,6 @@ public class RegistFirst extends Activity {
 			yangzhengma = ((EditText) findViewById(R.id.yanzhemgma))
 					.getText().toString().trim();
 			if(yangzhengma.equals(retMessage)){
-				
 				Toast.makeText(getApplicationContext(), "验证码验证成功", 1).show();
 			}else{
 				Toast.makeText(getApplicationContext(), "服务器未开通，请开通", 1).show();

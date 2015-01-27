@@ -4,31 +4,22 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ListActivity;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.graphics.Point;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
@@ -46,30 +37,28 @@ public class MediaPlayerActivity extends ListActivity {
 	private  List<Map<String, Object>> videoDataList;
 	private  Map<String, Object> videoMap;
 	
-	private TextView nameText, currentTime, maxTime;
+	private TextView  currentTime, maxTime;//nameText
 	private ImageView goView;
 	private SeekBar timebar;
 	private String path;
 	private String filepath;
-	private String[] filepaths;
+	//private String[] filepaths;
 	//private Map<String, Object> videoMap;
 	private MediaPlayer mediaPlayer;
-	private AudioManager audioManager;
+	//private AudioManager audioManager;
 	private SurfaceView surfaceView;
-	private ProgressDialog dialog;
+	//private ProgressDialog dialog;
 	private boolean pause, filechanged, Handlerpost;
 	private int position;
-	private int Index;
-	private int count;
+	//private int Index;
+	//private int count;
 	//private int maxVolume, curVolume, i;
-	private boolean isMute, hasFile, isComeFromList, volumeBarVisible;
-	private static final int LIST = 1, UPDATELIST = 2, ABOUT = 3, EXIT = 4;
-	private static final int FILE_RESULT_CODE = 1;
-	private static final int LIST_RESULT_CODE = 2;
-	private static final int UPDATE_RESULT_CODE = 3;
+	private boolean isComeFromList;//volumeBarVisible,isMute, hasFile;
+	//private static final int LIST = 1, UPDATELIST = 2, ABOUT = 3, EXIT = 4;
 
 	private static final String TAG = "MediaPlay";
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -111,6 +100,10 @@ public class MediaPlayerActivity extends ListActivity {
 		//点击事件获取路径
 		String str=(String) videoMap.get("path");
 		filepath=str;
+		File file =new File(filepath);
+		if(file.exists()&&file.isFile()){			
+			playMedia();
+		}
 		Log.v("path", str);
 	}
 	
@@ -155,12 +148,18 @@ public class MediaPlayerActivity extends ListActivity {
 		mediaPlayer = null;
 		super.onDestroy();
 	}
+	
+	
 
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		updateBarHandler.removeCallbacks(updateThread);
+		updateThread=null;
+		Handlerpost=false;
+		super.onBackPressed();
+	}
 
-/**
- * 
- * 音量控制
- */
 
 	public void mediaplay(View v)// 播放控制
 	{
@@ -311,7 +310,7 @@ public class MediaPlayerActivity extends ListActivity {
 		public boolean onTouch(View v, MotionEvent event) {
 			if (event.getAction() == MotionEvent.ACTION_DOWN)// 触摸屏幕时停止播放并显示停止控件
 			{
-				if (mediaPlayer.isPlaying()) {
+				if (mediaPlayer.isPlaying()){
 					mediaPlayer.pause();
 					pause = true;
 
@@ -322,10 +321,11 @@ public class MediaPlayerActivity extends ListActivity {
 			return false;
 		}
 	}
+	
 	Handler updateBarHandler = new Handler()// 内部消息队列类，主要获取updateThread发来的CurrentPosition和MaxPosition设置给SeekBar
 	{
 		public void handleMessage(Message msg) {
-			if (mediaPlayer.isPlaying()) {
+			if (mediaPlayer!=null && mediaPlayer.isPlaying()) {
 				if (filechanged) {
 					timebar.setMax(msg.getData().getInt("MaxPosition") - 1);
 					maxTime.setText(new TimeFormate(mediaPlayer.getDuration())

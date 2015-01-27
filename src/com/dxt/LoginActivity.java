@@ -26,7 +26,7 @@ import com.dxt.model.User;
 
 public class LoginActivity extends Activity {
 	final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
-	final static String SERVICE_URL = "http://210.40.65.242:8080/daxuetong/services/UserService?wsdl";
+	final static String SERVICE_URL = "http://10.82.21.244:8080/daxuetong/services/UserService?wsdl";
 	final static String TAG = "dxt";
 
 	private static final int SUCCESS = 1;

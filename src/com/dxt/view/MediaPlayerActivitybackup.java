@@ -41,7 +41,7 @@ import com.dxt.util.SDCardMedia;
 import com.dxt.util.TimeFormate;
 
 
-public class MediaPlayerActivity extends ListActivity {
+public class MediaPlayerActivitybackup extends ListActivity {
 	
 	private  List<Map<String, Object>> videoDataList;
 	private  Map<String, Object> videoMap;
@@ -75,6 +75,7 @@ public class MediaPlayerActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.video);
+
 		mediaPlayer = new MediaPlayer();
 		currentTime = (TextView) findViewById(R.id.curtime);
 		maxTime = (TextView) findViewById(R.id.maxtime);
@@ -89,6 +90,10 @@ public class MediaPlayerActivity extends ListActivity {
         surfaceView.getHolder().setFixedSize(176, 100);
         surfaceView.getHolder().setKeepScreenOn(true);
         surfaceView.getHolder().addCallback(new SurfaceCallback());
+		
+		
+		audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+		
 		//显示媒体列表
 		ShowMediaList();
 	}
@@ -148,15 +153,84 @@ public class MediaPlayerActivity extends ListActivity {
 	@Override
 	protected void onDestroy()// Activity销毁时释放mediaPlayer，保存已添加过视频列表，再次打开时用
 	{
-		
-		
 		mediaPlayer.stop();
 		mediaPlayer.release();
 		mediaPlayer = null;
 		super.onDestroy();
 	}
 
+/*	private void showUpdateDialog() // 显示等待对话框
+	{
+		dialog = new ProgressDialog(this);
+		dialog.setTitle("请稍后");// 设置ProgressDialog 标题
+		dialog.setMessage("正在扫描存储卡......");// 设置ProgressDialog提示信息
+		dialog.setIcon(R.drawable.search);// 设置ProgressDialog标题图标
+		dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);// 设置进度条风格，风格为圆形，旋转的
+		dialog.setIndeterminate(false);// 设置ProgressDialog 的进度条是否不明确 false
+										// 就是不设置为不明确
+		dialog.setCancelable(true); // 设置ProgressDialoaaag 是否可以按退回键取消
+		dialog.show();
+		String rootpath = Environment.getExternalStorageDirectory().getPath();
+		new Thread(new UpdateThread(rootpath)).start();// 启动子线程，在子线程中扫描SD卡
+	}
+*/
+	class UpdateThread implements Runnable {
+		private String rootpath;
 
+		public UpdateThread(String rootpath) {
+			this.rootpath = rootpath;
+		}
+
+		@Override
+		public void run() {
+			int count = SDCardMedia.scanSDMedia(rootpath);// 扫描SD卡上的视频文件
+			dialog.cancel();
+			Message msg = handler.obtainMessage();
+			Bundle bundle = msg.getData();
+			bundle.putInt("count", count);
+			msg.setData(bundle);
+			handler.sendMessage(msg);// 扫描完毕发送消息，给出提示
+		}
+	}
+
+	Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			int count = msg.getData().getInt("count");
+			Toast.makeText(MediaPlayerActivitybackup.this,
+					"共更新了" + count + "条记录，请点击查看列表按钮或按MENU键查看", 1).show();
+		}
+	};
+
+
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		if (item.getItemId() == LIST)// 按下播放列表菜单项
+		{
+			ShowMediaList();// 显示播放列表
+		}
+		if (item.getItemId() == UPDATELIST)// 按下更新列表菜单项
+		{
+			//Intent intent = new Intent(this, UpdateMediaListActivity.class);
+			//startActivityForResult(intent, UPDATE_RESULT_CODE);
+		}
+		if (item.getItemId() == ABOUT) // 按下关于菜单项
+		{
+			showAboutDialog();
+		}
+		if (item.getItemId() == EXIT)// 按下退出菜单项
+		{
+			finish();
+		}
+		return super.onMenuItemSelected(featureId, item);
+	}
+
+	class CheckListenet implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+			ShowMediaList();// 查看视频列表
+		}
+	}
 /**
  * 
  * 音量控制
@@ -173,6 +247,21 @@ public class MediaPlayerActivity extends ListActivity {
 		case R.id.fullscreen:
 			fullScreenPlay();
 			break;
+	//	case R.id.pausebutton:
+		//	pauseMedia();
+		//	break;
+		//case R.id.resetbutton:
+		//	fullScreenPlay();
+		//	break;
+		//case R.id.stopbutton:
+		//	stopMedia();
+		//	break;
+	//	case R.id.backbutton:
+		//	playLastMedia();
+		//	break;
+		//case R.id.nextbutton:
+		//	palyNextMedia();
+		//	break;
 		case R.id.gobutton:
 			continueMedia();
 			break;
@@ -193,7 +282,7 @@ public class MediaPlayerActivity extends ListActivity {
 				play(0);
 				filechanged = true;
 				if (!Handlerpost) {
-					updateBarHandler.post(updateThread);
+					//updateBarHandler.post(updateThread);
 					Handlerpost = true;
 				}
 			} else// 播放本地视频
@@ -206,7 +295,7 @@ public class MediaPlayerActivity extends ListActivity {
 					play(0);
 					filechanged = true;
 					if (!Handlerpost) {
-						updateBarHandler.post(updateThread);
+						//updateBarHandler.post(updateThread);
 						Handlerpost = true;
 					}
 				} else {
@@ -268,6 +357,50 @@ public class MediaPlayerActivity extends ListActivity {
 			maxTime.setText("00:00:00");
 		}
 	}
+
+	public void playLastMedia() // 播放上一个视频
+	{
+		if (filepath != null && !filepath.equals("")) {
+			Index--;
+			if (Index == -1)
+				Index = count - 1;
+			filepath = filepaths[Index];
+			path = filepath;
+			if (pause)
+				goView.setVisibility(ViewGroup.INVISIBLE);
+			play(0);
+			filechanged = true;
+			nameText.setText(filepath.substring(filepath.lastIndexOf("/") + 1));
+			if (!Handlerpost) {
+				//updateBarHandler.post(updateThread);
+				Handlerpost = true;
+			}
+		} else
+			Toast.makeText(this, R.string.notchoose, 1).show();
+	}
+
+	public void palyNextMedia() // 播放下一个视频
+	{
+		Log.v(TAG, "begin paly");
+		if (filepath != null && !filepath.equals("")) {
+			Index++;
+			if (Index == count)
+				Index = 0;
+			filepath = filepaths[Index];
+			path = filepath;
+			if (pause)
+				goView.setVisibility(ViewGroup.INVISIBLE);
+			play(0);
+			filechanged = true;
+			nameText.setText(filepath.substring(filepath.lastIndexOf("/") + 1));
+			if (!Handlerpost) {
+				//updateBarHandler.post(updateThread);
+				Handlerpost = true;
+			}
+		} else
+			Toast.makeText(this, R.string.notchoose, 1).show();
+	}
+
 	public void continueMedia()// 继续播放暂停的视频
 	{
 		if (pause) {
@@ -305,6 +438,7 @@ public class MediaPlayerActivity extends ListActivity {
 				mediaPlayer.seekTo(position);
 		}
 	}
+
 	class TouchListener implements OnTouchListener// SurfaceView触摸监听类
 	{
 		@Override
@@ -322,7 +456,8 @@ public class MediaPlayerActivity extends ListActivity {
 			return false;
 		}
 	}
-	Handler updateBarHandler = new Handler()// 内部消息队列类，主要获取updateThread发来的CurrentPosition和MaxPosition设置给SeekBar
+
+/*	Handler updateBarHandler = new Handler()// 内部消息队列类，主要获取updateThread发来的CurrentPosition和MaxPosition设置给SeekBar
 	{
 		public void handleMessage(Message msg) {
 			if (mediaPlayer.isPlaying()) {
@@ -339,8 +474,8 @@ public class MediaPlayerActivity extends ListActivity {
 			updateBarHandler.post(updateThread);
 		}
 
-	};
-	Runnable updateThread = new Runnable()// 内部线程类，主要获取mediaPlayer的CurrentPosition和MaxPosition发送给Handler处理
+	};*/
+/*	Runnable updateThread = new Runnable()// 内部线程类，主要获取mediaPlayer的CurrentPosition和MaxPosition发送给Handler处理
 	{
 		int CurrentPosition = 0, MaxPosition = 0;
 
@@ -370,7 +505,7 @@ public class MediaPlayerActivity extends ListActivity {
 				updateBarHandler.sendMessage(msg);
 			}
 		}
-	};
+	};*/
 
 	private class SeekBarListener implements SeekBar.OnSeekBarChangeListener// SeekBar监听类
 	{
@@ -399,5 +534,11 @@ public class MediaPlayerActivity extends ListActivity {
 				seekBar.setProgress(startPosition);
 		}
 	}
-	
+	private void showAboutDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Product Information");
+		builder.setMessage("Soft Name: \nVideoPlayer Version1.0 \nAuthor: \nMade By FlyLiang,\n@2012,June,CUMT");
+		Dialog dialog = builder.create();
+		dialog.show();
+	}
 }

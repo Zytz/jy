@@ -1,13 +1,6 @@
 package com.dxt;
 
-import java.io.IOException;
-
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-import org.xmlpull.v1.XmlPullParserException;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,10 +12,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.dxt.model.User;
+import com.dxt.util.ReturnMessage;
+import com.dxt.util.WebPostUtil;
 
 public class LoginActivity extends Activity {
 	final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
@@ -30,16 +23,18 @@ public class LoginActivity extends Activity {
 	final static String TAG = "dxt";
 
 	private static final int SUCCESS = 1;
-	private static final int ERROR = -1;
+	private static final int ERROR = 0;
 	private String username;
 	private String password;
 	private Button login;
 	private Button toRegist;
+	private Message message = new Message();
+	private ReturnMessage retMessage;
 	private User user = new User();
-	String retMessage =null;
 	private String userInfo=null;
 	private Handler handler = new UIHander();
 
+	@SuppressLint("HandlerLeak")
 	private final class UIHander extends Handler {
 
 		@Override
@@ -47,11 +42,11 @@ public class LoginActivity extends Activity {
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case SUCCESS:
-				Toast.makeText(getApplicationContext(), "µ«»Î≥…π¶£°",
+				Toast.makeText(getApplicationContext(), retMessage.getMessage(),
 						Toast.LENGTH_LONG).show();
 				break;
 			case ERROR:
-				Toast.makeText(getApplicationContext(), retMessage,
+				Toast.makeText(getApplicationContext(), retMessage.getMessage(),
 						Toast.LENGTH_LONG).show();
 				break;
 			}
@@ -98,43 +93,9 @@ public class LoginActivity extends Activity {
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						HttpTransportSE ht = new HttpTransportSE(SERVICE_URL);
-						ht.debug = true;
-						SoapObject request = new SoapObject(SERVICE_NS, "login");
-						request.addProperty("userInfo", userInfo);
-						SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-								SoapEnvelope.VER11);
-						envelope.bodyOut = request;
-						try {
-							ht.call(null, envelope);
-							if (envelope.getResponse() != null) {
-								Log.v("lll---", "ok!!");
-								SoapObject result = (SoapObject) envelope.bodyIn;
-								String name = result.getProperty(0).toString();
-								JSONObject ob = JSONObject.parseObject(name);
-								int status = ob.getIntValue("status");
-								retMessage = ob.getString("message");
-								Log.v(TAG, status + "");
-								Log.v(TAG, " retMessage :" + retMessage);
-								Message message = new Message();
-								if (status == 1) {
-									message.what = 1;
-								} else if (status == 0) {
-									message.what = -1;
-								}
-								handler.sendMessage(message);
-							} else {
-								Toast.makeText(getApplicationContext(),
-										"Connection failure", Toast.LENGTH_LONG)
-										.show();
-							}
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (XmlPullParserException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						retMessage=WebPostUtil.getMessage(SERVICE_URL, "login", userInfo);
+						message.what=retMessage.getStatus();
+						handler.sendMessage(message);
 					}
 				}.start();
 			}

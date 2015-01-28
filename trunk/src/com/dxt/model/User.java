@@ -3,9 +3,11 @@ public class User{
 	
 	private String id;
 	private String loginName;// 用户账号，登录名
-	private String userEmail;// 用户邮箱
+	private String email;// 用户邮箱
 	private String nickName;// 用户昵称
 	private String password;// 用户密码
+	private String phone;
+
 	private String createTime;// 创建时间
 
 	
@@ -25,12 +27,12 @@ public class User{
 		this.loginName = loginName;
 	}
 
-	public String getUserEmail() {
-		return userEmail;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getNickName() {
@@ -55,6 +57,13 @@ public class User{
 
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 }

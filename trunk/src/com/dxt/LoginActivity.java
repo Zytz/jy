@@ -31,13 +31,13 @@ public class LoginActivity extends Activity {
 
 	private static final int SUCCESS = 1;
 	private static final int ERROR = -1;
-	private String faultMessage;
 	private String username;
 	private String password;
 	private Button login;
 	private Button toRegist;
 	private User user = new User();
-	private String userInfo;
+	String retMessage =null;
+	private String userInfo=null;
 	private Handler handler = new UIHander();
 
 	private final class UIHander extends Handler {
@@ -49,14 +49,9 @@ public class LoginActivity extends Activity {
 			case SUCCESS:
 				Toast.makeText(getApplicationContext(), "µ«»Î≥…π¶£°",
 						Toast.LENGTH_LONG).show();
-				Intent intent = new Intent();
-				/*
-				 * intent.setClass(LoginActivity.this, SearchBooks.class);
-				 * startActivity(intent);
-				 */
 				break;
 			case ERROR:
-				Toast.makeText(getApplicationContext(), faultMessage,
+				Toast.makeText(getApplicationContext(), retMessage,
 						Toast.LENGTH_LONG).show();
 				break;
 			}
@@ -94,7 +89,7 @@ public class LoginActivity extends Activity {
 						.toString().trim();
 				password = ((EditText) findViewById(R.id.password)).getText()
 						.toString().trim();
-				user.setLoginName(username);
+				user.setEmail(username);
 				user.setPassword(password);
 				userInfo = JSON.toJSONString(user);
 				Log.v(TAG, userInfo);
@@ -118,17 +113,14 @@ public class LoginActivity extends Activity {
 								String name = result.getProperty(0).toString();
 								JSONObject ob = JSONObject.parseObject(name);
 								int status = ob.getIntValue("status");
-								String retMessage = ob.getString("message");
+								retMessage = ob.getString("message");
 								Log.v(TAG, status + "");
 								Log.v(TAG, " retMessage :" + retMessage);
 								Message message = new Message();
 								if (status == 1) {
 									message.what = 1;
-									System.out.println(retMessage);
 								} else if (status == 0) {
 									message.what = -1;
-									faultMessage = ob.getString("message");
-
 								}
 								handler.sendMessage(message);
 							} else {

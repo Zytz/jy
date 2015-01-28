@@ -15,7 +15,7 @@
   		android:padding="15dip"        
     	android:layout_margin="15dip" 
     	android:background="@drawable/background_login_div" >
-  		<!-- 账号 -->
+  		<!-- 邮箱 -->
     	<TextView 
     		android:id="@+id/login_user_input"
     		android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
     	    style="@style/my_edittext_style"
     		android:id="@+id/username"
     		android:layout_width="fill_parent"
-    		android:layout_height="wrap_content"
+    		android:layout_height="40dp"
     		android:hint="@string/login_username_hint"
     		android:layout_below="@id/login_user_input"
     		android:singleLine="true"
@@ -46,7 +46,7 @@
         style="@style/my_edittext_style"
       	android:id="@+id/password"
       	android:layout_width="fill_parent"
-      	android:layout_height="wrap_content"
+      	android:layout_height="40dp"
       	android:layout_below="@id/login_password_input"
       	android:singleLine="true"
       	android:inputType="textPassword" />

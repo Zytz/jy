@@ -9,6 +9,7 @@
     <string name="login_username_hint">邮箱：</string>
     <string name="label_password">密    码:</string>
     <string name="label_retpassword">确认密 码:</string>
+    <string name="regist_label_email">邮箱：</string>
     <string name="regist_label_mobilenumber">手机号码:</string>
     <string name="regist_label_yanzhengma">验    证    码:</string>
     <string name="regist_label_queren">确认</string>

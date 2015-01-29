@@ -12,14 +12,16 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.alibaba.fastjson.JSON;
 import com.dxt.model.User;
 import com.dxt.util.ReturnMessage;
+import com.dxt.util.ValidateUtil;
 import com.dxt.util.WebPostUtil;
 
 public class LoginActivity extends Activity {
 	final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
-	final static String SERVICE_URL = "http://10.82.21.244:8080/daxuetong/services/UserService?wsdl";
+	final static String SERVICE_URL = "http://210.40.65.236:8080/daxuetong/services/UserService?wsdl";
 	final static String TAG = "dxt";
 
 	private static final int SUCCESS = 1;
@@ -31,7 +33,7 @@ public class LoginActivity extends Activity {
 	private Message message = new Message();
 	private ReturnMessage retMessage;
 	private User user = new User();
-	private String userInfo=null;
+	private String userInfo = null;
 	private Handler handler = new UIHander();
 
 	@SuppressLint("HandlerLeak")
@@ -42,12 +44,12 @@ public class LoginActivity extends Activity {
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case SUCCESS:
-				Toast.makeText(getApplicationContext(), retMessage.getMessage(),
-						Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(),
+						retMessage.getMessage(), Toast.LENGTH_LONG).show();
 				break;
 			case ERROR:
-				Toast.makeText(getApplicationContext(), retMessage.getMessage(),
-						Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(),
+						retMessage.getMessage(), Toast.LENGTH_LONG).show();
 				break;
 			}
 		}
@@ -59,21 +61,21 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.login);
-		
-		toRegist=(Button) findViewById(R.id.toregist_button);
-		
+
+		toRegist = (Button) findViewById(R.id.toregist_button);
+
 		toRegist.setOnClickListener(new View.OnClickListener() {
-			
+
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent toResistIntent=new Intent();
+				Intent toResistIntent = new Intent();
 				toResistIntent.setClass(LoginActivity.this, RegistFirst.class);
 				startActivity(toResistIntent);
 			}
 		});
-		
+
 		login = (Button) findViewById(R.id.signin_button);
-		
+
 		login.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -84,20 +86,27 @@ public class LoginActivity extends Activity {
 						.toString().trim();
 				password = ((EditText) findViewById(R.id.password)).getText()
 						.toString().trim();
-				user.setEmail(username);
-				user.setPassword(password);
-				userInfo = JSON.toJSONString(user);
-				Log.v(TAG, userInfo);
-				new Thread() {
+				if (!ValidateUtil.isValid(username)
+						|| !ValidateUtil.isValid(password)) {
+					Toast.makeText(getApplicationContext(), "输入密码或帐号不能为空", 0)
+							.show();
+				} else {
+					user.setEmail(username);
+					user.setPassword(password);
+					userInfo = JSON.toJSONString(user);
+					Log.v(TAG, userInfo);
+					new Thread() {
 
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						retMessage=WebPostUtil.getMessage(SERVICE_URL, "login", userInfo);
-						message.what=retMessage.getStatus();
-						handler.sendMessage(message);
-					}
-				}.start();
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							retMessage = WebPostUtil.getMessage(SERVICE_URL,
+									"login", userInfo);
+							message.what = retMessage.getStatus();
+							handler.sendMessage(message);
+						}
+					}.start();
+				}
 			}
 		});
 	}

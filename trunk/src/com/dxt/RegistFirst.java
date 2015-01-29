@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dxt.model.User;
 import com.dxt.util.ReturnMessage;
+import com.dxt.util.ValidateUtil;
 import com.dxt.util.WebPostUtil;
 
 public class RegistFirst extends Activity {
@@ -76,10 +77,10 @@ public class RegistFirst extends Activity {
 				Random rand = new Random();
 				int min = 100000;
 				int yanzhengmaRandom = rand.nextInt(99999);
-				if (mobilenumber.length() != 11) {
+				if (!ValidateUtil.isValid(mobilenumber)||mobilenumber.length() != 11) {
 					Toast.makeText(getApplicationContext(), "您输入的位数不对", 0)
 							.show();
-				}
+				}else{
 				yangzhengma = min + yanzhengmaRandom + "";
 				mobilenumber = mobilenumber + yangzhengma;
 				userInfo = JSON.toJSONString(mobilenumber);
@@ -95,6 +96,7 @@ public class RegistFirst extends Activity {
 						handler.sendMessage(message);
 					}
 				}.start();
+				}
 			}
 		});
 

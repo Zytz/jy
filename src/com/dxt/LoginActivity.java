@@ -88,7 +88,7 @@ public class LoginActivity extends Activity {
 						.toString().trim();
 				if (!ValidateUtil.isValid(username)
 						|| !ValidateUtil.isValid(password)) {
-					Toast.makeText(getApplicationContext(), "输入密码或帐号不能为空", 0)
+					Toast.makeText(getApplicationContext(), R.string.login_label_usernameOrPasswordIsNotNull, 0)
 							.show();
 				} else {
 					user.setEmail(username);

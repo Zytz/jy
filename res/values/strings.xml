@@ -14,6 +14,9 @@
     <string name="regist_label_yanzhengma">验    证    码:</string>
     <string name="regist_label_queren">确认</string>
     <string name="regist_label_sendmobilenumber">发送验证码</string>
+    <string name="regist_label_notEnoughBit">您输入的位数不对</string>
+    <string name="regist_label_registFailed">注册失败</string>
+    <string name="regist_label_registOK">注册成功</string>
     <string name="age">年龄</string>
     <string name="number">学号</string>
     <string name="address">地址</string>
@@ -29,4 +32,5 @@
     <string name="camera_label_promt">请用最精炼的语言，描述你的作业问题，一次只能问一题，更容易找到大神的回答哦</string>
     <string name="camera_label_ask_superscholar">问学霸</string>
     <string name="camera_label_ask_teacher">问老师</string>
+    <string name="login_label_usernameOrPasswordIsNotNull">帐号或者密码不能为空</string>
 </resources>

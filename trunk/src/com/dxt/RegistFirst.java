@@ -21,7 +21,7 @@ import com.dxt.util.WebPostUtil;
 
 public class RegistFirst extends Activity {
 	final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
-	final static String SERVICE_URL = "http://10.82.21.244:8080/daxuetong/services/UserService?wsdl";
+	final static String SERVICE_URL = "http://210.40.65.236:8080/daxuetong/services/UserService?wsdl";
 	final static String TAG = "dxt";
 	private static final int SUCCESS = 1;
 	private static final int ERROR = 0;
@@ -77,7 +77,7 @@ public class RegistFirst extends Activity {
 				int min = 100000;
 				int yanzhengmaRandom = rand.nextInt(99999);
 				if (mobilenumber.length() != 11) {
-					Toast.makeText(getApplicationContext(), "您输入的位数不对", 1)
+					Toast.makeText(getApplicationContext(), "您输入的位数不对", 0)
 							.show();
 				}
 				yangzhengma = min + yanzhengmaRandom + "";

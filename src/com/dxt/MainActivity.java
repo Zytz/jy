@@ -21,7 +21,7 @@ public class MainActivity extends TabActivity {
 	private TabHost tabHost;
 	private ImageButton askquestion;
 	private GestureDetector detector;
-
+	private ImageButton choose;
 	private RadioButton main_footbar_news;
 	private RadioButton main_footbar_question;
 	private RadioButton main_footbar_tweet;
@@ -33,6 +33,8 @@ public class MainActivity extends TabActivity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 		askquestion=(ImageButton) this.findViewById(R.id.img_askquestion);
+		choose=(ImageButton) this.findViewById(R.id.circle_iv_choose);
+		choose.setOnClickListener(chooseGradeListener);
 		askquestion.setOnClickListener(questionListener);
 
 		main_footbar_news =(RadioButton) this.findViewById(R.id.main_footbar_news);
@@ -134,6 +136,20 @@ public class MainActivity extends TabActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	//进入选择年级activity
+	
+	private OnClickListener chooseGradeListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent toChooseGrade = new Intent(getApplicationContext(),ChooseGrade.class);
+			startActivity(toChooseGrade);
+		}
+	};
+	
+	
 	//进入到照相的跳转
 	private OnClickListener questionListener=new OnClickListener() {
 		

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ask_ll_choose_grade"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/choose_grade_tv_title"
+        android:layout_width="fill_parent"
+        android:layout_height="37.0dip"
+        android:background="#fff1f1f1"
+        android:gravity="center_vertical"
+        android:paddingLeft="14.0dip"
+        android:textColor="#ff666666"
+        android:textSize="@dimen/common_text_size_20" />
+
+    <GridView
+        android:id="@+id/choose_grade_gv_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14.0dip"
+        android:layout_marginRight="14.0dip"
+        android:horizontalSpacing="13.0dip"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="4"
+        android:paddingBottom="10.0dip"
+        android:paddingTop="10.0dip"
+        android:verticalSpacing="10.5dip" />
+
+</LinearLayout>

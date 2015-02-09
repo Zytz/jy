@@ -32,6 +32,7 @@
          <activity android:name=".LoginActivity"/>
          <activity android:name=".Regist" />
          <activity  android:name=".RegistFirst" />
+         <activity  android:name=".ChooseGrade" />
     </application>
 
 </manifest>

@@ -4,29 +4,54 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/main_header"
         android:layout_width="fill_parent"
-        android:layout_height="45dp"
+        android:layout_height="48.0dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:background="@android:color/holo_blue_light" >
-        <CheckBox
-            android:id="@+id/che_grade"
+
+        <TextView
+            android:id="@+id/circle_tv_title_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/img_askquestion"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="middle"
+            android:maxWidth="188.0dip"
+            android:paddingRight="7.0dip"
+            android:shadowDx="1.0"
+            android:shadowDy="1.0"
+            android:shadowRadius="1.0"
+            android:singleLine="true"
+            android:text="最新发布"
+            android:textColor="#ffffffff"
+            android:textSize="@dimen/common_text_size_20" />
+
+        <ImageButton
+            android:id="@+id/circle_iv_choose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/circle_tv_title_name"
+            android:background="@drawable/homework_questionlist_circle_button_normal" />
+
         <ImageButton
             android:id="@+id/img_askquestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="200dp"
-            android:layout_marginTop="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
             android:background="@drawable/ask_icon_normal" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <TabHost
         android:id="@android:id/tabhost"
-        android:layout_below="@id/main_header"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:layout_below="@id/main_header" >
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -44,5 +69,7 @@
             </FrameLayout>
         </LinearLayout>
     </TabHost>
+
     <include layout="@layout/footer" />
+
 </RelativeLayout>

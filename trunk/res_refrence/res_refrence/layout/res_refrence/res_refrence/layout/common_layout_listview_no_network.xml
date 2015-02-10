@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
+        <TextView android:textSize="20.0sp" android:textColor="@color/user_text_color_dark_gray" android:id="@id/common_tv_listview_big_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/net_work_error_msg" />
+        <TextView android:textSize="15.0sp" android:textColor="@color/user_text_color_gray" android:id="@id/common_tv_listview_small_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="@string/net_work_error_msg_sub" />
+        <ImageView android:id="@id/common_iv_listview_image" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15.0dip" android:src="@drawable/common_net_work_error_show" />
+    </LinearLayout>
+</RelativeLayout>

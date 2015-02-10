@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="@drawable/circle_category_item_bg_selector" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.baidu.homework.common.net.RecyclingImageView android:id="@id/item_icon" android:layout_marginLeft="8.0dip" android:layout_marginTop="14.5dip" android:layout_marginBottom="14.5dip" style="@style/user_header_38" />
+    <RelativeLayout android:id="@id/item_wrapper_1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8.0dip" android:layout_marginTop="9.0dip" android:layout_toRightOf="@id/item_icon">
+        <TextView android:textSize="@dimen/common_text_size_21" android:textColor="#ff333333" android:ellipsize="end" android:id="@id/item_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="150.0dip" android:text="国" android:lines="1" android:singleLine="true" />
+        <ImageView android:id="@id/item_sex" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="3.0dip" android:layout_marginTop="6.0dip" android:src="@drawable/user_fragment_male_icon" android:layout_toRightOf="@id/item_title" android:layout_alignTop="@id/item_title" />
+        <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip" android:layout_alignParentRight="true" android:layout_centerVertical="true">
+            <TextView android:textSize="@dimen/common_text_size_18" android:id="@id/friend_profiles_tv_distance" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="10m" style="@style/friend_layout_nearlyclass_profiles_text_style" />
+            <View android:id="@id/friend_profiles_v_distance_split_line" android:background="#ffdddddd" android:layout_width="0.5dip" android:layout_height="fill_parent" android:layout_marginLeft="7.0dip" android:layout_marginTop="2.0dip" android:layout_marginRight="7.0dip" android:layout_marginBottom="2.0dip" />
+            <TextView android:textSize="@dimen/common_text_size_18" android:id="@id/friend_profiles_tv_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1分钟前" style="@style/friend_layout_nearlyclass_profiles_text_style" />
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.5dip" android:layout_below="@id/item_wrapper_1" android:layout_alignLeft="@id/item_wrapper_1">
+        <include layout="@layout/friend_layout_nearlyclass_profiles" />
+    </LinearLayout>
+    <View android:background="#ffd3d3d3" android:layout_width="wrap_content" android:layout_height="0.5dip" android:layout_below="@id/item_icon" />
+</RelativeLayout>

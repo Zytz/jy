@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="user_icon">70.0dip</dimen>
+    <dimen name="login_register_complete_grade_button_height">69.0dip</dimen>
+    <dimen name="login_register_complete_grade_button_width">69.0dip</dimen>
+    <dimen name="user_my_profile_grade_seletc_dialog_button_height">62.0dip</dimen>
+    <dimen name="user_my_profile_grade_seletc_dialog_button_width">62.0dip</dimen>
+    <dimen name="user_my_profile_grade_seletc_dialog_button_text_size">14.0sp</dimen>
+</resources>

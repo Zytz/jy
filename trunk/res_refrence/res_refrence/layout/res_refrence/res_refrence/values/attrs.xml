@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="pstsIndicatorColor" format="color" />
+    <attr name="pstsUnderlineColor" format="color" />
+    <attr name="pstsDividerColor" format="color" />
+    <attr name="pstsCurrentTabTextColor" format="color" />
+    <attr name="pstsIndicatorHeight" format="dimension" />
+    <attr name="pstsUnderlineHeight" format="dimension" />
+    <attr name="pstsDividerPadding" format="dimension" />
+    <attr name="pstsTabPaddingLeftRight" format="dimension" />
+    <attr name="pstsScrollOffset" format="dimension" />
+    <attr name="pstsTabBackground" format="reference" />
+    <attr name="pstsShouldExpand" format="boolean" />
+    <attr name="pstsTextAllCaps" format="boolean" />
+    <attr name="normalIcon" format="reference" />
+    <attr name="supportedIcon" format="reference" />
+    <attr name="normalTextColor" format="color" />
+    <attr name="supportedTextColor" format="color" />
+    <attr name="normalTextSize" format="dimension" />
+    <attr name="supportedTextSize" format="dimension" />
+    <attr name="textPaddingLeft" format="dimension" />
+    <attr name="normalText" format="reference" />
+    <attr name="zeroText" format="reference" />
+    <attr name="supportText" format="reference" />
+    <attr name="cancellable" format="boolean" />
+    <attr name="numberPickerMax" format="integer" />
+    <attr name="numberPickerMin" format="integer" />
+    <attr name="numberPickerDefault" format="integer" />
+    <attr name="isAvatarBig" format="boolean" />
+    <attr name="border_width" format="dimension" />
+    <attr name="border_color" format="color" />
+    <attr name="tab_gravity">
+        <enum name="left" value="0" />
+        <enum name="right" value="1" />
+        <enum name="center" value="2" />
+    </attr>
+    <attr name="tab_background" format="reference" />
+    <attr name="tab_paddingLeft" format="dimension" />
+    <attr name="tab_paddingRight" format="dimension" />
+    <attr name="tab_paddingTop" format="dimension" />
+    <attr name="tab_paddingBottom" format="dimension" />
+    <attr name="tab_textSize" format="dimension" />
+    <attr name="tab_maxLines" format="integer" />
+    <attr name="tab_textColor" format="color" />
+    <attr name="HTabPageIndicatorStyle" format="reference" />
+    <attr name="text_size" format="dimension" />
+    <attr name="text_color" format="color" />
+</resources>

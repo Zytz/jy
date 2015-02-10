@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="take_photo">Take Photo</string>
+    <string name="flash_mode">Flash Mode</string>
+    <string name="app_name">作业帮</string>
+    <string name="common_cancel">取消</string>
+    <string name="common_ok">确定</string>
+    <string name="common_tip">提示</string>
+    <string name="common_no_network">网络好像开小差了唉</string>
+    <string name="common_please_wait">请稍候…</string>
+    <string name="net_work_error_msg">网络好像出问题了哦</string>
+    <string name="net_work_error_msg_sub">请检查你的网络连接后重试</string>
+    <string name="content_deleted">该主题帖已被楼主删除</string>
+    <string name="content_deleted_user">该问题已被提问者删除</string>
+    <string name="content_system_deleted">问题因违规已被屏蔽</string>
+    <string name="content_post_system_deleted">该主题帖因违规已被屏蔽</string>
+    <string name="content_answer_deleted">该回答已经被回答者删除</string>
+    <string name="content_deleted_sub">去看看其它内容吧</string>
+    <string name="common_network_error">出错了唉，再试一次吧</string>
+    <string name="common_loading_error_msg">休息，休息一下</string>
+    <string name="common_loading_error_msg_sub">网络繁忙，请稍后再来</string>
+    <string name="common_loading_empty_msg">咦，什么都没有唉</string>
+    <string name="common_loading_empty_msg_sub">去别处转转，稍后再来吧</string>
+    <string name="common_loading_no_login_msg">您尚未登录</string>
+    <string name="common_loading_no_login_msg_sub">消息神马的，要登录之后才能看哦</string>
+    <string name="common_update_fail_no_sdcard">没有检测到SD卡，无法下载升级包</string>
+    <string name="common_download_error">下载失败，请检查网络或稍后重试</string>
+    <string name="common_downloading">下载中…</string>
+    <string name="common_share_fail">哎哟，好像出问题了，再试一次!</string>
+    <string name="common_share_succes">分享成功！</string>
+    <string name="common_share_invite">我的邀请码:&lt;font color=#ff9292>%d&lt;/font></string>
+    <string name="common_share_share">选择分享方式</string>
+    <string name="common_share_fail_nosd">分享功能需要SD卡支持，请检查SD卡</string>
+    <string name="common_share_prepare">准备分享中…</string>
+    <string name="common_share_yingyongbao">http://a.app.qq.com/o/simple.jsp?pkgname=com.baidu.homework&amp;g_f=991653</string>
+    <string name="common_activity_url">/zuoyebang/activity/</string>
+    <string name="common_activity_card">/zuoyebang/card/</string>
+    <string name="common_listview_drop_dowm">下拉可以刷新</string>
+    <string name="common_listview_release_update">松开可以刷新</string>
+    <string name="common_listview_doing_update">加载中…</string>
+    <string name="common_select_grade_and_course">请选择年级和学科</string>
+    <string name="common_capture_failed">拍照失败</string>
+    <string name="common_weixin_not_installed">您还没有安装微信，不能使用该功能！</string>
+    <string name="common_weixin_api_not_supported">您安装的微信版本太低，不能使用该分享功能</string>
+    <string name="common_timeline_unsupport">您的微信还不支持朋友圈分享功能！</string>
+    <string name="common_share_weixin_fail">分享失败了~</string>
+    <string name="common_share_sina_weibo_fail">分享微博失败</string>
+    <string name="common_vcode_refresh">点击验证码图片换一张</string>
+    <string name="common_vcode_input_tip">请点击以下按钮输入验证码</string>
+    <string name="common_vcode_error">验证码输入错误，请重新输入</string>
+    <string name="common_vcode_load_fail">加载失败，请 &lt;font color=#1cd0f7>点击刷新&lt;/font></string>
+    <string name="common_vcode_submit">提交验证</string>
+    <string name="common_vcode_title">请输入验证码</string>
+    <string name="common_vcode_refresh_fail">获取验证码失败</string>
+    <string name="common_back">返回</string>
+    <string name="debug_key_proxy">debug_key_proxy</string>
+    <string name="debug_key_ip">debug_key_ip</string>
+    <string name="debug_key_port">debug_key_port</string>
+    <string name="sapi_network_fail">网络不通，请稍候再试</string>
+    <string name="sapi_forget_password_title">找回密码</string>
+    <string name="homework_question_item_reply_number">%1$s回答</string>
+    <string name="homework_list_difficulty_header">回答难题，赢取更多财富奖励</string>
+    <string name="homework_list_answer_prompt">&lt;font color=#39b2ff>%s&lt;/font>刚刚收到一个回答</string>
+    <string name="homework_qb2_show_question">查看原问题</string>
+    <string name="homework_qb2_show_other_answers">查看其他回答</string>
+    <string name="homework_submiting">提交中...</string>
+    <string name="homework_qb2_answer_good_evaluate">太给力了，你的回答完美的解决了我的问题！</string>
+    <string name="homework_qb2_request_evaluate_has_mark">&lt;font color=#00dc81>求评价：&lt;/font>我的回答你满意吗？给个好评吧，或者也可以继续问我哦</string>
+    <string name="homework_qb2_request_evaluate">对我的回答满意的话，就给个好评吧。如果还有不清楚的地方，可以跟我继续交流哦。</string>
+    <string name="homework_qb2_thanks">多谢帮助，我的问题已经解决了。</string>
+    <string name="homework_qb2_ask_adopt1">&lt;font color=#1f91fa>采纳&lt;/font>满意回答，财富值+1</string>
+    <string name="homework_qb_question_self_delete">您的问题违反了作业帮内容规范，已被屏蔽.</string>
+    <string name="homework_qb_question_other_delete">该问题因违反作业帮内容规范，已被屏蔽.</string>
+    <string name="homework_qb2_empty_input">请至少输入一个字</string>
+    <string name="homework_qb1_no_answer_show_txt">及时采纳满意回答，还能获得财富值哦！</string>
+    <string name="homework_qb1_no_answer_show_txt2">学霸，挑战下这道难题吧</string>
+    <string name="homework_qb1_ask_adopt">采纳满意回答，财富值+1</string>
+    <string name="homework_wealth_added_no_mall">财富值&lt;font color=#ffc935>+%d&lt;/font></string>
+    <string name="homework_wealth_added">财富值&lt;font color=#ffc935>+%d&lt;/font>，去兑换</string>
+    <string name="homework_qb2_item_ask_no_content">&lt;font color=#3ab2ff>问：&lt;/font></string>
+    <string name="homework_qb2_item_answer_no_content">&lt;font color=#ffae00>答：&lt;/font></string>
+    <string name="homework_qb2_item_ask_has_content">问：%s</string>
+    <string name="homework_qb2_item_answer_has_content">答：%s</string>
+    <string name="homework_qb1_item_chat_num">%d讨论</string>
+    <string name="homework_qb1_no_answer_waiting">别着急，学霸们正在赶来的路上</string>
+    <string name="homework_qb1_no_answer_add_reward">"什么！还没有收到回答呢？
+看来这道题有点难，
+试试添加悬赏分召唤学霸解答问题"</string>
+    <string name="homework_qb1_no_answer_reward_added">"追加悬赏成功，
+傲娇的学霸正在赶来！"</string>
+    <string name="homework_qb1_no_answer_no_reply">"太不可思议了，还没有收到回答。
+看看是不是因为："</string>
+    <string name="homework_qb1_no_answer_reason">"1:\u0009一次问了多道题目
+2: 问题图片模糊不清楚
+3: 提问内容不全"</string>
+    <string name="homework_qb2_adopt_remind_dialog_to_mall">去商城兑换></string>
+    <string name="homework_qb2_adopt_remind_dialog_wealth">+%s</string>
+    <string name="homework_vw_qb1_header_zuoyejun_question_name">&lt;font color=#009cff>原问题：&lt;/font>%s</string>
+    <string name="homework_vw_qb1_header_zuoyejun_answer_content">&lt;font color=#009cff>回答：&lt;/font>%s</string>
+    <string name="homework_qb_exciting_quiz">精彩问答</string>
+    <string name="homework_qb_other_exciting_quiz">更多精彩问答 ></string>
+    <string name="homework_question_item_reply_time">%s内解决</string>
+    <string name="index_index_homework">问答</string>
+    <string name="index_index_video">课程</string>
+    <string name="index_index_message">消息</string>
+    <string name="index_index_circle">圈子</string>
+    <string name="index_index_user">我的</string>
+    <string name="ask_input_placeholder">"请详细描述你的作业问题
+一次问一题，更容易得到解答哦"</string>
+    <string name="ask_today_remain">今天只剩%d次提问机会了哦</string>
+    <string name="ask_min_content_tip">至少输入4个字哦</string>
+    <string name="ask_my_question">我的提问</string>
+    <string name="ask_empty_input">先描述下问题吧</string>
+    <string name="ask_upload_picture_fail">上传图片失败</string>
+    <string name="ask_submiting">提交中...</string>
+    <string name="ask_reward_wealth">剩余财富值</string>
+    <string name="ask_only_picture_content1">机智的小伙伴们，求教这道题的详细做法，多谢啦</string>
+    <string name="ask_only_picture_content2">一道难题，求学霸指点，谢谢</string>
+    <string name="ask_only_picture_content3">求达人帮忙看看，这道题该怎么做，要有过程哦，谢谢</string>
+    <string name="circle_all_list_reply_number">%1$s</string>
+    <string name="circle_circle_name">同学圈</string>
+    <string name="circle_post_article">发表</string>
+    <string name="circle_post_article_title">发帖子</string>
+    <string name="circle_input_placeholder">分享学习生活中的趣事…</string>
+    <string name="circle_input_hint_study">等级达到三级的学霸才可以在这里发帖哦！</string>
+    <string name="circle_empty_input">想跟大家说点什么</string>
+    <string name="circle_empty_vote">要输入投票标题哦</string>
+    <string name="circle_vote_option_not_enough">至少需要两个投票选项哦</string>
+    <string name="circle_min_content_tip">至少输入%d个字哦</string>
+    <string name="circle_user_circle_name">%s的同学圈</string>
+    <string name="circle_upload_picture_fail">上传图片失败</string>
+    <string name="circle_submiting">提交中...</string>
+    <string name="circle_support_post_zero">赞</string>
+    <string name="circle_support_post_supported">%d</string>
+    <string name="circle_good_student_dialog_tips_1">等级达到3级才可以发帖哦</string>
+    <string name="circle_good_student_dialog_tips_2">你当前的等级是：%d级</string>
+    <string name="circle_vote_hint">请输入选项%s内容</string>
+    <string name="circle_vote_title_hint">为投票写个标题吧</string>
+    <string name="circle_vote_has_topic">投票贴不能插入话题哦~是否继续发起投票</string>
+    <string name="circle_share_title_0">这个帖子炒鸡好玩，快来感受下！</string>
+    <string name="circle_share_title_1">我分享了一个炒鸡有意思的帖子，快来围观啊！</string>
+    <string name="circle_share_title_2">好帖子当然要分享，还不快戳！</string>
+    <string name="circle_share_title_3">大家快来看，这个帖子很火耶！！</string>
+    <string name="circle_share_title_4">良心推荐！绝对的好帖啊！</string>
+    <string name="circle_square_gps_searching">正在搜索附近的话题…</string>
+    <string name="circle_square_gps_fail">没找到你在哪儿哦…</string>
+    <string name="circle_square_select_region">选择你所在的省</string>
+    <string name="circle_square_latest_article">最新发布</string>
+    <string name="circle_square_latest_reply">最新回复</string>
+    <string name="circle_square_hot_article">热门帖子</string>
+    <string name="school_circle_latest_article">最新发布</string>
+    <string name="school_circle_hot_article">热门帖子</string>
+    <string name="school_circle_all">全部帖子</string>
+    <string name="school_circle_recoomend_article">热帖推荐</string>
+    <string name="school_circle_my_school">我的学校</string>
+    <string name="school_circle_login_now">马上登录</string>
+    <string name="school_circle_login_now_tip">登录后可以查看同校好友哦</string>
+    <string name="school_circle_select_school_now_tip">填写学校后可以查看同校好友哦</string>
+    <string name="school_circle_select_school">填写学校</string>
+    <string name="school_circle_member_number">学校成员(%1$d人)</string>
+    <string name="school_circle_loading_dialog">正在加载，请稍候……</string>
+    <string name="school_circle_loading_get_code">正在获取您的邀请码</string>
+    <string name="school_circle_item_empty_name">暂无</string>
+    <string name="school_circle_already_signin">已连续报到</string>
+    <string name="school_circle_day">天</string>
+    <string name="circle_all_list_header_member">成员 %s</string>
+    <string name="circle_all_list_header_today_article">话题 %s</string>
+    <string name="circle_all_list_header_invite_classmates">邀请</string>
+    <string name="circle_all_list_header_pay_attention">+关注</string>
+    <string name="circle_all_list_header_cancle_attention">已关注</string>
+    <string name="circle_all_list_header_switch">切换年级</string>
+    <string name="school_circle_header_topic_number">今日话题：</string>
+    <string name="circle_article_reply_placeholder">我也说两句</string>
+    <string name="circle_article_reply_floor">%d楼</string>
+    <string name="circle_article_reply_owner">楼主</string>
+    <string name="circle_article_my_article">帖子详情</string>
+    <string name="circle_article_reply_reply">回复</string>
+    <string name="circle_article_reply_success">回复成功</string>
+    <string name="circle_article_replying">发送中…</string>
+    <string name="circle_article_reply_which_floor">回复%d楼:</string>
+    <string name="circle_article_reply_floor_content">%d楼的内容</string>
+    <string name="circle_article_reply_deleted">&lt;font color=#FF8481>系统消息&lt;/font>您的回帖违反了作业帮内容规范，已被屏蔽，只有您自己能够看到。</string>
+    <string name="circle_article_more_thread_title">去%s看更多帖子></string>
+    <string name="circle_vote_header_vote">&lt;font color=#7ac5fd>[%1$s]&lt;/font> &lt;font color=#fda514>%2$d&lt;/font>人参加了投票</string>
+    <string name="circle_excellent_title">精华帖</string>
+    <string name="video__list_video_info_category">&lt;font color=#888888>分类: &lt;/font> &lt;font color=#444444>%s &lt;/font></string>
+    <string name="video__list_video_info_play">&lt;font color=#888888>播放: &lt;/font> &lt;font color=#444444>%s &lt;/font></string>
+    <string name="video__list_video_info_from">&lt;font color=#888888>来源: &lt;/font> &lt;font color=#444444>%s &lt;/font></string>
+    <string name="video__list_video_info_teacher">&lt;font color=#888888>讲师: &lt;/font> &lt;font color=#444444>%s &lt;/font></string>
+    <string name="video_play_notice">您当前处于移动网络，播放视频会消耗流量哦！</string>
+    <string name="video_so_download_notice">您的手机尚未安装视频插件，下载视频插件后就可以播放了！</string>
+    <string name="video_error_other">视频加载出错，请重试！</string>
+    <string name="video_error_no_network">网络不可用哦，请检查或重试！</string>
+    <string name="video_error_wrong_network">网络繁忙，请稍后再试！</string>
+    <string name="video_album_list_item_more_desc">更多</string>
+    <string name="message_message_clear">清空</string>
+    <string name="message_message_confirm_clear">确认清空全部消息？</string>
+    <string name="message_message_confirm_delete">确认删除所选的消息？</string>
+    <string name="message_message_notlogin">您尚未登录</string>
+    <string name="message_message_notlogin_tip">登录后可以查看你的消息哦</string>
+    <string name="message_message_login">登录帐号</string>
+    <string name="message_message_deleting">删除中</string>
+    <string name="message_message_delete_failed">消息删除失败</string>
+    <string name="message_message_my">我的消息</string>
+    <string name="message_new_version_msg">此消息只有在最新版本下才能够查看哦，快去升级吧!</string>
+    <string name="user_name_unknown">未知用户</string>
+    <string name="user_activity_profile_title">个人资料</string>
+    <string name="user_activity_unlogin_title">立即登录</string>
+    <string name="user_activity_unlogin_login_button">登录帐号</string>
+    <string name="user_dialog_cancel">取消</string>
+    <string name="user_dialog_confirm">确定</string>
+    <string name="user_my_ask">我的提问</string>
+    <string name="user_my_ask_grade_course">%1$s %2$s</string>
+    <string name="user_my_ask_time">%1$s</string>
+    <string name="user_my_answer_grade_course">%1$s %2$s</string>
+    <string name="user_my_answer_time">%1$s</string>
+    <string name="user_my_ask_answer_number">%1$d回答</string>
+    <string name="user_my_answer_reply_number">%1$d回答</string>
+    <string name="user_rank_list">排行榜</string>
+    <string name="user_my_answer">我的回答</string>
+    <string name="user_my_post">我的帖子</string>
+    <string name="user_my_repost">我的回复</string>
+    <string name="user_my_answer_already_evaluated">已评价</string>
+    <string name="user_my_answer_waiting_evaluated">待评价</string>
+    <string name="user_my_answer_best_answer">最佳答案</string>
+    <string name="user_my_ask_already_resolved">已解决</string>
+    <string name="user_my_ask_waiting_resolved">待解决</string>
+    <string name="user_my_already_deleted">已失效</string>
+    <string name="user_invite_friends">邀请好友</string>
+    <string name="user_my_activity">精彩活动</string>
+    <string name="user_invite_friends_number">已邀请&lt;font color=\"#fda514\">%1$s&lt;/font>&lt;/b>人</string>
+    <string name="user_wealth_number">财富值&lt;font color=\"#fda514\">%1$d&lt;/font>&lt;/b></string>
+    <string name="user_feedback">帮助与反馈</string>
+    <string name="user_feedback_hint">欢迎提出您在使用中遇到的问题或建议！留下您的qq号，方便我们后续与您联系</string>
+    <string name="user_feedback_submit">提交反馈</string>
+    <string name="user_feedback_tips">"其它反馈途径：
+作业帮官方贴吧(举报、申述、商城兑换等问题)
+作业帮qq群(产品功能建议)
+1群: 243981842　　2群: 309791849"</string>
+    <string name="user_feedback_length_empty">不能反馈空内容，请至少输入四个字！</string>
+    <string name="user_feedback_length_invalid">请输入长度在4-1499个字之间的反馈内容！</string>
+    <string name="user_feedback_submit_error">反馈提交失败，请稍候重试！</string>
+    <string name="user_feedback_submit_success">反馈提交成功，我们会尽快处理您的意见和建议！</string>
+    <string name="user_feedback_submit_waiting">反馈提交中.....</string>
+    <string name="user_check_version">检测新版本</string>
+    <string name="user_check_version_right_button">升级</string>
+    <string name="user_manual_upgrade">啊哦，自动更新失败了，试试手动下载吧</string>
+    <string name="user_manual_upgrade_ok">手动下载</string>
+    <string name="user_manual_upgrade_cancel">暂不下载</string>
+    <string name="user_check_version_newest">当前已经是最新版本啦!</string>
+    <string name="user_check_version_failed">检查新版本失败, 请稍候重试!</string>
+    <string name="user_upgrade_force_exit">退出应用</string>
+    <string name="user_protocol">关于作业帮</string>
+    <string name="user_image">头像</string>
+    <string name="user_image_upload_failed">上传头像文件失败,请稍后重试！</string>
+    <string name="user_image_upload_waiting">头像上传中.....</string>
+    <string name="user_image_update_waiting">头像修改中.....</string>
+    <string name="user_school_bind_waiting">学校修改中.....</string>
+    <string name="user_image_update_success">头像修改成功！</string>
+    <string name="user_nickname">昵称</string>
+    <string name="user_nickname_set_title">请输入您的昵称</string>
+    <string name="user_nickname_set_summary">一天仅能修改一次哦</string>
+    <string name="user_nickname_input_invalid">昵称至少需要2个字哦</string>
+    <string name="user_nickname_update_success">新昵称修改成功!</string>
+    <string name="user_nickname_update_times_exceed_limit">今天你已经修改过昵称，每天最多只能修改一次！</string>
+    <string name="user_nickname_update_waiting">昵称修改中.....</string>
+    <string name="user_nickname_input_hint">支持中英文和符号</string>
+    <string name="user_sex">性别</string>
+    <string name="user_sex_choose">选择性别</string>
+    <string name="user_sex_unknown">性别未知</string>
+    <string name="user_sex_boy">男生</string>
+    <string name="user_sex_girl">女生</string>
+    <string name="user_sex_update_error">修改性别失败，请重试！</string>
+    <string name="user_sex_update_success">修改性别成功！</string>
+    <string name="user_sex_update_waiting">性别修改中.....</string>
+    <string name="user_grade">年级</string>
+    <string name="user_grade_choose">选择年级</string>
+    <string name="user_school">学校</string>
+    <string name="user_school_choose">填写&lt;font color=\"#fda514\">+20&lt;/font>&lt;/b>财富值</string>
+    <string name="user_school_choose_title_province">填写学校</string>
+    <string name="user_school_choose_title_city">选择学校所在城市</string>
+    <string name="user_school_choose_title_region">选择学校所在区</string>
+    <string name="user_school_choose_title_school">选择所在学校</string>
+    <string name="user_school_choose_title_school_with_grade">请选择您所在的&lt;font color=\"#333333\">%1$s&lt;/font>&lt;/b></string>
+    <string name="user_grade_update_error">修改年级失败，请重试！</string>
+    <string name="user_grade_update_success">修改年级成功！</string>
+    <string name="user_grade_update_waiting">年级修改中.....</string>
+    <string name="user_accumulated_wealth">累计财富值</string>
+    <string name="user_phone_number">手机号</string>
+    <string name="user_phone_number_blank">绑定&lt;font color=\"#fda514\">+10&lt;/font>&lt;/b>财富值</string>
+    <string name="user_phone_number_complete_title">输入手机号码</string>
+    <string name="user_verify_code_complete_title">输入验证码</string>
+    <string name="user_phone_number_complete_prompt">绑定手机号后, 能帮助您的问题更快获得解答, 同时将额外获得10个财富币</string>
+    <string name="user_phone_number_binding_prompt">绑定即赠10个财富币</string>
+    <string name="user_phone_number_area_code">+86</string>
+    <string name="user_phone_number_input_hint">请输入11位手机号码...</string>
+    <string name="user_phone_number_input_empty">号码不能为空！</string>
+    <string name="user_phone_number_get_verification_code_failed">获取验证短信失败，请重试！</string>
+    <string name="user_phone_number_send_verify_message">发送验证短信</string>
+    <string name="user_phone_number_send_verify_message_waiting">验证短信发送请求中.....</string>
+    <string name="user_phone_number_send_verify_message_success">验证短信发送请求成功！</string>
+    <string name="user_phone_number_resend_verify_message_waiting">重发验证短信发送请求中.....</string>
+    <string name="user_phone_number_enter_content">您的手机号是: +86%1$s</string>
+    <string name="user_phone_number_input_verified_code_prompt">你会收到一条带验证码的短信，请输入验证码：</string>
+    <string name="user_phone_number_input_verified_code_hint">填写短信验证码</string>
+    <string name="user_phone_number_bind_another_prompt">请输入您需要绑定的手机号码, 绑定成功后, 原号码将自动解除绑定</string>
+    <string name="user_phone_number_bind_another_duplicate">您输入的手机号和原先已绑定过的一致, 请输入不同的号码！</string>
+    <string name="user_phone_number_bind_input_empty">验证码不能为空,请输入接收到的短信中的验证码！</string>
+    <string name="user_phone_number_bind_confirm">完成绑定</string>
+    <string name="user_phone_number_verify_code_remaning_time">%1$d秒后</string>
+    <string name="user_phone_number_verify_code_receive_timeout">没收到?</string>
+    <string name="user_phone_number_verify_code_resend">重新发送</string>
+    <string name="user_phone_number_update_input_invalid">请输入正确的手机号码！</string>
+    <string name="user_phone_number_update_verify_code_get_success">获取验证短信发送成功!</string>
+    <string name="user_phone_number_update_verify_code_input_failed">请输入的正确的短信验证码!</string>
+    <string name="user_phone_number_update_bind_success">绑定手机成功!</string>
+    <string name="user_phone_number_update_bind_waiting">绑定手机中.....</string>
+    <string name="user_invitation_code">补填邀请码</string>
+    <string name="user_invitation_code_input_title">请输入邀请码</string>
+    <string name="user_invitation_title">分享App给好友</string>
+    <string name="user_invitation_code_get_failed">加载失败，再试一次吧</string>
+    <string name="user_invitation_code_blank">填写&lt;font color=\"#fda514\">+3&lt;/font>&lt;/b>财富值</string>
+    <string name="user_invitation_code_update_success">邀请码修改成功！</string>
+    <string name="user_invitation_code_waiting">邀请码确认中.....</string>
+    <string name="user_invitation_code_error_not_existed">这个邀请码好像不存在哦</string>
+    <string name="user_invitation_code_error_my_code">不可以填写自己的邀请码啦!</string>
+    <string name="user_exit_account">退出该账户</string>
+    <string name="user_messaging_title">消息设置</string>
+    <string name="user_messaging_settings">消息设置</string>
+    <string name="user_recommend_school_loading">正在寻找附近的学校...</string>
+    <string name="user_recommend_school_error">网络繁忙，没找到你在哪...</string>
+    <string name="user_recommend_school_empty">在附近木有找到学校哦...</string>
+    <string name="user_recommend_school_no">没找到你学校？来手动选择地址吧</string>
+    <string name="user_rank_not_in_rank">未上榜</string>
+    <string name="user_rank_empty_rank">--</string>
+    <string name="user_rank_total_rank">总榜</string>
+    <string name="user_rank_daily_rank">日榜</string>
+    <string name="user_rank_myrank">我的排名：</string>
+    <string name="user_rank_update">早8:00更新</string>
+    <string name="user_settings_more">更多</string>
+    <string name="empty_page">页面地址为空</string>
+    <string name="n_minitue_ago">%1$d分钟前</string>
+    <string name="n_second_ago">%1$d秒前</string>
+    <string name="multiplex_empty_string" />
+    <string name="login_register_info_complete_title">填写注册信息</string>
+    <string name="login_register_info_complete_prompt_text">完善信息可以提高问题解决率哦~</string>
+    <string name="login_register_info_sex_choose_prompt_text">你是男生还是女生哇</string>
+    <string name="login_register_info_complete">完成</string>
+    <string name="login_register_info_invitation_code_prompt"><u>填写邀请码，获取3财富币</u></string>
+    <string name="login_register_info_invitation_code_prompt_disabled">填写邀请码，获取3财富币</string>
+    <string name="login_register_info_invitation_code_dialog_title">填写邀请码</string>
+    <string name="login_register_info_invitation_code_submit_error">提交验证码失败，请重试！</string>
+    <string name="login_register_info_invitation_code_empty">验证码为空, 请输入后再提交！</string>
+    <string name="login_register_info_invitation_code_dialog_cancel">取消</string>
+    <string name="login_register_info_invitation_code_dialog_confirm">提交</string>
+    <string name="login_register_info_invitation_code_text">邀请码：%1$d</string>
+    <string name="login_register_info_invitation_code_invalid">无效的邀请码, 请输入纯数字</string>
+    <string name="login_register_info_invitation_code_submit_success">邀请码提交成功！</string>
+    <string name="login_register_info_finish_submit_error">完善注册信息提交失败，请重试！</string>
+    <string name="login_register_info_male">男生</string>
+    <string name="login_register_info_female">女生</string>
+    <string name="login_register_info_other_school">其他</string>
+    <string name="login_register_info_exit_confirm_dialog_title">退出确认</string>
+    <string name="login_register_info_exit_confirm_dialog_content">您真的退出注册信息的填写吗？退出将不会保存已填的信息</string>
+    <string name="login_register_info_exit_confirm_dialog_cancel">取消</string>
+    <string name="login_register_info_exit_confirm_dialog_confirm">确认</string>
+    <string name="try_again_exit_app">再按一次退出程序</string>
+    <string name="photo_load_picture_error">加载图片失败</string>
+    <string name="photo_read_picture_error">读取图片失败</string>
+    <string name="photo_rotate_picture_error">旋转图片失败</string>
+    <string name="photo_save_picture_error">保存图片失败</string>
+    <string name="photo_download_bigPic_error">下载原图失败，请检查网络</string>
+    <string name="photo_crop_too_small_error">图片太小啦，无法加载进来</string>
+    <string name="photo_crop_error">裁剪图片失败</string>
+    <string name="share_weibo_invite_content">刚用了作业帮app，简直是逆天神器啊！手机拍照问作业，马上解决了有木有！注册时填写邀请码：%d，有惊喜！偷偷放出下载地址：http://zhidao.baidu.com/s/zuoyebang/</string>
+    <string name="share_weibo_invite_content_not_login">刚用了作业帮app，简直是逆天神器啊！手机拍照问作业，马上解决了有木有！偷偷放出下载地址：http://zhidao.baidu.com/s/zuoyebang/</string>
+    <string name="share_invite_content">我在玩作业帮,邀请码%d,下载有礼!拍照问作业,学霸秒回解忧。</string>
+    <string name="share_invite_content_not_login">我在玩作业帮,下载有礼!拍照问作业,学霸秒回解忧。</string>
+    <string name="mall_address_tip">该礼品为实物礼品，请完整填写寄送信息，以便您能顺利的收到礼品：</string>
+    <string name="mall_address_submit_success">提交成功，我们将在&lt;font color=#FF0000>一个月内&lt;/font>内向您邮寄礼品。您可以在“我的物品”中查看兑换信息</string>
+    <string name="mall_my_gift_receive_instructions">"收货须知:
+ 1、为保护各位同学的利益，请大家务必在收货时，当面拆箱核对，与快递单上礼品信息一致后再签收。一旦签收即代表确认此次邮寄，出现任何问题概不负责。
+ 2、出现实际礼品与快递单上礼品不符或快递员拒绝拆箱等情况，请务必拒收，并记下单号，反馈给作业帮官方QQ（2100378160）。
+ 3、兑换后超过1个月仍未收到礼品，请及时和作业帮QQ联系。如未收到的礼品超过兑换时间2个月，并且期间未反馈的，则不予以处理。"</string>
+    <string name="mall_my_gift_receive_tips">收货须知 ></string>
+    <string name="mall_my_gift_use_double_credit">使用双倍卡后24小时内您获得的经验值将会x2，确定使用？</string>
+    <string name="mall_my_gift_use_name_color">确定使用炫彩用户名卡？</string>
+    <string name="mall_my_gift_use_name_avatar_mask">确定使用“%s”头像装饰？</string>
+    <string name="mall_my_gift_use_more_name_color">"您目前正在使用%1$s，%2$s，是否还要使用？
+(注：同类物品使用时间不叠加哦！)"</string>
+    <string name="mall_home_title">财富商城</string>
+    <string name="mall_my">我的物品</string>
+    <string name="mall_price">财富值：&lt;font color=#fda514>%d&lt;/font></string>
+    <string name="mall_remain_wealth">我的财富值：&lt;font color=#fda514>%d&lt;/font></string>
+    <string name="mall_exchange_success">&lt;font color=#FF5353>%s&lt;/font>兑换成功，请前往我的物品</string>
+    <string name="mall_exchange_fail">出错啦！试试再次提交吧。</string>
+    <string name="mall_set_address_fail">出错啦！试试再次提交吧。</string>
+    <string name="mall_wealth_not_enough">财富不足</string>
+    <string name="mall_exchanging">正在兑换…</string>
+    <string name="mall_continue_shopping">再逛逛</string>
+    <string name="mall_goto_my">去我的物品</string>
+    <string name="mall_description">奖品介绍：</string>
+    <string name="mall_exchange_now">马上兑换</string>
+    <string name="mall_get_more_wealth">答题赚取更多></string>
+    <string name="mall_my_wealth">我的财富值&lt;font color=#fda514>%d&lt;/font></string>
+    <string name="mall_my_card">刮刮卡&lt;font color=#fda514>%d&lt;/font></string>
+    <string name="mall_exchange_confirm">兑换确认</string>
+    <string name="mall_sold_out">已兑完</string>
+    <string name="mall_use">    使用    </string>
+    <string name="mall_cancle_use">取消使用</string>
+    <string name="mall_wait_recharge">待充入</string>
+    <string name="mall_already_recharge">已充入</string>
+    <string name="mall_continue_use">继续使用</string>
+    <string name="mall_set_addr">补填地址</string>
+    <string name="mall_set_num">补填号码</string>
+    <string name="mall_qq_number_tip">"说明：
+ 1、请认真核对QQ号码，QQ号填写错误将导致充值失败
+ 2、兑换成功后，我们将在7个工作日将Q币充入所填写QQ号码
+ 3、兑换过程中出现问题请与官方QQ2100378160联系"</string>
+    <string name="mall_phone_tip">"说明：
+ 1、请认真核对手机号，因手机号填写错误将导致充值失败（部分广东联通用户不支持10元话费充值）
+ 2、兑换成功后，我们将在7个工作日将话费充入所填写的手机号
+ 3、兑换过程中出现问题请与官方QQ2100378160联系"</string>
+    <string name="mall_qq_number_tip_present">"说明：
+ 1、请认真核对QQ号码，QQ号填写错误将导致充值失败
+ 2、填写完成后，我们将在7个工作日将Q币充入所填写QQ号码
+ 3、领取过程中出现问题请与官方QQ2100378160联系"</string>
+    <string name="mall_phone_tip_present">"说明：
+ 1、请认真核对手机号，因手机号填写错误将导致充值失败（部分广东联通用户不支持10元话费充值）
+ 2、填写完成后，我们将在7个工作日将话费充入所填写的手机号
+ 3、领取过程中出现问题请与官方QQ2100378160联系"</string>
+    <string name="mall_exchange_qq">充入QQ号：&lt;font color=#FF5353>%1$s&lt;/font>&lt;br />兑换Q币数：&lt;font color=#FF5353>%2$d&lt;/font>&lt;br />消耗财富值：&lt;font color=#FF5353>%3$d&lt;/font></string>
+    <string name="mall_exchange_phone">充入手机号：&lt;font color=#FF5353>%1$s&lt;/font>&lt;br />兑换：&lt;font color=#FF5353>%2$s&lt;/font>&lt;br />消耗财富值：&lt;font color=#FF5353>%3$d&lt;/font></string>
+    <string name="mall_exchange_qq_success">兑换成功&lt;br />我们将在&lt;font color=#FF5353>7个工作日内&lt;/font>将Q币充入。</string>
+    <string name="mall_exchange_phone_success">兑换成功&lt;br />我们将在&lt;font color=#FF5353>7个工作日内&lt;/font>将话费充入。</string>
+    <string name="mall_exchange_qq_success_present">领取成功&lt;br />我们将在&lt;font color=#FF5353>15个工作日内&lt;/font>将Q币充入。</string>
+    <string name="mall_exchange_phone_success_present">领取成功&lt;br />我们将在&lt;font color=#FF5353>15个工作日内&lt;/font>将话费充入。</string>
+    <string name="mall_exchange_setaddr_success_present">领取成功&lt;br />我们将在&lt;font color=#FF5353>30个工作日内&lt;/font>将礼品寄出，请注意查收。</string>
+    <string name="mall_exchange_single_price">(%d/个)</string>
+    <string name="mall_exchange_number">充入号码:%s</string>
+    <string name="mall_exchange_qq_name">%1$s × %2$s</string>
+    <string name="sapi_common_retry_btn_text">重试</string>
+    <string name="sapi_common_setting_text">重试</string>
+    <string name="user_card_title_text">%1$s的%2$s</string>
+    <string name="user_card_ask_text">提问</string>
+    <string name="user_card_anser_text">回答</string>
+    <string name="user_card_advise_text">采纳回答</string>
+    <string name="user_card_post_text">发贴</string>
+    <string name="user_card_item_answer_count">%1$d回答</string>
+    <string name="user_card_default_pic_txt">[图片]</string>
+    <string name="circle_message_title">消息</string>
+    <string name="circle_message_from">来自%1$s</string>
+    <string name="scrap_zone">刮奖区</string>
+    <string name="scrape_card_btn_over">明日再战</string>
+    <string name="scrape_card_btn_continue">去答题赚卡</string>
+    <string name="scrape_card_title_over">恭喜你</string>
+    <string name="scrape_card_title_continue">再接再厉</string>
+    <string name="scrape_card_title_fail">别灰心</string>
+    <string name="scrape_card_title_local_before">幸运刮刮卡</string>
+    <string name="scrape_card_sub_title_before_local">赶快刮开下面的&lt;font color=#FF0000>刮奖区&lt;/font>看看幸运卡里面藏着什么</string>
+    <string name="scrape_card_sub_title_fail_local">别灰心，去刮刮卡活动专区，海量刮刮卡等你拿</string>
+    <string name="scrape_card_sub_title_suc_local">中奖啦！恭喜你获得&lt;font color=#FF0000>%s&lt;/font>，快去领奖品哟</string>
+    <string name="scrape_card_title_rmt_before">幸运刮刮卡</string>
+    <string name="scrape_card_sub_title_rmt_before">赶快刮开下面的&lt;font color=#FF0000>刮奖区&lt;/font>看看幸运卡里面藏着什么</string>
+    <string name="scrape_card_sub_title_rmt_fail">很遗憾，这张卡里好像没有什么咦，再接再厉吧</string>
+    <string name="scrape_card_sub_title_rmt_suc_shiwu">恭喜你获得&lt;font color=#FF0000>%s&lt;/font>,别忘了去&lt;font color=#FF0000>我的物品&lt;/font>填写收货地址哦！</string>
+    <string name="scrape_card_sub_title_rmt_suc_QB">恭喜你获得&lt;font color=#FF0000>%s&lt;/font>,别忘了去&lt;font color=#FF0000>我的物品&lt;/font>填写充值号码哦！</string>
+    <string name="scrape_card_sub_title_rmt_suc_huafei">恭喜你获得&lt;font color=#FF0000>%s&lt;/font>,别忘了去&lt;font color=#FF0000>我的物品&lt;/font>填写充值号码哦</string>
+    <string name="scrape_card_sub_title_rmt_suc_xuni">恭喜你获得&lt;font color=#FF0000>%s&lt;/font>,别忘了去&lt;font color=#FF0000>我的物品&lt;/font>查看使用哦！</string>
+    <string name="scrape_card_sub_title_rmt_suc_caifuzhi">恭喜你获得&lt;font color=#FF0000>%s&lt;/font>,再接再厉哦！</string>
+    <string name="scrape_card_sub_title_rmt_suc_card">恭喜你获得&lt;font color=#FF0000>%s&lt;/font>,再接再厉哦！</string>
+    <string name="scrape_card_share">中奖啦！我在作业帮刮刮卡活动中获得了%s。你也来试试手气刮刮看吧！</string>
+    <string name="scrape_card_share_weibo">中奖啦！我在作业帮刮刮卡活动中获得了%s。你也来试试手气刮刮看吧！下载地址：http://t.cn/8Fq21lf</string>
+    <string name="circle_all_list_header_member_click">成员 %s ></string>
+    <string name="photo_show_detail_title">详细资料</string>
+    <string name="photo_show_detail_reply_placeholder">我也评论下</string>
+    <string name="photo_show_detail_reply_empty">至少输入1个字哦</string>
+    <string name="photo_show_detail_reply_success">评论成功</string>
+    <string name="photo_show_detail_reply_fail">评论失败</string>
+    <string name="photo_show_detail_reply_btn">发表</string>
+    <string name="photo_show_detail_delete_success">删除成功</string>
+    <string name="photo_show_detail_delete_fail">删除失败</string>
+    <string name="photo_show_detail_deleted_by_self">萌图已被用户本人删除</string>
+    <string name="photo_show_detail_deleted_by_spam">原图因违规已被屏蔽</string>
+    <string name="photo_show_detail_first_by_self">继续加油，大奖不远啦</string>
+    <string name="photo_show_detail_first_by_other">快来围观新一代萌主吧</string>
+    <string name="circle_show_photo_detail_support_normal_text">投票</string>
+    <string name="circle_show_photo_detail_support_support_text">已投票</string>
+    <string name="circle_show_photo_detail_header_id">(ID:%s)</string>
+    <string name="circle_show_photo_detail_header_vote">票数：%d</string>
+    <string name="circle_show_photo_detail_header_rank">排名：%d</string>
+    <string name="circle_show_photo_detail_header_distance">距前一名还差&lt;font color=#FF8B89>%d&lt;/font>票</string>
+    <string name="circle_show_photo_detail_header_introduce">自我介绍：%s</string>
+    <string name="share_invite_vote_my_content">我好想要个拍立得，大家快来【作业帮】帮我投一票吧！</string>
+    <string name="share_invite_vote_other_content">我在【作业帮】看到一张超萌的照片，你们也来见识下！</string>
+    <string name="share_invite_vote_my_title">我在挑战武林萌主，求投票！</string>
+    <string name="share_invite_vote_other_title">萌翻啦！快来给Ta投票吧！</string>
+    <string name="photo_show_list_support_text">%d票</string>
+    <string name="photo_show_list_title">萌图秀场</string>
+    <string name="photo_show_list_upload_tip">上传我的萌照</string>
+    <string name="photo_show_list_upload_spam">原图已被屏蔽</string>
+    <string name="photo_show_list_my_rank">我的排名：%d</string>
+    <string name="photo_show_content_empty">介绍下自己嘛</string>
+    <string name="photo_show_photo_empty">还木有上传你的萌图哦</string>
+    <string name="photo_show_content_over">介绍不能超过12个字哦</string>
+    <string name="photo_show_search_fail">你找的萌照好像不存在哦</string>
+    <string name="photo_show_rules">"1、7月18日-7月31日期间，上传自己的暑期萌照，每人限传1张
+2、截至7月31日 12:00票数最多的15人可获得奖品，别忘了给自己拉票喔
+3、严禁作弊、上传网络及明星等非本人图片，一经发现则直接删除并取消获奖资格
+4、8月1日在萌图秀置顶帖中公布获奖名单，8月7日发放奖品"</string>
+    <string name="camera_custom_error_dialog">"1、相机权限未开启（请前往“设置->应用”中开启）
+
+2、其他的应用占用了相机"</string>
+    <string name="friend_black_friend">屏蔽此人</string>
+    <string name="friend_black_friend_success">屏蔽成功</string>
+    <string name="friend_cancel_black_friend">取消屏蔽</string>
+    <string name="friend_cancel_black_friend_success">取消屏蔽成功</string>
+    <string name="friend_delete_friend_success">解除好友成功</string>
+    <string name="friend_delete_friend">解除好友</string>
+    <string name="friend_voice_hold_speak">按住 说话</string>
+    <string name="friend_voice_release_end">松开 结束</string>
+    <string name="friend_voice_slide_cancel_send">手指上滑，取消发送</string>
+    <string name="friend_voice_let_cancel_send">松开手指，取消发送</string>
+    <string name="friend_voice_time_short">按住时间太短哦~</string>
+    <string name="chat_invalidate_tip">提示：对方发送的内容可能涉及不健康内容，如造成骚扰，可点击页面右上角将其加入黑名单</string>
+    <string name="friend_myfriend">我的好友</string>
+    <string name="friend_newfriend">新的朋友</string>
+    <string name="friend_no_newfriend">暂时木有新的好友申请哦</string>
+    <string name="friend_accept">接受</string>
+    <string name="friend_accepted">已添加</string>
+    <string name="friend_accept_text">学霸，请和我做朋友吧！</string>
+    <string name="usercard_friend_send_request_ok">好友请求发送成功！</string>
+    <string name="usercard_black">屏蔽</string>
+    <string name="usercard_cancel">取消</string>
+    <string name="usercard_confirm">确定</string>
+    <string name="usercard_remove">解除</string>
+    <string name="usercard_send">发送验证</string>
+    <string name="usercard_black_title">屏蔽用户</string>
+    <string name="usercard_black_message">屏蔽后你与对方的好友关系将同时解除，后续你将不会收到来自对方的任何私信消息或好友申请。确定屏蔽该用户？</string>
+    <string name="usercard_send_title0">好友验证</string>
+    <string name="usercard_send_title1">好友验证后才能发私信哦</string>
+    <string name="usercard_remove_request_text">确定解除好友关系？解除后会同时将你从对方的好友中删除。</string>
+    <string name="friend_addfriend">加好友</string>
+    <string name="friend_addfriend_title">添加好友</string>
+    <string name="friend_addfriend_qq">添加QQ联系人</string>
+    <string name="friend_addfriend_nearby_classmate">附近同学</string>
+    <string name="friend_addfriend_school">同校伙伴</string>
+    <string name="friend_addfriend_qq_fail_nosd">添加QQ连续人功能需要SD卡支持，请检查SD卡</string>
+    <string name="friend_addfriend_text">加为好友</string>
+    <string name="friend_send_text">发送私信</string>
+    <string name="nearly_location_remove_title">清除位置信息</string>
+    <string name="nearly_location_remove_text">确定要清除你的位置信息？清除后你将无法查看附近的小伙伴咯。</string>
+    <string name="friend_nearly_readme">分享自己的位置，可以查看附近的同学</string>
+    <string name="friend_nearly_btn_text">查看附近的小伙伴</string>
+    <string name="friend_sameschool_readme">快去召唤同校的小伙伴</string>
+    <string name="friend_sameschool_desc">成功邀请1人加入可获&lt;font color=#fda514>10&lt;/font>财富值奖励哦</string>
+    <string name="friend_sameschool_btn_text">邀请同学</string>
+    <string name="friend_sameschool_noschool_readme">暂时木有你的学校信息</string>
+    <string name="friend_sameschool_noschool_desc">填写学校信息可获&lt;font color=#fda514>20&lt;/font>财富值奖励哦</string>
+    <string name="friend_sameschool_noschool_btn_text">填写学校</string>
+    <string name="task_title">任务盒子</string>
+    <string name="friend_add_title">一起加入作业帮吧</string>
+    <string name="friend_add_content">我在作业帮，这里既能解难题，又能看好贴，一起来吧，等你呦！</string>
+    <string name="friend_nearly_noone">咦，周围的小伙伴去哪了？</string>
+    <string name="friend_nearly_wait">暂时木有找到附近的人，稍后再来吧</string>
+    <string name="task_checkin_ok">签到成功！</string>
+    <string name="task_btn_text_complete">已完成</string>
+    <string name="task_btn_text_complete_today">今天已签到，明日再来</string>
+    <string name="task_checkin_btntext">我要签到</string>
+    <string name="task_newusertask_title">新手大礼包</string>
+    <string name="image_explorer_rotate_left">向左</string>
+    <string name="image_explorer_rotate_right">向右</string>
+    <string name="image_explorer_anwer">回答Ta</string>
+</resources>

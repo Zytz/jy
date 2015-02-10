@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:paddingLeft="20.0dip" android:paddingTop="8.0dip" android:paddingRight="10.0dip" android:paddingBottom="8.0dip" style="@style/homework_qb2_right_root_linearlayout"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:background="@drawable/homework_qb2_selector_right_item_bg" android:paddingLeft="@dimen/homework_qb2_item_padding_picture_min_width" android:paddingTop="@dimen/homework_qb2_item_padding_picture_top" android:paddingRight="@dimen/homework_qb2_item_padding_picture_max_width" android:paddingBottom="@dimen/homework_qb2_item_padding_picture_bottom" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <com.baidu.homework.common.ui.widget.ListImageView android:id="@id/friend_chat_iv_picture" style="@style/homework_qb2_item_picture_no_padding_bg" />
+    </FrameLayout>
+</LinearLayout>

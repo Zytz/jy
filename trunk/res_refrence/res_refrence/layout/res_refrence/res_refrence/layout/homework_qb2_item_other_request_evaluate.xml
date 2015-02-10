@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:paddingLeft="10.0dip" android:paddingRight="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include layout="@layout/homework_qb2_item_portrait" />
+    <LinearLayout android:layout_gravity="center_vertical" android:orientation="vertical" android:background="@drawable/homework_qb2_selector_left_item_bg" android:paddingLeft="@dimen/homework_qb2_item_padding_text_max_width" android:paddingTop="@dimen/homework_qb2_item_padding_text_top" android:paddingRight="@dimen/homework_qb2_item_padding_text_min_width" android:paddingBottom="@dimen/homework_qb2_item_padding_text_bottom" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="@dimen/common_text_size_20" android:textColor="#ff373737" android:id="@id/homework_tv_qb2_request_content" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/homework_qb2_request_evaluate" />
+        <Button android:layout_gravity="bottom" android:id="@id/homework_bt_evaluate" android:paddingTop="5.0dip" android:paddingBottom="5.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="立即采纳" style="@style/common_yellow_button" />
+    </LinearLayout>
+</LinearLayout>

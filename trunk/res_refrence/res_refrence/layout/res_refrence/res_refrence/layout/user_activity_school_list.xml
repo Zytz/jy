@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="@dimen/common_text_size_21" android:textColor="#ff838383" android:id="@id/user_school_list_info_txt_id" android:paddingLeft="20.0dip" android:paddingBottom="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    <com.baidu.homework.common.ui.list.ListViewLayout android:id="@id/user_school_list_layout_id" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</LinearLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:id="@id/mall_guide_tab" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
+        <ImageView android:id="@id/mall_guide_highlight_tab" android:background="@drawable/mall_guide_tab" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="85.0" />
+        <View android:background="#c6000000" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="3.0" />
+    </LinearLayout>
+    <FrameLayout android:background="#c6000000" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_above="@id/mall_guide_tab">
+        <ImageView android:layout_gravity="bottom|right|center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dip" android:src="@drawable/mall_guide_pic" />
+        <ImageView android:layout_gravity="bottom|right|center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="60.0dip" android:layout_marginBottom="90.0dip" android:src="@drawable/mall_guide_word" />
+    </FrameLayout>
+</RelativeLayout>

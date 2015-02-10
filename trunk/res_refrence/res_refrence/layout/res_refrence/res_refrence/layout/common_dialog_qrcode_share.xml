@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="@dimen/common_text_size_21" android:textColor="#ff333333" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="扫描二维码下载作业帮" />
+    <TextView android:textSize="@dimen/common_text_size_21" android:textColor="#ff333333" android:id="@id/common_tv_qr_invite_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="注册时填写我的邀请码" />
+    <TextView android:textSize="@dimen/common_text_size_24" android:textStyle="bold" android:textColor="#ffff9292" android:id="@id/common_share_tv_invite_code" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/common_share_qr_code" />
+</LinearLayout>

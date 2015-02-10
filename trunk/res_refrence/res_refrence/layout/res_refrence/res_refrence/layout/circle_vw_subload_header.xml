@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:orientation="horizontal" android:id="@id/circle_tv_article_subload_layout" android:background="@drawable/circle_article_reply_item_bg" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:layout_gravity="top" android:background="#ffbfbfbf" android:layout_width="fill_parent" android:layout_height="0.5dip" />
+    <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:paddingTop="10.0dip" android:paddingBottom="10.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <TextView android:textSize="@dimen/common_text_size_24" android:textColor="#ff999999" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/circle_tv_article_subload_btn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="查看之前楼层" />
+        <ProgressBar android:layout_gravity="center_vertical" android:id="@id/circle_tv_article_subload_progress" android:layout_width="24.0dip" android:layout_height="24.0dip" android:indeterminateDrawable="@drawable/common_loading_progressbar_anim_drawable" />
+    </LinearLayout>
+</FrameLayout>

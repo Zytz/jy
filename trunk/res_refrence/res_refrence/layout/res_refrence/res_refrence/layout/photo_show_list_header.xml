@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="#fffffddd" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="280.0dip">
+        <ImageView android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/photo_show_top_bg" android:scaleType="fitXY" />
+        <LinearLayout android:gravity="center_vertical" android:background="@drawable/photo_show_list_search_bg" android:paddingLeft="5.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="11.0dip" android:layout_marginBottom="10.0dip" android:layout_alignParentBottom="true">
+            <EditText android:textSize="@dimen/common_text_size_18" android:textColorHint="#ffadadad" android:id="@id/photo_show_et_search" android:background="@null" android:layout_width="140.0dip" android:layout_height="wrap_content" android:layout_marginTop="7.0dip" android:layout_marginBottom="7.0dip" android:hint="输入萌照编号搜索" android:maxLines="1" android:singleLine="true" android:inputType="number" />
+            <ImageButton android:id="@id/photo_show_ib_search" android:background="@null" android:paddingLeft="5.0dip" android:paddingTop="5.0dip" android:paddingRight="10.0dip" android:paddingBottom="5.0dip" android:layout_width="30.0dip" android:layout_height="25.0dip" android:src="@drawable/photo_show_search_btn_bg" android:scaleType="fitXY" />
+        </LinearLayout>
+        <TextView android:textSize="18.0sp" android:textColor="@android:color/white" android:id="@id/photo_show_tv_rules" android:paddingRight="10.0dip" android:paddingBottom="15.0dip" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="规则详情" android:drawableRight="@drawable/photo_show_icon_arrow" android:layout_alignParentRight="true" android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+    <LinearLayout android:layout_gravity="center_horizontal" android:orientation="horizontal" android:background="@drawable/photo_show_input_bg" android:padding="1.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:layout_marginBottom="10.0dip">
+        <Button android:textColor="#ff6f3524" android:id="@id/photo_show_btn_hot" android:background="@drawable/photo_show_left_tab_bg" android:paddingLeft="17.0dip" android:paddingTop="10.0dip" android:paddingRight="17.0dip" android:paddingBottom="10.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="最受欢迎" android:drawableLeft="@drawable/photo_show_icon_hot" android:drawablePadding="5.0dip" />
+        <Button android:textColor="#ff6f3524" android:id="@id/photo_show_btn_new" android:background="@drawable/photo_show_right_tab_bg" android:paddingLeft="17.0dip" android:paddingTop="10.0dip" android:paddingRight="17.0dip" android:paddingBottom="10.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="最新发布" android:drawableLeft="@drawable/photo_show_icon_new" android:drawablePadding="5.0dip" />
+    </LinearLayout>
+</LinearLayout>

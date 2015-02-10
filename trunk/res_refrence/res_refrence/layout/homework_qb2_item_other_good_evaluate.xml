@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:paddingLeft="10.0dip" android:paddingRight="10.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include layout="@layout/homework_qb2_item_portrait" />
+    <LinearLayout android:orientation="vertical" android:background="@drawable/homework_qb2_selector_left_item_bg" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="horizontal" android:paddingLeft="@dimen/homework_qb2_item_padding_picture_max_width" android:paddingRight="@dimen/homework_qb2_item_padding_text_min_width" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <ImageView android:paddingLeft="10.0dip" android:paddingTop="10.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/homework_qb2_good_evaluate" />
+            <TextView android:layout_gravity="center_vertical" android:paddingLeft="14.0dip" android:paddingTop="10.0dip" android:text="@string/homework_qb2_answer_good_evaluate" style="@style/homework_qb2_item_text_no_padding" />
+        </LinearLayout>
+        <ImageView android:background="#ffe7e8ea" android:layout_width="fill_parent" android:layout_height="1.0px" android:layout_marginLeft="8.0dip" android:layout_marginBottom="5.0dip" />
+        <LinearLayout android:orientation="vertical" android:id="@id/homework_qb2_ll_wealth" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="@dimen/common_text_size_18" android:textColor="#ff373737" android:id="@id/homework_tv_qb2_wealth" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="25.0dip" android:layout_marginTop="5.0dip" android:layout_marginBottom="4.0dip" android:text="@string/homework_wealth_added" android:drawableLeft="@drawable/homework_qb2_blue_wealth" android:drawableRight="@drawable/homework_qb2_arrow" android:drawablePadding="6.0dip" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

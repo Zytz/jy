@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_gravity="center" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/common_rmt_data_view_id" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <FrameLayout android:gravity="center" android:id="@id/foot_info_list_view_loading_id" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <FrameLayout android:gravity="center" android:id="@id/foot_info_list_view_empty_id" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <FrameLayout android:gravity="center" android:id="@id/foot_info_list_view_error_id" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <FrameLayout android:gravity="center" android:id="@id/foot_info_list_view_net_error_id" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <FrameLayout android:gravity="center" android:id="@id/foot_info_list_view_no_login_id" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</FrameLayout>

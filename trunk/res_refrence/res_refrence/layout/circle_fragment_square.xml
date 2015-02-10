@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.baidu.homework.common.ui.list.ListPullView android:id="@id/pullview" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <RelativeLayout android:id="@id/square_gps_view" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <RelativeLayout android:background="@drawable/square_top_tip_bg" android:paddingLeft="10.0dip" android:paddingTop="7.0dip" android:paddingRight="10.0dip" android:paddingBottom="7.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="10.0dip">
+            <TextView android:textSize="@dimen/common_text_size_21" android:textColor="#ff666666" android:id="@id/square_gps_tip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/circle_square_gps_searching" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+            <TextView android:textSize="@dimen/common_text_size_21" android:textColor="#ff3ab2ff" android:id="@id/square_select_region" android:visibility="gone" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="手动选择地区>" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+            <ProgressBar android:id="@id/square_gps_loading" android:layout_width="20.0dip" android:layout_height="20.0dip" android:layout_marginRight="13.0dip" android:indeterminateDrawable="@drawable/common_alert_waiting_anim_black" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+        </RelativeLayout>
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_centerVertical="true">
+            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/circle_square_girl" android:scaleType="center" />
+            <TextView android:textSize="@dimen/common_text_size_23" android:textColor="#ff838383" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15.0dip" android:text="精彩内容随后呈现..." />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

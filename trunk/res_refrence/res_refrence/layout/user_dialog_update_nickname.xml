@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditText android:textSize="@dimen/common_text_size_18" android:id="@id/user_et_nickname_input" android:background="@drawable/common_dialog_edit_text_bg" android:paddingLeft="10.0dip" android:layout_width="fill_parent" android:layout_height="40.0dip" android:text="" android:maxLength="12" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" />
+    <TextView android:textSize="@dimen/common_text_size_18" android:textColor="@color/user_text_color_gray" android:id="@id/user_tv_nickname_promopt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dip" android:text="@string/user_nickname_set_summary" android:layout_below="@id/user_et_nickname_input" />
+</RelativeLayout>

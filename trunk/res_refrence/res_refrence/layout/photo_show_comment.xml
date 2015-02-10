@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:layout_gravity="top|center" android:background="#ffffffff" android:paddingLeft="15.0dip" android:paddingTop="10.0dip" android:paddingRight="10.0dip" android:paddingBottom="10.0dip" android:clickable="false" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="@dimen/list_name_size" android:textColor="@color/mall_name_color_normal" android:ellipsize="end" android:id="@id/photo_show_comment_uname" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="130.0dip" android:text="HELLO" android:singleLine="true" />
+        <ImageView android:id="@id/photo_show_comment_sex" android:layout_width="wrap_content" android:layout_height="0.0dip" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip" android:src="@drawable/common_sex_boy" android:layout_toRightOf="@id/photo_show_comment_uname" android:layout_alignTop="@id/photo_show_comment_uname" android:layout_alignBottom="@id/photo_show_comment_uname" />
+        <TextView android:textSize="@dimen/list_time_size" android:textColor="#ffb1b1b1" android:id="@id/photo_show_comment_floor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/circle_article_reply_floor" android:layout_alignTop="@id/photo_show_comment_uname" android:layout_alignParentRight="true" />
+        <TextView android:textSize="@dimen/common_text_size_20" android:textColor="#ff373737" android:id="@id/photo_show_comment_content" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="2.0dip" android:text="这，这是一些内容这是一些内容这是一些内容是一些内容" android:layout_toRightOf="@id/circle_recyclingimageview_reply_avatar" android:layout_below="@id/photo_show_comment_uname" android:lineSpacingExtra="4.0dip" />
+    </RelativeLayout>
+    <View android:background="#60ffe38e" android:layout_width="fill_parent" android:layout_height="1.0dip" />
+</LinearLayout>

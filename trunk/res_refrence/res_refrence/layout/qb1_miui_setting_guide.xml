@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/guide_root" android:background="#c0000000" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="90.0dip" android:src="@drawable/guide_miui_image" android:layout_alignParentTop="true" android:layout_centerHorizontal="true" />
+    <Button android:id="@id/btn_ok" android:layout_width="280.0dip" android:layout_marginBottom="140.0dip" android:text="立即设置" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" style="@style/common_yellow_button" />
+    <Button android:id="@id/btn_cancel" android:layout_width="280.0dip" android:layout_marginBottom="80.0dip" android:text="忽略" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" style="@style/common_gray_button" />
+</RelativeLayout>

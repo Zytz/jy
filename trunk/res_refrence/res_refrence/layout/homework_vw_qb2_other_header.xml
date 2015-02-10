@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:paddingLeft="10.0dip" android:paddingTop="10.0dip" android:paddingRight="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="@dimen/common_text_size_18" android:textColor="#ffffffff" android:layout_gravity="center_horizontal" android:id="@id/homework_qb2_tv_qb1" android:background="@drawable/homework_qb2_selector_enter_qb1_bg" android:paddingLeft="10.0dip" android:paddingTop="5.0dip" android:paddingRight="10.0dip" android:paddingBottom="5.0dip" android:visibility="gone" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip" android:drawableRight="@drawable/homework_qb2_header_arrow" android:drawablePadding="5.0dip" />
+    <LinearLayout android:orientation="horizontal" android:id="@id/homework_qb2_ll_text" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <com.baidu.homework.common.net.RecyclingImageView android:id="@id/homework_qb2_iv_portrait_text" style="@style/homework_qb2_item_left_portrait" />
+        <TextView android:gravity="center_vertical" android:id="@id/homework_qb2_tv_text" android:text="本人" style="@style/homework_qb2_item_text_left" />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:id="@id/homework_qb2_ll_picture" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip">
+        <com.baidu.homework.common.net.RecyclingImageView android:id="@id/homework_qb2_iv_portrait_picture" style="@style/homework_qb2_item_left_portrait" />
+        <LinearLayout android:orientation="vertical" android:id="@id/homework_qb2_ll_which" android:background="@drawable/homework_qb2_selector_left_item_bg" android:paddingLeft="@dimen/homework_qb2_item_padding_picture_max_width" android:paddingTop="@dimen/homework_qb2_item_padding_picture_top" android:paddingRight="@dimen/homework_qb2_item_padding_picture_min_width" android:paddingBottom="@dimen/homework_qb2_item_padding_picture_bottom" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView android:textSize="@dimen/common_text_size_20" android:id="@id/homework_qb2_tv_which" android:paddingBottom="@dimen/homework_qb2_item_padding_which" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <com.baidu.homework.common.ui.widget.ListImageView android:id="@id/homework_qb2_iv_picture" style="@style/homework_qb2_item_picture_no_bg" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

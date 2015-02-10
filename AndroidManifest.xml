@@ -7,9 +7,10 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="18" />
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/lanch"
@@ -24,15 +25,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.CameraActivityTest"/>
-        <activity android:name=".view.MediaPlayerActivity"/>
-        <activity android:name=".IssueActivity"/>
-        <activity android:name=".HighScoreIssue"/>
-        <activity android:name=".ProblemList"/>
-         <activity android:name=".LoginActivity"/>
-         <activity android:name=".Regist" />
-         <activity  android:name=".RegistFirst" />
-         <activity  android:name=".ChooseGrade" />
+        <activity android:name=".view.CameraActivityTest" />
+        <activity android:name=".view.MediaPlayerActivity" />
+        <activity android:name=".IssueActivity" />
+        <activity android:name=".HighScoreIssue" />
+        <activity android:name=".ProblemList" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".Regist" />
+        <activity android:name=".RegistFirst" />
+        <activity android:name=".view.UserCenter" />
+        <activity android:name=".ChooseGrade" />
     </application>
 
 </manifest>

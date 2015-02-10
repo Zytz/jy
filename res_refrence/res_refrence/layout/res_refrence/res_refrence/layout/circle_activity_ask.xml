@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <RelativeLayout android:id="@id/ask_et_layout" android:background="@drawable/circle_selector_ask_input_bg" android:paddingBottom="0.5dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="160.0dip">
+            <com.baidu.homework.common.ui.widget.PatchedEditText android:textColor="#ff373737" android:textColorHint="#ffd1d1d1" android:gravity="top|left|center" android:layout_gravity="top|right|center" android:id="@id/circle_et_content" android:background="@null" android:padding="10.0dip" android:scrollbars="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="4.0dip" android:hint="@string/circle_input_placeholder" android:minLines="2" android:maxLength="2500" />
+            <ImageView android:id="@id/circle_iv_preview" android:layout_width="60.0dip" android:layout_height="55.0dip" android:layout_marginLeft="15.0dip" android:layout_marginBottom="16.0dip" android:scaleType="centerCrop" android:cropToPadding="true" android:layout_below="@id/circle_et_content" />
+            <View android:id="@id/circle_ask_spliter" android:background="#ffededed" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_marginLeft="0.5dip" android:layout_marginRight="0.5dip" android:layout_below="@id/circle_iv_preview" />
+            <FrameLayout android:orientation="horizontal" android:background="@drawable/circle_selector_ask_bottom_bar" android:paddingLeft="15.0dip" android:layout_width="fill_parent" android:layout_height="40.0dip" android:layout_marginLeft="0.5dip" android:layout_marginRight="0.5dip" android:layout_marginBottom="10.0dip" android:layout_below="@id/circle_ask_spliter">
+                <LinearLayout android:orientation="horizontal" android:id="@id/circle_ask_operation_wrapper" android:layout_width="wrap_content" android:layout_height="fill_parent">
+                    <ImageView android:layout_gravity="center_vertical" android:id="@id/circle_ask_camera" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="15.0dip" android:src="@drawable/common_selector_small_camera_gray" />
+                    <ToggleButton android:layout_gravity="center_vertical" android:id="@id/circle_tb_ask_vote" android:background="@drawable/circle_selector_vote_button" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="13.0dip" android:textOn="" android:textOff="" />
+                    <ImageButton android:layout_gravity="center_vertical" android:id="@id/circle_ib_face" android:background="@drawable/btn_insert_selector_face" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                </LinearLayout>
+            </FrameLayout>
+        </RelativeLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/circle_ask_topic_container" android:paddingTop="10.0dip" android:paddingBottom="10.0dip" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="@dimen/common_text_size_20" android:textColor="#ff666666" android:id="@id/textView1" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="0.0dip" android:layout_marginBottom="10.0dip" android:text="发帖时试试这些话题：" />
+            <LinearLayout android:orientation="vertical" android:id="@id/topicListContainer" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+        </LinearLayout>
+        <ViewStub android:id="@id/circle_vs_vote" android:layout="@layout/circle_vw_vote" android:inflatedId="@id/circle_ll_vote" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    </LinearLayout>
+</ScrollView>

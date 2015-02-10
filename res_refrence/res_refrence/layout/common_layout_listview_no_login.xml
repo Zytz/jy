@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
+        <ImageView android:id="@id/common_iv_listview_image" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/common_loading_no_login_show" />
+        <TextView android:textSize="@dimen/common_text_size_24" android:textColor="@color/user_text_color_dark_gray" android:id="@id/common_tv_listview_big_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="@string/common_loading_no_login_msg" />
+        <TextView android:textSize="@dimen/common_text_size_18" android:textColor="@color/user_text_color_gray" android:id="@id/common_tv_listview_small_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="@string/common_loading_no_login_msg_sub" />
+        <Button android:id="@id/user_bt_unlogin" android:layout_width="250.0dip" android:layout_marginTop="20.0dip" android:text="@string/user_activity_unlogin_login_button" style="@style/common_yellow_button" />
+    </LinearLayout>
+</RelativeLayout>

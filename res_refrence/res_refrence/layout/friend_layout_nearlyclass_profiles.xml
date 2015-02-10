@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:id="@id/friend_profiles_tv_level" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="lv.2" style="@style/friend_layout_nearlyclass_profiles_text_style" />
+    <View android:id="@id/friend_profiles_v_school_split_line" android:background="#ffdddddd" android:layout_width="0.5dip" android:layout_height="fill_parent" android:layout_marginLeft="7.0dip" android:layout_marginTop="2.0dip" android:layout_marginRight="7.0dip" android:layout_marginBottom="2.0dip" />
+    <TextView android:ellipsize="end" android:id="@id/friend_profiles_tv_school" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="北京四中" android:singleLine="true" android:maxLength="20" style="@style/friend_layout_nearlyclass_profiles_text_style" />
+    <View android:id="@id/friend_profiles_v_grade_split_line" android:background="#ffdddddd" android:layout_width="0.5dip" android:layout_height="fill_parent" android:layout_marginLeft="7.0dip" android:layout_marginTop="2.0dip" android:layout_marginRight="7.0dip" android:layout_marginBottom="2.0dip" />
+    <TextView android:id="@id/friend_profiles_tv_grade" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="其他年级" style="@style/friend_layout_nearlyclass_profiles_text_style" />
+</LinearLayout>

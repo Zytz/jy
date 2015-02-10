@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="代理设置">
+        <CheckBoxPreference android:title="启用代理" android:key="@string/debug_key_proxy" android:summary="是否启用代理服务器" android:defaultValue="false" />
+        <EditTextPreference android:title="IP地址" android:key="@string/debug_key_ip" android:summary="输入代理服务器的IP地址" />
+        <EditTextPreference android:title="端口" android:key="@string/debug_key_port" android:summary="输入代理服务器的端口" android:defaultValue="8888" />
+    </PreferenceCategory>
+</PreferenceScreen>

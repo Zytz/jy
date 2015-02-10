@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:id="@id/user_ll_rank_wrapper" android:background="@drawable/user_selector_rank_item_bg" android:layout_width="fill_parent" android:layout_height="75.0dip">
+        <FrameLayout android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginRight="5.0dip">
+            <TextView android:textSize="@dimen/common_text_size_21" android:textColor="#ff888888" android:layout_gravity="center_horizontal" android:id="@id/user_tv_rank" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="100" android:drawableRight="@drawable/user_rank_up" android:drawablePadding="5.0dip" />
+        </FrameLayout>
+        <RelativeLayout android:layout_gravity="center_vertical" android:orientation="horizontal" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0">
+            <ImageView android:layout_gravity="center_horizontal" android:id="@id/user_iv_crown" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.0dip" android:layout_marginBottom="-2.0dip" android:src="@drawable/user_rank_gold_crown" />
+            <com.baidu.homework.common.net.RecyclingImageView android:layout_gravity="center_horizontal" android:id="@id/user_recyclingimageview_avatar" android:layout_width="44.0dip" android:layout_height="44.0dip" android:src="@drawable/common_shape_gray_circle_36" android:layout_below="@id/user_iv_crown" />
+            <RelativeLayout android:layout_gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:layout_marginRight="20.0dip" android:layout_toRightOf="@id/user_recyclingimageview_avatar" android:layout_alignTop="@id/user_recyclingimageview_avatar">
+                <TextView android:textSize="@dimen/common_text_size_20" android:textColor="#ff373737" android:ellipsize="end" android:id="@id/user_tv_uname" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="uname" android:singleLine="true" />
+                <TextView android:textSize="@dimen/common_text_size_15" android:textColor="#ff999999" android:ellipsize="end" android:id="@id/user_tv_level" android:paddingLeft="4.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:text="level" android:singleLine="true" android:layout_toRightOf="@id/user_tv_uname" android:layout_alignBaseline="@id/user_tv_uname" />
+                <TextView android:textSize="@dimen/common_text_size_15" android:textColor="#ff999999" android:ellipsize="end" android:id="@id/user_tv_school" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dip" android:layout_marginRight="10.0dip" android:text="school" android:singleLine="true" android:layout_below="@id/user_tv_uname" />
+                <TextView android:textSize="@dimen/common_text_size_15" android:textColor="#ff999999" android:ellipsize="end" android:id="@id/user_tv_grade" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dip" android:text="grade" android:singleLine="true" android:layout_toRightOf="@id/user_tv_school" android:layout_below="@id/user_tv_uname" />
+                <TextView android:textSize="@dimen/common_text_size_15" android:textColor="#ff333333" android:id="@id/user_tv_adopt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="9999" android:layout_alignBaseline="@id/user_tv_level" android:layout_alignParentRight="true" />
+                <TextView android:textSize="@dimen/common_text_size_15" android:textColor="#ff999999" android:id="@id/user_tv_adopt_tip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dip" android:text="回答" android:layout_below="@id/user_tv_uname" android:layout_alignParentRight="true" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+    <View android:background="#ffefefef" android:layout_width="fill_parent" android:layout_height="1.0dip" />
+</LinearLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:layout_gravity="center" android:id="@id/scrape_card_content_id" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="vertical" android:id="@id/scrape_card_sub_content_id" android:paddingLeft="15.0dip" android:paddingTop="25.0dip" android:paddingRight="15.0dip" android:layout_width="wrap_content" android:layout_height="374.0dip" android:layout_marginTop="73.0dip">
+            <TextView android:textSize="@dimen/common_text_size_38" android:textColor="#ffff0000" android:layout_gravity="center_horizontal" android:id="@id/scrape_card_title_id" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="幸运刮刮卡" android:singleLine="true" />
+            <TextView android:textSize="@dimen/common_text_size_21" android:textColor="#ff333333" android:layout_gravity="center_horizontal" android:id="@id/scrape_card_sub_title_id" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:maxWidth="240.0dip" android:text="赶快刮开下面的刮奖区看看里面藏着什么" />
+            <FrameLayout android:layout_gravity="center_horizontal" android:background="@drawable/bonus_zone_bg" android:padding="5.0dip" android:layout_width="240.0dip" android:layout_height="180.0dip" android:layout_marginTop="10.0dip" android:layout_marginBottom="10.0dip">
+                <ImageView android:layout_gravity="center" android:id="@id/scrape_result_view_id" android:background="@drawable/scrape_card_img_bg" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_margin="1.0dip" android:scaleType="center" />
+                <com.baidu.homework.activity.card.ScrapView android:layout_gravity="center" android:id="@id/scrape_card_view_id" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+            </FrameLayout>
+            <LinearLayout android:layout_gravity="center_horizontal" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="40.0dip">
+                <Button android:textSize="@dimen/common_text_size_18" android:layout_gravity="center_vertical" android:id="@id/scrape_btn_goto_act_page" android:layout_width="1.0dip" android:layout_margin="2.0dip" android:text="前往刮刮卡活动专区>>" android:layout_weight="1.0" style="@style/common_yellow_button" />
+                <Button android:textSize="@dimen/common_text_size_18" android:layout_gravity="center_vertical" android:id="@id/scrape_btn_get_more" android:layout_width="1.0dip" android:layout_margin="2.0dip" android:text="答题赚卡" android:layout_weight="1.5" style="@style/common_yellow_button" />
+                <Button android:textSize="@dimen/common_text_size_18" android:layout_gravity="center_vertical" android:id="@id/scrape_btn_get_next" android:layout_width="1.0dip" android:layout_margin="2.0dip" android:text="再刮一张" android:singleLine="true" android:layout_weight="1.5" style="@style/common_yellow_button" />
+                <Button android:textSize="@dimen/common_text_size_18" android:textColor="#cc000000" android:layout_gravity="center_vertical" android:id="@id/scrape_btn_show_result" android:background="@drawable/scrape_card_show_btn" android:layout_width="1.0dip" android:layout_height="40.0dip" android:layout_margin="2.0dip" android:text="去炫耀" android:layout_weight="1.0" />
+            </LinearLayout>
+        </LinearLayout>
+        <ImageView android:id="@id/mall_iv_girl" android:layout_width="76.0dip" android:layout_height="78.0dip" android:src="@drawable/mall_card_girl" android:layout_centerHorizontal="true" />
+        <ImageView android:id="@id/scrape_btn_close" android:padding="12.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/scrape_card_close_selector" android:layout_alignTop="@id/scrape_card_sub_content_id" android:layout_alignRight="@id/scrape_card_sub_content_id" />
+    </RelativeLayout>
+</FrameLayout>

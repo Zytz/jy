@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="#ffffffff" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res/com.baidu.homework">
+    <LinearLayout android:orientation="horizontal" android:paddingLeft="15.0dip" android:paddingRight="10.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="14.0dip" android:layout_marginBottom="14.0dip">
+        <FrameLayout android:background="#ffe9e9e9" android:layout_width="147.0dip" android:layout_height="147.0dip">
+            <com.baidu.homework.common.net.RecyclingImageView android:id="@id/circle_iv_show_photo_detail_picture" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scaleType="centerCrop" />
+            <View android:background="@drawable/circle_show_photo_avatar_bg" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+            <FrameLayout android:layout_gravity="bottom|right|center" android:id="@id/cirlce_fl_show_photo_detail_delete" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <ImageView android:layout_gravity="bottom|right|center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/circle_show_photo_detail_delete_bg" />
+                <ImageView android:layout_gravity="bottom|right|center" android:id="@id/circle_iv_show_photo_detail_delete" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="6.0dip" android:layout_marginBottom="6.0dip" android:src="@drawable/circle_selector_show_photo_detail_delete" />
+            </FrameLayout>
+        </FrameLayout>
+        <LinearLayout android:orientation="vertical" android:paddingLeft="9.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent">
+                <TextView android:textSize="@dimen/common_text_size_21" android:textColor="#ff3ab2ff" android:ellipsize="middle" android:id="@id/circle_tv_show_photo_detail_header_name" android:clickable="true" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="豆包仔" android:singleLine="true" android:layout_weight="1.0" />
+                <TextView android:textColor="#ff666666" android:layout_gravity="bottom" android:id="@id/circle_tv_show_photo_detail_header_id" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="1.0dip" android:text="(Id:1000000)" android:singleLine="true" />
+            </LinearLayout>
+            <TextView android:textSize="@dimen/common_text_size_18" android:textColor="#ff373737" android:ellipsize="end" android:id="@id/circle_tv_show_photo_detail_header_vote" android:paddingTop="7.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/circle_show_photo_detail_header_vote" android:singleLine="true" />
+            <TextView android:textSize="@dimen/common_text_size_18" android:textColor="#ff373737" android:ellipsize="end" android:id="@id/circle_tv_show_photo_detail_header_rank" android:paddingTop="7.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/circle_show_photo_detail_header_rank" android:singleLine="true" />
+            <TextView android:textSize="@dimen/common_text_size_18" android:textColor="#ff373737" android:ellipsize="end" android:id="@id/circle_tv_show_photo_detail_header_distance" android:paddingTop="7.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/circle_show_photo_detail_header_distance" android:lines="1" />
+            <TextView android:textSize="@dimen/common_text_size_18" android:textColor="#ff373737" android:ellipsize="end" android:id="@id/circle_tv_show_photo_detail_header_introduce" android:paddingTop="7.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:maxLines="2" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView android:textColor="#ff6f3524" android:gravity="center" android:id="@id/circle_tv_show_photo_my_btn" android:background="@drawable/common_selector_yellow_bt" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="34.0dip" android:layout_marginLeft="15.0dip" android:layout_marginRight="15.0dip" android:layout_marginBottom="10.0dip" android:text="拉人投票" />
+    <RelativeLayout android:gravity="center_vertical" android:id="@id/circle_rl_show_photo_other_btn" android:layout_width="fill_parent" android:layout_height="34.0dip">
+        <View android:background="#ffe6ae00" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_alignParentTop="true" />
+        <View android:id="@id/circle_v_line_left" android:background="#ffe6ae00" android:layout_width="1.0px" android:layout_height="fill_parent" android:layout_centerHorizontal="true" />
+        <View android:id="@id/circle_v_line_right" android:background="#ffffe992" android:layout_width="1.0px" android:layout_height="fill_parent" android:layout_toRightOf="@id/circle_v_line_left" android:layout_centerHorizontal="true" />
+        <LinearLayout android:textColor="#ffadadad" android:gravity="center" android:orientation="horizontal" android:id="@id/circle_ll_show_photo_good" android:background="@color/circle_show_photo_detail_vote_normal_color" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginTop="1.0dip" android:layout_toLeftOf="@id/circle_v_line_left">
+            <LinearLayout android:gravity="center" android:layout_gravity="center" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent">
+                <com.baidu.homework.common.ui.widget.VoteButton android:id="@id/circle_sb_show_photo_detail_good" android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/circle_show_photo_support_normal_icon" app:normalIcon="@drawable/circle_show_photo_support_normal_icon" app:supportedIcon="@drawable/circle_show_photo_support_support_icon" app:normalTextColor="#ff6f3524" app:supportedTextColor="#ffff4b47" app:normalTextSize="@dimen/common_text_size_18" app:supportedTextSize="@dimen/common_text_size_18" app:normalText="@string/circle_show_photo_detail_support_normal_text" app:zeroText="@string/circle_show_photo_detail_support_normal_text" app:supportText="@string/circle_show_photo_detail_support_support_text" app:cancellable="false" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@id/circle_ll_show_photo_vote" android:background="@drawable/circle_selector_show_photo_detail_header_vote_bg" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginTop="1.0dip" android:layout_toRightOf="@id/circle_v_line_right">
+            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <ImageView android:id="@id/circle_iv_show_photo_vote" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/circle_show_photo_detail_vote_icon" />
+                <TextView android:textSize="@dimen/common_text_size_18" android:textColor="#ff6f3524" android:id="@id/circle_tv_show_photo_vote" android:paddingLeft="3.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="分享拉票" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+    <View android:background="#ffe6ae00" android:layout_width="fill_parent" android:layout_height="1.0px" />
+    <View android:background="#fffffddd" android:layout_width="fill_parent" android:layout_height="10.0dip" />
+    <View android:background="#ffe6ae00" android:layout_width="fill_parent" android:layout_height="1.0px" />
+</LinearLayout>

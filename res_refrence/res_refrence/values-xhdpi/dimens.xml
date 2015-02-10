@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="mall_detail_image_height">220.0dip</dimen>
+    <dimen name="emotion_height">20.0dip</dimen>
+    <dimen name="video_play_small_view_height">203.0dip</dimen>
+    <dimen name="video_album_list_item_video_picture_wrapper_height">100.0dip</dimen>
+    <dimen name="init_guide_padding_1">50.0dip</dimen>
+    <dimen name="init_guide_btn_mb">35.0dip</dimen>
+    <dimen name="init_guide_indicator_mb">40.0dip</dimen>
+    <dimen name="init_grade_update_text_mt">80.0dip</dimen>
+    <dimen name="init_grade_update_img_mt">50.0dip</dimen>
+    <dimen name="init_grade_update_btn_space">15.0dip</dimen>
+    <dimen name="user_icon">70.0dip</dimen>
+    <dimen name="login_register_complete_grade_button_height">69.0dip</dimen>
+    <dimen name="login_register_complete_grade_button_width">69.0dip</dimen>
+    <dimen name="user_my_profile_grade_seletc_dialog_button_height">62.0dip</dimen>
+    <dimen name="user_my_profile_grade_seletc_dialog_button_width">62.0dip</dimen>
+    <dimen name="user_my_profile_grade_seletc_dialog_button_text_size">14.0sp</dimen>
+</resources>

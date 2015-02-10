@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:id="@id/user_fragment_layout" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.baidu.homework.common.ui.list.RmtDataShowLayout android:id="@id/user_data_show_layout_id" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</RelativeLayout>

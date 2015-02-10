@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout style="@style/common_share_root_linearlayout">
+        <LinearLayout android:id="@id/common_share_ll_qq_friend" style="@style/common_share_sub_linearlayout">
+            <ImageView android:src="@drawable/common_share_dialog_qq_icon" style="@style/common_share_imageView" />
+            <TextView android:text="QQ好友" style="@style/common_share_textView" />
+        </LinearLayout>
+        <LinearLayout android:id="@id/common_share_ll_qq_zone" style="@style/common_share_sub_linearlayout">
+            <ImageView android:src="@drawable/common_share_dialog_qq_zone_icon" style="@style/common_share_imageView" />
+            <TextView android:text="QQ空间" style="@style/common_share_textView" />
+        </LinearLayout>
+        <LinearLayout android:id="@id/common_share_ll_wechat_friends" style="@style/common_share_sub_linearlayout">
+            <ImageView android:src="@drawable/common_share_dialog_wechat_friends_icon" style="@style/common_share_imageView" />
+            <TextView android:text="微信好友" style="@style/common_share_textView" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:layout_marginTop="10.0dip" style="@style/common_share_root_linearlayout">
+        <LinearLayout android:id="@id/common_share_ll_wechat_circle" style="@style/common_share_sub_linearlayout">
+            <ImageView android:src="@drawable/common_share_dialog_wechat_circle_icon" style="@style/common_share_imageView" />
+            <TextView android:text="微信朋友圈" style="@style/common_share_textView" />
+        </LinearLayout>
+        <LinearLayout android:id="@id/common_share_ll_sina_weibo" style="@style/common_share_sub_linearlayout">
+            <ImageView android:src="@drawable/common_share_dialog_sina_weibo_icon" style="@style/common_share_imageView" />
+            <TextView android:text="新浪微博" style="@style/common_share_textView" />
+        </LinearLayout>
+        <LinearLayout android:id="@id/common_share_ll_qr_code" style="@style/common_share_sub_linearlayout">
+            <ImageView android:src="@drawable/common_share_dialog_qr_icon" style="@style/common_share_imageView" />
+            <TextView android:text="二维码" style="@style/common_share_textView" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

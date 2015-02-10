@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="#ffffffff" android:padding="15.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="@dimen/common_text_size_21" android:textColor="#ff333333" android:id="@id/common_weibo_share_tv" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/share_weibo_invite_content" />
+    <com.baidu.homework.common.ui.widget.ListImageView android:id="@id/common_weibo_share_iv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6.0dip" android:layout_marginBottom="6.0dip" android:layout_below="@id/common_weibo_share_tv" android:layout_alignParentLeft="true" />
+</RelativeLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="#99000000" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/task_guide_rl_content" android:layout_width="266.0dip" android:layout_height="315.0dip" android:layout_centerInParent="true">
+        <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_centerInParent="true">
+            <TextView android:textSize="@dimen/common_text_size_38" android:textColor="#ff903600" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="33.0dip" android:text="任务盒子闪亮登场 !" />
+            <TextView android:textSize="@dimen/common_text_size_20" android:textColor="#ff333333" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:text="天天做任务，日日赚财富" />
+            <ImageView android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dip" android:src="@drawable/task_guide_card" />
+            <Button android:textSize="@dimen/common_text_size_24" android:textColor="#ff7f3f00" android:layout_gravity="center" android:id="@id/index_iv_task_guide" android:background="@drawable/init_task_selector_bt_bg" android:layout_width="214.0dip" android:layout_height="41.0dip" android:layout_marginTop="10.0dip" android:text="做任务去" />
+        </LinearLayout>
+        <ImageView android:id="@id/index_task_guide_iv_close" android:padding="10.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/scrape_card_close_selector" android:layout_alignParentTop="true" android:layout_alignParentRight="true" />
+    </RelativeLayout>
+    <ImageView android:id="@id/task_guide_im_head" android:layout_width="76.0dip" android:layout_height="78.0dip" android:layout_marginBottom="-6.0dip" android:src="@drawable/mall_card_girl" android:scaleType="centerInside" android:layout_above="@id/task_guide_rl_content" android:layout_centerHorizontal="true" />
+</RelativeLayout>

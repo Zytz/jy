@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:paddingTop="5.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:id="@id/ask_ll_reward_line1" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <CheckBox android:textColor="@color/ask_reward_item_color" android:gravity="center" android:background="@drawable/ask_selector_reward_item" android:layout_width="0.0dip" android:layout_height="35.0dip" android:layout_margin="2.0dip" android:button="@null" android:text="0" android:layout_weight="1.0" />
+        <CheckBox android:textColor="@color/ask_reward_item_color" android:gravity="center" android:background="@drawable/ask_selector_reward_item" android:layout_width="0.0dip" android:layout_height="35.0dip" android:layout_margin="2.0dip" android:button="@null" android:text="5" android:layout_weight="1.0" />
+        <CheckBox android:textColor="@color/ask_reward_item_color" android:gravity="center" android:background="@drawable/ask_selector_reward_item" android:layout_width="0.0dip" android:layout_height="35.0dip" android:layout_margin="2.0dip" android:button="@null" android:text="10" android:layout_weight="1.0" />
+        <CheckBox android:textColor="@color/ask_reward_item_color" android:gravity="center" android:background="@drawable/ask_selector_reward_item" android:layout_width="0.0dip" android:layout_height="35.0dip" android:layout_margin="2.0dip" android:button="@null" android:text="15" android:layout_weight="1.0" />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:id="@id/ask_ll_reward_line2" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dip" android:layout_marginBottom="4.0dip">
+        <CheckBox android:textColor="@color/ask_reward_item_color" android:gravity="center" android:background="@drawable/ask_selector_reward_item" android:layout_width="0.0dip" android:layout_height="35.0dip" android:layout_margin="2.0dip" android:button="@null" android:text="20" android:layout_weight="1.0" />
+        <CheckBox android:textColor="@color/ask_reward_item_color" android:gravity="center" android:background="@drawable/ask_selector_reward_item" android:layout_width="0.0dip" android:layout_height="35.0dip" android:layout_margin="2.0dip" android:button="@null" android:text="30" android:layout_weight="1.0" />
+        <CheckBox android:textColor="@color/ask_reward_item_color" android:gravity="center" android:background="@drawable/ask_selector_reward_item" android:layout_width="0.0dip" android:layout_height="35.0dip" android:layout_margin="2.0dip" android:button="@null" android:text="50" android:layout_weight="1.0" />
+        <View android:gravity="center" android:visibility="invisible" android:layout_width="0.0dip" android:layout_height="35.0dip" android:layout_margin="2.0dip" android:layout_weight="1.0" />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dip">
+        <TextView android:textSize="@dimen/common_text_size_20" android:textColor="#ff666666" android:paddingRight="4.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ask_reward_wealth" />
+        <TextView android:textSize="@dimen/common_text_size_20" android:textColor="#fffda514" android:id="@id/ask_reward_wealth" android:paddingLeft="1.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableLeft="@drawable/common_reward_icon" android:drawablePadding="2.0dip" />
+    </LinearLayout>
+    <TextView android:textSize="@dimen/common_text_size_20" android:textColor="#ff666666" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dip" android:text="回答问题能赚取更多哦!" />
+</LinearLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="77.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:background="@drawable/common_selector_card_item_bg" android:layout_width="fill_parent" android:layout_height="67.0dip">
+        <com.baidu.homework.common.net.RecyclingImageView android:id="@id/mall_my_gift_iv_icon" android:layout_width="47.0dip" android:layout_height="47.0dip" android:layout_marginLeft="8.0dip" android:scaleType="centerCrop" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+        <ImageView android:id="@id/mall_my_gift_iv_state" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/mall_my_gift_state_using" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" />
+        <LinearLayout android:orientation="vertical" android:paddingBottom="3.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="9.0dip" android:layout_toRightOf="@id/mall_my_gift_iv_icon" android:layout_centerVertical="true">
+            <TextView android:textSize="@dimen/common_text_size_21" android:textColor="#ff333333" android:id="@id/mall_my_gift_tv_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="2.0dip" android:text="" />
+            <TextView android:textSize="@dimen/common_text_size_18" android:textColor="#ff999999" android:id="@id/mall_my_gift_tv_number" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" />
+            <TextView android:textSize="@dimen/common_text_size_18" android:textColor="#ff999999" android:id="@id/mall_my_gift_tv_timeinfo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" />
+        </LinearLayout>
+        <Button android:textSize="13.0sp" android:textColor="#ff795500" android:gravity="center" android:id="@id/mall_my_gift_bt" android:background="@drawable/common_selector_yellow_bt" android:padding="3.0dip" android:focusable="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dip" android:text="@string/mall_cancle_use" android:layout_alignParentRight="true" android:layout_centerVertical="true" style="@style/common_yellow_button" />
+        <TextView android:textSize="13.0sp" android:textColor="@color/mall_label_red" android:gravity="center" android:id="@id/mall_my_gift_label" android:background="@drawable/mall_shape_label_bg_red" android:paddingLeft="10.0dip" android:paddingTop="3.0dip" android:paddingRight="10.0dip" android:paddingBottom="3.0dip" android:focusable="false" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dip" android:text="@string/mall_wait_recharge" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    </RelativeLayout>
+</LinearLayout>

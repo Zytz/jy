@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.baidu.homework.common.ui.widget.ResizeRelativeLayout android:id="@id/rootRelativeLayout" android:background="#ff000000" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@id/common_photo_ll_buttons" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
+        <LinearLayout android:orientation="horizontal" android:id="@id/common_photo_ll_buttons_texts" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView android:id="@id/common_photo_tv_back" android:text="@string/common_back" android:drawableTop="@drawable/common_photo_selector_back_button" style="@style/photo_buttons" />
+            <TextView android:id="@id/common_photo_tv_rotate_left" android:text="@string/image_explorer_rotate_left" android:drawableTop="@drawable/common_photo_selector_rotate_left_button" style="@style/photo_buttons" />
+            <TextView android:id="@id/common_photo_tv_rotate_right" android:text="@string/image_explorer_rotate_right" android:drawableTop="@drawable/common_photo_selector_rotate_right_button" style="@style/photo_buttons" />
+            <TextView android:textColor="#ff3ab2ff" android:id="@id/common_photo_tv_ok" android:text="@string/image_explorer_anwer" android:drawableTop="@drawable/common_photo_selector_reply_button" style="@style/photo_buttons" />
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:id="@id/common_photo_ll_buttons_images" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <ImageView android:id="@id/common_photo_ib_back" android:src="@drawable/common_photo_selector_back_button" android:text="@string/common_back" android:contentDescription="@null" style="@style/photo_buttons" />
+            <ImageView android:id="@id/common_photo_ib_rotate_left" android:src="@drawable/common_photo_selector_rotate_left_button" android:text="@string/image_explorer_rotate_left" android:contentDescription="@null" style="@style/photo_buttons" />
+            <ImageView android:id="@id/common_photo_ib_rotate_right" android:src="@drawable/common_photo_selector_rotate_right_button" android:text="@string/image_explorer_rotate_right" android:contentDescription="@null" style="@style/photo_buttons" />
+            <ImageView android:id="@id/common_photo_ib_ok" android:src="@drawable/common_photo_selector_close_button" android:text="@string/image_explorer_anwer" android:contentDescription="@null" style="@style/photo_buttons" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/reply_root" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <LinearLayout android:orientation="vertical" android:id="@id/homework_qb1_ll_reply_input_edit" android:focusable="true" android:focusableInTouchMode="true" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <View android:background="#ffcecece" android:layout_width="fill_parent" android:layout_height="1.0px" />
+                <RelativeLayout android:id="@id/homework_qb1_ll_input" android:background="#fff9f8f8" android:paddingLeft="10.0dip" android:paddingTop="12.0dip" android:paddingRight="10.0dip" android:paddingBottom="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="58.0dip">
+                    <ImageView android:id="@id/homework_qb1_iv_reply" android:layout_width="wrap_content" android:layout_height="33.0dip" android:layout_marginRight="5.0dip" android:src="@drawable/common_selector_small_camera_gray" android:scaleType="centerInside" android:layout_alignParentTop="true" android:contentDescription="@null" />
+                    <Button android:textSize="@dimen/common_text_size_20" android:id="@id/homework_qb1_bt_reply_edit" android:background="@drawable/common_selector_yellow_bt" android:layout_width="61.0dip" android:layout_height="33.0dip" android:layout_marginLeft="8.0dip" android:text="发送" android:layout_alignParentTop="true" android:layout_alignParentRight="true" style="@style/common_yellow_button" />
+                    <EditText android:textSize="@dimen/common_text_size_20" android:textColorHint="#ffafafaf" android:gravity="center_vertical" android:id="@id/homework_qb1_et_reply" android:background="@drawable/common_edit_bg" android:paddingLeft="10.0dip" android:paddingTop="5.0dip" android:paddingRight="10.0dip" android:paddingBottom="5.0dip" android:scrollbars="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:minHeight="33.0dip" android:hint="我来回答" android:maxLines="5" android:maxLength="2500" android:layout_toLeftOf="@id/homework_qb1_bt_reply_edit" android:layout_toRightOf="@id/homework_qb1_iv_reply" android:layout_alignParentTop="true" />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/homework_qb1_ll_reply_input" android:background="#fff9f8f8" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <View android:background="#ffcecece" android:layout_width="fill_parent" android:layout_height="1.0px" />
+                <Button android:textSize="@dimen/common_text_size_21" android:textColor="#ff795500" android:gravity="center" android:layout_gravity="center" android:id="@id/homework_qb1_bt_reply" android:background="@drawable/common_selector_yellow_bt" android:layout_width="fill_parent" android:layout_height="42.0dip" android:layout_marginLeft="58.0dip" android:layout_marginTop="8.0dip" android:layout_marginRight="50.0dip" android:layout_marginBottom="8.0dip" android:text="我来回答" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <RelativeLayout android:id="@id/common_photo_ll_big_pic" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_above="@id/common_photo_ll_buttons" android:layout_alignParentTop="true">
+        <com.baidu.homework.common.photo.core.TouchImageView android:id="@id/ivPortraitPreview" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scaleType="matrix" android:layout_centerInParent="true" />
+    </RelativeLayout>
+    <RelativeLayout android:id="@id/question_content_layout" android:background="#80000000" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_above="@id/common_photo_ll_buttons">
+        <TextView android:textSize="@dimen/common_text_size_21" android:textColor="#ffffffff" android:id="@id/question_content" android:paddingTop="15.0dip" android:paddingBottom="15.0dip" android:scrollbars="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:layout_marginRight="28.0dip" android:text="@null" android:maxLines="1" android:singleLine="false" android:lineSpacingExtra="4.0dip" />
+        <ImageView android:id="@id/arrow_down" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="18.0dip" android:layout_marginRight="12.0dip" android:src="@drawable/question_arrow_up" android:layout_alignParentTop="true" android:layout_alignParentRight="true" />
+        <ImageView android:id="@id/arrow_up" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="18.0dip" android:layout_marginRight="12.0dip" android:src="@drawable/question_arrow_down" android:layout_alignParentTop="true" android:layout_alignParentRight="true" />
+    </RelativeLayout>
+    <RelativeLayout android:id="@id/common_photo_rl_loading" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
+        <ImageView android:id="@id/common_photo_iv_loading" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/common_image_placeholder_loading" android:minWidth="180.0dip" android:minHeight="180.0dip" android:contentDescription="@null" />
+        <ProgressBar android:id="@id/common_photo_pb_loading" android:layout_width="wrap_content" android:layout_height="wrap_content" android:indeterminateDrawable="@drawable/common_alert_waiting_anim_white" android:layout_centerInParent="true" />
+    </RelativeLayout>
+</com.baidu.homework.common.ui.widget.ResizeRelativeLayout>

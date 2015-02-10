@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:background="#ffffffff" android:paddingTop="10.0dip" android:paddingBottom="8.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="@dimen/common_text_size_20" android:textColor="#ff333333" android:gravity="center_horizontal" android:layout_gravity="center" android:id="@id/circle_school" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="学校圈" android:drawableTop="@drawable/circle_selector_school" android:drawablePadding="4.0dip" android:layout_weight="1.0" />
+        <TextView android:textSize="@dimen/common_text_size_20" android:textColor="#ff333333" android:gravity="center_horizontal" android:layout_gravity="center" android:id="@id/circle_grade" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="年级圈" android:drawableTop="@drawable/circle_selector_grade" android:drawablePadding="4.0dip" android:layout_weight="1.0" />
+        <TextView android:textSize="@dimen/common_text_size_20" android:textColor="#ff333333" android:gravity="center_horizontal" android:layout_gravity="center" android:id="@id/circle_nearby" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="附近同学" android:drawableTop="@drawable/circle_selector_nearby" android:drawablePadding="4.0dip" android:layout_weight="1.0" />
+        <FrameLayout android:id="@id/circle_friends" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0">
+            <FrameLayout android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <TextView android:textSize="@dimen/common_text_size_20" android:textColor="#ff333333" android:gravity="center_horizontal" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="我的好友" android:drawableTop="@drawable/circle_selector_friend" android:drawablePadding="4.0dip" />
+                <TextView android:textSize="@dimen/common_text_size_15" android:textColor="#ffffffff" android:gravity="center" android:layout_gravity="top|right|center" android:id="@id/circle_new_friend_notify" android:background="@drawable/common_unread_dot_bottom" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="17.0dip" android:minHeight="17.0dip" android:text="@null" android:singleLine="true" android:lineSpacingExtra="0.0dip" />
+            </FrameLayout>
+        </FrameLayout>
+    </LinearLayout>
+    <View android:id="@id/homework_fragment_vw_circle_header_divider_line" android:background="#ffdddddd" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_marginBottom="10.0dip" />
+    <com.baidu.homework.common.net.RecyclingImageView android:id="@id/homework_questionlist_iv_banner" android:layout_width="fill_parent" android:layout_height="65.0dip" android:scaleType="fitXY" />
+    <View android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="10.0dip" />
+</LinearLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape android:shape="rectangle"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#00000000" />
+    <stroke android:width="0.5dip" android:color="@color/circle_all_list_header_botton_gray_color_pressed" />
+    <corners android:radius="6.0dip" />
+</shape>

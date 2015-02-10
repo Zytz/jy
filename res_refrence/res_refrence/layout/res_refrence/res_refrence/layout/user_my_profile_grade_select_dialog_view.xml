@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/register_info_grade_layout" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RadioGroup android:id="@id/register_info_grade_radiogroup_layout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:layout_centerHorizontal="true">
+        <RadioGroup android:orientation="horizontal" android:id="@id/register_info_grade_radiogroup1" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <RadioButton android:id="@id/primary_school_1" style="@style/user_my_profile_grade_seletc_dialog" />
+            <RadioButton android:id="@id/primary_school_2" android:layout_marginLeft="9.0dip" style="@style/user_my_profile_grade_seletc_dialog" />
+            <RadioButton android:id="@id/primary_school_3" android:layout_marginLeft="9.0dip" style="@style/user_my_profile_grade_seletc_dialog" />
+            <RadioButton android:id="@id/primary_school_4" android:layout_marginLeft="9.0dip" style="@style/user_my_profile_grade_seletc_dialog" />
+        </RadioGroup>
+        <RadioGroup android:orientation="horizontal" android:id="@id/register_info_grade_radiogroup2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="9.0dip">
+            <RadioButton android:id="@id/primary_school_5" style="@style/user_my_profile_grade_seletc_dialog" />
+            <RadioButton android:id="@id/primary_school_6" android:layout_marginLeft="9.0dip" style="@style/user_my_profile_grade_seletc_dialog" />
+            <RadioButton android:id="@id/junior_high_school_1" android:layout_marginLeft="9.0dip" style="@style/user_my_profile_grade_seletc_dialog" />
+            <RadioButton android:id="@id/junior_high_school_2" android:layout_marginLeft="9.0dip" style="@style/user_my_profile_grade_seletc_dialog" />
+        </RadioGroup>
+        <RadioGroup android:orientation="horizontal" android:id="@id/register_info_grade_radiogroup3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="9.0dip">
+            <RadioButton android:id="@id/junior_high_school_3" style="@style/user_my_profile_grade_seletc_dialog" />
+            <RadioButton android:id="@id/high_school_1" android:layout_marginLeft="9.0dip" style="@style/user_my_profile_grade_seletc_dialog" />
+            <RadioButton android:id="@id/high_school_2" android:layout_marginLeft="9.0dip" style="@style/user_my_profile_grade_seletc_dialog" />
+            <RadioButton android:id="@id/high_school_3" android:layout_marginLeft="9.0dip" style="@style/user_my_profile_grade_seletc_dialog" />
+        </RadioGroup>
+        <RadioGroup android:orientation="horizontal" android:id="@id/register_info_grade_radiogroup4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="9.0dip" android:layout_marginBottom="12.0dip">
+            <RadioButton android:id="@id/other" style="@style/user_my_profile_grade_seletc_dialog" />
+        </RadioGroup>
+    </RadioGroup>
+</RelativeLayout>

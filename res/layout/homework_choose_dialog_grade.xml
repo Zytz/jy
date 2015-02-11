@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/homework_layout_choose_title"
+        layout="@layout/homework_vw_choose_title" />
+   
+    <include layout="@layout/choose_grade_vw_item"/>
+	
+    <include layout="@layout/choose_subject_vw_item" />
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/homework_ll_choose_down"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffffff"
+            android:orientation="vertical"
+            android:paddingBottom="20.0dip" >
+
+            <Button
+                android:id="@+id/homework_button_complete"
+                style="@style/common_yellow_button"
+                android:layout_width="fill_parent"
+                android:layout_marginLeft="14.0dip"
+                android:layout_marginRight="14.0dip"
+                android:text="完成" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

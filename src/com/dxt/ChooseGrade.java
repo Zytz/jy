@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dxt.adapter.GradeAdapter;
@@ -22,6 +23,7 @@ public class ChooseGrade extends Activity {
 		   R.string.wuli,R.string.huaxue,R.string.shengwu,R.string.zhengzhi,
 		   R.string.lishi,R.string.dili};
 	private Button complete ;
+	private ImageView cancle;
 	private GridView grade_gridview;
 	private GridView subject_gridview;
 	private int old_grade=5;
@@ -34,6 +36,7 @@ public class ChooseGrade extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.homework_choose_dialog_grade);
+		
 		
 		tempView = new TextView(getApplicationContext());
 		
@@ -82,8 +85,23 @@ public class ChooseGrade extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+				intent.putExtra("cancel", false);
 				intent.putExtra("title", temp1+temp2);
 				intent.putExtra("title_id", grades[old_grade]+" "+subjects[old_subject]);
+				setResult(RESULT_OK, intent);
+				finish();
+			}
+		});
+		
+		cancle = (ImageView) this.findViewById(R.id.homework_questionlist_circle_iv_choose);
+		
+		cancle.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+				intent.putExtra("cancel", true);
 				setResult(RESULT_OK, intent);
 				finish();
 			}

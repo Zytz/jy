@@ -167,9 +167,12 @@ public class MainActivity extends TabActivity {
 		
 		if(resultCode==Activity.RESULT_OK&&requestCode==REQUESTCODEFORCHOOSE){
 			Bundle bundle = data.getExtras();
-			String title = bundle.getString("title");
-			Log.v("kkk",title);
-			title_name.setText(title);
+			boolean canceled = false;
+			canceled = bundle.getBoolean("cancel");
+			if(!canceled){
+				String title = bundle.getString("title");
+				title_name.setText(title);
+			}
 		}
 	}
 

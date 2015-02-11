@@ -1,5 +1,7 @@
 package com.dxt;
 
+import android.app.Activity;
+import android.app.ActivityGroup;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,17 +13,22 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
 
 @SuppressWarnings("deprecation")
 public class MainActivity extends TabActivity {
+	private static final int REQUESTCODEFORCHOOSE=1;
 	private TabHost tabHost;
 	private ImageButton askquestion;
 	private GestureDetector detector;
 	private ImageButton choose;
+	private TextView title_name;
 	private RadioButton main_footbar_news;
 	private RadioButton main_footbar_question;
 	private RadioButton main_footbar_tweet;
@@ -36,7 +43,8 @@ public class MainActivity extends TabActivity {
 		choose=(ImageButton) this.findViewById(R.id.circle_iv_choose);
 		choose.setOnClickListener(chooseGradeListener);
 		askquestion.setOnClickListener(questionListener);
-
+		title_name = (TextView) this.findViewById(R.id.circle_tv_title_name);
+		
 		main_footbar_news =(RadioButton) this.findViewById(R.id.main_footbar_news);
 		main_footbar_question =(RadioButton) this.findViewById(R.id.main_footbar_question);
 		main_footbar_tweet =(RadioButton) this.findViewById(R.id.main_footbar_tweet);
@@ -145,11 +153,26 @@ public class MainActivity extends TabActivity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Intent toChooseGrade = new Intent(getApplicationContext(),ChooseGrade.class);
-			startActivity(toChooseGrade);
+			//Animation anim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.choose_rotate );
+			//choose.startAnimation(anim);
+			startActivityForResult(toChooseGrade,REQUESTCODEFORCHOOSE);
 		}
 	};
 	
 	
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		
+		if(resultCode==Activity.RESULT_OK&&requestCode==REQUESTCODEFORCHOOSE){
+			Bundle bundle = data.getExtras();
+			String title = bundle.getString("title");
+			Log.v("kkk",title);
+			title_name.setText(title);
+		}
+	}
+
 	//进入到照相的跳转
 	private OnClickListener questionListener=new OnClickListener() {
 		

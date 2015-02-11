@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="quanbu">全部</string>
+    <string name="grade">年级</string>
+    <string name="xiaoxue">小学</string>
+    <string name="chuyi">初一</string>
+    <string name="chuer">初二</string>
+    <string name="chusan">初三</string>
+    <string name="gaoyi">高一</string>
+    <string name="gaoer">高二</string>
+    <string name="gaosan">高三</string>
+    <string name="subject">学科</string>
+    <string name="shuxue">数学</string>
+    <string name="yuwen">语文</string>
+    <string name="yingyu">英语</string>
+    <string name="wuli">物理</string>
+    <string name="huaxue">化学</string>
+    <string name="shengwu">生物</string>
+    <string name="zhengzhi">政治</string>
+    <string name="lishi">历史</string>
+    <string name="dili">地理</string>
+    
     <string name="cancel">取消</string>
 	<string name="ok">确定</string>
     <string name="app_name">大学通</string>

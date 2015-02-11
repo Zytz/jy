@@ -42,4 +42,11 @@
 	<style name="my_edittext_style" parent="@android:style/Widget.EditText">
            <item name="android:background">@drawable/my_edittext</item>
     </style>
+    
+	 <style name="common_yellow_button">
+        <item name="android:textSize">@dimen/common_text_size_20</item>
+        <item name="android:textColor">@drawable/common_selector_text_color</item>
+        <item name="android:background">@drawable/common_selector_yellow_bt</item>
+        <item name="android:layout_height">40.0dip</item>
+    </style>
 </resources>

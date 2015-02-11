@@ -6,21 +6,21 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/choose_grade_tv_title"
+        android:id="@+id/choose_subject_tv_title"
         android:layout_width="fill_parent"
         android:layout_height="37.0dip"
         android:background="#fff1f1f1"
         android:gravity="center_vertical"
         android:paddingLeft="14.0dip"
         android:textColor="#ff666666"
-        android:text="@string/grade"
-        android:textSize="@dimen/common_text_size_20" />
+        android:textSize="@dimen/common_text_size_20"
+        android:text="@string/subject" />
 
     <GridView
-        android:id="@+id/choose_grade_gv_content"
-        android:background="#ffffffff"
+        android:id="@+id/choose_subject_gv_content"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="#ffffffff"
         android:layout_marginLeft="14.0dip"
         android:layout_marginRight="14.0dip"
         android:horizontalSpacing="13.0dip"

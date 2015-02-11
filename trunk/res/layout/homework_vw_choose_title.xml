@@ -23,7 +23,7 @@
             android:shadowDy="1.0"
             android:shadowRadius="1.0"
             android:singleLine="true"
-            android:text="高一全部"
+            android:text="选择年级科目"
             android:textColor="#ffffffff"
             android:textSize="@dimen/common_text_size_20" />
 

@@ -14,7 +14,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -28,7 +27,6 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
@@ -90,10 +88,7 @@ public class MediaPlayerActivitybackup extends ListActivity {
         surfaceView.getHolder().setFixedSize(176, 100);
         surfaceView.getHolder().setKeepScreenOn(true);
         surfaceView.getHolder().addCallback(new SurfaceCallback());
-		
-		
 		audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-		
 		//显示媒体列表
 		ShowMediaList();
 	}

@@ -92,11 +92,8 @@ public class ChooseGrade extends Activity {
 				finish();
 			}
 		});
-		
 		cancle = (ImageView) this.findViewById(R.id.homework_questionlist_circle_iv_choose);
-		
 		cancle.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub

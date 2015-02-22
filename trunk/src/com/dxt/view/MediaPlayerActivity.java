@@ -142,7 +142,6 @@ public class MediaPlayerActivity extends ListActivity {
 	protected void onDestroy()// Activity销毁时释放mediaPlayer，保存已添加过视频列表，再次打开时用
 	{
 		
-		
 		mediaPlayer.stop();
 		mediaPlayer.release();
 		mediaPlayer = null;
@@ -387,7 +386,6 @@ public class MediaPlayerActivity extends ListActivity {
 		public void onStartTrackingTouch(SeekBar seekBar) {
 			startPosition = seekBar.getProgress();
 		}
-
 		@Override
 		public void onStopTrackingTouch(SeekBar seekBar) // 当用户结束对滑块的滑动时，将mediaPlayer播放位置设为滑块结束对应位置
 		{

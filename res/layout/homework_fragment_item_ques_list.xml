@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10.0dip" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/circle_fragment_top_item_bg" >
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:background="#ffdddddd" />
+
+        <LinearLayout
+            android:id="@+id/homework_question_item_content_layout_id"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical"
+            android:paddingBottom="8.0dip"
+            android:paddingLeft="12.0dip"
+            android:paddingRight="12.0dip"
+            android:paddingTop="10.0dip" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/homework_question_item_tv_user_grade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="1.5dip"
+                    android:gravity="center"
+                    android:text="初一"
+                    android:textColor="#ff3ab2ff"
+                    android:textSize="@dimen/common_text_size_18" />
+
+                <TextView
+                    android:id="@+id/homework_question_item_tv_question_course"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="3.5dip"
+                    android:gravity="center"
+                    android:text="数学"
+                    android:textColor="#ff3ab2ff"
+                    android:textSize="@dimen/common_text_size_18" />
+
+                <TextView
+                    android:id="@+id/homework_question_item_tv_question_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="59分钟前"
+                    android:textColor="#ffc6c6c6"
+                    android:textSize="@dimen/common_text_size_15" />
+            </LinearLayout>
+
+            <com.baidu.homework.common.ui.widget.EllipsizingTextView
+                android:id="@+id/homework_question_list_tv_question_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10.0dip"
+                android:ellipsize="end"
+                android:lineSpacingExtra="4.0dip"
+                android:textColor="#ff373737"
+                android:textSize="@dimen/common_text_size_20" />
+
+            <com.baidu.homework.common.ui.widget.ListImageView
+                android:id="@+id/homework_question_item_iv_question_picture"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10.0dip"
+                android:layout_marginTop="8.0dip" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/homework_question_list_tv_rewrad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="14.0dip"
+            android:layout_marginTop="10.0dip"
+            android:drawableLeft="@drawable/common_reward_icon"
+            android:drawablePadding="2.0dip"
+            android:gravity="center"
+            android:text="50"
+            android:textColor="#fffda514"
+            android:textSize="@dimen/common_text_size_15" />
+
+        <LinearLayout
+            android:id="@+id/homework_question_item_foot_layout_id"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/homework_question_item_content_layout_id"
+            android:background="#ffffffff"
+            android:orientation="vertical" >
+
+            <include layout="@layout/homework_fragment_item_ques_list_foot" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:layout_below="@id/homework_question_item_foot_layout_id"
+            android:background="#ffdddddd" />
+    </RelativeLayout>
+
+</FrameLayout>

@@ -2,6 +2,7 @@ package com.dxt.adapter;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -46,6 +47,7 @@ public class GradeAdapter extends BaseAdapter {
 			textView = (TextView) convertView;
 		}
 		textView.setText(grades[position]);
+		if(position==0) textView.setBackgroundColor(Color.YELLOW);
 		return textView;
 	}
 	

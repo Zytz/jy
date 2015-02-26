@@ -3,6 +3,7 @@ package com.dxt.adapter;
 import com.dxt.R;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -46,6 +47,7 @@ public class SubjecAdapter extends BaseAdapter {
 			textView = (TextView) convertView;
 		}
 		textView.setText(subjects[position]);
+		if(position==0) textView.setBackgroundColor(Color.YELLOW);
 		return textView;
 	}
 	

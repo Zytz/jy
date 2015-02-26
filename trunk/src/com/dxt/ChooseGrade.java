@@ -22,12 +22,13 @@ public class ChooseGrade extends Activity {
 	private static final int[] subjects = {R.string.quanbu,R.string.shuxue,R.string.yuwen,R.string.yingyu,
 		   R.string.wuli,R.string.huaxue,R.string.shengwu,R.string.zhengzhi,
 		   R.string.lishi,R.string.dili};
+
 	private Button complete ;
 	private ImageView cancle;
 	private GridView grade_gridview;
 	private GridView subject_gridview;
-	private int old_grade=5;
-	private int old_subject=2;
+	private int old_grade=0;
+	private int old_subject=0;
 	private TextView tempView;
 	private String temp1="",temp2="";
 	@Override
@@ -44,7 +45,6 @@ public class ChooseGrade extends Activity {
 		subject_gridview = (GridView) this.findViewById(R.id.choose_subject_gv_content);
 		
 		grade_gridview.setAdapter(new GradeAdapter(getApplicationContext()));
-		//grade_gridview.getChildAt(old_grade).setBackgroundColor(Color.YELLOW);
 		grade_gridview.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -61,7 +61,6 @@ public class ChooseGrade extends Activity {
 			
 		});
 		subject_gridview.setAdapter(new SubjecAdapter(getApplicationContext()));
-		//subject_gridview.getChildAt(old_subject).setBackgroundColor(Color.YELLOW);
 		subject_gridview.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

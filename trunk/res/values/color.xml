@@ -11,4 +11,8 @@
   <color name="lightgray">#a0a0a0</color>
   <color name="Translucent">#00000000</color>
   <color name="lightblue">#00cccc</color>
+  <color name="circle_list_top_item_pressed_color">#fff0f0f0</color>
+  <color name="user_text_color_dark_gray">#ff333333</color>
+  <color name="circle_school_item_list_separator">#ffe5e5e5</color>
+  <color name="mall_name_color_normal">#ff888888</color>
 </resources>

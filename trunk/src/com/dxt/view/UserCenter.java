@@ -1,15 +1,21 @@
 package com.dxt.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.dxt.LoginActivity;
 import com.dxt.R;
 
 public class UserCenter extends Activity {
 
 	private String TAG = "dxt";
+	private TextView toLogin;
 	private ImageView img = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +28,18 @@ public class UserCenter extends Activity {
 	}
 	private void init() {
 		img = (ImageView) findViewById(R.id.user_icon);
+		toLogin=(TextView) this.findViewById(R.id.user_notlogin);
+		
+		toLogin.setOnClickListener(toLoginListener);
 	}
+	OnClickListener toLoginListener =new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent tologin_intent=new Intent();
+			tologin_intent.setClass(getApplicationContext(), LoginActivity.class);
+			startActivity(tologin_intent);
+		}
+	};
 }

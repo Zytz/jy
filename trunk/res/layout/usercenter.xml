@@ -6,16 +6,26 @@
 
     <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="150dp"
-        android:background="@drawable/ic_launcher"
+        android:layout_height="wrap_content"
+        android:background="@drawable/user_card_head_bg"
         >
         <ImageView
             android:id="@+id/user_icon"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/launch2" />
+            android:layout_marginTop="30dip"
+            android:src="@drawable/user_default_portrait_65" />
+       <TextView
+            android:id="@+id/user_notlogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dip"
+            android:layout_gravity="center_horizontal"
+            android:text="立即登录"
+            android:textColor="@color/white"
+            android:textSize="18dip"
+            />
     </FrameLayout>
-
     <include layout="@layout/usercenterlist" />
 
 </LinearLayout>

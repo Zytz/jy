@@ -25,7 +25,7 @@
             android:shadowDy="1.0"
             android:shadowRadius="1.0"
             android:singleLine="true"
-            android:text="全部"
+            android:text="全部问题"
             android:textColor="#ffffffff"
             android:textSize="@dimen/common_text_size_20" />
 

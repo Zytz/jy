@@ -27,7 +27,8 @@ public class MainActivity extends TabActivity {
 	private TabHost tabHost;
 	private ImageButton askquestion;
 	private GestureDetector detector;
-	private ImageButton choose;
+	//private ImageButton choose;
+	private TextView txt_chooseGrade;
 	private TextView title_name;
 	private RadioButton main_footbar_news;
 	private RadioButton main_footbar_question;
@@ -40,8 +41,11 @@ public class MainActivity extends TabActivity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 		askquestion=(ImageButton) this.findViewById(R.id.img_askquestion);
-		choose=(ImageButton) this.findViewById(R.id.circle_iv_choose);
+/*		choose=(ImageButton) this.findViewById(R.id.circle_iv_choose);
 		choose.setOnClickListener(chooseGradeListener);
+*/		
+		txt_chooseGrade=(TextView) this.findViewById(R.id.circle_tv_title_name);
+		txt_chooseGrade.setOnClickListener(chooseGradeListener);
 		askquestion.setOnClickListener(questionListener);
 		title_name = (TextView) this.findViewById(R.id.circle_tv_title_name);
 		

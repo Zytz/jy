@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.dxt.adapter.GradeAdapter;
 import com.dxt.adapter.SubjecAdapter;
+import com.dxt.util.ValidateUtil;
 
 public class ChooseGrade extends Activity {
 	private static int[] grades = {R.string.quanbu,R.string.xiaoxue,R.string.chuyi,R.string.chuer,
@@ -83,6 +84,16 @@ public class ChooseGrade extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				//预处理
+				//判断是否有点击事件
+				if(!ValidateUtil.isValid(temp1)&&!ValidateUtil.isValid(temp2)){
+					temp1="全部问题";
+				}else if(!ValidateUtil.isValid(temp1)&&ValidateUtil.isValid(temp2)){
+					temp1="全部";
+				}else if(ValidateUtil.isValid(temp1)&&!ValidateUtil.isValid(temp2)){
+					temp2="全部";
+				}
+				
 				Intent intent = new Intent(getApplicationContext(),MainActivity.class);
 				intent.putExtra("cancel", false);
 				intent.putExtra("title", temp1+temp2);

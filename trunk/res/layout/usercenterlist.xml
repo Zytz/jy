@@ -6,7 +6,7 @@
   android:orientation="vertical"
   android:background="@color/gray">
  <ListView 
-    android:id="@android:id/list"
+    android:id="@+id/lv_usercenter"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:fadeScrollbars="true"

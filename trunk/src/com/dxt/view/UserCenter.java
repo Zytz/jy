@@ -36,20 +36,29 @@ public class UserCenter extends Activity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.usercenter);
 		init();
+
+		String[] user_={"个人中心","我的提问","我的解答","我的金币"};
+
 		
 	}
 	private void init() {
 		img = (ImageView) findViewById(R.id.user_icon);
 		toLogin=(TextView) this.findViewById(R.id.user_notlogin);
+
 		toLogin.setOnClickListener(toLoginListener);
+
 		lv_usercenter =(ListView) this.findViewById(R.id.lv_usercenter);
 		data = getData();
 		lv_usercenter.setAdapter(new MyBaseAdapter());
+		//lv_usercenter.setOnItemClickListener(listener);
 	}
+
+	//如果未登录的时候
+
 	private List<CommonListViewModel> getData() {
 
 		List<CommonListViewModel> list = new ArrayList<CommonListViewModel>();
-		String[] usercenter_inf={"个人中心","我的提问","我的回答","我的回复"};
+		String[] usercenter_inf={"个人中心","我的提问","我的回答","我的金币"};
 
 		for (int i = 1; i <= 4; i++) {
 			CommonListViewModel info = new CommonListViewModel(R.drawable.usercenter1, usercenter_inf[i-1], R.drawable.usercenter2
@@ -109,10 +118,7 @@ public class UserCenter extends Activity {
 			public ImageView messageTV;
 		}
 	}
-	
-	
-	
-	
+
 	OnClickListener toLoginListener =new OnClickListener() {
 		
 		@Override

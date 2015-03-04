@@ -34,6 +34,7 @@
         <activity android:name=".Regist" />
         <activity android:name=".RegistFirst" />
         <activity android:name=".view.UserCenter" />
+        <activity android:name=".view.UserCenterInformation"/>
         <activity android:name=".ChooseGrade" />
     </application>
 

@@ -10,10 +10,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dxt.LoginActivity;
 import com.dxt.R;
@@ -50,7 +53,9 @@ public class UserCenter extends Activity {
 		lv_usercenter =(ListView) this.findViewById(R.id.lv_usercenter);
 		data = getData();
 		lv_usercenter.setAdapter(new MyBaseAdapter());
+		
 		//lv_usercenter.setOnItemClickListener(listener);
+		lv_usercenter.setOnItemClickListener(usecenterlitener);
 	}
 
 	//如果未登录的时候
@@ -127,6 +132,17 @@ public class UserCenter extends Activity {
 			Intent tologin_intent=new Intent();
 			tologin_intent.setClass(getApplicationContext(), LoginActivity.class);
 			startActivity(tologin_intent);
+		}
+	};
+	
+	OnItemClickListener usecenterlitener=new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			// TODO Auto-generated method stub
+			CommonListViewModel userInfo = data.get(position);
+			Toast.makeText(UserCenter.this, userInfo.getName(), 0).show();
 		}
 	};
 }

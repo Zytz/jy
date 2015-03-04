@@ -7,74 +7,55 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.dxt.LoginActivity;
 import com.dxt.R;
 import com.dxt.model.CommonListViewModel;
+import com.dxt.view.UserCenter.MyBaseAdapter;
+import com.dxt.view.UserCenter.MyBaseAdapter.ViewHolder;
 
-public class UserCenter extends Activity {
+public class UserCenterInformation extends Activity {
 
 	private String TAG = "dxt";
 	private TextView toLogin;
-
+	
 	private ImageView img = null;
-
-	private ListView lv_usercenter;
+	
+	private ListView lv_usercenterinf;
 	private List<CommonListViewModel> data;
-
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.usercenter);
+		setContentView(R.layout.usercenterinformation);
 		init();
 	}
-	
-	
-	@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
-            Bundle bundle = data.getExtras();
-            String backString = bundle.getString("username");
-             Toast.makeText(getApplicationContext(), 12, Toast.LENGTH_SHORT).show();
-             
-        }
-        Toast.makeText(getApplicationContext(), "Are you OK ", Toast.LENGTH_SHORT).show();
-
-    }
 	private void init() {
-		img = (ImageView) findViewById(R.id.user_icon);
-		toLogin = (TextView) this.findViewById(R.id.user_notlogin);
 
-		toLogin.setOnClickListener(toLoginListener);
-
-		lv_usercenter = (ListView) this.findViewById(R.id.lv_usercenter);
+		lv_usercenterinf = (ListView) this.findViewById(R.id.lv_usercenterinf);
 		data = getData();
-		lv_usercenter.setAdapter(new MyBaseAdapter());
+		lv_usercenterinf.setAdapter(new MyBaseAdapter());
 
-		// lv_usercenter.setOnItemClickListener(listener);
-		lv_usercenter.setOnItemClickListener(usecenterlitener);
+		lv_usercenterinf.setOnItemClickListener(usecenterlitenerinf);
 	}
-
-	// 如果未登录的时候
-
 	private List<CommonListViewModel> getData() {
 
 		List<CommonListViewModel> list = new ArrayList<CommonListViewModel>();
-		String[] usercenter_inf = { "个人中心", "我的提问", "我的回答", "我的金币" };
+		String[] usercenter_inf = { "昵称", "学校名称","年级","性别", "电话"};
 
-		for (int i = 1; i <= 4; i++) {
+		for (int i = 1; i <= 5; i++) {
 			CommonListViewModel info = new CommonListViewModel(
 					R.drawable.usercenter1, usercenter_inf[i - 1],
 					R.drawable.usercenter2 + i);
@@ -107,14 +88,14 @@ public class UserCenter extends Activity {
 			ViewHolder viewHolder = null;
 			if (convertView == null) {
 				viewHolder = new ViewHolder();
-				convertView = View.inflate(UserCenter.this,
-						R.layout.usercenter_row, null);
+				convertView = View.inflate(UserCenterInformation.this,
+						R.layout.usercenterinf_row, null);
 				viewHolder.iconIV = (ImageView) convertView
-						.findViewById(R.id.iv_item_image);
+						.findViewById(R.id.iv_item_image_inf);
 				viewHolder.nameTV = (TextView) convertView
-						.findViewById(R.id.iv_item_inf);
+						.findViewById(R.id.iv_item_inf_inf);
 				viewHolder.messageTV = (ImageView) convertView
-						.findViewById(R.id.iv_item_imagetogo);
+						.findViewById(R.id.iv_item_imagetogo_inf);
 				convertView.setTag(viewHolder);
 			} else {
 				viewHolder = (ViewHolder) convertView.getTag();
@@ -134,28 +115,14 @@ public class UserCenter extends Activity {
 			public ImageView messageTV;
 		}
 	}
-
-	OnClickListener toLoginListener = new OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			Intent tologin_intent = new Intent();
-			tologin_intent.setClass(getApplicationContext(),
-					LoginActivity.class);
-			startActivity(tologin_intent);
-			finish();
-		}
-	};
-
-	OnItemClickListener usecenterlitener = new OnItemClickListener() {
+	OnItemClickListener usecenterlitenerinf = new OnItemClickListener() {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			// TODO Auto-generated method stub
 			CommonListViewModel userInfo = data.get(position);
-			Toast.makeText(UserCenter.this, userInfo.getName(), 0).show();
+			Toast.makeText(UserCenterInformation.this, userInfo.getName(), 0).show();
 			if (position == 0) {
 				Intent intentUserCenterInf = new Intent();
 				intentUserCenterInf.setClass(getApplicationContext(),
@@ -164,6 +131,6 @@ public class UserCenter extends Activity {
 			}
 		}
 	};
-	
-	//
+
+
 }

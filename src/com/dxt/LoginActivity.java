@@ -18,10 +18,11 @@ import com.dxt.model.User;
 import com.dxt.util.ReturnMessage;
 import com.dxt.util.ValidateUtil;
 import com.dxt.util.WebPostUtil;
+import com.dxt.view.UserCenter;
 
 public class LoginActivity extends Activity {
 	final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
-	final static String SERVICE_URL = "http://10.82.21.244:8080/daxuetong/services/UserService?wsdl";
+	final static String SERVICE_URL = "http://210.40.65.247:8080/daxuetong/services/UserService?wsdl";
 	final static String TAG = "dxt";
 
 	private static final int SUCCESS = 1;
@@ -44,12 +45,22 @@ public class LoginActivity extends Activity {
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case SUCCESS:
+				
+				Intent intentReturn =new Intent();
+				intentReturn.setClass(getApplicationContext(), UserCenter.class);
+				
+				
+				Bundle bundle = new Bundle();
+				bundle.putString("username", username);//添加要返回给页面1的数据
+				intentReturn.putExtras(bundle);
+				startActivity(intentReturn);
+				finish();
 				Toast.makeText(getApplicationContext(),
-						retMessage.getMessage(), Toast.LENGTH_LONG).show();
+						retMessage.getMessage()+"链接成功", Toast.LENGTH_LONG).show();
 				break;
 			case ERROR:
 				Toast.makeText(getApplicationContext(),
-						retMessage.getMessage(), Toast.LENGTH_LONG).show();
+						retMessage.getMessage()+"和服务器没有链接", Toast.LENGTH_LONG).show();
 				break;
 			}
 		}

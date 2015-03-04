@@ -141,7 +141,7 @@ public class MediaPlayerActivity extends ListActivity {
 	@Override
 	protected void onDestroy()// Activity销毁时释放mediaPlayer，保存已添加过视频列表，再次打开时用
 	{
-		
+
 		mediaPlayer.stop();
 		mediaPlayer.release();
 		mediaPlayer = null;

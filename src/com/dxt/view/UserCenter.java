@@ -31,6 +31,8 @@ public class UserCenter extends Activity {
 
 	private ListView lv_usercenter;
 	private List<CommonListViewModel> data;
+	
+	private String username="";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +45,11 @@ public class UserCenter extends Activity {
 	
 	@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
-            Bundle bundle = data.getExtras();
-            String backString = bundle.getString("username");
-             Toast.makeText(getApplicationContext(), 12, Toast.LENGTH_SHORT).show();
-             
+        if (resultCode == Activity.RESULT_OK&&requestCode==1) {
+        	Bundle budle= data.getExtras();
+        	 username=budle.getString("username");
+             Toast.makeText(getApplicationContext(), username, Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(getApplicationContext(), "Are you OK ", Toast.LENGTH_SHORT).show();
-
     }
 	private void init() {
 		img = (ImageView) findViewById(R.id.user_icon);
@@ -62,7 +60,6 @@ public class UserCenter extends Activity {
 		lv_usercenter = (ListView) this.findViewById(R.id.lv_usercenter);
 		data = getData();
 		lv_usercenter.setAdapter(new MyBaseAdapter());
-
 		// lv_usercenter.setOnItemClickListener(listener);
 		lv_usercenter.setOnItemClickListener(usecenterlitener);
 	}
@@ -143,8 +140,7 @@ public class UserCenter extends Activity {
 			Intent tologin_intent = new Intent();
 			tologin_intent.setClass(getApplicationContext(),
 					LoginActivity.class);
-			startActivity(tologin_intent);
-			finish();
+			startActivityForResult(tologin_intent, 1);
 		}
 	};
 
@@ -156,12 +152,10 @@ public class UserCenter extends Activity {
 			// TODO Auto-generated method stub
 			CommonListViewModel userInfo = data.get(position);
 			Toast.makeText(UserCenter.this, userInfo.getName(), 0).show();
-			if (position == 0) {
 				Intent intentUserCenterInf = new Intent();
 				intentUserCenterInf.setClass(getApplicationContext(),
 						UserCenterInformation.class);
 				startActivity(intentUserCenterInf);
-			}
 		}
 	};
 	

@@ -9,20 +9,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
-import com.dxt.LoginActivity;
 import com.dxt.R;
 import com.dxt.model.CommonListViewModel;
-import com.dxt.view.UserCenter.MyBaseAdapter;
-import com.dxt.view.UserCenter.MyBaseAdapter.ViewHolder;
 
 public class UserCenterInformation extends Activity {
 
@@ -43,11 +39,9 @@ public class UserCenterInformation extends Activity {
 		init();
 	}
 	private void init() {
-
 		lv_usercenterinf = (ListView) this.findViewById(R.id.lv_usercenterinf);
 		data = getData();
 		lv_usercenterinf.setAdapter(new MyBaseAdapter());
-
 		lv_usercenterinf.setOnItemClickListener(usecenterlitenerinf);
 	}
 	private List<CommonListViewModel> getData() {
@@ -127,7 +121,9 @@ public class UserCenterInformation extends Activity {
 				Intent intentUserCenterInf = new Intent();
 				intentUserCenterInf.setClass(getApplicationContext(),
 						UserCenterInformation.class);
-				startActivity(intentUserCenterInf);
+				//startActivity(intentUserCenterInf);
+				//setResult(Activity.RESULT_OK,intentUserCenterInf);
+				
 			}
 		}
 	};

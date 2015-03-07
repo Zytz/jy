@@ -48,12 +48,11 @@ public class LoginActivity extends Activity {
 				
 				Intent intentReturn =new Intent();
 				intentReturn.setClass(getApplicationContext(), UserCenter.class);
-				
-				
 				Bundle bundle = new Bundle();
 				bundle.putString("username", username);//添加要返回给页面1的数据
 				intentReturn.putExtras(bundle);
-				startActivity(intentReturn);
+				//startActivity(intentReturn);
+				setResult(RESULT_OK,intentReturn);
 				finish();
 				Toast.makeText(getApplicationContext(),
 						retMessage.getMessage()+"链接成功", Toast.LENGTH_LONG).show();

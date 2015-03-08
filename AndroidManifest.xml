@@ -15,7 +15,9 @@
         android:allowBackup="true"
         android:icon="@drawable/lanch"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme" 
+        android:name="CustomApplication"
+        >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -35,7 +37,9 @@
         <activity android:name=".RegistFirst" />
         <activity android:name=".view.UserCenter" />
         <activity android:name=".view.UserCenterInformation"/>
+        <activity android:name=".view.UserCenterMyAnswer"/>
+        <activity android:name=".view.UserCenterMyQuestion"/>
+        <activity android:name=".view.UserCenterMyMney"/>
         <activity android:name=".ChooseGrade" />
     </application>
-
 </manifest>

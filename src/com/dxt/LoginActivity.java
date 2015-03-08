@@ -36,6 +36,8 @@ public class LoginActivity extends Activity {
 	private User user = new User();
 	private String userInfo = null;
 	private Handler handler = new UIHander();
+	
+	private CustomApplication app;
 
 	@SuppressLint("HandlerLeak")
 	private final class UIHander extends Handler {
@@ -45,21 +47,28 @@ public class LoginActivity extends Activity {
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case SUCCESS:
+				app = (CustomApplication) getApplication(); // 获得CustomApplication对象
+				app.setValue(username); // 重新设置值
 				
-				Intent intentReturn =new Intent();
-				intentReturn.setClass(getApplicationContext(), UserCenter.class);
+				Intent intentReturn = new Intent();
+				intentReturn
+						.setClass(getApplicationContext(), UserCenter.class);
 				Bundle bundle = new Bundle();
-				bundle.putString("username", username);//添加要返回给页面1的数据
+				bundle.putString("username", username);// 添加要返回给页面1的数据
 				intentReturn.putExtras(bundle);
-				//startActivity(intentReturn);
-				setResult(RESULT_OK,intentReturn);
+				// startActivity(intentReturn);
+				setResult(RESULT_OK, intentReturn);
+				
+				
 				finish();
 				Toast.makeText(getApplicationContext(),
-						retMessage.getMessage()+"链接成功", Toast.LENGTH_LONG).show();
+						app.getValue() + "链接成功", Toast.LENGTH_LONG)
+						.show();
 				break;
 			case ERROR:
 				Toast.makeText(getApplicationContext(),
-						retMessage.getMessage()+"和服务器没有链接", Toast.LENGTH_LONG).show();
+						retMessage.getMessage() + "和服务器没有链接", Toast.LENGTH_LONG)
+						.show();
 				break;
 			}
 		}
@@ -98,7 +107,8 @@ public class LoginActivity extends Activity {
 						.toString().trim();
 				if (!ValidateUtil.isValid(username)
 						|| !ValidateUtil.isValid(password)) {
-					Toast.makeText(getApplicationContext(), R.string.login_label_usernameOrPasswordIsNotNull, 0)
+					Toast.makeText(getApplicationContext(),
+							R.string.login_label_usernameOrPasswordIsNotNull, 0)
 							.show();
 				} else {
 					user.setEmail(username);

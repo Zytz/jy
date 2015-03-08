@@ -18,17 +18,15 @@
   <TextView 
 		    android:id="@+id/iv_item_inf_inf"
 		    android:layout_gravity="center_vertical"
-		    android:layout_width="235dp"
+		    android:layout_width="120dp"
 		    android:layout_height="wrap_content" 
 		    android:textColor="@color/white"
 		  />
-  <ImageView
-      		android:id="@+id/iv_item_imagetogo_inf"
-	      	android:layout_width="30dp"
-	      	android:layout_height="30dp"
-	      	android:paddingTop="10dp"
-	      	android:layout_gravity="right"
-	      	android:src="@drawable/watch"
-	      	android:contentDescription="@string/app_name" 
-	      />
+  <TextView 
+		    android:id="@+id/iv_item_inf_message"
+		    android:layout_gravity="center_vertical"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" 
+		    android:textColor="@color/white"
+		  />
   </LinearLayout>

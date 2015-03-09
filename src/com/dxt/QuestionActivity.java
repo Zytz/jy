@@ -1,8 +1,7 @@
 package com.dxt;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.LinkedList;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -23,7 +22,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 public class QuestionActivity extends Activity {
 
-	private List<OnlineQuestion> listItems = new ArrayList<OnlineQuestion>();
+	private LinkedList<OnlineQuestion> listItems = new LinkedList<OnlineQuestion>();
 	private PullToRefreshListView mPullRefreshListView;
 	private ListViewQuestionsAdapter mAdapter;
 
@@ -105,7 +104,7 @@ public class QuestionActivity extends Activity {
 		protected OnlineQuestion doInBackground(Void... params) {
 			// Simulates a background job.
 			OnlineQuestion question2 = new OnlineQuestion();
-			question2.setGrade("初一一");
+			question2.setGrade("初一");
 			question2.setSubject("数学");
 			question2.setCreated(new Date(2014, 4, 13));
 			question2.setRewardPoint(50);
@@ -114,7 +113,7 @@ public class QuestionActivity extends Activity {
 			question2.setStudentIcon(R.drawable.go);
 			question2.setStudentName("无名");
 			question2.setAnswerCount(10000);
-			listItems.add(question2);
+			listItems.addFirst(question2);
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -151,7 +150,7 @@ public class QuestionActivity extends Activity {
 		question1.setAnswerCount(10000);
 		
 		OnlineQuestion question2 = new OnlineQuestion();
-		question2.setGrade("初一一");
+		question2.setGrade("初一");
 		question2.setSubject("数学");
 		question2.setCreated(new Date(2014, 4, 13));
 		question2.setRewardPoint(50);

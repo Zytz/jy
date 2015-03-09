@@ -78,7 +78,6 @@ public class ListViewQuestionsAdapter extends BaseAdapter {
 			listItemView = (ListItemView)convertView.getTag();
 		}
 		OnlineQuestion onlineQuestion = listItems.get(position);
-		Log.v("com.dxt", onlineQuestion.toString());
 		listItemView.grade.setText(onlineQuestion.getGrade());
 		listItemView.subject.setText(onlineQuestion.getSubject());
 		listItemView.date.setText(DateFormat.format("yyyy-MM-dd hh:mm:ss", onlineQuestion.getCreated()));

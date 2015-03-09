@@ -46,7 +46,7 @@ public class UserCenter extends Activity {
 	
 	
 	private final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
-	private final static String SERVICE_URL = "http://210.40.65.247:8080/daxuetong/services/UserCenterService?wsdl";
+	private final static String SERVICE_URL = "http://210.40.65.234:8080/daxuetong/services/UserCenterService?wsdl";
 	private ReturnMessage retMessage;
 	private Message message = new Message();
 	private static final int SUCCESS = 1;
@@ -66,7 +66,6 @@ public class UserCenter extends Activity {
 	private ListView lv_usercenter;
 	private List<CommonListViewModel> data;
 
-	private String username = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +79,8 @@ public class UserCenter extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == Activity.RESULT_OK && requestCode == RequestIntentToLogin) {
-			Bundle budle = data.getExtras();
-			username = budle.getString("username");
 			init();
-			th.start();
+			//th.start();
 		}
 	}
 
@@ -92,9 +89,12 @@ public class UserCenter extends Activity {
 		toLogin = (TextView) this.findViewById(R.id.user_notlogin);
 		app = (CustomApplication) getApplication();
 		String session=app.getValue();
+		
 		if(session!="Harvey"){
 			toLogin.setText(app.getValue());
 			toLogin.setEnabled(false);
+			th.start();
+			
 		}else{
 		toLogin.setOnClickListener(toLoginListener);
 		}
@@ -194,7 +194,7 @@ public class UserCenter extends Activity {
 			//Toast.makeText(UserCenter.this, userInfo.getName(), 0).show();
 			Intent intentUserCenterInf = new Intent();
 			Bundle budle=new Bundle();
-			if(!ValidateUtil.isValid(username)){
+			if(app.getValue()=="Harvey"){
 				Toast.makeText(getApplicationContext(), "Î´µÇÂ¼", 0).show();
 			}else{
 				budle.putString("user", retMessage.getMessage());
@@ -234,7 +234,7 @@ public class UserCenter extends Activity {
 		public void run() {
 			// TODO Auto-generated method stub
 			retMessage = WebPostUtil.getMessage(SERVICE_URL,
-					"UseCenterInformation", username);
+					"UseCenterInformation", app.getValue());
 			message.what = retMessage.getStatus();
 			handler.sendMessage(message);
 		}

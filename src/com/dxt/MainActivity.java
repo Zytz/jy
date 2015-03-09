@@ -26,7 +26,7 @@ public class MainActivity extends TabActivity {
 	private static final int REQUESTCODEFORCHOOSE=1;
 	private TabHost tabHost;
 	private ImageButton askquestion;
-	private GestureDetector detector;
+	//private GestureDetector detector;
 	//private ImageButton choose;
 	private TextView txt_chooseGrade;
 	private TextView title_name;
@@ -57,7 +57,7 @@ public class MainActivity extends TabActivity {
 		main_footbar_question.setOnClickListener(footerListener);
 		main_footbar_tweet.setOnClickListener(footerListener);
 	
-
+/*
 		detector = new GestureDetector(this,
 				new GestureDetector.SimpleOnGestureListener() {
 
@@ -76,44 +76,44 @@ public class MainActivity extends TabActivity {
 						return super.onFling(e1, e2, velocityX, velocityY);
 					}
 
-				});
+				});*/
 		
 		tabHost = getTabHost();
 		tabHost.setup();
 
 		tabHost.addTab(tabHost
 				.newTabSpec("tab_1")
-				.setContent(new Intent(this,IssueActivity.class))
+				.setContent(new Intent(this,QuestionActivity.class))
 				.setIndicator("待解决",
 						this.getResources().getDrawable(R.color.black)));
 		tabHost.addTab(tabHost
 				.newTabSpec("tab_2")
-				.setContent(new Intent(this,HighScoreIssue.class))
+				.setContent(new Intent(this,HighScoreQuestion.class))
 				.setIndicator("高分悬赏",
 						this.getResources().getDrawable(R.color.blue)));
 		tabHost.addTab(tabHost
 				.newTabSpec("tab_3")
-				.setContent(new Intent(this,ProblemList.class))
+				.setContent(new Intent(this,QuestionList.class))
 				.setIndicator("难题榜",
 						this.getResources().getDrawable(R.color.red)));
 		tabHost.setCurrentTab(0);
 	}
 
 
-	@Override
+	/*@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		detector.onTouchEvent(event);
 		return super.onTouchEvent(event);
-	}
+	}*/
 
 	/**
 	 * 当前页面索引
-	 */
+	 *//*
 	int i = 0;
 
-	/**
+	*//**
 	 * 显示下一个页面
-	 */
+	 *//*
 	protected void showNext() {
 		// 三元表达式控制3个页面的循环.
 		tabHost.setCurrentTab(i = i == 2 ? i = 0 : ++i);
@@ -121,14 +121,14 @@ public class MainActivity extends TabActivity {
 
 	}
 
-	/**
+	*//**
 	 * 显示前一个页面
-	 */
+	 *//*
 	protected void showPre() {
 		// 三元表达式控制3个页面的循环.
 		tabHost.setCurrentTab(i = i == 0 ? i = 2 : --i);
 
-	}
+	}*/
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

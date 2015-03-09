@@ -29,9 +29,9 @@
         </activity>
         <activity android:name=".view.CameraActivityTest" />
         <activity android:name=".view.MediaPlayerActivity" />
-        <activity android:name=".IssueActivity" />
-        <activity android:name=".HighScoreIssue" />
-        <activity android:name=".ProblemList" />
+        <activity android:name=".QuestionActivity" />
+        <activity android:name=".HighScoreQuestion" />
+        <activity android:name=".QuestionList" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".Regist" />
         <activity android:name=".RegistFirst" />

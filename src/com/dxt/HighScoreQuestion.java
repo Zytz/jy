@@ -15,7 +15,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-public class IssueActivity extends Activity {
+public class HighScoreQuestion extends Activity {
 
 	private String[] mStrings = { "Abbaye de Belloc", "Abbaye du Mont des Cats", "Abertam", "Abondance", "Ackawi",
 			"Acorn", "Adelost", "Affidelice au Chablis", "Afuega'l Pitu", "Airag", "Airedale", "Aisy Cendre",
@@ -29,9 +29,10 @@ public class IssueActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.issue_activity);
+		setContentView(R.layout.highscoreissue_activity);
 		
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list);
+
 		mPullRefreshListView.setMode(Mode.BOTH);
 		// Set a listener to be invoked when the list should be refreshed.
 		mPullRefreshListView.setOnRefreshListener(new OnRefreshListener2<ListView>() {
@@ -78,7 +79,7 @@ public class IssueActivity extends Activity {
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
 		actualListView.setAdapter(mAdapter);
 	}
-	
+
 	private class GetDataTask extends AsyncTask<Void, Void, String> {
 
 		//后台处理部分
@@ -108,4 +109,5 @@ public class IssueActivity extends Activity {
 			super.onPostExecute(result);
 		}
 	}
+	
 }

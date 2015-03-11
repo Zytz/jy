@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:orientation="horizontal" android:background="#ffefefef" android:paddingLeft="5.0dip" android:paddingRight="5.0dip" android:layout_width="fill_parent" android:layout_height="40.0dip"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:textSize="@dimen/common_text_size_21" android:textColor="#ff373737" android:gravity="center_vertical" android:id="@id/user_card_head_text_view" android:background="#00000000" android:layout_width="wrap_content" android:layout_height="40.0dip" android:layout_marginLeft="90.0dip" android:text="最新动态" android:singleLine="true" android:drawablePadding="5.0dip" />
-    <ImageView android:id="@id/image_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="72.0dip" android:layout_marginTop="12.0dip" android:src="@drawable/user_card_list_head_icon" />
-    <ImageView android:layout_width="3.0dip" android:layout_height="fill_parent" android:layout_marginLeft="77.0dip" android:layout_marginTop="0.0dip" android:src="@drawable/user_card_line" android:layout_below="@id/image_icon" android:layout_alignBottom="@id/user_card_head_text_view" />
-</RelativeLayout>

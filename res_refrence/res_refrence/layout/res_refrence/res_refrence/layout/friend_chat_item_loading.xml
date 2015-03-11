@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ProgressBar android:layout_gravity="center" android:id="@id/friend_chat_progress" android:layout_width="24.0dip" android:layout_height="24.0dip" android:layout_margin="2.0dip" android:indeterminateDrawable="@drawable/common_loading_progressbar_anim_drawable" />
-</FrameLayout>

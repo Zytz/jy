@@ -1,10 +1,12 @@
 package com.dxt.adapter;
 
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +16,22 @@ import android.widget.TextView;
 
 import com.dxt.R;
 import com.dxt.model.OnlineQuestion;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class ListViewQuestionsAdapter extends BaseAdapter {
 	private Context 					context;//运行上下文
 	private List<OnlineQuestion> 		listItems;//数据集合
 	private LayoutInflater 				listContainer;//视图容器
 	private int 						itemViewResource;//自定义项视图源 
+	
+	DisplayImageOptions options;
+	ImageLoadingListener animateFirstListener;
 	static class ListItemView{				//自定义控件集合  
         public TextView grade;
         public TextView subject;
@@ -35,9 +47,28 @@ public class ListViewQuestionsAdapter extends BaseAdapter {
 		this.context = context;
 		this.listItems=data;
 		this.itemViewResource = resource;
-		this.listContainer = LayoutInflater.from(context);	
+		this.listContainer = LayoutInflater.from(context);
+		initalImageLoader();
 	}
 	
+	private void initalImageLoader() {
+		// TODO Auto-generated method stub
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
+										  .writeDebugLogs().build();
+		animateFirstListener = new AnimateFirstDisplayListener();
+		options = new DisplayImageOptions.Builder()
+		.showImageOnLoading(R.drawable.ic_stub)
+		.showImageForEmptyUri(R.drawable.ic_empty)
+		.showImageOnFail(R.drawable.ic_error)
+		.cacheInMemory(true)
+		.cacheOnDisk(true)
+		.bitmapConfig(Bitmap.Config.RGB_565)
+		.displayer(new RoundedBitmapDisplayer(20))
+		.build();
+		
+		ImageLoader.getInstance().init(config);
+	}
+
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -83,10 +114,26 @@ public class ListViewQuestionsAdapter extends BaseAdapter {
 		listItemView.date.setText(DateFormat.format("yyyy-MM-dd hh:mm:ss", onlineQuestion.getCreated()));
 		listItemView.rewardPoint.setText(String.valueOf(onlineQuestion.getRewardPoint()));
 		listItemView.textDescription.setText(onlineQuestion.getTextDescription());
-		listItemView.questionImage.setBackgroundResource(R.drawable.ic_launcher);
-		listItemView.studentIcon.setBackgroundResource(R.drawable.ic_launcher);
+		ImageLoader.getInstance().displayImage("http://10.82.21.166:8080/daxuetong/"+onlineQuestion.getQuestionImage(), listItemView.questionImage, options, animateFirstListener);
+		ImageLoader.getInstance().displayImage("http://10.82.21.166:8080/daxuetong/"+onlineQuestion.getStudentIcon(), listItemView.studentIcon, options, animateFirstListener);
 		listItemView.studentName.setText(onlineQuestion.getStudentName());
 		listItemView.answerCount.setText(String.valueOf(onlineQuestion.getAnswerCount()));
 		return convertView;
+	}
+	private static class AnimateFirstDisplayListener extends SimpleImageLoadingListener {
+
+		static final List<String> displayedImages = Collections.synchronizedList(new LinkedList<String>());
+
+		@Override
+		public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+			if (loadedImage != null) {
+				ImageView imageView = (ImageView) view;
+				boolean firstDisplay = !displayedImages.contains(imageUri);
+				if (firstDisplay) {
+					FadeInBitmapDisplayer.animate(imageView, 500);
+					displayedImages.add(imageUri);
+				}
+			}
+		}
 	}
 }

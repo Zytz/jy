@@ -17,12 +17,12 @@ public class OnlineQuestion {
 	
 	private String textDescription;//问题描述
 	
-	private int questionImage;//问题图片 
+	private String questionImage;//问题图片 
 	
 	private String studentId;//存储用户Id
 	private String studentName;//若存在昵称，直接存储昵称；若不存在昵称，存储为：学员****** 形式 如：学员210489
 	
-	private int studentIcon;//学员头像 
+	private String studentIcon;//学员头像 
 	
 	private Date created;
 	
@@ -86,11 +86,11 @@ public class OnlineQuestion {
 		this.textDescription = textDescription;
 	}
 
-	public int getQuestionImage() {
+	public String getQuestionImage() {
 		return questionImage;
 	}
 
-	public void setQuestionImage(int questionImage) {
+	public void setQuestionImage(String questionImage) {
 		this.questionImage = questionImage;
 	}
 
@@ -110,11 +110,11 @@ public class OnlineQuestion {
 		this.studentName = studentName;
 	}
 
-	public int getStudentIcon() {
+	public String getStudentIcon() {
 		return studentIcon;
 	}
 
-	public void setStudentIcon(int studentIcon) {
+	public void setStudentIcon(String studentIcon) {
 		this.studentIcon = studentIcon;
 	}
 

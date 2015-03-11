@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item type="drawable" name="circle_choose_type_pressed_drawable">#ff3ab2ff</item>
-    <item type="drawable" name="circle_choose_type_normal_drawable">#ff373737</item>
-    <item type="drawable" name="commen_button_normal_drawable">#ff7f3f00</item>
-    <item type="drawable" name="commen_button_disable_drawable">#ffc0c0c0</item>
-</resources>

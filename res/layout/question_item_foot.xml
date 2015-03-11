@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/homework_question_item_iv_user_picture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12.0dip"
             android:layout_marginRight="6.0dip"

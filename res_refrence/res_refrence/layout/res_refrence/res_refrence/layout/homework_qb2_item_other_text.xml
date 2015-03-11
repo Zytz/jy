@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="horizontal" android:paddingLeft="10.0dip" android:paddingRight="10.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <include layout="@layout/homework_qb2_item_portrait" />
-    <TextView android:gravity="center_vertical" android:id="@id/homework_qb2_tv_text" style="@style/homework_qb2_item_text_left" />
-</LinearLayout>

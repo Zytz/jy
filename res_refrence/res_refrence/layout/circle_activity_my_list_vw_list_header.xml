@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:background="@drawable/user_card_bg" android:layout_width="fill_parent" android:layout_height="100.0dip"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.baidu.homework.common.net.RecyclingImageView android:id="@id/circle_my_list_iv_user_picture" android:background="@drawable/common_shape_white_circle_55" android:padding="2.0dip" android:layout_width="60.0dip" android:layout_height="60.0dip" android:layout_marginTop="9.0dip" android:scaleType="fitXY" android:layout_centerHorizontal="true" />
-    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dip" android:layout_below="@id/circle_my_list_iv_user_picture" android:layout_centerHorizontal="true">
-        <TextView android:textSize="@dimen/common_text_size_18" android:textColor="#ffffffff" android:ellipsize="end" android:id="@id/circle_my_list_iv_user_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="300.0dip" android:text="XXXXXXXXX" android:singleLine="true" android:shadowColor="#cc000000" android:shadowDx="1.0" android:shadowDy="1.0" android:shadowRadius="1.0" />
-        <ImageView android:id="@id/circle_my_list_iv_user_sex" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dip" android:src="@drawable/user_fragment_female_icon" />
-    </LinearLayout>
-</RelativeLayout>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:textSize="@dimen/common_text_size_24" android:textColor="#ff373737" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="@string/circle_good_student_dialog_tips_1" />
-    <TextView android:textSize="@dimen/common_text_size_24" android:textColor="#ff373737" android:id="@id/ciecle_tv_good_students_my_level" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:layout_marginBottom="10.0dip" android:text="@string/circle_good_student_dialog_tips_2" />
-</LinearLayout>

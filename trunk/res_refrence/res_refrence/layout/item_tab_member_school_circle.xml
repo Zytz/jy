@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.baidu.homework.common.net.RecyclingImageView android:id="@id/av_item_tab_memeber_school_circle" android:layout_marginLeft="14.0dip" style="@style/user_header_38" />
-</RelativeLayout>

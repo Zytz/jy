@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@id/container" android:background="@drawable/user_message_switch_button_bg_selector" android:padding="2.0sp" android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_alignParentLeft="true" android:layout_alignParentTop="true">
-        <TextView android:textColor="#ffffffff" android:gravity="center" android:id="@id/switch_open_text" android:paddingLeft="5.0dip" android:paddingRight="5.0dip" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="开" android:layout_weight="1.0" />
-        <TextView android:textColor="#ffffffff" android:gravity="center" android:id="@id/switch_off_text" android:paddingLeft="5.0dip" android:paddingRight="5.0dip" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="关" android:layout_weight="1.0" />
-    </LinearLayout>
-    <ImageView android:id="@id/cursor" android:background="@drawable/user_message_switch_cursor" android:layout_width="fill_parent" android:layout_height="fill_parent" />
-</RelativeLayout>

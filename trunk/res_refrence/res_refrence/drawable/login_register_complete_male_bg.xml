@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="true" android:drawable="@drawable/login_register_complete_sex_male_bg_normal" />
-    <item android:state_checked="false" android:drawable="@drawable/login_register_complete_info_choose_white_bg" />
-</selector>

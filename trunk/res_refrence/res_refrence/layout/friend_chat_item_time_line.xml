@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:paddingTop="20.0dip" android:paddingBottom="3.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
-        <TextView android:textSize="@dimen/common_text_size_18" android:textColor="#ffb1b1b1" android:id="@id/friend_chat_tv_time" android:paddingLeft="6.0dip" android:paddingRight="6.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="15:33" android:layout_centerHorizontal="true" android:layout_centerVertical="true" />
-        <ImageView android:background="#ffd8d8d9" android:layout_width="fill_parent" android:layout_height="1.0px" android:layout_marginLeft="115.0dip" android:layout_toLeftOf="@id/friend_chat_tv_time" android:layout_centerVertical="true" />
-        <ImageView android:background="#ffd8d8d9" android:layout_width="fill_parent" android:layout_height="1.0px" android:layout_marginRight="115.0dip" android:layout_toRightOf="@id/friend_chat_tv_time" android:layout_centerVertical="true" />
-    </RelativeLayout>
-</RelativeLayout>

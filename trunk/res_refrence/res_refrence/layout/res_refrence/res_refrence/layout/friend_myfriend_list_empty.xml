@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout android:gravity="center" android:orientation="vertical" android:paddingTop="95.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
-        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/myfriend_no_friend" />
-        <TextView android:textSize="20.0sp" android:textColor="@color/user_text_color_dark_gray" android:id="@id/common_tv_listview_big_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="暂时木有好友" />
-        <TextView android:textSize="15.0sp" android:textColor="@color/user_text_color_gray" android:id="@id/common_tv_listview_small_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="去Ta的名片页发现惊喜吧" />
-    </LinearLayout>
-</RelativeLayout>

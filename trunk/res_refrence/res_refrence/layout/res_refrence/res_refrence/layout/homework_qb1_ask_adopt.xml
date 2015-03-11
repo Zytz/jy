@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:paddingTop="8.0dip" android:paddingBottom="15.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:textSize="@dimen/common_text_size_18" android:textColor="#ffffffff" android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:id="@id/homework_qb1_ask_adopt" android:background="@drawable/homework_qb1_tip_bg" android:paddingLeft="15.0dip" android:paddingTop="7.0dip" android:paddingRight="15.0dip" android:paddingBottom="7.0dip" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/homework_qb1_ask_adopt" />
-</LinearLayout>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/emotion_page_root" android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <android.support.v4.view.ViewPager android:id="@id/viewpager" android:background="#ffffffff" android:paddingTop="15.0dip" android:paddingBottom="15.0dip" android:layout_width="fill_parent" android:layout_height="@dimen/emotion_layout_height" android:layout_alignParentBottom="true" />
-    <com.baidu.homework.common.ui.widget.PageIndicator android:id="@id/indicator" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" />
-    <View android:background="#ffbfbfbf" android:layout_width="fill_parent" android:layout_height="0.5dip" android:layout_alignTop="@id/viewpager" />
-</RelativeLayout>

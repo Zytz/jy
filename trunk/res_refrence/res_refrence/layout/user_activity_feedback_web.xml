@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.baidu.homework.common.ui.widget.HybridWebView android:layout_gravity="center" android:id="@id/user_hybridwebview_feedback" android:layout_width="fill_parent" android:layout_height="fill_parent" />
-    <FrameLayout android:id="@id/user_fl_loading" android:background="@color/common_activity_background" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent">
-        <ProgressBar android:layout_gravity="center" android:layout_width="32.0dip" android:layout_height="32.0dip" android:indeterminate="true" android:indeterminateDrawable="@drawable/common_alert_waiting_anim_black" />
-    </FrameLayout>
-    <include android:id="@id/user_feedback_load_fail" android:layout_width="fill_parent" android:layout_height="fill_parent" layout="@layout/common_layout_listview_no_network" />
-</FrameLayout>

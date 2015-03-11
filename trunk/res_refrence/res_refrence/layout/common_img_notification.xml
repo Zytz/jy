@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView android:id="@id/common_iv_icon" android:layout_width="113.0dip" android:layout_height="64.0dip" android:layout_marginRight="8.0dip" android:scaleType="centerCrop" android:layout_alignParentLeft="true" style="@android:style/TextAppearance.StatusBar.Icon" />
-    <TextView android:ellipsize="end" android:id="@id/common_tv_title" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:text="title" android:singleLine="true" android:layout_toRightOf="@id/common_iv_icon" android:layout_alignTop="@id/common_iv_icon" style="@android:style/TextAppearance.StatusBar.EventContent.Title" />
-    <TextView android:ellipsize="end" android:id="@id/common_tv_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="18.0dip" android:layout_marginBottom="5.0dip" android:text="content" android:singleLine="true" android:layout_toRightOf="@id/common_iv_icon" android:layout_alignBottom="@id/common_iv_icon" style="@android:style/TextAppearance.StatusBar.EventContent" />
-    <ImageView android:layout_width="20.0dip" android:layout_height="20.0dip" android:layout_marginRight="5.0dip" android:layout_marginBottom="5.0dip" android:src="@drawable/ic_launcher" android:layout_alignTop="@id/common_tv_content" android:layout_alignParentRight="true" />
-</RelativeLayout>

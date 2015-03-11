@@ -1,7 +1,7 @@
 package com.dxt;
 
-import java.util.Date;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -15,14 +15,16 @@ import android.widget.Toast;
 
 import com.dxt.adapter.ListViewQuestionsAdapter;
 import com.dxt.model.OnlineQuestion;
+import com.dxt.util.WebPostUtil;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-
 public class QuestionActivity extends Activity {
-
-	private LinkedList<OnlineQuestion> listItems = new LinkedList<OnlineQuestion>();
+	
+	final static String SERVICE_URL = "http://10.82.21.166:8080/daxuetong/services/OnlineQuestionService?wsdl";
+	final static String TAG = "dxt";
+	private List<OnlineQuestion> listItems = new ArrayList<OnlineQuestion>();
 	private PullToRefreshListView mPullRefreshListView;
 	private ListViewQuestionsAdapter mAdapter;
 
@@ -76,7 +78,8 @@ public class QuestionActivity extends Activity {
 
 					}
 				});
-		initialData();
+		
+		
 		mAdapter = new ListViewQuestionsAdapter(getApplicationContext(), listItems, R.layout.question_item);
 
 		// 这两个绑定方法用其一
@@ -97,37 +100,28 @@ public class QuestionActivity extends Activity {
 		});
 	}
 
-	private class GetDataTask extends AsyncTask<Void, Void, OnlineQuestion> {
+	private class GetDataTask extends AsyncTask<Void, Void, List<OnlineQuestion>> {
 
 		// 后台处理部分
 		@Override
-		protected OnlineQuestion doInBackground(Void... params) {
+		protected List<OnlineQuestion> doInBackground(Void... params) {
 			// Simulates a background job.
-			OnlineQuestion question2 = new OnlineQuestion();
-			question2.setGrade("初一");
-			question2.setSubject("数学");
-			question2.setCreated(new Date(2014, 4, 13));
-			question2.setRewardPoint(50);
-			question2.setTextDescription("1+3=?");
-			question2.setQuestionImage(R.drawable.ask_icon_normal);
-			question2.setStudentIcon(R.drawable.go);
-			question2.setStudentName("无名");
-			question2.setAnswerCount(10000);
-			listItems.addFirst(question2);
+			List<OnlineQuestion> ques = WebPostUtil.getOnlineQuestions(SERVICE_URL, "getOnlineQuestionList", "12414");
+
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 			}
-			return question2;
+			return ques;
 		}
 
 		// 这里是对刷新的响应，可以利用addFirst（）和addLast()函数将新加的内容加到LISTView中
 		// 根据AsyncTask的原理，onPostExecute里的result的值就是doInBackground()的返回值
 		@Override
-		protected void onPostExecute(OnlineQuestion result) {
+		protected void onPostExecute(List<OnlineQuestion> result) {
 			// 在头部增加新添内容
 			// 通知程序数据集已经改变，如果不做通知，那么将不会刷新mListItems的集合
-			
+			listItems.addAll(result);
 			mAdapter.notifyDataSetChanged();
 			// Call onRefreshComplete when the list has been refreshed.
 			mPullRefreshListView.onRefreshComplete();
@@ -136,31 +130,4 @@ public class QuestionActivity extends Activity {
 		}
 	}
 
-	private void initialData() {
-		
-		OnlineQuestion question1 = new OnlineQuestion();
-		question1.setGrade("高一");
-		question1.setSubject("数学");
-		question1.setCreated(new Date());
-		question1.setRewardPoint(50);
-		question1.setTextDescription("1+1=?");
-		question1.setQuestionImage(R.drawable.ask_icon_normal);
-		question1.setStudentIcon(R.drawable.go);
-		question1.setStudentName("求学");
-		question1.setAnswerCount(10000);
-		
-		OnlineQuestion question2 = new OnlineQuestion();
-		question2.setGrade("初一");
-		question2.setSubject("数学");
-		question2.setCreated(new Date(2014, 4, 13));
-		question2.setRewardPoint(50);
-		question2.setTextDescription("1+2=?");
-		question2.setQuestionImage(R.drawable.ask_icon_normal);
-		question2.setStudentIcon(R.drawable.go);
-		question2.setStudentName("求知");
-		question2.setAnswerCount(10000);
-		
-		listItems.add(question1);
-		listItems.add(question2);
-	}
 }

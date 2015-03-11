@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.baidu.homework.common.ui.list.ListPullView android:id="@id/user_listpullview_rank" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0" />
-    <LinearLayout android:orientation="vertical" android:id="@id/user_rank_ask_teacher" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content">
-        <View android:background="#ffe9e9e9" android:layout_width="fill_parent" android:layout_height="1.0dip" />
-        <TextView android:textSize="@dimen/common_text_size_20" android:textColor="#ff4dadfe" android:gravity="center" android:layout_gravity="center" android:background="#fff6f6f6" android:layout_width="fill_parent" android:layout_height="40.0dip" android:text="向老师提问>>" />
-    </LinearLayout>
-</LinearLayout>

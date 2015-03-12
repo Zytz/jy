@@ -1,5 +1,7 @@
 package com.dxt;
 
+import com.dxt.model.SearchOnlineQuestionBean;
+
 import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
@@ -108,14 +110,17 @@ public class MainActivity extends TabActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
-		
+		SearchOnlineQuestionBean searchBean = ((CustomApplication)getApplication()).getSearchBean();
 		if(resultCode==Activity.RESULT_OK&&requestCode==REQUESTCODEFORCHOOSE){
 			Bundle bundle = data.getExtras();
 			boolean canceled = false;
 			canceled = bundle.getBoolean("cancel");
 			if(!canceled){
-				String title = bundle.getString("title");
-				txt_chooseGrade.setText(title);
+				String grade = bundle.getString("grade");
+				String subject = bundle.getString("subject");
+				txt_chooseGrade.setText(grade+subject);
+				searchBean.setGrade(grade);
+				searchBean.setSubject(subject);
 			}
 		}
 	}

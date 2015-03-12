@@ -3,24 +3,34 @@ package com.dxt;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.dxt.adapter.ListViewQuestionsAdapter;
 import com.dxt.constant.StringConstant;
 import com.dxt.model.OnlineQuestion;
+import com.dxt.model.SearchOnlineQuestionBean;
 import com.dxt.util.WebPostUtil;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+/**
+ * @author Administrator
+ *
+ */
 public class QuestionActivity extends Activity {
 	
 	final static String SERVICE_URL = StringConstant.SERVICE_URL+ "services/OnlineQuestionService?wsdl";
@@ -28,12 +38,15 @@ public class QuestionActivity extends Activity {
 	private List<OnlineQuestion> listItems = new ArrayList<OnlineQuestion>();
 	private PullToRefreshListView mPullRefreshListView;
 	private ListViewQuestionsAdapter mAdapter;
-
+	private CustomApplication application ;
+	private SearchOnlineQuestionBean searchBean;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.issue_activity);
 
+		application = (CustomApplication) getApplication();
+		
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		// Set a listener to be invoked when the list should be refreshed.
@@ -80,15 +93,13 @@ public class QuestionActivity extends Activity {
 					}
 				});
 		
-		
 		mAdapter = new ListViewQuestionsAdapter(getApplicationContext(), listItems, R.layout.question_item);
-
-		// 这两个绑定方法用其一
-		// 方法一
-		// mPullRefreshListView.setAdapter(mAdapter);
-		// 方法二
+		
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
+		
 		actualListView.setAdapter(mAdapter);
+		
+		
 		mPullRefreshListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -101,14 +112,33 @@ public class QuestionActivity extends Activity {
 		});
 	}
 
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		new GetDataTask().execute();
+	}
+
+	
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		searchBean.setPageNum(0);
+	}
+
+	
+
 	private class GetDataTask extends AsyncTask<Void, Void, List<OnlineQuestion>> {
 
 		// 后台处理部分
 		@Override
 		protected List<OnlineQuestion> doInBackground(Void... params) {
 			// Simulates a background job.
-			List<OnlineQuestion> ques = WebPostUtil.getOnlineQuestions(SERVICE_URL, "getOnlineQuestionList", "12414");
-
+			searchBean = application.getSearchBean();
+			List<OnlineQuestion> ques = WebPostUtil.getOnlineQuestions(SERVICE_URL, "getOnlineQuestionList", JSON.toJSONString(searchBean));
+			searchBean.setPageNum(searchBean.getPageNum()+1);
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {

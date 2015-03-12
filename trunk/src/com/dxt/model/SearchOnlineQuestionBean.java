@@ -3,11 +3,13 @@ package com.dxt.model;
 public class SearchOnlineQuestionBean {
 	private String grade;
 	private String subject;
-	private int orderWay;
-	private int pageNum;
-	private int pageSize;
+	private int orderWay=3;
+	private int pageNum=0;
+	private int pageSize=2;
 	
 	private String studentId;
+	
+	
 	
 	public String getGrade() {
 		return grade;
@@ -51,4 +53,5 @@ public class SearchOnlineQuestionBean {
 				+ subject + ", orderWay=" + orderWay + ", pageNum=" + pageNum
 				+ ", pageSize=" + pageSize + ", studentId=" + studentId + "]";
 	}
+	
 }

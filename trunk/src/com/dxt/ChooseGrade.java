@@ -96,7 +96,8 @@ public class ChooseGrade extends Activity {
 				
 				Intent intent = new Intent(getApplicationContext(),MainActivity.class);
 				intent.putExtra("cancel", false);
-				intent.putExtra("title", temp1+temp2);
+				intent.putExtra("grade", temp1);
+				intent.putExtra("subject", temp2);
 				intent.putExtra("title_id", grades[old_grade]+" "+subjects[old_subject]);
 				setResult(RESULT_OK, intent);
 				finish();

@@ -3,7 +3,6 @@ package com.dxt;
 import android.app.Application;
 import android.content.Intent;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dxt.model.SearchOnlineQuestionBean;
@@ -25,9 +24,12 @@ public class CustomApplication extends Application
     }
     
     public void showDialog(View view){
-    	ImageView image = (ImageView)view;
+    	MyImageView image = (MyImageView)view;
     	Intent intent = new Intent(getApplicationContext(),PreviewActivity.class);
-		Toast.makeText(getApplicationContext(), "µã»÷Í¼Æ¬", 200).show();
+    	intent.putExtra("uri", image.getUri());
+		intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK);
+    	Toast.makeText(getApplicationContext(), image.getUri(), 200).show();
+		startActivity(intent);
 	}
     
     public void setValue(String value)

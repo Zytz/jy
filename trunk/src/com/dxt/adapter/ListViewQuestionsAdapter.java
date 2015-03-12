@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dxt.MyImageView;
 import com.dxt.R;
 import com.dxt.constant.StringConstant;
 import com.dxt.model.OnlineQuestion;
@@ -39,7 +40,7 @@ public class ListViewQuestionsAdapter extends BaseAdapter {
 	    public TextView date;  
 	    public TextView rewardPoint;
 	    public TextView textDescription;
-	    public ImageView questionImage;
+	    public MyImageView questionImage;
 	    public ImageView studentIcon;
 	    public TextView studentName;
 	    public TextView answerCount;
@@ -101,7 +102,7 @@ public class ListViewQuestionsAdapter extends BaseAdapter {
 			listItemView.date	=(TextView) convertView.findViewById(R.id.question_item_question_time);
 			listItemView.rewardPoint = (TextView) convertView.findViewById(R.id.question_rewrad);
 			listItemView.textDescription = (TextView) convertView.findViewById(R.id.question_name);
-			listItemView.questionImage = (ImageView) convertView.findViewById(R.id.question_picture);
+			listItemView.questionImage = (MyImageView) convertView.findViewById(R.id.question_picture);
 			listItemView.studentIcon = (ImageView) convertView.findViewById(R.id.homework_question_item_iv_user_picture);
 			listItemView.studentName = (TextView) convertView.findViewById(R.id.homework_question_item_tv_user_name);
 			listItemView.answerCount = (TextView) convertView.findViewById(R.id.homework_questionlist_item_bottom_ans_num_text_id);
@@ -116,6 +117,7 @@ public class ListViewQuestionsAdapter extends BaseAdapter {
 		listItemView.rewardPoint.setText(String.valueOf(onlineQuestion.getRewardPoint()));
 		listItemView.textDescription.setText(onlineQuestion.getTextDescription());
 		ImageLoader.getInstance().displayImage(StringConstant.SERVICE_URL+onlineQuestion.getQuestionImage(), listItemView.questionImage, options, animateFirstListener);
+		listItemView.questionImage.setUri(onlineQuestion.getQuestionImage());
 		ImageLoader.getInstance().displayImage(StringConstant.SERVICE_URL+onlineQuestion.getStudentIcon(), listItemView.studentIcon, options, animateFirstListener);
 		listItemView.studentName.setText(onlineQuestion.getStudentName());
 		listItemView.answerCount.setText(String.valueOf(onlineQuestion.getAnswerCount()));

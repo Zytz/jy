@@ -25,10 +25,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 /**
  * @author Administrator
- * @param <E>
  *
  */
-public class QuestionActivity<E> extends Activity {
+public class QuestionActivity extends Activity {
 	
 	final static String SERVICE_URL = StringConstant.SERVICE_URL+ "services/OnlineQuestionService?wsdl";
 	final static String TAG = "dxt";
@@ -37,6 +36,7 @@ public class QuestionActivity<E> extends Activity {
 	private ListViewQuestionsAdapter mAdapter;
 	private CustomApplication application ;
 	private SearchOnlineQuestionBean searchBean;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -110,18 +110,6 @@ public class QuestionActivity<E> extends Activity {
 	}
 
 	
-	
-	
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		if(searchBean.getPageNum()!=0)
-			new GetDataTask().execute();
-	}
-
-
-
 
 	@Override
 	protected void onStart() {
@@ -151,10 +139,7 @@ public class QuestionActivity<E> extends Activity {
 			// Simulates a background job.
 			searchBean = application.getSearchBean();
 			List<OnlineQuestion> ques = WebPostUtil.getOnlineQuestions(SERVICE_URL, "getOnlineQuestionList", JSON.toJSONString(searchBean));
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-			}
+			
 			return ques;
 		}
 
@@ -164,9 +149,16 @@ public class QuestionActivity<E> extends Activity {
 		protected void onPostExecute(List<OnlineQuestion> result) {
 			// 在头部增加新添内容
 			// 通知程序数据集已经改变，如果不做通知，那么将不会刷新mListItems的集合
-			if(searchBean.getPageNum()==0) listItems.removeAll(listItems);
-			listItems.addAll(result);
-			searchBean.setPageNum(searchBean.getPageNum()+1);
+			if(searchBean.getGrade().equals(application.getGrade())&&searchBean.getSubject().equals(application.getSubject())){
+				listItems.addAll(result);
+				searchBean.setPageNum(searchBean.getPageNum()+1);
+			}else{
+				listItems.removeAll(listItems);
+				listItems.addAll(result);
+				application.setGrade(searchBean.getGrade());
+				application.setSubject(searchBean.getSubject());
+				searchBean.setPageNum(1);
+			}
 			mAdapter.notifyDataSetChanged();
 			// Call onRefreshComplete when the list has been refreshed.
 			mPullRefreshListView.onRefreshComplete();

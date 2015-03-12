@@ -3,7 +3,6 @@ package com.dxt;
 import android.app.Application;
 import android.content.Intent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.dxt.model.SearchOnlineQuestionBean;
 
@@ -13,7 +12,27 @@ public class CustomApplication extends Application
     
     private String value;
     
-    private SearchOnlineQuestionBean searchBean;
+    private String grade="";
+    
+    private String subject="";
+    
+    public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	private SearchOnlineQuestionBean searchBean;
     
     @Override
     public void onCreate()

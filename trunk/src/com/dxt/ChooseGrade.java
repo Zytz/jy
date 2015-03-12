@@ -19,7 +19,7 @@ import com.dxt.util.ValidateUtil;
 
 public class ChooseGrade extends Activity {
 	private static int[] grades = {R.string.quanbu,R.string.xiaoxue,R.string.chuyi,R.string.chuer,
-		   R.string.chusan,R.string.gaoyi,R.string.gaoer,R.string.gaosan};
+		   R.string.chusan,R.string.zhongkao,R.string.gaoyi,R.string.gaoer,R.string.gaosan,R.string.gaokao};
 	private static final int[] subjects = {R.string.quanbu,R.string.shuxue,R.string.yuwen,R.string.yingyu,
 		   R.string.wuli,R.string.huaxue,R.string.shengwu,R.string.zhengzhi,
 		   R.string.lishi,R.string.dili};

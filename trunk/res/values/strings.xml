@@ -6,12 +6,14 @@
     <string name="quanbu">全部</string>
     <string name="grade">年级</string>
     <string name="xiaoxue">小学</string>
-    <string name="chuyi">初一</string>
-    <string name="chuer">初二</string>
-    <string name="chusan">初三</string>
+    <string name="chuyi">七年级</string>
+    <string name="chuer">八年级</string>
+    <string name="chusan">九年级</string>
+    <string name="zhongkao">中考</string>
     <string name="gaoyi">高一</string>
     <string name="gaoer">高二</string>
     <string name="gaosan">高三</string>
+    <string name="gaokao">高考</string>
     <string name="subject">学科</string>
     <string name="shuxue">数学</string>
     <string name="yuwen">语文</string>

@@ -28,7 +28,6 @@ public class CustomApplication extends Application
     	Intent intent = new Intent(getApplicationContext(),PreviewActivity.class);
     	intent.putExtra("uri", image.getUri());
 		intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK);
-    	Toast.makeText(getApplicationContext(), image.getUri(), 200).show();
 		startActivity(intent);
 	}
     

@@ -3,17 +3,13 @@ package com.dxt;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,9 +25,10 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 /**
  * @author Administrator
+ * @param <E>
  *
  */
-public class QuestionActivity extends Activity {
+public class QuestionActivity<E> extends Activity {
 	
 	final static String SERVICE_URL = StringConstant.SERVICE_URL+ "services/OnlineQuestionService?wsdl";
 	final static String TAG = "dxt";
@@ -112,6 +109,20 @@ public class QuestionActivity extends Activity {
 		});
 	}
 
+	
+	
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if(searchBean.getPageNum()!=0)
+			new GetDataTask().execute();
+	}
+
+
+
+
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
@@ -126,6 +137,8 @@ public class QuestionActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		searchBean.setPageNum(0);
+		searchBean.setGrade("");
+		searchBean.setSubject("");
 	}
 
 	
@@ -138,7 +151,6 @@ public class QuestionActivity extends Activity {
 			// Simulates a background job.
 			searchBean = application.getSearchBean();
 			List<OnlineQuestion> ques = WebPostUtil.getOnlineQuestions(SERVICE_URL, "getOnlineQuestionList", JSON.toJSONString(searchBean));
-			searchBean.setPageNum(searchBean.getPageNum()+1);
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -152,7 +164,9 @@ public class QuestionActivity extends Activity {
 		protected void onPostExecute(List<OnlineQuestion> result) {
 			// 在头部增加新添内容
 			// 通知程序数据集已经改变，如果不做通知，那么将不会刷新mListItems的集合
+			if(searchBean.getPageNum()==0) listItems.removeAll(listItems);
 			listItems.addAll(result);
+			searchBean.setPageNum(searchBean.getPageNum()+1);
 			mAdapter.notifyDataSetChanged();
 			// Call onRefreshComplete when the list has been refreshed.
 			mPullRefreshListView.onRefreshComplete();

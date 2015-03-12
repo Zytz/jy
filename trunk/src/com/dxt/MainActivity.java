@@ -121,6 +121,8 @@ public class MainActivity extends TabActivity {
 				txt_chooseGrade.setText(grade+subject);
 				searchBean.setGrade(grade);
 				searchBean.setSubject(subject);
+				searchBean.setPageNum(0);
+				tabHost.invalidate();
 			}
 		}
 	}
@@ -147,17 +149,14 @@ public class MainActivity extends TabActivity {
 			// TODO Auto-generated method stub
 			switch(v.getId()){
 				case R.id.main_footbar_news:
-					Toast.makeText(getApplicationContext(), "main_footbar_news", Toast.LENGTH_LONG).show();
 					v.setPressed(true);
 					break;
 				case R.id.main_footbar_question:
-					Toast.makeText(getApplicationContext(), "main_footbar_question", Toast.LENGTH_LONG).show();
 					Intent toVideoActivity=new Intent();
 					toVideoActivity.setClass(getApplicationContext(), com.dxt.view.MediaPlayerActivity.class);
 					startActivity(toVideoActivity);
 					break;
 				case R.id.main_footbar_tweet:
-					Toast.makeText(getApplicationContext(), "main_footbar_tweet", Toast.LENGTH_LONG).show();
 					Intent intent =new Intent();
 					intent.setClass(getApplicationContext(), com.dxt.view.UserCenter.class);
 					startActivity(intent);

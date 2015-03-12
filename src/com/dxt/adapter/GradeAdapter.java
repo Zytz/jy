@@ -41,8 +41,8 @@ public class GradeAdapter extends BaseAdapter {
 		TextView textView;
 		if(convertView==null){
 			textView = new TextView(context);
-			textView.setLayoutParams(new GridView.LayoutParams(65, 65));
-            textView.setPadding(8, 8, 8, 8);
+			textView.setLayoutParams(new GridView.LayoutParams(75, 60));
+            textView.setPadding(5, 5, 5, 5);
 		}else{
 			textView = (TextView) convertView;
 		}
@@ -52,5 +52,5 @@ public class GradeAdapter extends BaseAdapter {
 	}
 	
 	private static int[] grades = {R.string.quanbu,R.string.xiaoxue,R.string.chuyi,R.string.chuer,
-								   R.string.chusan,R.string.gaoyi,R.string.gaoer,R.string.gaosan};
+		   R.string.chusan,R.string.zhongkao,R.string.gaoyi,R.string.gaoer,R.string.gaosan,R.string.gaokao};
 }

@@ -41,8 +41,8 @@ public class SubjecAdapter extends BaseAdapter {
 		TextView textView;
 		if(convertView==null){
 			textView = new TextView(context);
-			textView.setLayoutParams(new GridView.LayoutParams(65, 65));
-            textView.setPadding(8, 8, 8, 8);
+			textView.setLayoutParams(new GridView.LayoutParams(60, 60));
+            textView.setPadding(5, 5, 5, 5);
 		}else{
 			textView = (TextView) convertView;
 		}

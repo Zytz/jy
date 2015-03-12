@@ -57,7 +57,6 @@ public class ChooseGrade extends Activity {
 					old_grade = position;
 					tempView.setText(grades[old_grade]);
 					temp1 = tempView.getText().toString();
-					//Toast.makeText(getApplicationContext(), grades[position], 300).show();
 			}
 			
 		});
@@ -73,7 +72,6 @@ public class ChooseGrade extends Activity {
 					old_subject = position;
 					tempView.setText(subjects[old_subject]);
 					temp2 = tempView.getText().toString();
-					//Toast.makeText(getApplicationContext(), subjects[position], 300).show();
 			}
 			
 		});
@@ -86,18 +84,26 @@ public class ChooseGrade extends Activity {
 				// TODO Auto-generated method stub
 				//预处理
 				//判断是否有点击事件
+				
+				String grade=null;
+				String subject=null;
 				if(!ValidateUtil.isValid(temp1)&&!ValidateUtil.isValid(temp2)){
 					temp1="全部问题";
+					grade="";
+					subject="";
 				}else if(!ValidateUtil.isValid(temp1)&&ValidateUtil.isValid(temp2)){
 					temp1="全部";
+					grade="";
 				}else if(ValidateUtil.isValid(temp1)&&!ValidateUtil.isValid(temp2)){
 					temp2="全部";
+					subject="";
 				}
-				
+				if(grade==null) grade = temp1;
+				if(subject==null) subject = temp2;
 				Intent intent = new Intent(getApplicationContext(),MainActivity.class);
 				intent.putExtra("cancel", false);
-				intent.putExtra("grade", temp1);
-				intent.putExtra("subject", temp2);
+				intent.putExtra("grade", grade);
+				intent.putExtra("subject", subject);
 				intent.putExtra("title_id", grades[old_grade]+" "+subjects[old_subject]);
 				setResult(RESULT_OK, intent);
 				finish();

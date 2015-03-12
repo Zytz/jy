@@ -1,8 +1,8 @@
 package com.dxt.model;
 
 public class SearchOnlineQuestionBean {
-	private String grade;
-	private String subject;
+	private String grade="";
+	private String subject="";
 	private int orderWay=3;
 	private int pageNum=0;
 	private int pageSize=2;

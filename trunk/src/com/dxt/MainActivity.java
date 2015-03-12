@@ -28,6 +28,8 @@ public class MainActivity extends TabActivity {
 	private RadioButton main_footbar_news;
 	private RadioButton main_footbar_question;
 	private RadioButton main_footbar_tweet;
+	
+	private CustomApplication application;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,8 @@ public class MainActivity extends TabActivity {
 		//无标题
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
+		
+		application = (CustomApplication) getApplication();
 		askquestion=(ImageButton) this.findViewById(R.id.img_askquestion);
 		
 		txt_chooseGrade=(TextView) this.findViewById(R.id.circle_tv_title_name);
@@ -110,7 +114,7 @@ public class MainActivity extends TabActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
-		SearchOnlineQuestionBean searchBean = ((CustomApplication)getApplication()).getSearchBean();
+		SearchOnlineQuestionBean searchBean = application.getSearchBean();
 		if(resultCode==Activity.RESULT_OK&&requestCode==REQUESTCODEFORCHOOSE){
 			Bundle bundle = data.getExtras();
 			boolean canceled = false;
@@ -118,7 +122,15 @@ public class MainActivity extends TabActivity {
 			if(!canceled){
 				String grade = bundle.getString("grade");
 				String subject = bundle.getString("subject");
-				txt_chooseGrade.setText(grade+subject);
+				String title = null;
+				if(!grade.equals("")&&!subject.equals("")){
+					title = grade+subject;
+				}else if(!grade.equals("")&&subject.equals("")){
+					title = grade +"全部";
+				}else{
+					title ="全部问题";
+				}
+				txt_chooseGrade.setText(title);
 				searchBean.setGrade(grade);
 				searchBean.setSubject(subject);
 				searchBean.setPageNum(0);

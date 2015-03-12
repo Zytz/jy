@@ -127,6 +127,8 @@ public class QuestionActivity extends Activity {
 		searchBean.setPageNum(0);
 		searchBean.setGrade("");
 		searchBean.setSubject("");
+		application.setGrade("");
+		application.setSubject("");
 	}
 
 	

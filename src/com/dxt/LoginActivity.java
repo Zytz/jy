@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.dxt.constant.StringConstant;
 import com.dxt.model.User;
 import com.dxt.util.ReturnMessage;
 import com.dxt.util.ValidateUtil;
@@ -22,7 +23,7 @@ import com.dxt.view.UserCenter;
 
 public class LoginActivity extends Activity {
 	final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
-	final static String SERVICE_URL = "http://210.40.65.234:8080/daxuetong/services/UserService?wsdl";
+	final static String SERVICE_URL = StringConstant.SERVICE_URL+"services/OnlineQuestionService?wsdl";
 	final static String TAG = "dxt";
 
 	private static final int SUCCESS = 1;

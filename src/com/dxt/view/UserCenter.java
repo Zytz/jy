@@ -29,6 +29,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dxt.CustomApplication;
 import com.dxt.LoginActivity;
 import com.dxt.R;
+import com.dxt.constant.StringConstant;
 import com.dxt.model.CommonListViewModel;
 import com.dxt.model.User;
 import com.dxt.util.ReturnMessage;
@@ -46,7 +47,7 @@ public class UserCenter extends Activity {
 	
 	
 	private final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
-	private final static String SERVICE_URL = "http://210.40.65.234:8080/daxuetong/services/UserCenterService?wsdl";
+	private final static String SERVICE_URL = StringConstant.SERVICE_URL+"services/UserCenterService?wsdl";
 	private ReturnMessage retMessage;
 	private Message message = new Message();
 	private static final int SUCCESS = 1;

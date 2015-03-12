@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.dxt.constant.StringConstant;
 import com.dxt.model.User;
 import com.dxt.util.ReturnMessage;
 import com.dxt.util.ValidateUtil;
@@ -22,7 +23,7 @@ import com.dxt.util.WebPostUtil;
 
 public class RegistFirst extends Activity {
 	final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
-	final static String SERVICE_URL = "http://10.82.21.244:8080/daxuetong/services/UserService?wsdl";
+	final static String SERVICE_URL = StringConstant.SERVICE_URL+"services/UserService?wsdl";
 	final static String TAG = "dxt";
 	private static final int SUCCESS = 1;
 	private static final int ERROR = 0;

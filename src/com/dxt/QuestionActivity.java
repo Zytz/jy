@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.dxt.adapter.ListViewQuestionsAdapter;
+import com.dxt.constant.StringConstant;
 import com.dxt.model.OnlineQuestion;
 import com.dxt.util.WebPostUtil;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -22,7 +23,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 public class QuestionActivity extends Activity {
 	
-	final static String SERVICE_URL = "http://10.82.21.166:8080/daxuetong/services/OnlineQuestionService?wsdl";
+	final static String SERVICE_URL = StringConstant.SERVICE_URL+ "services/OnlineQuestionService?wsdl";
 	final static String TAG = "dxt";
 	private List<OnlineQuestion> listItems = new ArrayList<OnlineQuestion>();
 	private PullToRefreshListView mPullRefreshListView;

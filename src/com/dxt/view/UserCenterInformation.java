@@ -32,7 +32,7 @@ public class UserCenterInformation extends Activity {
 
 	private String TAG = "dxt";
 	private final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
-	private final static String SERVICE_URL = "http://210.40.65.247:8080/daxuetong/services/UserCenterService?wsdl";
+	private final static String SERVICE_URL = "http://210.40.65.204:8080/daxuetong/services/UserCenterService?wsdl";
 	private ReturnMessage retMessage;
 	private Message message = new Message();
 	private static final int SUCCESS = 1;

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dxt.R;
+import com.dxt.constant.StringConstant;
 import com.dxt.model.OnlineQuestion;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -114,8 +115,8 @@ public class ListViewQuestionsAdapter extends BaseAdapter {
 		listItemView.date.setText(DateFormat.format("yyyy-MM-dd hh:mm:ss", onlineQuestion.getCreated()));
 		listItemView.rewardPoint.setText(String.valueOf(onlineQuestion.getRewardPoint()));
 		listItemView.textDescription.setText(onlineQuestion.getTextDescription());
-		ImageLoader.getInstance().displayImage("http://10.82.21.166:8080/daxuetong/"+onlineQuestion.getQuestionImage(), listItemView.questionImage, options, animateFirstListener);
-		ImageLoader.getInstance().displayImage("http://10.82.21.166:8080/daxuetong/"+onlineQuestion.getStudentIcon(), listItemView.studentIcon, options, animateFirstListener);
+		ImageLoader.getInstance().displayImage(StringConstant.SERVICE_URL+onlineQuestion.getQuestionImage(), listItemView.questionImage, options, animateFirstListener);
+		ImageLoader.getInstance().displayImage(StringConstant.SERVICE_URL+onlineQuestion.getStudentIcon(), listItemView.studentIcon, options, animateFirstListener);
 		listItemView.studentName.setText(onlineQuestion.getStudentName());
 		listItemView.answerCount.setText(String.valueOf(onlineQuestion.getAnswerCount()));
 		return convertView;

@@ -23,7 +23,7 @@ import com.dxt.view.UserCenter;
 
 public class LoginActivity extends Activity {
 	final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
-	final static String SERVICE_URL = StringConstant.SERVICE_URL+"services/OnlineQuestionService?wsdl";
+	final static String SERVICE_URL = StringConstant.SERVICE_URL+"services/UserService?wsdl";
 	final static String TAG = "dxt";
 
 	private static final int SUCCESS = 1;

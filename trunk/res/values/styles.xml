@@ -30,7 +30,13 @@
         <item name="android:paddingTop">@dimen/space_1</item>
         <item name="android:paddingBottom">@dimen/space_3</item>
     </style>
-    
+    <style name="main_footbar_image">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/widget_bar_bg</item>
+        <item name="android:clickable">true</item>
+    </style>
     <style name="main_footbar_radio" parent="footbar">
         <item name="android:background">@drawable/widget_bar_bg</item>
         <item name="android:padding">0dip</item>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:id="@+id/main_header"
+        android:layout_width="fill_parent"
+        android:layout_height="48.0dip"
+        android:background="@android:color/holo_blue_light" >
+     	<TextView
+            android:id="@+id/question_detail_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:ellipsize="middle"
+            android:maxWidth="188.0dip"
+            android:paddingRight="7.0dip"
+            android:shadowDx="1.0"
+            android:shadowDy="1.0"
+            android:shadowRadius="1.0"
+            android:singleLine="true"
+            android:text="问题详情"
+            android:textColor="#ffffffff"
+            android:textSize="@dimen/common_text_size_20" />
+     </RelativeLayout>
+
+    
+     <RelativeLayout
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/main_header" >
+
+         <ViewSwitcher
+             android:id="@+id/question_detail_viewswitcher"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_weight="1" >
+
+             <ScrollView
+                 android:id="@+id/question_detail_scrollview"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:fadingEdge="none"
+                 android:scrollbars="vertical" >
+
+                 <LinearLayout
+                     android:layout_width="fill_parent"
+                     android:layout_height="wrap_content"
+                     android:orientation="vertical" >
+
+                     <RelativeLayout
+                         android:layout_width="fill_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginTop="10.0dip"
+                         android:paddingLeft="4.0dip"
+                         android:paddingRight="4.0dip" >
+
+                         <com.dxt.MyImageView
+                             android:id="@+id/homework_question_item_iv_user_picture"
+                             android:layout_width="30dp"
+                             android:layout_height="30dp"
+                             android:layout_alignParentLeft="true"
+                             android:layout_marginLeft="11.0dip"
+                             android:layout_marginRight="6.0dip"
+                             android:scaleType="fitXY" />
+
+                         <TextView
+                             android:id="@+id/question_rewrad"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:layout_alignParentRight="true"
+                             android:layout_centerVertical="true"
+                             android:drawableLeft="@drawable/common_reward_icon"
+                             android:drawablePadding="2.0dip"
+                             android:paddingRight="10.0dip"
+                             android:textColor="#fffda514" />
+
+                         <LinearLayout
+                             android:id="@+id/top_panel"
+                             android:layout_width="fill_parent"
+                             android:layout_height="wrap_content"
+                             android:layout_toLeftOf="@id/question_rewrad"
+                             android:layout_toRightOf="@id/homework_question_item_iv_user_picture"
+                             android:gravity="center_vertical"
+                             android:orientation="vertical" >
+
+                             <LinearLayout
+                                 android:layout_width="fill_parent"
+                                 android:layout_height="wrap_content"
+                                 android:orientation="horizontal" >
+
+                                 <TextView
+                                     android:id="@+id/homework_qb1_item_tv_user_name"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:drawablePadding="5.0dip"
+                                     android:ellipsize="end"
+                                     android:singleLine="true"
+                                     android:text="用户名"
+                                     android:textColor="#ff888888"
+                                     android:textSize="@dimen/list_name_size" />
+                             </LinearLayout>
+
+                             <LinearLayout
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_gravity="center_vertical"
+                                 android:orientation="horizontal" >
+
+                                 <TextView
+                                     android:id="@+id/question_item_user_grade"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:layout_marginRight="10.0dip"
+                                     android:text="年级"
+                                     android:textColor="#ffafafaf"
+                                     android:textSize="@dimen/list_time_size" />
+
+                                 <TextView
+                                     android:id="@+id/question_item_question_course"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:layout_marginRight="10.0dip"
+                                     android:text="科目"
+                                     android:textColor="#ffafafaf"
+                                     android:textSize="@dimen/list_time_size" />
+
+                                 <TextView
+                                     android:id="@+id/question_item_question_time"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:text="创建问题时间"
+                                     android:textColor="#ffafafaf"
+                                     android:textSize="@dimen/list_time_size" />
+                             </LinearLayout>
+                         </LinearLayout>
+                     </RelativeLayout>
+                      <TextView
+				            android:id="@+id/question_name"
+				            android:layout_width="fill_parent"
+				            android:layout_height="wrap_content"
+				            android:layout_marginTop="10.0dip"
+				            android:lineSpacingExtra="4.0dip"
+				            android:textColor="#ff373737"
+				            android:textSize="@dimen/common_text_size_20" />
+
+			        <com.dxt.MyImageView
+			            android:id="@+id/question_picture"
+			            android:layout_width="match_parent"
+			            android:layout_height="225dp"
+			            android:layout_marginBottom="10.0dip"
+			            android:layout_marginTop="8.0dip"
+			            />
+
+                 </LinearLayout>
+             </ScrollView>
+             <include layout="@layout/online_question_answer"/>
+         </ViewSwitcher>
+     </RelativeLayout>
+		
+     <include layout="@layout/question_detail_foot" />
+</RelativeLayout>

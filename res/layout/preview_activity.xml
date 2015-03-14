@@ -5,10 +5,36 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/background_login">
-	<ImageView 
-	    android:id="@+id/prviewImage"
-	    android:layout_width="fill_parent"
-	    android:layout_height="400dp"
-	    android:layout_gravity="center_vertical"
-	    />
+     <RelativeLayout
+        android:id="@+id/main_header"
+        android:layout_width="fill_parent"
+        android:layout_height="48.0dip"
+        android:background="@android:color/holo_blue_light" >
+        <TextView
+            android:id="@+id/preview_image_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:ellipsize="middle"
+            android:maxWidth="188.0dip"
+            android:paddingRight="7.0dip"
+            android:shadowDx="1.0"
+            android:shadowDy="1.0"
+            android:shadowRadius="1.0"
+            android:singleLine="true"
+            android:text="图片预览"
+            android:textColor="#ffffffff"
+            android:textSize="@dimen/common_text_size_20" />
+	</RelativeLayout>
+	<RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+	    
+		<ImageView 
+		    android:id="@+id/prviewImage"
+		    android:layout_width="fill_parent"
+		    android:layout_height="400dp"
+		    />
+	</RelativeLayout>
 </LinearLayout>

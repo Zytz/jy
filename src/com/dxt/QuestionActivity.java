@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.dxt.adapter.ListViewQuestionsAdapter;
@@ -103,8 +104,11 @@ public class QuestionActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				Toast.makeText(getApplicationContext(),
-						"hello", 1000).show();
+				Intent intent = new Intent(getApplicationContext(),QuestionDetailActivity.class);
+				String ques = JSON.toJSONString(listItems.get(position-1));
+				Log.v("com.dxt", ques);
+				intent.putExtra("question", ques);
+				startActivity(intent);
 			}
 		});
 	}

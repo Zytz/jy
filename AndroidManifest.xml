@@ -42,5 +42,7 @@
         <activity android:name=".view.UserCenterMyMney"/>
         <activity android:name=".ChooseGrade" />
         <activity android:name=".PreviewActivity"/>
+        <activity android:name=".QuestionDetailActivity"></activity>
+        <activity android:name=".OnlineQuestionAnswerActivity"></activity>
     </application>
 </manifest>

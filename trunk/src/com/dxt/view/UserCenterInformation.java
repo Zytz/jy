@@ -21,7 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dxt.CustomApplication;
 import com.dxt.R;
+import com.dxt.constant.StringConstant;
 import com.dxt.model.CommonListViewModel;
 import com.dxt.model.CommonListViewModel_itt;
 import com.dxt.model.User;
@@ -32,7 +34,7 @@ public class UserCenterInformation extends Activity {
 
 	private String TAG = "dxt";
 	private final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
-	private final static String SERVICE_URL = "http://210.40.65.204:8080/daxuetong/services/UserCenterService?wsdl";
+	private final static String SERVICE_URL =StringConstant.SERVICE_URL+"services/UserCenterService?wsdl";
 	private ReturnMessage retMessage;
 	private Message message = new Message();
 	private static final int SUCCESS = 1;
@@ -47,7 +49,7 @@ public class UserCenterInformation extends Activity {
 	private ListView lv_usercenterinf;
 	private List<CommonListViewModel_itt> data;
 	private User u=new User();
-	
+	private CustomApplication app;
 	private String username;
 	
 	@Override
@@ -55,14 +57,11 @@ public class UserCenterInformation extends Activity {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.usercenterinformation);
+		app = (CustomApplication) getApplication(); // 获得CustomApplication对象
 		
-		Intent intentGetUsername=this.getIntent();
-		username=intentGetUsername.getExtras().getString("user");
-		u=JSONObject.parseObject(username,User.class);
+
+		u=JSONObject.parseObject(app.getValue(),User.class);
 		init();
-		
-		
-	
 	}
 	private void init() {
 		lv_usercenterinf = (ListView) this.findViewById(R.id.lv_usercenterinf);

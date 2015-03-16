@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.dxt.constant.StringConstant;
 import com.dxt.model.User;
 import com.dxt.util.ReturnMessage;
@@ -23,7 +24,9 @@ import com.dxt.view.UserCenter;
 
 public class LoginActivity extends Activity {
 	final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
+	//final static String SERVICE_URL = "http://210.40.65.204:8080/daxuetong/services/UserService?wsdl";
 	final static String SERVICE_URL = StringConstant.SERVICE_URL+"services/UserService?wsdl";
+	final static String SERVICE_URL1=StringConstant.SERVICE_URL+"services/UserCenterService?wsdl";
 	final static String TAG = "dxt";
 
 	private static final int SUCCESS = 1;
@@ -48,18 +51,20 @@ public class LoginActivity extends Activity {
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case SUCCESS:
-				app = (CustomApplication) getApplication(); // 获得CustomApplication对象
-				app.setValue(username); // 重新设置值
+				//thLogin.getState()==Thread.;
+				thFindUser.start();
+				
 				
 				Intent intentReturn = new Intent();
 				intentReturn
 						.setClass(getApplicationContext(), UserCenter.class);
-				Bundle bundle = new Bundle();
+/*				Bundle bundle = new Bundle();
 				bundle.putString("username", username);// 添加要返回给页面1的数据
-				intentReturn.putExtras(bundle);
+				intentReturn.putExtras(bundle);*/
 				// startActivity(intentReturn);
-				setResult(RESULT_OK, intentReturn);
+				//setResult(RESULT_OK, intentReturn);
 				
+				startActivity(intentReturn);
 				
 				finish();
 				Toast.makeText(getApplicationContext(),
@@ -81,7 +86,7 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.login);
-
+		app = (CustomApplication) getApplication(); // 获得CustomApplication对象
 		toRegist = (Button) findViewById(R.id.toregist_button);
 
 		toRegist.setOnClickListener(new View.OnClickListener() {
@@ -116,19 +121,28 @@ public class LoginActivity extends Activity {
 					user.setPassword(password);
 					userInfo = JSON.toJSONString(user);
 					Log.v(TAG, userInfo);
-					new Thread() {
-
-						@Override
-						public void run() {
-							// TODO Auto-generated method stub
-							retMessage = WebPostUtil.getMessage(SERVICE_URL,
-									"login", userInfo);
-							message.what = retMessage.getStatus();
-							handler.sendMessage(message);
-						}
-					}.start();
+					thLogin.start();
 				}
 			}
 		});
+		
+
 	}
+	Thread thLogin=new Thread(){
+		public void run() {
+			retMessage = WebPostUtil.getMessage(SERVICE_URL,
+					"login", userInfo);
+			message.what = retMessage.getStatus();
+			handler.sendMessage(message);	
+		};
+	};
+	Thread thFindUser=new Thread(){
+		public void run() {
+			
+			retMessage = WebPostUtil.getMessage(SERVICE_URL1,
+					"UseCenterInformation", username);
+			app.setValue(retMessage.getMessage());
+			
+		};
+	};
 }

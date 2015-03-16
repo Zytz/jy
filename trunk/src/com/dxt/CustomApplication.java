@@ -8,7 +8,7 @@ import com.dxt.model.SearchOnlineQuestionBean;
 
 public class CustomApplication extends Application
 {
-    private static final String VALUE = "Harvey";
+    private static final String VALUE = "";
     
     private String value;
     

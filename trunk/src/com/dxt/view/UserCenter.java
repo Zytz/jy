@@ -47,13 +47,14 @@ public class UserCenter extends Activity {
 	
 	
 	private final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
+	//private final static String SERVICE_URL = "http://210.40.65.204:8080/daxuetong/services/UserCenterService?wsdl";
 	private final static String SERVICE_URL = StringConstant.SERVICE_URL+"services/UserCenterService?wsdl";
 	private ReturnMessage retMessage;
 	private Message message = new Message();
 	private static final int SUCCESS = 1;
 	private static final int ERROR = 0;
 	//private Thread th;
-	private Handler handler = new UIHander();
+	//private Handler handler = new UIHander();
 	private User u=new User();
 	private CustomApplication app;
 	
@@ -81,22 +82,23 @@ public class UserCenter extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == Activity.RESULT_OK && requestCode == RequestIntentToLogin) {
 			init();
-			//th.start();
 		}
 	}
-
 	private void init() {
 		img = (ImageView) findViewById(R.id.user_icon);
 		toLogin = (TextView) this.findViewById(R.id.user_notlogin);
 		app = (CustomApplication) getApplication();
-		String session=app.getValue();
-		
-		if(session!="Harvey"){
-			toLogin.setText(app.getValue());
-			toLogin.setEnabled(false);
-			th.start();
+		if(ValidateUtil.isValid(app.getValue())){
 			
-		}else{
+			u=JSONObject.parseObject(app.getValue(),User.class);
+			if(u.getEmail()!="Harvey"){
+				toLogin.setText(u.getEmail());
+				toLogin.setEnabled(false);
+				//	th.start();
+				
+			}
+		}
+		else{
 		toLogin.setOnClickListener(toLoginListener);
 		}
 		lv_usercenter = (ListView) this.findViewById(R.id.lv_usercenter);
@@ -157,7 +159,6 @@ public class UserCenter extends Activity {
 			} else {
 				viewHolder = (ViewHolder) convertView.getTag();
 			}
-
 			CommonListViewModel userInfo = data.get(position);
 			viewHolder.iconIV.setImageResource(userInfo.getIcon());
 			viewHolder.nameTV.setText(userInfo.getName());
@@ -195,11 +196,11 @@ public class UserCenter extends Activity {
 			//Toast.makeText(UserCenter.this, userInfo.getName(), 0).show();
 			Intent intentUserCenterInf = new Intent();
 			Bundle budle=new Bundle();
-			if(app.getValue()=="Harvey"){
+			if(!ValidateUtil.isValid(app.getValue())){
 				Toast.makeText(getApplicationContext(), "Î´µÇÂ¼", 0).show();
 			}else{
-				budle.putString("user", retMessage.getMessage());
-				intentUserCenterInf.putExtras(budle);
+			/*	budle.putString("user", retMessage.getMessage());
+				intentUserCenterInf.putExtras(budle);*/
 			switch(position){
 			case 0:
 				intentUserCenterInf.setClass(getApplicationContext(),
@@ -229,7 +230,7 @@ public class UserCenter extends Activity {
 		}
 	};
 	
-	
+	/*
 	Thread th=new Thread(){
 		@Override
 		public void run() {
@@ -262,7 +263,7 @@ public class UserCenter extends Activity {
 			}
 		}
 
-	}
+	}*/
 
 	//
 }

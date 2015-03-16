@@ -16,11 +16,41 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dxt.constant.StringConstant;
 import com.dxt.model.OnlineQuestion;
+import com.dxt.model.OnlineQuestionAnswer;
+import com.dxt.model.User;
 
 public class WebPostUtil {
 	final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
 	private static ReturnMessage retMessage = new ReturnMessage();
 
+	public static User getUserById(String url, String methodName,
+			String id){
+		User u = null ;
+		HttpTransportSE ht = new HttpTransportSE(url);
+		ht.debug = true;
+		SoapObject request = new SoapObject(SERVICE_NS, methodName);
+		request.addProperty("id", id);
+		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+				SoapEnvelope.VER11);
+		envelope.bodyOut = request;
+		try {
+			ht.call(null, envelope);
+			if (envelope.getResponse() != null) {
+				Log.v("lll---", "ok!!");
+				SoapObject result = (SoapObject) envelope.bodyIn;
+				String name = result.getProperty(0).toString();
+				u = JSON.parseObject(name, User.class);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XmlPullParserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return u;
+	}
+	
 	public static ReturnMessage getMessage(String url, String methodName,
 			String userInfo) {
 		HttpTransportSE ht = new HttpTransportSE(url);
@@ -83,6 +113,37 @@ public class WebPostUtil {
 			e.printStackTrace();
 		}
 		return questions;
+	}
+	
+	public static List<OnlineQuestionAnswer> getOnlineQuestionAnswer(String url, String methodName,
+			String questionID){
+		List<OnlineQuestionAnswer> answers =new ArrayList<OnlineQuestionAnswer>();
+		HttpTransportSE ht = new HttpTransportSE(url);
+		ht.debug = true;
+		SoapObject request = new SoapObject(SERVICE_NS, methodName);
+		request.addProperty("onlineQuestionID", questionID);
+		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+				SoapEnvelope.VER11);
+		envelope.bodyOut = request;
+		try {
+			ht.call(null, envelope);
+			if (envelope.getResponse() != null) {
+				Log.v("lll---", "ok!!");
+				SoapObject result = (SoapObject) envelope.bodyIn;
+				String name = result.getProperty(0).toString();
+				answers = JSON.parseArray(name, OnlineQuestionAnswer.class);
+				for (OnlineQuestionAnswer answer : answers) {
+					Log.v("com.dxt", answer.toString());
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XmlPullParserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return answers;
 	}
 	public static boolean uploadImage(String methodName,String fileName, String imageBuffer,String SERVICE_URL) {  
 		// TODO Auto-generated method stub

@@ -106,7 +106,6 @@ public class QuestionActivity extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(getApplicationContext(),QuestionDetailActivity.class);
 				String ques = JSON.toJSONString(listItems.get(position-1));
-				Log.v("com.dxt", ques);
 				intent.putExtra("question", ques);
 				startActivity(intent);
 			}
@@ -159,7 +158,7 @@ public class QuestionActivity extends Activity {
 				listItems.addAll(result);
 				searchBean.setPageNum(searchBean.getPageNum()+1);
 			}else{
-				listItems.removeAll(listItems);
+				listItems.clear();;
 				listItems.addAll(result);
 				application.setGrade(searchBean.getGrade());
 				application.setSubject(searchBean.getSubject());

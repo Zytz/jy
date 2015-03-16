@@ -16,6 +16,8 @@ public class CustomApplication extends Application
     
     private String subject="";
     
+    private String questionId="";
+    
     public String getGrade() {
 		return grade;
 	}
@@ -66,6 +68,14 @@ public class CustomApplication extends Application
 
 	public void setSearchBean(SearchOnlineQuestionBean searchBean) {
 		this.searchBean = searchBean;
+	}
+
+	public String getQuestionId() {
+		return questionId;
+	}
+
+	public void setQuestionId(String questionId) {
+		this.questionId = questionId;
 	}
     
     

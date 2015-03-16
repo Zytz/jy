@@ -55,4 +55,12 @@
         <item name="android:background">@drawable/common_selector_yellow_bt</item>
         <item name="android:layout_height">40.0dip</item>
     </style>
+    
+	  <style name="user_face_image">
+		<item name="android:scaleType">fitCenter</item>
+		<item name="android:padding">1.0dip</item>
+		<item name="android:clickable">true</item>
+		<item name="android:background">@drawable/widget_dface_border_n</item>
+		<item name="android:src">@drawable/widget_dface_loading</item>
+    </style> 
 </resources>

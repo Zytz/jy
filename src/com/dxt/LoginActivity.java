@@ -57,9 +57,24 @@ public class LoginActivity extends Activity {
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						retMessage = WebPostUtil.getMessage(SERVICE_URL1,
-								"UseCenterInformation", username);
-						app.setValue(retMessage.getMessage());
+/*						retMessage = WebPostUtil.getMessage(SERVICE_URL1,
+								"UseCenterInformation", username);*/
+						app.setValue(username);
+						
+						
+						
+						Intent intentReturn = new Intent();
+						intentReturn
+								.setClass(getApplicationContext(), UserCenter.class);
+			/*				Bundle bundle = new Bundle();
+						bundle.putString("username", username);// 添加要返回给页面1的数据
+						intentReturn.putExtras(bundle);*/
+						// startActivity(intentReturn);
+						setResult(RESULT_OK, intentReturn);
+						
+						//startActivity(intentReturn);
+						
+						finish();
 					}
 				}.start();
 				

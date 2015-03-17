@@ -5,13 +5,14 @@ import android.content.Intent;
 import android.view.View;
 
 import com.dxt.model.SearchOnlineQuestionBean;
+import com.dxt.model.User;
 
 public class CustomApplication extends Application
 {
     private static final String VALUE = "";
     
     private String value;
-    
+    private User u;
     private String grade="";
     
     private String subject="";

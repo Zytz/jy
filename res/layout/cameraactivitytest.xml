@@ -13,12 +13,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="120dp"
             android:layout_gravity="center"
-            android:text="@string/camera_label_myquestion" 
+            android:layout_marginLeft="120dp"
+            android:text="@string/camera_label_myquestion"
             android:textColor="@color/white"
-            android:textSize="15dp"
-            />
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/onlinequesion_create"
@@ -54,6 +53,7 @@
             android:textSize="16sp" />
 
         <EditText
+            android:id="@+id/edit_textDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/camera_label_promt" />
@@ -64,18 +64,24 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/camera_detail" >
+
+        <TextView
+            android:id="@+id/tex_rewardpoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="悬赏分：" />
+
+        <Spinner
+            android:id="@+id/rewardpoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </Spinner>
+
         <Button
+            android:id="@+id/ask_goodStudent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="问学霸" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="问老师" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="悬赏分" />
     </LinearLayout>
 
 </RelativeLayout>

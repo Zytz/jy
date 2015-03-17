@@ -52,24 +52,34 @@ public class LoginActivity extends Activity {
 			switch (msg.what) {
 			case SUCCESS:
 				//thLogin.getState()==Thread.;
-				thFindUser.start();
+				//thFindUser.start();
+				new Thread(){
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						retMessage = WebPostUtil.getMessage(SERVICE_URL1,
+								"UseCenterInformation", username);
+						app.setValue(retMessage.getMessage());
+					}
+				}.start();
 				
 				
 				Intent intentReturn = new Intent();
 				intentReturn
 						.setClass(getApplicationContext(), UserCenter.class);
-/*				Bundle bundle = new Bundle();
+	/*				Bundle bundle = new Bundle();
 				bundle.putString("username", username);// 添加要返回给页面1的数据
 				intentReturn.putExtras(bundle);*/
 				// startActivity(intentReturn);
-				//setResult(RESULT_OK, intentReturn);
+				setResult(RESULT_OK, intentReturn);
 				
-				startActivity(intentReturn);
+				//startActivity(intentReturn);
 				
 				finish();
 				Toast.makeText(getApplicationContext(),
 						app.getValue() + "链接成功", Toast.LENGTH_LONG)
 						.show();
+				
 				break;
 			case ERROR:
 				Toast.makeText(getApplicationContext(),
@@ -136,13 +146,28 @@ public class LoginActivity extends Activity {
 			handler.sendMessage(message);	
 		};
 	};
-	Thread thFindUser=new Thread(){
+/*	Thread thFindUser=new Thread(){
 		public void run() {
 			
 			retMessage = WebPostUtil.getMessage(SERVICE_URL1,
 					"UseCenterInformation", username);
 			app.setValue(retMessage.getMessage());
+			Intent intentReturn = new Intent();
+			intentReturn
+					.setClass(getApplicationContext(), UserCenter.class);
+				Bundle bundle = new Bundle();
+			bundle.putString("username", username);// 添加要返回给页面1的数据
+			intentReturn.putExtras(bundle);
+			// startActivity(intentReturn);
+			setResult(RESULT_OK, intentReturn);
+			
+			//startActivity(intentReturn);
+			
+			finish();
+			Toast.makeText(getApplicationContext(),
+					app.getValue() + "链接成功", Toast.LENGTH_LONG)
+					.show();
 			
 		};
-	};
+	};*/
 }

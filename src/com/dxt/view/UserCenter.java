@@ -54,7 +54,7 @@ public class UserCenter extends Activity {
 	private static final int SUCCESS = 1;
 	private static final int ERROR = 0;
 	//private Thread th;
-	private Handler handler = new UIHander();
+	//private Handler handler = new UIHander();
 	private User u=new User();
 	private CustomApplication app;
 	
@@ -89,8 +89,8 @@ public class UserCenter extends Activity {
 		toLogin = (TextView) this.findViewById(R.id.user_notlogin);
 		app = (CustomApplication) getApplication();
 		if(ValidateUtil.isValid(app.getValue())){
-
-
+			
+			u=JSONObject.parseObject(app.getValue(),User.class);
 				toLogin.setText(u.getEmail());
 				toLogin.setEnabled(false);
 				//	th.start();
@@ -228,7 +228,7 @@ public class UserCenter extends Activity {
 		}
 	};
 	
-	
+	/*
 	Thread th=new Thread(){
 		@Override
 		public void run() {
@@ -261,7 +261,7 @@ public class UserCenter extends Activity {
 			}
 		}
 
-	}
+	}*/
 
 	//
 }

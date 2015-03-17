@@ -91,12 +91,10 @@ public class UserCenter extends Activity {
 		if(ValidateUtil.isValid(app.getValue())){
 			
 			u=JSONObject.parseObject(app.getValue(),User.class);
-			if(u.getEmail()!="Harvey"){
 				toLogin.setText(u.getEmail());
 				toLogin.setEnabled(false);
 				//	th.start();
 				
-			}
 		}
 		else{
 		toLogin.setOnClickListener(toLoginListener);

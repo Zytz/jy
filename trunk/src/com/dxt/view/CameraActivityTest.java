@@ -7,32 +7,50 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.kobjects.base64.Base64;
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.dxt.CustomApplication;
 import com.dxt.MainActivity;
 import com.dxt.R;
+import com.dxt.adapter.ArrayWheelAdapter;
+import com.dxt.adapter.OnWheelChangedListener;
+import com.dxt.adapter.WheelView;
 import com.dxt.constant.StringConstant;
+import com.dxt.model.OnlineQuestion;
+import com.dxt.model.User;
 import com.dxt.util.ReturnMessage;
+import com.dxt.util.ValidateUtil;
 import com.dxt.util.WebPostUtil;
 
 public class CameraActivityTest extends Activity {
@@ -43,21 +61,46 @@ public class CameraActivityTest extends Activity {
 	private String TAG = "dxt";
 
 	private ImageView img = null;
-	
-	private TextView text = null;
+
+	// private TextView text = null;
+	private Spinner spin_rewardpoint;
 	private TextView onlinequesion_submit;
-	
+	private EditText edit_Description;
 	private File tempFile = new File(Environment.getExternalStorageDirectory(),
 			getPhotoFileName());
+	private Button askGoodStudent;
+
+	// private
 
 	private static final int PHOTO_REQUEST_TAKEPHOTO = 1;// 拍照
 	private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
 	private static final int PHOTO_REQUEST_CUT = 3;// 结果
-	private boolean canSubmit=false;
-	
+	private boolean canSubmit = false;
+
+	private String grade;
+	private String subject;
+	private int rewardPoint;
+
 	private Message message = new Message();
 	private ReturnMessage retMessage;
 	private CustomApplication app;
+	private ArrayAdapter<Integer> adapter;
+	private User u;
+	private Handler handler = new UIHander();
+	public String category1[] = new String[] { "小学    ", "七年级", "八年级", "九年级",
+			"中考   ", "高一   ", "高二  ", "高三    ", "高考   " };
+	public String category2[][] = new String[][] {
+			new String[] { "语文 ", "数学 ", "英语 " },
+			new String[] { "语文 ", "数学 ", "英语 " },
+			new String[] { "语文 ", "数学 ", "英语 " },
+			new String[] { "语文 ", "数学 ", "英语 " },
+			new String[] { "语文 ", "数学 ", "英语 " },
+			new String[] { "语文 ", "数学 ", "英语 " },
+			new String[] { "语文 ", "数学 ", "英语 " },
+			new String[] { "语文 ", "数学 ", "英语 " },
+			new String[] { "语文 ", "数学 ", "英语 " }, };
+	private Integer[] rewPoint = { 0, 5, 6, 7, 8, 9, 10, 15, 20 };
+	private String fileName="";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -71,18 +114,41 @@ public class CameraActivityTest extends Activity {
 		// TODO Auto-generated method stub
 		// creama = (Button) findViewById(R.id.btn_creama);
 		app = (CustomApplication) getApplication();
-		String session=app.getValue();
-		
+		String session = app.getValue();
+
 		img = (ImageView) findViewById(R.id.img_camera);
 		img.setOnClickListener(listener);
-		text = (TextView) findViewById(R.id.text);
-		onlinequesion_submit=(TextView)findViewById(R.id.onlinequesion_create);
-		
-		
+		// text = (TextView) findViewById(R.id.text);
+		edit_Description = (EditText) findViewById(R.id.edit_textDescription);
+		spin_rewardpoint = (Spinner) findViewById(R.id.rewardpoint);
+		askGoodStudent = (Button) findViewById(R.id.ask_goodStudent);
+
+		// 将可选内容与ArrayAdapter连接起来
+		adapter = new ArrayAdapter<Integer>(this,
+				android.R.layout.simple_spinner_item, rewPoint);
+
+		// 设置下拉列表的风格
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+		// 将adapter 添加到spinner中
+		spin_rewardpoint.setAdapter(adapter);
+
+		// 添加事件Spinner事件监听
+		spin_rewardpoint
+				.setOnItemSelectedListener(new SpinnerSelectedListener());
+
+		// 设置默认值
+		spin_rewardpoint.setVisibility(View.VISIBLE);
+		// 自定义dilag
+		/*
+		 * LayoutInflater inflater = getLayoutInflater(); final View layout =
+		 * inflater.inflate(R.layout.config, (ViewGroup)
+		 * findViewById(R.id.tableView));
+		 */
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		
+
 		switch (requestCode) {
 		case PHOTO_REQUEST_TAKEPHOTO:// 当选择拍照时调用
 			startPhotoZoom(Uri.fromFile(tempFile));
@@ -101,6 +167,19 @@ public class CameraActivityTest extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
+	// 使用数组形式操作
+	class SpinnerSelectedListener implements OnItemSelectedListener {
+
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			// view.setText("你的血型是："+m[arg2]);
+			rewardPoint=rewPoint[arg2];
+		}
+
+		public void onNothingSelected(AdapterView<?> arg0) {
+		}
+	}
+
 	private OnClickListener listener = new OnClickListener() {
 
 		@Override
@@ -115,28 +194,31 @@ public class CameraActivityTest extends Activity {
 
 		}
 	};
-	OnClickListener submitListener=new OnClickListener() {
-		
+	// 问学霸事件
+	private OnClickListener askGoodListener = new OnClickListener() {
+
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			if(canSubmit){
-				//to submit
-				if(app.getValue()=="Harvey"){
-					//请先登录
+			if (canSubmit) {
+				fileName=getPhotoFileName();
+				if (ValidateUtil.isValid(app.getValue())) {
+
+					u = JSONObject.parseObject(app.getValue(), User.class);
 					th.start();
-					Toast.makeText(getApplicationContext(), "请先登录", 0).show();
-				}else{
-					Intent intent_return=new Intent();
-					intent_return.setClass(getApplicationContext(), MainActivity.class);
-					startActivity(intent_return);
-					th.start();
+
+					showSelectDialog(CameraActivityTest.this, "选择所在年级和学科",
+							category1, category2);
+				} else {
+					Toast.makeText(getApplicationContext(), "亲，请先登录", 0).show();
 				}
-			}else{
+
+			} else {
 				Toast.makeText(getApplicationContext(), "未获取到图片的信息", 0).show();
 			}
 		}
 	};
+
 	private void startPhotoZoom(Uri uri) {
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setDataAndType(uri, "image/*");
@@ -166,8 +248,9 @@ public class CameraActivityTest extends Activity {
 			} else {
 				img.setImageBitmap(photo);
 				// 设置文本内容为 图片绝对路径和名字
-				onlinequesion_submit.setOnClickListener(submitListener);
-				canSubmit=true;
+				// onlinequesion_submit.setOnClickListener(submitListener);
+				askGoodStudent.setOnClickListener(askGoodListener);
+				canSubmit = true;
 			}
 
 			ByteArrayOutputStream baos = null;
@@ -202,21 +285,20 @@ public class CameraActivityTest extends Activity {
 				"'IMG'_yyyyMMdd_HHmmss");
 		return dateFormat.format(date) + ".jpg";
 	}
+
 	/*
-	 * 1:完成更新数据库
-	 * 2：完成将数据提交到服务器中
-	 * 
+	 * 1:完成更新数据库 2：完成将数据提交到服务器中
 	 */
-	Thread th=new Thread(){
+	Thread th = new Thread() {
 		public void run() {
 			uploadOnlineQuestion();
 		};
 	};
+
 	private void uploadOnlineQuestion() {
-		
 
 		try {
-			String imageViewPath=tempFile.getAbsolutePath();
+			String imageViewPath = tempFile.getAbsolutePath();
 			FileInputStream fis = new FileInputStream(imageViewPath);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			byte[] buffer = new byte[1024];
@@ -226,51 +308,131 @@ public class CameraActivityTest extends Activity {
 			}
 			String uploadBuffer = new String(Base64.encode(baos.toByteArray())); // 进行Base64编码
 			String methodName = "uploadImage";
-			Log.i(TAG, methodName+" "+getPhotoFileName()+" "+uploadBuffer);
-			connectWebService(methodName, getPhotoFileName(), uploadBuffer); // 调用webservice
-			//retMessage=WebPostUtil.getMessage(StringConstant.SERVICE_URL, methodName, uploadBuffer);
-			 //retMessage.getStatus();
-			
-			Log.i("connectWebService", retMessage.getMessage());
+			Log.i(TAG, methodName + " " + getPhotoFileName() + " "
+					+ uploadBuffer);
+			// WebPostUtil.(methodName, getPhotoFileName(),
+			// uploadBuffer,SERVICE_URL); // 调用webservice
+			WebPostUtil.uploadImage(methodName, fileName,
+					uploadBuffer, SERVICE_URL);
+			// retMessage=WebPostUtil.getMessage(StringConstant.SERVICE_URL,
+			// methodName, uploadBuffer);
+			// retMessage.getStatus();
+
 			fis.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	 private boolean connectWebService(String methodName,String fileName, String imageBuffer) {  
-		// TODO Auto-generated method stub
-		//String namespace = "http://134.192.44.105:8080/SSH2/service/IService"; // 命名空间，即服务器端得接口，注：后缀没加
-		//String namespace = StringConstant.SERVICE_URL+"service"; 																		// .wsdl，
-		// 服务器端我是用x-fire实现webservice接口的
-		//String url = "http://134.192.44.105:8080/SSH2/service/IService"; // 对应的url
-		// 以下就是 调用过程了，不明白的话 请看相关webservice文档
-		SoapObject soapObject = new SoapObject(SERVICE_NS, methodName);
-		soapObject.addProperty("filename", fileName); // 参数1 图片名
-		soapObject.addProperty("image", imageBuffer); // 参数2 图片字符串
-		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-				SoapEnvelope.VER10);
-		//envelope.dotNet = false;
-		//envelope.setOutputSoapObject(soapObject);
-		envelope.bodyOut = soapObject;
-		HttpTransportSE httpTranstation = new HttpTransportSE(SERVICE_URL);
-		try {
-			httpTranstation.call(null, envelope); // 这一步内存溢出
-			if(envelope.getResponse() != null){
-				Log.v("lll---", "ok!!");
-				SoapObject result = (SoapObject) envelope.bodyIn;
-				String name = result.getProperty(0).toString();
-				Log.i(TAG, name);
-				return true;
-			}else{
-				//
-				Log.i(TAG, "Connection failure");
-				return false;
+	private String createOnLineQuestion() {
+
+		OnlineQuestion onlinequestionInApp = new OnlineQuestion();
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
+		dateFormat.format(date);
+		onlinequestionInApp.setGrade(grade);
+		onlinequestionInApp.setTextDescription(edit_Description.getText()
+				.toString());
+		onlinequestionInApp.setSubject(subject);
+		onlinequestionInApp.setRewardPoint(rewardPoint);
+		onlinequestionInApp.setQuestionImage(getPhotoFileName());
+		onlinequestionInApp.setCreated(new Date());
+		onlinequestionInApp.setStudentId(u.getId());
+		onlinequestionInApp.setStudentName(u.getNickName());// nickname
+		onlinequestionInApp.setStudentIcon(u.getIcon());
+		onlinequestionInApp.setQuestionImage("static/images/"+fileName);
+		return  JSON.toJSONString(onlinequestionInApp);
+	}
+
+	private void showSelectDialog(Context context, String title,
+			final String[] left, final String[][] right) {
+		AlertDialog dialog = new AlertDialog.Builder(context).create();
+		dialog.setTitle(title);
+		LinearLayout llContent = new LinearLayout(context);
+		llContent.setOrientation(LinearLayout.HORIZONTAL);
+		final WheelView wheelLeft = new WheelView(context);
+		wheelLeft.setVisibleItems(5);
+		wheelLeft.setCyclic(false);
+		wheelLeft.setAdapter(new ArrayWheelAdapter<String>(left));
+		final WheelView wheelRight = new WheelView(context);
+		wheelRight.setVisibleItems(5);
+		wheelRight.setCyclic(true);
+		wheelRight.setAdapter(new ArrayWheelAdapter<String>(right[0]));
+		LinearLayout.LayoutParams paramsLeft = new LinearLayout.LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		paramsLeft.gravity = Gravity.LEFT;
+		LinearLayout.LayoutParams paramsRight = new LinearLayout.LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
+				(float) 0.6);
+		paramsRight.gravity = Gravity.RIGHT;
+		llContent.addView(wheelLeft, paramsLeft);
+		llContent.addView(wheelRight, paramsRight);
+		wheelLeft.addChangingListener(new OnWheelChangedListener() {
+			@Override
+			public void onChanged(WheelView wheel, int oldValue, int newValue) {
+				wheelRight.setAdapter(new ArrayWheelAdapter<String>(
+						right[newValue]));
+				wheelRight.setCurrentItem(right[newValue].length / 2);
 			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+		});
+		dialog.setButton(AlertDialog.BUTTON_POSITIVE, "确定",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						int leftPosition = wheelLeft.getCurrentItem();
+						grade = left[leftPosition];
+						subject = right[leftPosition][wheelRight
+								.getCurrentItem()];
+						// btn.setText(vLeft + "-" + vRight);
+						
+						createOnLineQuestion();
+						dialog.dismiss();
+						new Thread(){
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								retMessage = WebPostUtil.getMessage(SERVICE_URL,
+										"createOnlineQuestion", createOnLineQuestion());
+								message.what = retMessage.getStatus();
+								handler.sendMessage(message);
+							}
+						}.start();
+					}
+				});
+		dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+		dialog.setView(llContent);
+		if (!dialog.isShowing()) {
+			dialog.show();
 		}
-		return false;
+	}
+	@SuppressLint("HandlerLeak")
+	private final class UIHander extends Handler {
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			switch (msg.what) {
+			//成功
+			case 1:
+				Intent intentReturn = new Intent();
+				intentReturn
+						.setClass(getApplicationContext(), MainActivity.class);
+				startActivity(intentReturn);
+				
+				break;
+				//失败
+			case 0:
+				Toast.makeText(getApplicationContext(), "失败", 0).show();
+				break;
+			}
+		}
+
 	}
 }

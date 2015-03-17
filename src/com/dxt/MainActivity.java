@@ -70,7 +70,7 @@ public class MainActivity extends TabActivity {
 		tabHost.addTab(tabHost
 				.newTabSpec("tab_3")
 				.setContent(new Intent(this,QuestionActivityList.class))
-				.setIndicator("难题榜",
+				.setIndicator("问老师  "+"有五个老师在线",
 						this.getResources().getDrawable(R.color.red)));
 		tabHost.setCurrentTab(0);
 	}

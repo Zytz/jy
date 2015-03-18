@@ -53,10 +53,13 @@ public class UserCenter extends Activity {
 	private Message message = new Message();
 	private static final int SUCCESS = 1;
 	private static final int ERROR = 0;
+	
+	private boolean flag_th=false;
 	//private Thread th;
 	//private Handler handler = new UIHander();
 	private User u=new User();
 	private CustomApplication app;
+	
 	
 	
 	
@@ -88,13 +91,12 @@ public class UserCenter extends Activity {
 		img = (ImageView) findViewById(R.id.user_icon);
 		toLogin = (TextView) this.findViewById(R.id.user_notlogin);
 		app = (CustomApplication) getApplication();
-		if(ValidateUtil.isValid(app.getValue())){
+		if(app.isIslogin()){
 			
-			u=JSONObject.parseObject(app.getValue(),User.class);
-				toLogin.setText(u.getEmail());
+			//u=JSONObject.parseObject(app.getValue(),User.class);
+				toLogin.setText(app.getUsername());
 				toLogin.setEnabled(false);
-				//	th.start();
-				
+				//th.start();
 		}
 		else{
 		toLogin.setOnClickListener(toLoginListener);
@@ -192,25 +194,25 @@ public class UserCenter extends Activity {
 			// TODO Auto-generated method stub
 			CommonListViewModel userInfo = data.get(position);
 			//Toast.makeText(UserCenter.this, userInfo.getName(), 0).show();
-			Intent intentUserCenterInf = new Intent();
-			Bundle budle=new Bundle();
-			if(!ValidateUtil.isValid(app.getValue())){
+			
+			if(!app.isIslogin()){
 				Toast.makeText(getApplicationContext(), "Î´µÇÂ¼", 0).show();
 			}else{
 			/*	budle.putString("user", retMessage.getMessage());
 				intentUserCenterInf.putExtras(budle);*/
+				Intent intentUserCenterInf = new Intent();
 			switch(position){
 			case 0:
 				intentUserCenterInf.setClass(getApplicationContext(),
 						UserCenterInformation.class);
 				startActivityForResult(intentUserCenterInf, RequestUserCenterInformation);
 				break;
-			/*case 1:
+				/*case 1:
 				intentUserCenterInf.setClass(getApplicationContext(),
 						UserCenterMyQuestion.class);
 				startActivityForResult(intentUserCenterInf, RequestUserCenterMyQuestion);
 				break;
-			case 2:
+				case 2:
 				intentUserCenterInf.setClass(getApplicationContext(),
 						UserCenterMyAnswer.class);
 				startActivityForResult(intentUserCenterInf, RequestUserCenterMyAnswer);
@@ -236,6 +238,8 @@ public class UserCenter extends Activity {
 			retMessage = WebPostUtil.getMessage(SERVICE_URL,
 					"UseCenterInformation", app.getValue());
 			message.what = retMessage.getStatus();
+			app.setValue(retMessage.getMessage());
+			flag_th=true;
 			handler.sendMessage(message);
 		}
 	};
@@ -261,7 +265,7 @@ public class UserCenter extends Activity {
 			}
 		}
 
-	}*/
-
+	}
+*/
 	//
 }

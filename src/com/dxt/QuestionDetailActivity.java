@@ -317,5 +317,12 @@ public class QuestionDetailActivity extends Activity {
 						Intent intent = new Intent(getApplicationContext(),CameraActivityTest.class);
 						startActivity(intent);
 					}};
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+					
+	
 					
 }

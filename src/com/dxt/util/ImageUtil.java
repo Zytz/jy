@@ -35,7 +35,7 @@ public class ImageUtil {
 	.cacheOnDisk(true)
 	.bitmapConfig(Bitmap.Config.RGB_565)
 	.displayer(new RoundedBitmapDisplayer(20))
-	.build();;
+	.build();
 	
 	private static ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();;
 	

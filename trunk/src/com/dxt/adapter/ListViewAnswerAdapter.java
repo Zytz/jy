@@ -28,7 +28,7 @@ public class ListViewAnswerAdapter extends BaseAdapter {
 	private List<OnlineQuestionAnswer> listItems;// 数据集合
 	private LayoutInflater listContainer;// 视图容器
 	private int itemViewResource;// 自定义项视图源
-
+	private static User u = new User();
 	static class ListitemView {
 		private ImageView authorPicture;
 		private TextView authorName;
@@ -86,8 +86,10 @@ public class ListViewAnswerAdapter extends BaseAdapter {
 		}
 		
 		OnlineQuestionAnswer answer = listItems.get(position);
-		//final String authorId = answer.getAnswerAuthorId();
-		
+		String authorId = answer.getAnswerAuthorId();
+		Thread thread = new Thread(new Helper(authorId));
+		thread.start();
+		ImageUtil.LoadImage(context, u.getIcon(), listitemView.authorPicture);
 		listitemView.authorName.setText(answer.getAnswerAuthor());
 		listitemView.answerContent.setText(answer.getTextAnswer());
 		ImageUtil.LoadImage(context, answer.getImageAnswer(),
@@ -96,5 +98,20 @@ public class ListViewAnswerAdapter extends BaseAdapter {
 				answer.getCreated()));
 		return convertView;
 	}
+	
+	static class Helper implements Runnable{
 
+		private String id;
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			 u = WebPostUtil.getUserById(SERVICE_URL, "getUserByID", id);
+			 
+		}
+
+		public Helper(String id) {
+			this.id = id;
+		}
+		
+	}
 }

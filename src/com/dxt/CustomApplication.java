@@ -11,8 +11,14 @@ public class CustomApplication extends Application
 {
     private static final String VALUE = "";
     
+    
+    
+    private   boolean islogin=false;
+    
+    
     private String value;
-    private User u;
+    private String username;
+    
     private String grade="";
     
     private String subject="";
@@ -62,6 +68,23 @@ public class CustomApplication extends Application
     {
         return value;
     }
+
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public boolean isIslogin() {
+		return islogin;
+	}
+
+	public void setIslogin(boolean islogin) {
+		this.islogin = islogin;
+	}
 
 	public SearchOnlineQuestionBean getSearchBean() {
 		return searchBean;

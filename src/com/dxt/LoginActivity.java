@@ -53,6 +53,9 @@ public class LoginActivity extends Activity {
 			case SUCCESS:
 				//thLogin.getState()==Thread.;
 				//thFindUser.start();
+				
+				
+				
 				new Thread(){
 					@Override
 					public void run() {
@@ -63,7 +66,8 @@ public class LoginActivity extends Activity {
 					}
 				}.start();
 				
-				
+				app.setIslogin(true);
+				app.setUsername(username);
 				Intent intentReturn = new Intent();
 				intentReturn
 						.setClass(getApplicationContext(), UserCenter.class);
@@ -146,7 +150,7 @@ public class LoginActivity extends Activity {
 			handler.sendMessage(message);	
 		};
 	};
-/*	Thread thFindUser=new Thread(){
+	/*Thread thFindUser=new Thread(){
 		public void run() {
 			
 			retMessage = WebPostUtil.getMessage(SERVICE_URL1,

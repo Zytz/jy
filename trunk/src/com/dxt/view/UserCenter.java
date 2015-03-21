@@ -207,12 +207,12 @@ public class UserCenter extends Activity {
 						UserCenterInformation.class);
 				startActivityForResult(intentUserCenterInf, RequestUserCenterInformation);
 				break;
-				/*case 1:
+				case 1:
 				intentUserCenterInf.setClass(getApplicationContext(),
 						UserCenterMyQuestion.class);
 				startActivityForResult(intentUserCenterInf, RequestUserCenterMyQuestion);
 				break;
-				case 2:
+				/*case 2:
 				intentUserCenterInf.setClass(getApplicationContext(),
 						UserCenterMyAnswer.class);
 				startActivityForResult(intentUserCenterInf, RequestUserCenterMyAnswer);

@@ -5,7 +5,9 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -17,116 +19,168 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.dxt.CustomApplication;
+import com.dxt.QuestionDetailActivity;
 import com.dxt.R;
-import com.dxt.model.CommonListViewModel;
+import com.dxt.adapter.ListViewQuestionsAdapter;
+import com.dxt.constant.StringConstant;
+import com.dxt.model.OnlineQuestion;
+import com.dxt.model.SearchOnlineQuestionBean;
+import com.dxt.model.User;
+import com.dxt.util.WebPostUtil;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 
 public class UserCenterMyAnswer extends Activity {
 
-	private String TAG = "dxt";
-	private TextView toLogin;
 	
-	private ImageView img = null;
-	
-	private ListView lv_usercenterinf;
-	private List<CommonListViewModel> data;
-	
+	final static String SERVICE_URL = StringConstant.SERVICE_URL+ "services/OnlineQuestionService?wsdl";
+	final static String TAG = "dxt";
+	private List<OnlineQuestion> listItems = new ArrayList<OnlineQuestion>();
+	private PullToRefreshListView mPullRefreshListView;
+	private ListViewQuestionsAdapter mAdapter;
+	private CustomApplication application ;
+	private SearchOnlineQuestionBean searchBean;
+	private User u;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.usercenterinformation);
-		init();
-	}
-	private void init() {
-		lv_usercenterinf = (ListView) this.findViewById(R.id.lv_usercenterinf);
-		data = getData();
-		lv_usercenterinf.setAdapter(new MyBaseAdapter());
-		lv_usercenterinf.setOnItemClickListener(usecenterlitenerinf);
-	}
-	private List<CommonListViewModel> getData() {
+		setContentView(R.layout.usercentermyanswer);
 
-		List<CommonListViewModel> list = new ArrayList<CommonListViewModel>();
-		String[] usercenter_inf = { "昵称", "学校名称","年级","性别", "电话"};
+		application = (CustomApplication) getApplication();
+		
+		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list_usercenter);
+		mPullRefreshListView.setMode(Mode.BOTH);
+		// Set a listener to be invoked when the list should be refreshed.
+		mPullRefreshListView
+				.setOnRefreshListener(new OnRefreshListener2<ListView>() {
 
-		for (int i = 1; i <= 5; i++) {
-			CommonListViewModel info = new CommonListViewModel(
-					R.drawable.usercenter1, usercenter_inf[i - 1],
-					R.drawable.usercenter2 + i);
-			list.add(info);
-		}
-		return list;
-	}
+					@Override
+					public void onPullDownToRefresh(
+							PullToRefreshBase<ListView> refreshView) {
+						// TODO Auto-generated method stub
+						String label = DateUtils.formatDateTime(
+								getApplicationContext(),
+								System.currentTimeMillis(),
+								DateUtils.FORMAT_SHOW_TIME
+										| DateUtils.FORMAT_SHOW_DATE
+										| DateUtils.FORMAT_ABBREV_ALL);
 
-	class MyBaseAdapter extends BaseAdapter {
+						// Update the LastUpdatedLabel
+						refreshView.getLoadingLayoutProxy()
+								.setLastUpdatedLabel(label);
 
-		@Override
-		public int getCount() {
+						// Do work to refresh the list here.
+						new GetDataTask().execute();
+					}
 
-			return data.size();
-		}
+					@Override
+					public void onPullUpToRefresh(
+							PullToRefreshBase<ListView> refreshView) {
 
-		@Override
-		public Object getItem(int position) {
-			return data.get(position);
-		}
+						String label = DateUtils.formatDateTime(
+								getApplicationContext(),
+								System.currentTimeMillis(),
+								DateUtils.FORMAT_SHOW_TIME
+										| DateUtils.FORMAT_SHOW_DATE
+										| DateUtils.FORMAT_ABBREV_ALL);
 
-		@Override
-		public long getItemId(int position) {
-			return position;
-		}
+						// Update the LastUpdatedLabel
+						refreshView.getLoadingLayoutProxy()
+								.setLastUpdatedLabel(label);
 
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+						// Do work to refresh the list here.
+						new GetDataTask().execute();
 
-			ViewHolder viewHolder = null;
-			if (convertView == null) {
-				viewHolder = new ViewHolder();
-				convertView = View.inflate(UserCenterMyAnswer.this,
-						R.layout.usercenterinf_row, null);
-				viewHolder.iconIV = (ImageView) convertView
-						.findViewById(R.id.iv_item_image_inf);
-				viewHolder.nameTV = (TextView) convertView
-						.findViewById(R.id.iv_item_inf_inf);
-			/*	viewHolder.messageTV = (ImageView) convertView
-						.findViewById(R.id.iv_item_imagetogo_inf);*/
-				convertView.setTag(viewHolder);
-			} else {
-				viewHolder = (ViewHolder) convertView.getTag();
+					}
+				});
+		
+		mAdapter = new ListViewQuestionsAdapter(getApplicationContext(), listItems, R.layout.question_item);
+		
+		ListView actualListView = mPullRefreshListView.getRefreshableView();
+		
+		actualListView.setAdapter(mAdapter);
+		
+		
+		mPullRefreshListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(getApplicationContext(),QuestionDetailActivity.class);
+				String ques = JSON.toJSONString(listItems.get(position-1));
+				intent.putExtra("question", ques);
+				startActivity(intent);
 			}
+		});
+	}
 
-			CommonListViewModel userInfo = data.get(position);
-			viewHolder.iconIV.setImageResource(userInfo.getIcon());
-			viewHolder.nameTV.setText(userInfo.getName());
-			viewHolder.messageTV.setImageResource(userInfo.getMessage());
+	
 
-			return convertView;
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		new GetDataTask().execute();
+	}
+
+	
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		searchBean.setPageNum(0);
+		searchBean.setGrade("");
+		searchBean.setSubject("");
+		application.setGrade("");
+		application.setSubject("");
+	}
+
+	
+
+	private class GetDataTask extends AsyncTask<Void, Void, List<OnlineQuestion>> {
+
+		// 后台处理部分
+		@Override
+		protected List<OnlineQuestion> doInBackground(Void... params) {
+			// Simulates a background job.
+			u=JSONObject.parseObject(application.getValue(),User.class);
+			List<OnlineQuestion> ques = WebPostUtil.getOnlineQuestions(SERVICE_URL, "getOnlineMyQuestionList", u.getId());
+			
+			return ques;
 		}
 
-		class ViewHolder {
-			public ImageView iconIV;
-			public TextView nameTV;
-			public ImageView messageTV;
+		// 这里是对刷新的响应，可以利用addFirst（）和addLast()函数将新加的内容加到LISTView中
+		// 根据AsyncTask的原理，onPostExecute里的result的值就是doInBackground()的返回值
+		@Override
+		protected void onPostExecute(List<OnlineQuestion> result) {
+			// 在头部增加新添内容
+			// 通知程序数据集已经改变，如果不做通知，那么将不会刷新mListItems的集合
+	/*		if(searchBean.getGrade().equals(application.getGrade())&&searchBean.getSubject().equals(application.getSubject())){
+				listItems.addAll(result);
+				searchBean.setPageNum(searchBean.getPageNum()+1);
+			}else{
+				listItems.clear();;
+				listItems.addAll(result);
+				application.setGrade(searchBean.getGrade());
+				application.setSubject(searchBean.getSubject());
+				searchBean.setPageNum(1);
+			}*/
+			listItems.addAll(result);
+			mAdapter.notifyDataSetChanged();
+			// Call onRefreshComplete when the list has been refreshed.
+			mPullRefreshListView.onRefreshComplete();
+
+			super.onPostExecute(result);
 		}
 	}
-	OnItemClickListener usecenterlitenerinf = new OnItemClickListener() {
-
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
-			// TODO Auto-generated method stub
-			CommonListViewModel userInfo = data.get(position);
-			Toast.makeText(UserCenterMyAnswer.this, userInfo.getName(), 0).show();
-			if (position == 0) {
-				Intent intentUserCenterInf = new Intent();
-				intentUserCenterInf.setClass(getApplicationContext(),
-						UserCenterMyAnswer.class);
-				//startActivity(intentUserCenterInf);
-				//setResult(Activity.RESULT_OK,intentUserCenterInf);
-				
-			}
-		}
-	};
 
 
 }

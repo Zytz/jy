@@ -205,7 +205,7 @@ public class CameraActivityTest extends Activity {
 				if (ValidateUtil.isValid(app.getValue())) {
 
 					u = JSONObject.parseObject(app.getValue(), User.class);
-					th.start();
+					
 
 					showSelectDialog(CameraActivityTest.this, "选择所在年级和学科",
 							category1, category2);
@@ -337,7 +337,7 @@ public class CameraActivityTest extends Activity {
 		onlinequestionInApp.setSubject(subject);
 		onlinequestionInApp.setRewardPoint(rewardPoint);
 		onlinequestionInApp.setQuestionImage(getPhotoFileName());
-		onlinequestionInApp.setCreated(new Date());
+		onlinequestionInApp.setCreated(new Date(dateFormat.format(date)));
 		onlinequestionInApp.setStudentId(u.getId());
 		onlinequestionInApp.setStudentName(u.getNickName());// nickname
 		onlinequestionInApp.setStudentIcon(u.getIcon());
@@ -388,6 +388,7 @@ public class CameraActivityTest extends Activity {
 						
 						createOnLineQuestion();
 						dialog.dismiss();
+						th.start();
 						new Thread(){
 							@Override
 							public void run() {
@@ -425,7 +426,7 @@ public class CameraActivityTest extends Activity {
 				intentReturn
 						.setClass(getApplicationContext(), MainActivity.class);
 				startActivity(intentReturn);
-				
+				finish();
 				break;
 				//失败
 			case 0:

@@ -13,6 +13,7 @@ public class ArrayWheelAdapter<T> implements WheelAdapter {
 
     // items
     private T items[];
+    
     // length
     private int length;
 

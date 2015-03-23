@@ -100,7 +100,7 @@ public class UserCenterMyAnswer extends Activity {
 					}
 				});
 		
-		mAdapter = new ListViewQuestionsAdapter(getApplicationContext(), listItems, R.layout.question_item);
+		mAdapter = new ListViewQuestionsAdapter(getApplicationContext(), listItems, R.layout.usercenter_question_item);
 		
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
 		

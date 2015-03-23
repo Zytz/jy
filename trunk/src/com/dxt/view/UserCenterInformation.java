@@ -28,6 +28,7 @@ import com.dxt.model.CommonListViewModel;
 import com.dxt.model.CommonListViewModel_itt;
 import com.dxt.model.User;
 import com.dxt.util.ReturnMessage;
+import com.dxt.util.StringUtil;
 import com.dxt.util.WebPostUtil;
 
 public class UserCenterInformation extends Activity {
@@ -75,7 +76,7 @@ public class UserCenterInformation extends Activity {
 
 		List<CommonListViewModel_itt> list = new ArrayList<CommonListViewModel_itt>();
 		String[] usercenter_inf = { "昵称", "学校名称","年级","性别", "电话"};
-		String[] userInf={u.getNickName(),u.getSchool(),u.getGrade(),u.getGender(),u.getMobilePhone()};
+		String[] userInf={u.getNickName(),u.getSchool(),StringUtil.int2StringOfGrade(u.getGrade()),StringUtil.int2StringOfGender(u.getGrade()),u.getMobilePhone()};
 		for (int i = 1; i <= 5; i++) {
 			CommonListViewModel_itt info = new CommonListViewModel_itt(
 					R.drawable.usercenter1, usercenter_inf[i - 1],

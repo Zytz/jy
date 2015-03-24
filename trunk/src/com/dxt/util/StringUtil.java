@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class StringUtil {
 	static Map<String,Integer> grades = new HashMap<String,Integer>();
-	static Map<String,Integer> subject = new HashMap<String,Integer>();
+	static Map<String,Integer> subjects = new HashMap<String,Integer>();
 	static{
 		grades.put("全部", -1);
 		grades.put("小学", 101);
@@ -21,12 +21,12 @@ public class StringUtil {
 		grades.put("高三", 10);
 		grades.put("高考", 11);
 		
-		subject.put("全部",-1);
-		subject.put("数学", 0);
-		subject.put("物理",1);
-		subject.put("化学", 2);
-		subject.put("英语", 3);
-		subject.put("语文", 4);
+		subjects.put("全部",-1);
+		subjects.put("数学", 0);
+		subjects.put("物理",1);
+		subjects.put("化学", 2);
+		subjects.put("英语", 3);
+		subjects.put("语文", 4);
 	}
 	static Map<Integer,String> gradeReverse = new HashMap<Integer,String>();
 	static Map<Integer,String> subjectReverse = new HashMap<Integer,String>();
@@ -167,9 +167,9 @@ public class StringUtil {
 	/**
 	 * 获得科目编号
 	 */
-	public static Integer int2IDOfSubject(String s) {
+	public static Integer int2IDOfSubject(String subject) {
 		
-		return grades.get(s);
+		return subjects.get(subject);
 	}
 
 }

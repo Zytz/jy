@@ -78,8 +78,8 @@ public class CameraActivityTest extends Activity {
 	private static final int PHOTO_REQUEST_CUT = 3;// 结果
 	private boolean canSubmit = false;
 
-	private int grade;
-	private int subject;
+	private String grade;
+	private String subject;
 	private int rewardPoint;
 
 	private Message message = new Message();
@@ -90,18 +90,18 @@ public class CameraActivityTest extends Activity {
 	private Handler handler = new UIHander();
 	public String category1[] = new String[] { "小学    ", "七年级", "八年级", "九年级",
 			"中考   ", "高一   ", "高二  ", "高三    ", "高考   " };
-	
-	public int[] grade1={101,4,5,6,7,8,9,10,11};
+	StringUtil strintUtili=new StringUtil();
+	//public int[] grade1={101,4,5,6,7,8,9,10,11};
 	public String category2[][] = new String[][] {
-			new String[] { "数学", "物理", "化学", "英语", "语文" },
-			new String[] { "数学", "物理", "化学", "英语", "语文" },
-			new String[] { "数学", "物理", "化学", "英语", "语文" },
-			new String[] { "数学", "物理", "化学", "英语", "语文" },
-			new String[] { "数学", "物理", "化学", "英语", "语文" },
-			new String[] { "数学", "物理", "化学", "英语", "语文" },
-			new String[] { "数学", "物理", "化学", "英语", "语文" },
-			new String[] { "数学", "物理", "化学", "英语", "语文" },
-			new String[] { "数学", "物理", "化学", "英语", "语文" },
+			new String[] { "数学 ", "物理 ", "化学 ", "英语 ", "语文 " },
+			new String[] { "数学 ", "物理 ", "化学 ", "英语 ", "语文 " },
+			new String[] { "数学 ", "物理 ", "化学 ", "英语 ", "语文 " },
+			new String[] { "数学 ", "物理 ", "化学 ", "英语 ", "语文 " },
+			new String[] { "数学 ", "物理 ", "化学 ", "英语 ", "语文 " },
+			new String[] { "数学 ", "物理 ", "化学 ", "英语 ", "语文 " },
+			new String[] { "数学 ", "物理 ", "化学 ", "英语 ", "语文 " },
+			new String[] { "数学 ", "物理 ", "化学 " , "英语 ", "语文 " },
+			new String[] { "数学 ", "物理 ", "化学 ", "英语 ", "语文 " },
 			};
 	private Integer[] rewPoint = { 0, 5, 6, 7, 8, 9, 10, 15, 20 };
 	private String fileName="";
@@ -328,27 +328,6 @@ public class CameraActivityTest extends Activity {
 		}
 	}
 
-	private String createOnLineQuestion() {
-
-		OnlineQuestion onlinequestionInApp = new OnlineQuestion();
-		Date date = new Date(System.currentTimeMillis());
-		SimpleDateFormat dateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd HH:mm:ss");
-		dateFormat.format(date);
-		onlinequestionInApp.setGrade(grade);
-		onlinequestionInApp.setTextDescription(edit_Description.getText()
-				.toString());
-		onlinequestionInApp.setSubject(subject);
-		onlinequestionInApp.setRewardPoint(rewardPoint);
-		onlinequestionInApp.setQuestionImage(getPhotoFileName());
-		onlinequestionInApp.setCreated(new Date(dateFormat.format(date)));
-		onlinequestionInApp.setStudentId(u.getId());
-		onlinequestionInApp.setStudentName(u.getNickName());// nickname
-		onlinequestionInApp.setStudentIcon(u.getIcon());
-		onlinequestionInApp.setQuestionImage("static/images/"+fileName);
-		return  JSON.toJSONString(onlinequestionInApp);
-	}
-
 	private void showSelectDialog(Context context, String title,
 			final String[] left, final String[][] right) {
 		AlertDialog dialog = new AlertDialog.Builder(context).create();
@@ -385,10 +364,11 @@ public class CameraActivityTest extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						int leftPosition = wheelLeft.getCurrentItem();
-						//grade = left[leftPosition];
-						grade=grade1[leftPosition];
-						subject = wheelRight.getCurrentItem();
+						grade = left[leftPosition].trim().toString();
+						//grade=grade1[leftPosition];
+						subject = right[leftPosition][wheelRight.getCurrentItem()].trim().toString();
 						// btn.setText(vLeft + "-" + vRight);
+						Log.v("com.dxt", grade+":fd "+subject+":");
 						
 						createOnLineQuestion();
 						dialog.dismiss();
@@ -438,6 +418,36 @@ public class CameraActivityTest extends Activity {
 				break;
 			}
 		}
-
 	}
+	
+	
+
+	private String createOnLineQuestion() {
+
+		OnlineQuestion onlinequestionInApp = new OnlineQuestion();
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
+		dateFormat.format(date);
+		//Log.i("com.dxt", grade+" first");
+		
+		//Log.i("com.dxt", x+" jkjk");
+		onlinequestionInApp.setGrade(StringUtil.int2IDOfGrade(grade));
+		onlinequestionInApp.setTextDescription(edit_Description.getText()
+				.toString());
+		Log.i("com.dxt", subject+" first");
+		int x=StringUtil.int2IDOfSubject(subject);
+		
+		Log.i("com.dxt", x+" jkjk");
+		onlinequestionInApp.setSubject(StringUtil.int2IDOfSubject(subject));
+		onlinequestionInApp.setRewardPoint(rewardPoint);
+		onlinequestionInApp.setQuestionImage(getPhotoFileName());
+		onlinequestionInApp.setCreated(date);
+		onlinequestionInApp.setStudentId(u.getId());
+		onlinequestionInApp.setStudentName(u.getNickName());// nickname
+		onlinequestionInApp.setStudentIcon(u.getIcon());
+		onlinequestionInApp.setQuestionImage("static/images/"+fileName);
+		return  JSON.toJSONString(onlinequestionInApp);
+	}
+
 }

@@ -55,7 +55,7 @@ public class LoginActivity extends Activity {
 				//thFindUser.start();
 				
 				
-				
+				//登录成功之后，保存user对象
 				new Thread(){
 					@Override
 					public void run() {
@@ -65,8 +65,9 @@ public class LoginActivity extends Activity {
 						app.setValue(retMessage.getMessage());
 					}
 				}.start();
-				
+				//保存用户登录状态
 				app.setIslogin(true);
+				//保存用户名
 				app.setUsername(username);
 				Intent intentReturn = new Intent();
 				intentReturn

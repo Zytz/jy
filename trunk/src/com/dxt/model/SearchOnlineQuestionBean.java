@@ -1,26 +1,27 @@
 package com.dxt.model;
 
 public class SearchOnlineQuestionBean {
-	private String grade="";
-	private String subject="";
-	private int orderWay=3;
+	private int grade=-1;
+	private int subject=-1;
+	private int orderWay=-1;
 	private int pageNum=0;
 	private int pageSize=2;
 	
 	private String studentId;
+	private String studentName;
 	
 	
 	
-	public String getGrade() {
+	public int getGrade() {
 		return grade;
 	}
-	public void setGrade(String grade) {
+	public void setGrade(int grade) {
 		this.grade = grade;
 	}
-	public String getSubject() {
+	public int getSubject() {
 		return subject;
 	}
-	public void setSubject(String subject) {
+	public void setSubject(int subject) {
 		this.subject = subject;
 	}
 	public int getOrderWay() {

@@ -50,11 +50,11 @@ public class UserCenterMyAnswer extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.usercentermyanswer);
+		//setContentView(R.layout.usercentermyanswer);
 
 		application = (CustomApplication) getApplication();
 		
-		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list_usercenter);
+		//mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list_usercenter);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		// Set a listener to be invoked when the list should be refreshed.
 		mPullRefreshListView
@@ -137,10 +137,10 @@ public class UserCenterMyAnswer extends Activity {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		searchBean.setPageNum(0);
-		searchBean.setGrade("");
-		searchBean.setSubject("");
-		application.setGrade("");
-		application.setSubject("");
+		searchBean.setGrade(-1);
+		searchBean.setSubject(-1);
+		application.setGrade(-1);
+		application.setSubject(-1);
 	}
 
 	

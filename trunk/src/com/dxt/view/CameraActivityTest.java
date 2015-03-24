@@ -50,6 +50,7 @@ import com.dxt.constant.StringConstant;
 import com.dxt.model.OnlineQuestion;
 import com.dxt.model.User;
 import com.dxt.util.ReturnMessage;
+import com.dxt.util.StringUtil;
 import com.dxt.util.ValidateUtil;
 import com.dxt.util.WebPostUtil;
 
@@ -77,8 +78,8 @@ public class CameraActivityTest extends Activity {
 	private static final int PHOTO_REQUEST_CUT = 3;// 结果
 	private boolean canSubmit = false;
 
-	private String grade;
-	private String subject;
+	private int grade;
+	private int subject;
 	private int rewardPoint;
 
 	private Message message = new Message();
@@ -89,16 +90,19 @@ public class CameraActivityTest extends Activity {
 	private Handler handler = new UIHander();
 	public String category1[] = new String[] { "小学    ", "七年级", "八年级", "九年级",
 			"中考   ", "高一   ", "高二  ", "高三    ", "高考   " };
+	
+	public int[] grade1={101,4,5,6,7,8,9,10,11};
 	public String category2[][] = new String[][] {
-			new String[] { "语文 ", "数学 ", "英语 " },
-			new String[] { "语文 ", "数学 ", "英语 " },
-			new String[] { "语文 ", "数学 ", "英语 " },
-			new String[] { "语文 ", "数学 ", "英语 " },
-			new String[] { "语文 ", "数学 ", "英语 " },
-			new String[] { "语文 ", "数学 ", "英语 " },
-			new String[] { "语文 ", "数学 ", "英语 " },
-			new String[] { "语文 ", "数学 ", "英语 " },
-			new String[] { "语文 ", "数学 ", "英语 " }, };
+			new String[] { "数学", "物理", "化学", "英语", "语文" },
+			new String[] { "数学", "物理", "化学", "英语", "语文" },
+			new String[] { "数学", "物理", "化学", "英语", "语文" },
+			new String[] { "数学", "物理", "化学", "英语", "语文" },
+			new String[] { "数学", "物理", "化学", "英语", "语文" },
+			new String[] { "数学", "物理", "化学", "英语", "语文" },
+			new String[] { "数学", "物理", "化学", "英语", "语文" },
+			new String[] { "数学", "物理", "化学", "英语", "语文" },
+			new String[] { "数学", "物理", "化学", "英语", "语文" },
+			};
 	private Integer[] rewPoint = { 0, 5, 6, 7, 8, 9, 10, 15, 20 };
 	private String fileName="";
 	@Override
@@ -381,9 +385,9 @@ public class CameraActivityTest extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						int leftPosition = wheelLeft.getCurrentItem();
-						grade = left[leftPosition];
-						subject = right[leftPosition][wheelRight
-								.getCurrentItem()];
+						//grade = left[leftPosition];
+						grade=grade1[leftPosition];
+						subject = wheelRight.getCurrentItem();
 						// btn.setText(vLeft + "-" + vRight);
 						
 						createOnLineQuestion();

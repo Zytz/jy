@@ -3,13 +3,13 @@ package com.dxt.model;
 import java.util.Date;
 
 public class OnlineQuestion {
-	private String id;
+private String id;
 	
-	private String grade;//年级
+	private int grade;//年级
 	
-	private String subject;//学科
+	private int subject;//学科
 	
-	private Integer rewardPoint;//悬赏分
+	private int rewardPoint;//悬赏分
 	
 	private int viewCount;//问题被浏览的次数
 	
@@ -20,6 +20,7 @@ public class OnlineQuestion {
 	private String questionImage;//问题图片 
 	
 	private String studentId;//存储用户Id
+	
 	private String studentName;//若存在昵称，直接存储昵称；若不存在昵称，存储为：学员****** 形式 如：学员210489
 	
 	private String studentIcon;//学员头像 
@@ -38,19 +39,20 @@ public class OnlineQuestion {
 		this.id = id;
 	}
 
-	public String getGrade() {
+
+	public int getGrade() {
 		return grade;
 	}
 
-	public void setGrade(String grade) {
+	public void setGrade(int grade) {
 		this.grade = grade;
 	}
 
-	public String getSubject() {
+	public int getSubject() {
 		return subject;
 	}
 
-	public void setSubject(String subject) {
+	public void setSubject(int subject) {
 		this.subject = subject;
 	}
 

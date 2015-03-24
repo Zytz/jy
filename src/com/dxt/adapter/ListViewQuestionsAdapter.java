@@ -14,6 +14,7 @@ import com.dxt.MyImageView;
 import com.dxt.R;
 import com.dxt.model.OnlineQuestion;
 import com.dxt.util.ImageUtil;
+import com.dxt.util.StringUtil;
 
 public class ListViewQuestionsAdapter extends BaseAdapter {
 	private Context 					context;//运行上下文
@@ -66,12 +67,12 @@ public class ListViewQuestionsAdapter extends BaseAdapter {
 			convertView = listContainer.inflate(this.itemViewResource, null);
 			
 			listItemView = new ListItemView();
-			listItemView.grade = (TextView) convertView.findViewById(R.id.question_item_user_grade);
-			listItemView.subject = (TextView) convertView.findViewById(R.id.question_item_question_course);
-			listItemView.date	=(TextView) convertView.findViewById(R.id.question_item_question_time);
-			listItemView.rewardPoint = (TextView) convertView.findViewById(R.id.question_rewrad);
-			listItemView.textDescription = (TextView) convertView.findViewById(R.id.question_name);
-			listItemView.questionImage = (MyImageView) convertView.findViewById(R.id.question_picture);
+			listItemView.grade = (TextView) convertView.findViewById(R.id.waitforanswer_question_item_user_grade);
+			listItemView.subject = (TextView) convertView.findViewById(R.id.waitforanswer_question_item_question_course);
+			listItemView.date	=(TextView) convertView.findViewById(R.id.waitforanswer_question_item_question_time);
+			listItemView.rewardPoint = (TextView) convertView.findViewById(R.id.waitforanswer_question_rewrad);
+			listItemView.textDescription = (TextView) convertView.findViewById(R.id.waitforanswer_question_name);
+			listItemView.questionImage = (MyImageView) convertView.findViewById(R.id.waitforanswer_question_picture);
 			listItemView.studentIcon = (MyImageView) convertView.findViewById(R.id.homework_question_item_iv_user_picture);
 			listItemView.studentName = (TextView) convertView.findViewById(R.id.homework_question_item_tv_user_name);
 			listItemView.answerCount = (TextView) convertView.findViewById(R.id.homework_questionlist_item_bottom_ans_num_text_id);
@@ -80,8 +81,8 @@ public class ListViewQuestionsAdapter extends BaseAdapter {
 			listItemView = (ListItemView)convertView.getTag();
 		}
 		OnlineQuestion onlineQuestion = listItems.get(position);
-		listItemView.grade.setText(onlineQuestion.getGrade());
-		listItemView.subject.setText(onlineQuestion.getSubject());
+		listItemView.grade.setText(StringUtil.int2StringOfGrade(onlineQuestion.getGrade()));
+		listItemView.subject.setText(StringUtil.int2StringOfGrade(onlineQuestion.getSubject()));
 		listItemView.date.setText(DateFormat.format("yyyy-MM-dd hh:mm:ss", onlineQuestion.getCreated()));
 		listItemView.rewardPoint.setText(String.valueOf(onlineQuestion.getRewardPoint()));
 		listItemView.textDescription.setText(onlineQuestion.getTextDescription());

@@ -10,7 +10,7 @@
         android:background="#ffdddddd" />
 
     <LinearLayout
-        android:id="@+id/homework_question_item_content_layout_id"
+        android:id="@+id/waitforanswer_question_item_content_layout_id"
         android:layout_width="fill_parent"
         android:layout_height="180dp"
         android:layout_alignParentTop="true"
@@ -26,7 +26,7 @@
             android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/question_item_user_grade"
+                android:id="@+id/waitforanswer_question_item_user_grade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="1.5dip"
@@ -36,7 +36,7 @@
                 android:textSize="@dimen/common_text_size_18" />
 
             <TextView
-                android:id="@+id/question_item_question_course"
+                android:id="@+id/waitforanswer_question_item_question_course"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="3.5dip"
@@ -46,7 +46,7 @@
                 android:textSize="@dimen/common_text_size_18" />
 
             <TextView
-                android:id="@+id/question_item_question_time"
+                android:id="@+id/waitforanswer_question_item_question_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -59,7 +59,7 @@
 		    
 		    
         <TextView
-            android:id="@+id/question_name"
+            android:id="@+id/waitforanswer_question_name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10.0dip"
@@ -68,7 +68,7 @@
             android:textSize="@dimen/common_text_size_20" />
 
         <com.dxt.MyImageView
-            android:id="@+id/question_picture"
+            android:id="@+id/waitforanswer_question_picture"
             android:layout_width="fill_parent"
             android:layout_height="80dp"
             android:layout_marginBottom="10.0dip"
@@ -78,7 +78,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/question_rewrad"
+        android:id="@+id/waitforanswer_question_rewrad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -93,10 +93,10 @@
         android:textSize="@dimen/common_text_size_15" />
 
     <LinearLayout
-        android:id="@+id/homework_question_item_foot_layout_id"
+        android:id="@+id/waitforanswer_question_question_item_foot_layout_id"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/homework_question_item_content_layout_id"
+        android:layout_below="@id/waitforanswer_question_item_content_layout_id"
         android:background="#ffffffff"
         android:orientation="vertical" >
 
@@ -106,7 +106,7 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1.0px"
-        android:layout_below="@id/homework_question_item_foot_layout_id"
+        android:layout_below="@id/waitforanswer_question_question_item_foot_layout_id"
         android:background="#ffdddddd" />
 
 </RelativeLayout>

@@ -41,7 +41,7 @@ public class QuestionActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.issue_activity);
+		setContentView(R.layout.question_activity);
 
 		application = (CustomApplication) getApplication();
 		
@@ -128,10 +128,10 @@ public class QuestionActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		searchBean.setPageNum(0);
-		searchBean.setGrade("");
-		searchBean.setSubject("");
-		application.setGrade("");
-		application.setSubject("");
+		searchBean.setGrade(-1);
+		searchBean.setSubject(-1);
+		application.setGrade(-1);
+		application.setSubject(-1);
 	}
 
 	
@@ -154,7 +154,7 @@ public class QuestionActivity extends Activity {
 		protected void onPostExecute(List<OnlineQuestion> result) {
 			// 在头部增加新添内容
 			// 通知程序数据集已经改变，如果不做通知，那么将不会刷新mListItems的集合
-			if(searchBean.getGrade().equals(application.getGrade())&&searchBean.getSubject().equals(application.getSubject())){
+			if(searchBean.getGrade()==application.getGrade()&&searchBean.getSubject()==application.getSubject()){
 				listItems.addAll(result);
 				searchBean.setPageNum(searchBean.getPageNum()+1);
 			}else{

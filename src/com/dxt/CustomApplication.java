@@ -19,25 +19,25 @@ public class CustomApplication extends Application
     private String value;
     private String username;
     
-    private String grade="";
+    private int grade=-1;
     
-    private String subject="";
+    private int subject=-1;
     
     private String questionId="";
     
-    public String getGrade() {
+    public int getGrade() {
 		return grade;
 	}
 
-	public void setGrade(String grade) {
+	public void setGrade(int grade) {
 		this.grade = grade;
 	}
 
-	public String getSubject() {
+	public int getSubject() {
 		return subject;
 	}
 
-	public void setSubject(String subject) {
+	public void setSubject(int subject) {
 		this.subject = subject;
 	}
 

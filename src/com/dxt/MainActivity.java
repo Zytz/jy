@@ -1,7 +1,5 @@
 package com.dxt;
 
-import com.dxt.model.SearchOnlineQuestionBean;
-
 import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
@@ -15,10 +13,14 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.dxt.model.SearchOnlineQuestionBean;
+
+import static com.dxt.util.StringUtil.*;
 
 @SuppressWarnings("deprecation")
 public class MainActivity extends TabActivity {
+	
 	private static final int REQUESTCODEFORCHOOSE=1;
 	private TabHost tabHost;
 	private ImageButton askquestion;
@@ -131,8 +133,9 @@ public class MainActivity extends TabActivity {
 					title ="全部问题";
 				}
 				txt_chooseGrade.setText(title);
-				searchBean.setGrade(grade);
-				searchBean.setSubject(subject);
+				
+				searchBean.setGrade(int2IDOfGrade(grade));
+				searchBean.setSubject(int2IDOfSubject(subject));
 				searchBean.setPageNum(0);
 				tabHost.invalidate();
 			}

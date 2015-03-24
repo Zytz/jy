@@ -22,6 +22,18 @@
 				android:layout_marginRight="4dip"
 				android:layout_gravity="center_vertical"
 				android:background="@drawable/reply_editbox_bg2"/>
+			<ImageButton
+		        android:id="@+id/friend_ib_camera"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center_vertical"
+		        android:layout_marginRight="10.0dip"
+		        android:background="@android:color/transparent"
+		        android:scaleType="centerInside"
+		        android:src="@drawable/common_selector_small_camera_gray" />
+			<ImageView
+				style="@style/main_footbar_cutline"
+				android:src="@drawable/widget_bar_cut_off"/>
 			<ImageView
 				style="@style/main_footbar_cutline"
 				android:src="@drawable/widget_bar_cut_off"/>
@@ -39,18 +51,7 @@
 			<ImageView
 				style="@style/main_footbar_cutline"
 				android:src="@drawable/widget_bar_cut_off"/>
-			<ImageButton
-		        android:id="@+id/friend_ib_camera"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="center_vertical"
-		        android:layout_marginRight="10.0dip"
-		        android:background="@android:color/transparent"
-		        android:scaleType="centerInside"
-		        android:src="@drawable/common_selector_small_camera_gray" />
-			<ImageView
-				style="@style/main_footbar_cutline"
-				android:src="@drawable/widget_bar_cut_off"/>
+			
 		</LinearLayout>
 		
     	<LinearLayout

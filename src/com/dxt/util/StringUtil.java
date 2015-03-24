@@ -1,8 +1,56 @@
 package com.dxt.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
+
 ;
 
 public class StringUtil {
+	static Map<String,Integer> grades = new HashMap<String,Integer>();
+	static Map<String,Integer> subject = new HashMap<String,Integer>();
+	static{
+		grades.put("全部", -1);
+		grades.put("小学", 101);
+		grades.put("七年级", 4);
+		grades.put("八年级", 5);
+		grades.put("九年级", 6);
+		grades.put("中考", 7);
+		grades.put("高一", 8);
+		grades.put("高二", 9);
+		grades.put("高三", 10);
+		grades.put("高考", 11);
+		
+		subject.put("全部",-1);
+		subject.put("数学", 0);
+		subject.put("物理",1);
+		subject.put("化学", 2);
+		subject.put("英语", 3);
+		subject.put("语文", 4);
+	}
+	static Map<Integer,String> gradeReverse = new HashMap<Integer,String>();
+	static Map<Integer,String> subjectReverse = new HashMap<Integer,String>();
+	static{
+		gradeReverse.put(-1,"全部");
+		gradeReverse.put(101, "小学");
+		gradeReverse.put(4,"七年级");
+		gradeReverse.put(5,"八年级");
+		gradeReverse.put(6,"九年级");
+		gradeReverse.put(7,"中考");
+		gradeReverse.put(8,"高一");
+		gradeReverse.put(9,"高二");
+		gradeReverse.put(10,"高三");
+		gradeReverse.put(11,"高考");
+		
+		subjectReverse.put(-1, "全部");
+		subjectReverse.put(0, "数学");
+		subjectReverse.put(1, "地理");
+		subjectReverse.put(2, "化学");
+		subjectReverse.put(3, "英语");
+		subjectReverse.put(4, "语文");
+				
+	}
+	
 	/**
 	 * 将字符串转换成数组,按照tag分割
 	 */
@@ -95,151 +143,33 @@ public class StringUtil {
 	 * 小学以后 包含1、2、3、4、5、6年级 和小考
 	 */
 	public static String int2StringOfGrade(int grade) {
-		String str="";
-		switch (grade) {
-		case 101:
-			str= "小学";
-			break;
-		case 0:
-			str="四年级";
-			break;
 		
-		case 1:
-			str= "五年级";
-			break;
-		
-		case 2:
-			str= "六年级";
-			break;
-		case 3:
-			str="小考";
-			break;
-		case 4:
-			str="七年级";
-			break;
-		case 5:
-			str="八年级";
-			break;
-		case 6:
-			str="九年级";
-			break;
-		case 7:
-			str="中考";
-			break;
-		case 8:
-			str="高一";
-			break;
-		case 9:
-			str="高二";
-			break;
-		case 10:
-			str="高三";
-			break;
-		case 11:
-			str="高考";
-			break;
-		}
-		return str;
+		return gradeReverse.get(grade);
 	}
+
+	
 	/**
-	 * 获得年级
+	 * 获得年级编号
 	 */
-	/*public static int string2IntOfGrade(String grade) {
-		int grades=-1;
-		switch (grade) {
-		case "小学":
-			grades= 101;
-			break;
-		case "四年级":
-			grades=0;
-			break;
-		case "五年级":
-			grades=1;
-			break;
-		case "六年级":
-			grades=2;
-			break;
-		case "小考":
-			grades=3;
-			break;
-		case "七年级":
-			grades=4;
-			break;
-		case "八年级":
-			grades=5;
-			break;
-		case "九年级":
-			grades=6;
-			break;
-		case "中考":
-			grades=7;
-			break;
-		case "高一":
-			grades=8;
-			break;
-		case "高二":
-			grades=9;
-			break;
-		case "高三":
-			grades=10;
-			break;
-		case "高考":
-			grades=11;
-			break;
-		}
-		return grades;
-	}*/
+	public static Integer int2IDOfGrade(String grade) {
+		
+		return grades.get(grade);
+	}
+	
 	/**
-	 * 获得学科
-	 * 小学以后 包含1、2、3、4、5、6年级 和小考
+	 * 获得科目
 	 */
 	public static String int2StringOfSubject(int subject) {
-		String str="";
-		switch (subject) {
-		case 0:
-			str="数学";
-			break;
 		
-		case 1:
-			str= "物理";
-			break;
-		
-		case 2:
-			str= "化学";
-			break;
-		case 3:
-			str="英语";
-			break;
-		case 4:
-			str="语文";
-			break;
-		}
-		return str;
+		return subjectReverse.get(subject);
 	}
+	
 	/**
-	 * 获得年级
+	 * 获得科目编号
 	 */
-	/*public static int string2IntOfSubject(String subject) {
-		int subjects=-1;
-		switch (subject) {
-		case "数学":
-			subjects=0;
-			break;
-		case "物理":
-			subjects=1;
-			break;
-		case "化学":
-			subjects=2;
-			break;
-		case "英语":
-			subjects=3;
-			break;
-		case "语文":
-			subjects=4;
-			break;
-		}
-		return subjects;
-	}*/
-
+	public static Integer int2IDOfSubject(String s) {
+		
+		return grades.get(s);
+	}
 
 }

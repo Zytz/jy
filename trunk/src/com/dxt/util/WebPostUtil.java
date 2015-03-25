@@ -145,6 +145,33 @@ public class WebPostUtil {
 		}
 		return answers;
 	}
+	
+	public static void saveOnlineQuestionAnswer(String url,String methodName,String answer){
+		HttpTransportSE ht = new HttpTransportSE(url);
+		ht.debug = true;
+		SoapObject request = new SoapObject(SERVICE_NS, methodName);
+		request.addProperty("answer", answer);
+		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+				SoapEnvelope.VER11);
+		envelope.bodyOut = request;
+		try {
+			ht.call(null, envelope);
+			if (envelope.getResponse() != null) {
+				Log.v("lll---", "ok!!");
+				SoapObject result = (SoapObject) envelope.bodyIn;
+				String name = result.getProperty(0).toString();
+				Log.v("lll---", name);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XmlPullParserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public static boolean uploadImage(String methodName,String fileName, String imageBuffer,String SERVICE_URL) {  
 		// TODO Auto-generated method stub
 		//String namespace = "http://134.192.44.105:8080/SSH2/service/IService"; // 命名空间，即服务器端得接口，注：后缀没加

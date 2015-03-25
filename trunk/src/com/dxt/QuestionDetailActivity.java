@@ -32,22 +32,25 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.dxt.adapter.ListViewAnswerAdapter;
 import com.dxt.constant.StringConstant;
 import com.dxt.model.OnlineQuestion;
 import com.dxt.model.OnlineQuestionAnswer;
+import com.dxt.model.User;
 import com.dxt.util.ImageUtil;
 import com.dxt.util.WebPostUtil;
 import com.dxt.view.BadgeView;
-import com.dxt.view.CameraActivityTest;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
+import static com.dxt.util.StringUtil.*;
 public class QuestionDetailActivity extends Activity {
 	
 	final static String SERVICE_URL = StringConstant.SERVICE_URL+ "services/OnlineQuestionService?wsdl";
@@ -89,6 +92,7 @@ public class QuestionDetailActivity extends Activity {
 	 private List<OnlineQuestionAnswer> listitems = new ArrayList<OnlineQuestionAnswer>(); 
 	 private ListViewAnswerAdapter adapter;
 	 private CustomApplication application;
+	 private OnlineQuestion onlineQuestion = new OnlineQuestion();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -106,6 +110,7 @@ public class QuestionDetailActivity extends Activity {
 
 	private void initialAnswerView() {
 		// TODO Auto-generated method stub
+		img =new ImageView(getApplicationContext());
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		mPullRefreshListView
@@ -165,7 +170,7 @@ public class QuestionDetailActivity extends Activity {
 		protected List<OnlineQuestionAnswer> doInBackground(Void... params) {
 			// Simulates a background job.
 			
-			List<OnlineQuestionAnswer> ques = WebPostUtil.getOnlineQuestionAnswer(SERVICE_URL, "getOnlineQuestionAnswer", application.getQuestionId());
+			List<OnlineQuestionAnswer> ques = WebPostUtil.getOnlineQuestionAnswer(SERVICE_URL, "getOnlineQuestionAnswer", onlineQuestion.getId());
 			
 			return ques;
 		}
@@ -195,13 +200,12 @@ public class QuestionDetailActivity extends Activity {
 	private void initialData() {
 		// TODO Auto-generated method stub
 		String ques = getIntent().getStringExtra("question");
-		OnlineQuestion onlineQuestion = JSON.parseObject(ques, OnlineQuestion.class);
+		onlineQuestion = JSON.parseObject(ques, OnlineQuestion.class);
 		Log.v("com.dxt",onlineQuestion.toString());
-		application.setQuestionId(onlineQuestion.getId());
 		ImageUtil.LoadImage(getApplicationContext(),onlineQuestion.getStudentIcon(), studentIcon);
 		studentName.setText(onlineQuestion.getStudentName());
-		grade.setText(onlineQuestion.getGrade());
-		subject.setText(onlineQuestion.getSubject());
+		grade.setText(int2StringOfGrade(onlineQuestion.getGrade()));
+		subject.setText(int2StringOfSubject(onlineQuestion.getSubject()));
 		date.setText(DateFormat.format("yyyy-MM-dd hh:mm:ss", onlineQuestion.getCreated()));
 		rewardPoint.setText(String.valueOf(onlineQuestion.getRewardPoint()));
 		textDescription.setText(onlineQuestion.getTextDescription());
@@ -280,8 +284,7 @@ public class QuestionDetailActivity extends Activity {
 				return false;
 			}
 		});
-		// ±à¼­Æ÷Ìí¼ÓÎÄ±¾¼àÌý
-		//mFootEditer.addTextChangedListener(UIHelper.getTextWatcher(this,tempCommentKey));
+
 	}
 	// Òþ²ØÊäÈë·¢±í»ØÌû×´Ì¬
     private void hideEditor(View v) {
@@ -315,12 +318,14 @@ public class QuestionDetailActivity extends Activity {
 			// TODO Auto-generated method stub
 			fileName = getPhotoFileName();
 			new Thread(){
-
+				
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					uploadOnlineQuestion();
-					createOnLineQuestion();
+					
+						uploadOnlineQuestionAnswerImage();
+						createOnLineQuestionAnswer();
+					
 				}
 				
 			}.start();
@@ -328,7 +333,7 @@ public class QuestionDetailActivity extends Activity {
 			
 		}};
 		
-		private void uploadOnlineQuestion() {
+		private void uploadOnlineQuestionAnswerImage() {
 
 			try {
 				String imageViewPath = tempFile.getAbsolutePath();
@@ -352,10 +357,17 @@ public class QuestionDetailActivity extends Activity {
 			}
 		}
 
-		private String createOnLineQuestion() {
-
+		private void createOnLineQuestionAnswer() {
+			OnlineQuestionAnswer answer = new OnlineQuestionAnswer();
+			User u = JSONObject.parseObject(application.getValue(), User.class);
+			answer.setTextAnswer(mFootEditer.getText().toString());
+			answer.setImageAnswer("static/images/"+fileName);
+			answer.setCreated(new Date());
+			answer.setAnswerAuthor(u.getNickName());
+			answer.setAnswerAuthorId(u.getId());
+			answer.setOnlineQuestionId(onlineQuestion.getId());
+			WebPostUtil.saveOnlineQuestionAnswer(SERVICE_URL, "saveOnlineQuestionAnswer", JSONObject.toJSONString(answer));
 			
-			return null;
 		}
 		
 	private View.OnClickListener onlineQuestionClickListener = new View.OnClickListener(){
@@ -431,6 +443,7 @@ public class QuestionDetailActivity extends Activity {
 				// img.setImageResource(R.drawable.abc_ic_clear_normal);
 				Log.v(TAG, "photo is null");
 			} else {
+				Log.v(TAG,photo.toString());
 				img.setImageBitmap(photo);
 			}
 

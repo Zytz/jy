@@ -22,6 +22,7 @@ import static com.dxt.util.StringUtil.*;
 public class MainActivity extends TabActivity {
 	
 	private static final int REQUESTCODEFORCHOOSE=1;
+	private static final int REQUESTCODEFORASKQUESTION=2;
 	private TabHost tabHost;
 	private ImageButton askquestion;
 
@@ -140,6 +141,9 @@ public class MainActivity extends TabActivity {
 				tabHost.invalidate();
 			}
 		}
+		else if(resultCode==Activity.RESULT_OK&&requestCode==REQUESTCODEFORASKQUESTION){
+			
+		}
 	}
 
 	//进入到照相的跳转
@@ -150,7 +154,8 @@ public class MainActivity extends TabActivity {
 			// TODO Auto-generated method stub
 			Intent toAskQuestionActivity=new Intent();
 			toAskQuestionActivity.setClass(getApplicationContext(), com.dxt.view.CameraActivityTest.class);
-			startActivity(toAskQuestionActivity);
+			//startActivity(toAskQuestionActivity);
+			startActivityForResult(toAskQuestionActivity,REQUESTCODEFORCHOOSE);
 		}
 	};
 

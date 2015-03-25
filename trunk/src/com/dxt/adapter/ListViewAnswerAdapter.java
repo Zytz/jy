@@ -3,8 +3,6 @@ package com.dxt.adapter;
 import java.util.List;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +21,6 @@ import com.dxt.util.WebPostUtil;
 
 public class ListViewAnswerAdapter extends BaseAdapter {
 	final static String SERVICE_URL = StringConstant.SERVICE_URL+ "services/UserService?wsdl";
-	private Handler mHandler;
 	private Context context;// 运行上下文
 	private List<OnlineQuestionAnswer> listItems;// 数据集合
 	private LayoutInflater listContainer;// 视图容器
@@ -106,7 +103,6 @@ public class ListViewAnswerAdapter extends BaseAdapter {
 		public void run() {
 			// TODO Auto-generated method stub
 			 u = WebPostUtil.getUserById(SERVICE_URL, "getUserByID", id);
-			 
 		}
 
 		public Helper(String id) {

@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.dxt.constant.StringConstant;
 import com.dxt.model.User;
 import com.dxt.util.ReturnMessage;
@@ -24,7 +23,6 @@ import com.dxt.view.UserCenter;
 
 public class LoginActivity extends Activity {
 	final static String SERVICE_NS = "http://xml.apache.org/axis/wsdd/";
-	//final static String SERVICE_URL = "http://210.40.65.204:8080/daxuetong/services/UserService?wsdl";
 	final static String SERVICE_URL = StringConstant.SERVICE_URL+"services/UserService?wsdl";
 	final static String SERVICE_URL1=StringConstant.SERVICE_URL+"services/UserCenterService?wsdl";
 	final static String TAG = "dxt";
@@ -51,10 +49,6 @@ public class LoginActivity extends Activity {
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case SUCCESS:
-				//thLogin.getState()==Thread.;
-				//thFindUser.start();
-				
-				
 				//登录成功之后，保存user对象
 				new Thread(){
 					@Override
@@ -72,13 +66,8 @@ public class LoginActivity extends Activity {
 				Intent intentReturn = new Intent();
 				intentReturn
 						.setClass(getApplicationContext(), UserCenter.class);
-	/*				Bundle bundle = new Bundle();
-				bundle.putString("username", username);// 添加要返回给页面1的数据
-				intentReturn.putExtras(bundle);*/
-				// startActivity(intentReturn);
 				setResult(RESULT_OK, intentReturn);
 				
-				//startActivity(intentReturn);
 				
 				finish();
 				Toast.makeText(getApplicationContext(),
@@ -121,7 +110,6 @@ public class LoginActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				// EditText et=findViewById(R.id.u)
 				username = ((EditText) findViewById(R.id.username)).getText()
 						.toString().trim();
 				password = ((EditText) findViewById(R.id.password)).getText()
@@ -151,28 +139,5 @@ public class LoginActivity extends Activity {
 			handler.sendMessage(message);	
 		};
 	};
-	/*Thread thFindUser=new Thread(){
-		public void run() {
-			
-			retMessage = WebPostUtil.getMessage(SERVICE_URL1,
-					"UseCenterInformation", username);
-			app.setValue(retMessage.getMessage());
-			Intent intentReturn = new Intent();
-			intentReturn
-					.setClass(getApplicationContext(), UserCenter.class);
-				Bundle bundle = new Bundle();
-			bundle.putString("username", username);// 添加要返回给页面1的数据
-			intentReturn.putExtras(bundle);
-			// startActivity(intentReturn);
-			setResult(RESULT_OK, intentReturn);
-			
-			//startActivity(intentReturn);
-			
-			finish();
-			Toast.makeText(getApplicationContext(),
-					app.getValue() + "链接成功", Toast.LENGTH_LONG)
-					.show();
-			
-		};
-	};*/
+	
 }

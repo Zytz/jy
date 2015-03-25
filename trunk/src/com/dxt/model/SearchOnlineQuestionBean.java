@@ -48,6 +48,14 @@ public class SearchOnlineQuestionBean {
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
+	
+	
+	public String getStudentName() {
+		return studentName;
+	}
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
 	@Override
 	public String toString() {
 		return "SearchOnlineQuestionBean [grade=" + grade + ", subject="

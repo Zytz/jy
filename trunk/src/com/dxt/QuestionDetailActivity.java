@@ -18,6 +18,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -51,48 +53,68 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import static com.dxt.util.StringUtil.*;
+
 public class QuestionDetailActivity extends Activity {
+
+	final static String SERVICE_URL = StringConstant.SERVICE_URL
+			+ "services/OnlineQuestionService?wsdl";
+	private static final int VIEWSWITCH_TYPE_QUESTION = 1;
+	private static final int VIEWSWITCH_TYPE_ANSWER = 2;
+
+	private static final int PHOTO_REQUEST_TAKEPHOTO = 1;// 拍照
+	private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
+	private static final int PHOTO_REQUEST_CUT = 3;// 结果
+	private File tempFile = new File(Environment.getExternalStorageDirectory(),
+			getPhotoFileName());
+	String fileName;
+
+	private String TAG = "dxt";
+	private ImageView img = null;
+
+	private TextView headerText;
+	private TextView grade;
+	private TextView subject;
+	private TextView date;
+	private TextView rewardPoint;
+	private TextView textDescription;
+	private MyImageView questionImage;
+	private MyImageView studentIcon;
+	private TextView studentName;
+	private ViewSwitcher mViewSwitcher;
+	private ViewSwitcher mFootViewSwitcher;
+	private ImageView mFootEditebox;
+	private EditText mFootEditer;
+	private Button mFootPubcomment;
+	private InputMethodManager imm;
+
+	private ImageView questionDetail;
+	private ImageView onlineQuestionAnswer;
+	private BadgeView bvAnswer;
+	private ImageView bootCamera;
+
+	private PullToRefreshListView mPullRefreshListView;
+	private List<OnlineQuestionAnswer> listitems = new ArrayList<OnlineQuestionAnswer>();
+	private ListViewAnswerAdapter adapter;
+	private CustomApplication application;
+	private OnlineQuestion onlineQuestion = new OnlineQuestion();
 	
-	final static String SERVICE_URL = StringConstant.SERVICE_URL+ "services/OnlineQuestionService?wsdl";
-	 private static final int VIEWSWITCH_TYPE_QUESTION =1;
-	 private static final int VIEWSWITCH_TYPE_ANSWER =2;
-	 
-	 private static final int PHOTO_REQUEST_TAKEPHOTO = 1;// 拍照
-	 private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
-	 private static final int PHOTO_REQUEST_CUT = 3;// 结果
-	 private File tempFile = new File(Environment.getExternalStorageDirectory(),
-				getPhotoFileName());
-	 String fileName ;
-	 
-	 private String TAG = "dxt";
-	 private ImageView img = null;
-	 
-	 private TextView headerText;
-	 private TextView grade;
-     private TextView subject;
-     private TextView date;  
-	 private TextView rewardPoint;
-	 private TextView textDescription;
-	 private MyImageView questionImage;
-	 private MyImageView studentIcon;
-	 private TextView studentName;
-	 private ViewSwitcher mViewSwitcher;
-	 private ViewSwitcher mFootViewSwitcher;
-	 private ImageView mFootEditebox;
-	 private EditText mFootEditer;
-	 private Button mFootPubcomment;
-	 private InputMethodManager imm;
-	 
-	 private ImageView questionDetail;
-	 private ImageView onlineQuestionAnswer;
-	 private BadgeView bvAnswer;
-	 private ImageView bootCamera;
-	 
-	 private PullToRefreshListView mPullRefreshListView;
-	 private List<OnlineQuestionAnswer> listitems = new ArrayList<OnlineQuestionAnswer>(); 
-	 private ListViewAnswerAdapter adapter;
-	 private CustomApplication application;
-	 private OnlineQuestion onlineQuestion = new OnlineQuestion();
+	private Handler handler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			switch(msg.what){
+				case 1:
+					Toast.makeText(getApplicationContext(), "回答成功", 150).show();
+					bvAnswer.setText(onlineQuestion.getAnswerCount()+1+"");
+					initialAnswerData();
+				default:
+					Toast.makeText(getApplicationContext(), "回答失败", 150).show();
+			}
+		}
+		
+	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -102,76 +124,79 @@ public class QuestionDetailActivity extends Activity {
 		application = (CustomApplication) getApplication();
 		initialView();
 		initialData();
-		
+
 		initialAnswerView();
 		initialAnswerData();
 	}
 
-
 	private void initialAnswerView() {
 		// TODO Auto-generated method stub
-		img =new ImageView(getApplicationContext());
+		img = new ImageView(getApplicationContext());
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		mPullRefreshListView
-		.setOnRefreshListener(new OnRefreshListener2<ListView>() {
+				.setOnRefreshListener(new OnRefreshListener2<ListView>() {
 
-			@Override
-			public void onPullDownToRefresh(
-					PullToRefreshBase<ListView> refreshView) {
-				// TODO Auto-generated method stub
-				String label = DateUtils.formatDateTime(
-						getApplicationContext(),
-						System.currentTimeMillis(),
-						DateUtils.FORMAT_SHOW_TIME
-								| DateUtils.FORMAT_SHOW_DATE
-								| DateUtils.FORMAT_ABBREV_ALL);
+					@Override
+					public void onPullDownToRefresh(
+							PullToRefreshBase<ListView> refreshView) {
+						// TODO Auto-generated method stub
+						String label = DateUtils.formatDateTime(
+								getApplicationContext(),
+								System.currentTimeMillis(),
+								DateUtils.FORMAT_SHOW_TIME
+										| DateUtils.FORMAT_SHOW_DATE
+										| DateUtils.FORMAT_ABBREV_ALL);
 
-				// Update the LastUpdatedLabel
-				refreshView.getLoadingLayoutProxy()
-						.setLastUpdatedLabel(label);
+						// Update the LastUpdatedLabel
+						refreshView.getLoadingLayoutProxy()
+								.setLastUpdatedLabel(label);
 
-				// Do work to refresh the list here.
-				new GetDataTask().execute();
-				
-			}
+						// Do work to refresh the list here.
+						new GetDataTask().execute();
 
-			@Override
-			public void onPullUpToRefresh(
-					PullToRefreshBase<ListView> refreshView) {
-				// TODO Auto-generated method stub
-				String label = DateUtils.formatDateTime(
-						getApplicationContext(),
-						System.currentTimeMillis(),
-						DateUtils.FORMAT_SHOW_TIME
-								| DateUtils.FORMAT_SHOW_DATE
-								| DateUtils.FORMAT_ABBREV_ALL);
+					}
 
-				// Update the LastUpdatedLabel
-				refreshView.getLoadingLayoutProxy()
-						.setLastUpdatedLabel(label);
+					@Override
+					public void onPullUpToRefresh(
+							PullToRefreshBase<ListView> refreshView) {
+						// TODO Auto-generated method stub
+						String label = DateUtils.formatDateTime(
+								getApplicationContext(),
+								System.currentTimeMillis(),
+								DateUtils.FORMAT_SHOW_TIME
+										| DateUtils.FORMAT_SHOW_DATE
+										| DateUtils.FORMAT_ABBREV_ALL);
 
-				// Do work to refresh the list here.
-				new GetDataTask().execute();
-				
-			}
-			
-		});
-		adapter = new ListViewAnswerAdapter(getApplicationContext(), listitems,R.layout.online_question_answer_listitem);
+						// Update the LastUpdatedLabel
+						refreshView.getLoadingLayoutProxy()
+								.setLastUpdatedLabel(label);
+
+						// Do work to refresh the list here.
+						new GetDataTask().execute();
+
+					}
+
+				});
+		adapter = new ListViewAnswerAdapter(getApplicationContext(), listitems,
+				R.layout.online_question_answer_listitem);
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
 		actualListView.setAdapter(adapter);
 
 	}
-	
-	private class GetDataTask extends AsyncTask<Void, Void, List<OnlineQuestionAnswer>> {
+
+	private class GetDataTask extends
+			AsyncTask<Void, Void, List<OnlineQuestionAnswer>> {
 
 		// 后台处理部分
 		@Override
 		protected List<OnlineQuestionAnswer> doInBackground(Void... params) {
 			// Simulates a background job.
-			
-			List<OnlineQuestionAnswer> ques = WebPostUtil.getOnlineQuestionAnswer(SERVICE_URL, "getOnlineQuestionAnswer", onlineQuestion.getId());
-			
+
+			List<OnlineQuestionAnswer> ques = WebPostUtil
+					.getOnlineQuestionAnswer(SERVICE_URL,
+							"getOnlineQuestionAnswer", onlineQuestion.getId());
+
 			return ques;
 		}
 
@@ -181,7 +206,8 @@ public class QuestionDetailActivity extends Activity {
 		protected void onPostExecute(List<OnlineQuestionAnswer> result) {
 			// 在头部增加新添内容
 			// 通知程序数据集已经改变，如果不做通知，那么将不会刷新mListItems的集合
-			if(listitems!=null)listitems.clear();
+			if (listitems != null)
+				listitems.clear();
 			listitems.addAll(result);
 			adapter.notifyDataSetChanged();
 			// Call onRefreshComplete when the list has been refreshed.
@@ -196,29 +222,30 @@ public class QuestionDetailActivity extends Activity {
 		new GetDataTask().execute();
 	}
 
-
 	private void initialData() {
 		// TODO Auto-generated method stub
 		String ques = getIntent().getStringExtra("question");
 		onlineQuestion = JSON.parseObject(ques, OnlineQuestion.class);
-		Log.v("com.dxt",onlineQuestion.toString());
-		ImageUtil.LoadImage(getApplicationContext(),onlineQuestion.getStudentIcon(), studentIcon);
+		Log.v("com.dxt", onlineQuestion.toString());
+		ImageUtil.LoadImage(getApplicationContext(),
+				onlineQuestion.getStudentIcon(), studentIcon);
 		studentName.setText(onlineQuestion.getStudentName());
 		grade.setText(int2StringOfGrade(onlineQuestion.getGrade()));
 		subject.setText(int2StringOfSubject(onlineQuestion.getSubject()));
-		date.setText(DateFormat.format("yyyy-MM-dd hh:mm:ss", onlineQuestion.getCreated()));
+		date.setText(DateFormat.format("yyyy-MM-dd hh:mm:ss",
+				onlineQuestion.getCreated()));
 		rewardPoint.setText(String.valueOf(onlineQuestion.getRewardPoint()));
 		textDescription.setText(onlineQuestion.getTextDescription());
-		ImageUtil.LoadImage(getApplicationContext(),onlineQuestion.getQuestionImage(),questionImage);
-		if(onlineQuestion.getAnswerCount()>0){
-			bvAnswer.setText(onlineQuestion.getAnswerCount()+"");
+		ImageUtil.LoadImage(getApplicationContext(),
+				onlineQuestion.getQuestionImage(), questionImage);
+		if (onlineQuestion.getAnswerCount() > 0) {
+			bvAnswer.setText(onlineQuestion.getAnswerCount() + "");
 			bvAnswer.show();
-		}else{
+		} else {
 			bvAnswer.setText("");
 			bvAnswer.hide();
 		}
 	}
-
 
 	private void initialView() {
 		// TODO Auto-generated method stub
@@ -228,17 +255,18 @@ public class QuestionDetailActivity extends Activity {
 		studentName = (TextView) findViewById(R.id.homework_qb1_item_tv_user_name);
 		subject = (TextView) findViewById(R.id.question_item_question_course);
 		grade = (TextView) findViewById(R.id.question_item_user_grade);
-		date	=(TextView) findViewById(R.id.question_item_question_time);
+		date = (TextView) findViewById(R.id.question_item_question_time);
 		rewardPoint = (TextView) findViewById(R.id.question_rewrad);
 		textDescription = (TextView) findViewById(R.id.question_name);
 		questionImage = (MyImageView) findViewById(R.id.question_picture);
-		
+
 		questionDetail = (ImageView) findViewById(R.id.question_detail_footbar);
 		questionDetail.setEnabled(false);
 		questionDetail.setOnClickListener(onlineQuestionClickListener);
 		onlineQuestionAnswer = (ImageView) findViewById(R.id.online_question_answer_footbar);
-		onlineQuestionAnswer.setOnClickListener(onlineQuestionAnswerClickListener);
-		
+		onlineQuestionAnswer
+				.setOnClickListener(onlineQuestionAnswerClickListener);
+
 		bvAnswer = new BadgeView(getApplicationContext(), onlineQuestionAnswer);
 		bvAnswer.setBackgroundResource(R.drawable.widget_count_bg2);
 		bvAnswer.setIncludeFontPadding(false);
@@ -246,7 +274,6 @@ public class QuestionDetailActivity extends Activity {
 		bvAnswer.setTextSize(8f);
 		bvAnswer.setTextColor(Color.WHITE);
 
-		
 		bootCamera = (ImageView) findViewById(R.id.friend_ib_camera);
 		bootCamera.setOnClickListener(bootCameraClickListener);
 		imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -254,7 +281,7 @@ public class QuestionDetailActivity extends Activity {
 		mFootViewSwitcher = (ViewSwitcher) findViewById(R.id.question_detail_foot_viewswitcher);
 		mFootPubcomment = (Button) findViewById(R.id.question_detail_foot_pubcomment);
 		mFootPubcomment.setOnClickListener(commentpubClickListener);
-		
+
 		mFootEditebox = (ImageView) findViewById(R.id.question_detail_footbar_editebox);
 		mFootEditebox.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -286,16 +313,18 @@ public class QuestionDetailActivity extends Activity {
 		});
 
 	}
+
 	// 隐藏输入发表回帖状态
-    private void hideEditor(View v) {
-    	imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-    	if(mFootViewSwitcher.getDisplayedChild()==1){
+	private void hideEditor(View v) {
+		imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+		if (mFootViewSwitcher.getDisplayedChild() == 1) {
 			mFootViewSwitcher.setDisplayedChild(0);
 			mFootEditer.clearFocus();
 			mFootEditer.setVisibility(View.GONE);
 		}
-    }
-    private void viewSwitch(int type) {
+	}
+
+	private void viewSwitch(int type) {
 		switch (type) {
 		case VIEWSWITCH_TYPE_QUESTION:
 			questionDetail.setEnabled(false);
@@ -311,90 +340,102 @@ public class QuestionDetailActivity extends Activity {
 			break;
 		}
 	}
-	private View.OnClickListener commentpubClickListener = new View.OnClickListener(){
+
+	private View.OnClickListener commentpubClickListener = new View.OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			fileName = getPhotoFileName();
-			new Thread(){
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
+			if(application.isIslogin()){
+				new Thread() {
 					
-						uploadOnlineQuestionAnswerImage();
-						createOnLineQuestionAnswer();
-					
-				}
-				
-			}.start();
-			
-			
-		}};
-		
-		private void uploadOnlineQuestionAnswerImage() {
-
-			try {
-				String imageViewPath = tempFile.getAbsolutePath();
-				FileInputStream fis = new FileInputStream(imageViewPath);
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				byte[] buffer = new byte[1024];
-				int count = 0;
-				while ((count = fis.read(buffer)) >= 0) {
-					baos.write(buffer, 0, count);
-				}
-				String uploadBuffer = new String(Base64.encode(baos.toByteArray())); // 进行Base64编码
-				String methodName = "uploadImage";
-				Log.i(TAG, methodName + " " + getPhotoFileName() + " "
-						+ uploadBuffer);
-				WebPostUtil.uploadImage(methodName, fileName,
-						uploadBuffer, SERVICE_URL);
-
-				fis.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		private void createOnLineQuestionAnswer() {
-			OnlineQuestionAnswer answer = new OnlineQuestionAnswer();
-			User u = JSONObject.parseObject(application.getValue(), User.class);
-			answer.setTextAnswer(mFootEditer.getText().toString());
-			answer.setImageAnswer("static/images/"+fileName);
-			answer.setCreated(new Date());
-			answer.setAnswerAuthor(u.getNickName());
-			answer.setAnswerAuthorId(u.getId());
-			answer.setOnlineQuestionId(onlineQuestion.getId());
-			WebPostUtil.saveOnlineQuestionAnswer(SERVICE_URL, "saveOnlineQuestionAnswer", JSONObject.toJSONString(answer));
-			
-		}
-		
-	private View.OnClickListener onlineQuestionClickListener = new View.OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				viewSwitch(VIEWSWITCH_TYPE_QUESTION);
-			}};
-	private View.OnClickListener onlineQuestionAnswerClickListener = new View.OnClickListener(){
-
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					viewSwitch(VIEWSWITCH_TYPE_ANSWER);
-				}};
-	private View.OnClickListener bootCameraClickListener = new View.OnClickListener(){
-
 					@Override
-					public void onClick(View v) {
+					public void run() {
 						// TODO Auto-generated method stub
-						Intent cameraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-						// 指定调用相机拍照后照片的储存路径
-						cameraintent.putExtra(MediaStore.EXTRA_OUTPUT,
-								Uri.fromFile(tempFile));
-						startActivityForResult(cameraintent, PHOTO_REQUEST_TAKEPHOTO);
-					}};
+						uploadOnlineQuestionAnswerImage();
+						int flag = createOnLineQuestionAnswer();
+						Message message = new Message();
+						message.what=flag;
+						handler.sendMessage(message);
+					}
+					
+				}.start();
+				
+			}else{
+				Toast.makeText(getApplicationContext(),"请登入",100).show();
+			}
+			hideEditor(v);
+		}
+	};
+
+	private void uploadOnlineQuestionAnswerImage() {
+
+		try {
+			String imageViewPath = tempFile.getAbsolutePath();
+			FileInputStream fis = new FileInputStream(imageViewPath);
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			byte[] buffer = new byte[1024];
+			int count = 0;
+			while ((count = fis.read(buffer)) >= 0) {
+				baos.write(buffer, 0, count);
+			}
+			String uploadBuffer = new String(Base64.encode(baos.toByteArray())); // 进行Base64编码
+			String methodName = "uploadImage";
+			Log.i(TAG, methodName + " " + getPhotoFileName() + " "
+					+ uploadBuffer);
+			WebPostUtil.uploadImage(methodName, fileName, uploadBuffer,
+					SERVICE_URL);
+
+			fis.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private int createOnLineQuestionAnswer() {
+		OnlineQuestionAnswer answer = new OnlineQuestionAnswer();
+		User u = JSONObject.parseObject(application.getValue(), User.class);
+		answer.setTextAnswer(mFootEditer.getText().toString());
+		answer.setImageAnswer("static/images/" + fileName);
+		answer.setCreated(new Date());
+		answer.setAnswerAuthor(u.getNickName());
+		answer.setAnswerAuthorId(u.getId());
+		answer.setOnlineQuestionId(onlineQuestion.getId());
+		return WebPostUtil.saveOnlineQuestionAnswer(SERVICE_URL,
+				"saveOnlineQuestionAnswer", JSONObject.toJSONString(answer));
+
+	}
+
+	private View.OnClickListener onlineQuestionClickListener = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			viewSwitch(VIEWSWITCH_TYPE_QUESTION);
+		}
+	};
+	private View.OnClickListener onlineQuestionAnswerClickListener = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			viewSwitch(VIEWSWITCH_TYPE_ANSWER);
+		}
+	};
+	private View.OnClickListener bootCameraClickListener = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent cameraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			// 指定调用相机拍照后照片的储存路径
+			cameraintent.putExtra(MediaStore.EXTRA_OUTPUT,
+					Uri.fromFile(tempFile));
+			startActivityForResult(cameraintent, PHOTO_REQUEST_TAKEPHOTO);
+		}
+	};
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -409,13 +450,12 @@ public class QuestionDetailActivity extends Activity {
 			break;
 		case PHOTO_REQUEST_CUT:// 返回的结果
 			if (data != null)
-				// setPicToView(data);
 				sentPicToNext(data);
 			break;
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
-					
+
 	private void startPhotoZoom(Uri uri) {
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setDataAndType(uri, "image/*");
@@ -440,10 +480,9 @@ public class QuestionDetailActivity extends Activity {
 		if (bundle != null) {
 			Bitmap photo = bundle.getParcelable("data");
 			if (photo == null) {
-				// img.setImageResource(R.drawable.abc_ic_clear_normal);
 				Log.v(TAG, "photo is null");
 			} else {
-				Log.v(TAG,photo.toString());
+				Log.v(TAG, photo.toString());
 				img.setImageBitmap(photo);
 			}
 
@@ -453,7 +492,7 @@ public class QuestionDetailActivity extends Activity {
 				photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 				byte[] photodata = baos.toByteArray();
 				System.out.println(photodata.toString());
-				
+
 			} catch (Exception e) {
 				e.getStackTrace();
 			} finally {
@@ -475,5 +514,5 @@ public class QuestionDetailActivity extends Activity {
 				"'IMG'_yyyyMMdd_HHmmss");
 		return dateFormat.format(date) + ".jpg";
 	}
-					
+
 }

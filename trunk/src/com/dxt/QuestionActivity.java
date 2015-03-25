@@ -1,7 +1,6 @@
 package com.dxt;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.dxt.adapter.ListViewQuestionsAdapter;
@@ -31,7 +31,7 @@ public class QuestionActivity extends Activity {
 	
 	final static String SERVICE_URL = StringConstant.SERVICE_URL+ "services/OnlineQuestionService?wsdl";
 	final static String TAG = "dxt";
-	private List<OnlineQuestion> listItems = new ArrayList<OnlineQuestion>();
+	private LinkedList<OnlineQuestion> listItems = new LinkedList<OnlineQuestion>();
 	private PullToRefreshListView mPullRefreshListView;
 	private ListViewQuestionsAdapter mAdapter;
 	private CustomApplication application ;
@@ -117,7 +117,10 @@ public class QuestionActivity extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		new GetDataTask().execute();
+		if(application.isFirstLoad()){
+			new GetDataTask().execute();
+			application.setFirstLoad(false);
+		}
 	}
 
 	
@@ -135,14 +138,14 @@ public class QuestionActivity extends Activity {
 
 	
 
-	private class GetDataTask extends AsyncTask<Void, Void, List<OnlineQuestion>> {
+	private class GetDataTask extends AsyncTask<Void, Void, LinkedList<OnlineQuestion>> {
 
 		// 后台处理部分
 		@Override
-		protected List<OnlineQuestion> doInBackground(Void... params) {
+		protected LinkedList<OnlineQuestion> doInBackground(Void... params) {
 			// Simulates a background job.
 			searchBean = application.getSearchBean();
-			List<OnlineQuestion> ques = WebPostUtil.getOnlineQuestions(SERVICE_URL, "getOnlineQuestionList", JSON.toJSONString(searchBean));
+			LinkedList<OnlineQuestion> ques = WebPostUtil.getOnlineQuestions(SERVICE_URL, "getOnlineQuestionList", JSON.toJSONString(searchBean));
 			
 			return ques;
 		}
@@ -150,25 +153,30 @@ public class QuestionActivity extends Activity {
 		// 这里是对刷新的响应，可以利用addFirst（）和addLast()函数将新加的内容加到LISTView中
 		// 根据AsyncTask的原理，onPostExecute里的result的值就是doInBackground()的返回值
 		@Override
-		protected void onPostExecute(List<OnlineQuestion> result) {
+		protected void onPostExecute(LinkedList<OnlineQuestion> result) {
 			// 在头部增加新添内容
 			// 通知程序数据集已经改变，如果不做通知，那么将不会刷新mListItems的集合
-			if(searchBean.getGrade()==application.getGrade()&&searchBean.getSubject()==application.getSubject()){
-				listItems.addAll(result);
-				searchBean.setPageNum(searchBean.getPageNum()+1);
+			if(result.size()!=0){
+				if(searchBean.getGrade()==application.getGrade()&&searchBean.getSubject()==application.getSubject()){
+					searchBean.setPageNum(searchBean.getPageNum()+1);
+					listItems.addAll(0, result);
+				}else{
+					listItems.clear();;
+					listItems.addAll(result);
+					application.setGrade(searchBean.getGrade());
+					application.setSubject(searchBean.getSubject());
+					searchBean.setPageNum(1);
+				}
 			}else{
-				listItems.clear();;
-				listItems.addAll(result);
-				application.setGrade(searchBean.getGrade());
-				application.setSubject(searchBean.getSubject());
-				searchBean.setPageNum(1);
+				Toast.makeText(getApplicationContext(), "没有更多的数据了", 150).show();
 			}
 			mAdapter.notifyDataSetChanged();
 			// Call onRefreshComplete when the list has been refreshed.
 			mPullRefreshListView.onRefreshComplete();
-
 			super.onPostExecute(result);
 		}
+		
+		
 	}
 
 }

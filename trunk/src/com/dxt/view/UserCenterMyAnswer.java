@@ -25,6 +25,7 @@ import com.dxt.CustomApplication;
 import com.dxt.QuestionDetailActivity;
 import com.dxt.R;
 import com.dxt.adapter.ListViewQuestionsAdapter;
+import com.dxt.adapter.ListViewUserCenterMyQuestionsAdapter;
 import com.dxt.constant.StringConstant;
 import com.dxt.model.OnlineQuestion;
 import com.dxt.model.SearchOnlineQuestionBean;
@@ -42,7 +43,7 @@ public class UserCenterMyAnswer extends Activity {
 	final static String TAG = "dxt";
 	private List<OnlineQuestion> listItems = new ArrayList<OnlineQuestion>();
 	private PullToRefreshListView mPullRefreshListView;
-	private ListViewQuestionsAdapter mAdapter;
+	private ListViewUserCenterMyQuestionsAdapter mAdapter;
 	private CustomApplication application ;
 	private SearchOnlineQuestionBean searchBean;
 	private User u;
@@ -54,7 +55,7 @@ public class UserCenterMyAnswer extends Activity {
 
 		application = (CustomApplication) getApplication();
 		
-		//mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list_usercenter);
+		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list_usercenter);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		// Set a listener to be invoked when the list should be refreshed.
 		mPullRefreshListView
@@ -100,7 +101,7 @@ public class UserCenterMyAnswer extends Activity {
 					}
 				});
 		
-		mAdapter = new ListViewQuestionsAdapter(getApplicationContext(), listItems, R.layout.usercenter_question_item);
+		mAdapter = new ListViewUserCenterMyQuestionsAdapter(getApplicationContext(), listItems, R.layout.usercentermyquestion_item);
 		
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
 		

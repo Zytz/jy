@@ -21,10 +21,13 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -43,6 +46,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dxt.CustomApplication;
 import com.dxt.MainActivity;
 import com.dxt.R;
+import com.dxt.R.drawable;
 import com.dxt.adapter.ArrayWheelAdapter;
 import com.dxt.adapter.OnWheelChangedListener;
 import com.dxt.adapter.WheelView;
@@ -126,7 +130,9 @@ public class CameraActivityTest extends Activity {
 		edit_Description = (EditText) findViewById(R.id.edit_textDescription);
 		spin_rewardpoint = (Spinner) findViewById(R.id.rewardpoint);
 		askGoodStudent = (Button) findViewById(R.id.ask_goodStudent);
-
+		
+		
+		edit_Description.setOnFocusChangeListener(fucusListener);
 		// 将可选内容与ArrayAdapter连接起来
 		adapter = new ArrayAdapter<Integer>(this,
 				android.R.layout.simple_spinner_item, rewPoint);
@@ -183,7 +189,48 @@ public class CameraActivityTest extends Activity {
 		public void onNothingSelected(AdapterView<?> arg0) {
 		}
 	}
-
+//EditText监听器
+	OnFocusChangeListener fucusListener=new OnFocusChangeListener() {
+		//表示文本框是否为空
+	    private Boolean isEmpty = true;
+		@Override
+		public void onFocusChange(View v, boolean hasFocus) {
+			// TODO Auto-generated method stub
+			 //获取触发事件的EditText
+            EditText clickEditText = (EditText)v;
+            //如果失去焦点
+            if(hasFocus == false)
+            {
+                //获取当前文本
+                String text =clickEditText.getText().toString().trim();
+                //如果的确人为输入过内容
+                if(text.length()>0
+                        &text.equals("学霸们，老师们， 帮帮忙！有赏哦！！！")== false)
+                {
+                    isEmpty = false;
+                    //clickEditText.setTextColor();
+                    clickEditText.setText(text);
+                }
+                else
+                {
+                    clickEditText.setText("学霸们，老师们， 帮帮忙！有赏哦！！！");
+                   // clickEditText.setTextColor(Color.GRAY);
+                    isEmpty = true;
+                }
+            }
+            //如果获得焦点
+            else
+            {
+             //   clickEditText.setTextColor(Color.BLACK);
+                //如果处于未编辑状态，则清空“请输入您的名字”这几个字
+                if(isEmpty == true)
+                {
+                    clickEditText.setText("");
+                }
+            }
+		}
+	};
+	
 	private OnClickListener listener = new OnClickListener() {
 
 		@Override
@@ -413,7 +460,8 @@ public class CameraActivityTest extends Activity {
 				Intent intentReturn = new Intent();
 				intentReturn
 						.setClass(getApplicationContext(), MainActivity.class);
-				startActivity(intentReturn);
+				//startActivity(intentReturn);
+				setResult(RESULT_OK, intentReturn);
 				finish();
 				break;
 				//失败
@@ -450,7 +498,7 @@ public class CameraActivityTest extends Activity {
 		onlinequestionInApp.setStudentId(u.getId());
 		onlinequestionInApp.setStudentName(u.getNickName());// nickname
 		onlinequestionInApp.setStudentIcon(u.getIcon());
-		onlinequestionInApp.setQuestionImage("static/images/"+fileName);
+		onlinequestionInApp.setQuestionImage("static/onlineQuestionImages/"+fileName);
 		return  JSON.toJSONString(onlinequestionInApp);
 	}
 

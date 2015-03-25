@@ -169,6 +169,7 @@ public class StringUtil {
 	 */
 	public static Integer int2IDOfSubject(String subject) {
 		
+
 		return subjects.get(subject);
 	}
 

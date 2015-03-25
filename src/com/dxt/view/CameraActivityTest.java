@@ -328,6 +328,10 @@ public class CameraActivityTest extends Activity {
 		}
 	}
 
+
+
+
+
 	private void showSelectDialog(Context context, String title,
 			final String[] left, final String[][] right) {
 		AlertDialog dialog = new AlertDialog.Builder(context).create();

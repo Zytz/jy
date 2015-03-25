@@ -10,7 +10,7 @@ public class CustomApplication extends Application
 {
     private static final String VALUE = "";
     
-    
+    private boolean firstLoad = true; //是否第一次加载问题列表，过滤产生的列表也属于第一次
     
     private   boolean islogin=false;
     
@@ -24,7 +24,17 @@ public class CustomApplication extends Application
     
     private String questionId="";
     
-    public int getGrade() {
+    
+    
+    public boolean isFirstLoad() {
+		return firstLoad;
+	}
+
+	public void setFirstLoad(boolean firstLoad) {
+		this.firstLoad = firstLoad;
+	}
+
+	public int getGrade() {
 		return grade;
 	}
 

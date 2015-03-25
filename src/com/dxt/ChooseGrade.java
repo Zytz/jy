@@ -82,29 +82,23 @@ public class ChooseGrade extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//预处理
-				//判断是否有点击事件
 				
-				String grade=null;
-				String subject=null;
+				String grade="";
+				String subject="";
 				if(!ValidateUtil.isValid(temp1)&&!ValidateUtil.isValid(temp2)){
-					temp1="全部问题";
-					grade="";
-					subject="";
+					temp1="全部";
+					temp2="全部";
 				}else if(!ValidateUtil.isValid(temp1)&&ValidateUtil.isValid(temp2)){
 					temp1="全部";
-					grade="";
 				}else if(ValidateUtil.isValid(temp1)&&!ValidateUtil.isValid(temp2)){
 					temp2="全部";
-					subject="";
 				}
-				if(grade==null) grade = temp1;
-				if(subject==null) subject = temp2;
+				grade = temp1;
+				subject = temp2;
 				Intent intent = new Intent(getApplicationContext(),MainActivity.class);
 				intent.putExtra("cancel", false);
 				intent.putExtra("grade", grade);
 				intent.putExtra("subject", subject);
-				intent.putExtra("title_id", grades[old_grade]+" "+subjects[old_subject]);
 				setResult(RESULT_OK, intent);
 				finish();
 			}

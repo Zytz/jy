@@ -1,9 +1,12 @@
 package com.dxt;
 
+import static com.dxt.util.StringUtil.int2IDOfGrade;
+import static com.dxt.util.StringUtil.int2IDOfSubject;
 import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,8 +18,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.dxt.model.SearchOnlineQuestionBean;
-
-import static com.dxt.util.StringUtil.*;
+import com.dxt.view.BadgeView;
 
 @SuppressWarnings("deprecation")
 public class MainActivity extends TabActivity {
@@ -29,6 +31,7 @@ public class MainActivity extends TabActivity {
 	private TextView txt_chooseGrade;
 	
 	private RadioButton main_footbar_news;
+	private BadgeView bgNews;
 	private RadioButton main_footbar_question;
 	private RadioButton main_footbar_tweet;
 	
@@ -50,6 +53,9 @@ public class MainActivity extends TabActivity {
 		askquestion.setOnClickListener(questionListener);
 
 		main_footbar_news =(RadioButton) this.findViewById(R.id.main_footbar_news);
+		bgNews = new BadgeView(getApplicationContext(), main_footbar_news);
+		bgNews.setText("1");
+		bgNews.show();
 		main_footbar_question =(RadioButton) this.findViewById(R.id.main_footbar_question);
 		main_footbar_tweet =(RadioButton) this.findViewById(R.id.main_footbar_tweet);
 		
@@ -126,18 +132,18 @@ public class MainActivity extends TabActivity {
 				String grade = bundle.getString("grade");
 				String subject = bundle.getString("subject");
 				String title = null;
-				if(!grade.equals("")&&!subject.equals("")){
+				if(!grade.equals("全部")&&!subject.equals("全部")){
 					title = grade+subject;
-				}else if(!grade.equals("")&&subject.equals("")){
+				}else if(!grade.equals("全部")&&subject.equals("全部")){
 					title = grade +"全部";
 				}else{
 					title ="全部问题";
 				}
 				txt_chooseGrade.setText(title);
-				
 				searchBean.setGrade(int2IDOfGrade(grade));
 				searchBean.setSubject(int2IDOfSubject(subject));
 				searchBean.setPageNum(0);
+				application.setFirstLoad(true);
 				tabHost.invalidate();
 			}
 		}
@@ -169,7 +175,8 @@ public class MainActivity extends TabActivity {
 			// TODO Auto-generated method stub
 			switch(v.getId()){
 				case R.id.main_footbar_news:
-					v.setPressed(true);
+					bgNews.hide();
+					tabHost.setCurrentTab(0);
 					break;
 				case R.id.main_footbar_question:
 					Intent toVideoActivity=new Intent();

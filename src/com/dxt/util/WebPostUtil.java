@@ -2,6 +2,7 @@ package com.dxt.util;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.ksoap2.SoapEnvelope;
@@ -83,8 +84,9 @@ public class WebPostUtil {
 		return retMessage;
 	}
 	
-	public static List<OnlineQuestion> getOnlineQuestions(String url, String methodName,
+	public static LinkedList<OnlineQuestion> getOnlineQuestions(String url, String methodName,
 			String searchBean){
+		LinkedList<OnlineQuestion> ret =new LinkedList<OnlineQuestion>();
 		List<OnlineQuestion> questions =new ArrayList<OnlineQuestion>();
 		HttpTransportSE ht = new HttpTransportSE(url);
 		ht.debug = true;
@@ -103,6 +105,7 @@ public class WebPostUtil {
 				for (OnlineQuestion onlineQuestion : questions) {
 					Log.v("com.dxt", onlineQuestion.toString());
 				}
+				ret.addAll(0, questions);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -111,7 +114,7 @@ public class WebPostUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return questions;
+		return ret;
 	}
 	
 	public static List<OnlineQuestionAnswer> getOnlineQuestionAnswer(String url, String methodName,

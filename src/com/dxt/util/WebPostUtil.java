@@ -14,7 +14,6 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.dxt.constant.StringConstant;
 import com.dxt.model.OnlineQuestion;
 import com.dxt.model.OnlineQuestionAnswer;
 import com.dxt.model.User;
@@ -146,7 +145,7 @@ public class WebPostUtil {
 		return answers;
 	}
 	
-	public static void saveOnlineQuestionAnswer(String url,String methodName,String answer){
+	public static int saveOnlineQuestionAnswer(String url,String methodName,String answer){
 		HttpTransportSE ht = new HttpTransportSE(url);
 		ht.debug = true;
 		SoapObject request = new SoapObject(SERVICE_NS, methodName);
@@ -157,10 +156,8 @@ public class WebPostUtil {
 		try {
 			ht.call(null, envelope);
 			if (envelope.getResponse() != null) {
-				Log.v("lll---", "ok!!");
-				SoapObject result = (SoapObject) envelope.bodyIn;
-				String name = result.getProperty(0).toString();
-				Log.v("lll---", name);
+				//SoapObject result = (SoapObject) envelope.bodyIn;
+				return 1;
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -169,6 +166,7 @@ public class WebPostUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return 0;
 	}
 	
 	
@@ -191,13 +189,11 @@ public class WebPostUtil {
 		try {
 			httpTranstation.call(null, envelope); // 这一步内存溢出
 			if(envelope.getResponse() != null){
-				Log.v("lll---", "ok!!");
-				SoapObject result = (SoapObject) envelope.bodyIn;
-				String name = result.getProperty(0).toString();
+				//SoapObject result = (SoapObject) envelope.bodyIn;
+				//String name = result.getProperty(0).toString();
 				//Log.i(TAG, name);
 				return true;
 			}else{
-				//
 			//	Log.i(StringConstant.SERVICE, "Connection failure");
 				return false;
 			}

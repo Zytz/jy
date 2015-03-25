@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.View;
 
 import com.dxt.model.SearchOnlineQuestionBean;
-import com.dxt.model.User;
 
 public class CustomApplication extends Application
 {
@@ -51,7 +50,8 @@ public class CustomApplication extends Application
         setSearchBean(new SearchOnlineQuestionBean());
     }
     
-    public void showDialog(View view){
+    @SuppressWarnings("static-access")
+	public void showDialog(View view){
     	MyImageView image = (MyImageView)view;
     	Intent intent = new Intent(getApplicationContext(),PreviewActivity.class);
     	intent.putExtra("uri", image.getUri());

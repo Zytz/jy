@@ -176,9 +176,9 @@ public class MainActivity extends TabActivity {
 				tabHost.invalidate();
 			}
 		}
-		else if(resultCode==Activity.RESULT_OK&&requestCode==REQUESTCODEFORASKQUESTION){
+/*		else if(resultCode==Activity.RESULT_OK&&requestCode==REQUESTCODEFORASKQUESTION){
 			
-		}
+		}*/
 	}
 
 	//进入到照相的跳转
@@ -189,8 +189,9 @@ public class MainActivity extends TabActivity {
 			// TODO Auto-generated method stub
 			Intent toAskQuestionActivity=new Intent();
 			toAskQuestionActivity.setClass(getApplicationContext(), com.dxt.view.CameraActivityTest.class);
-			//startActivity(toAskQuestionActivity);
-			startActivityForResult(toAskQuestionActivity,REQUESTCODEFORCHOOSE);
+			startActivity(toAskQuestionActivity);
+			finish();
+			//startActivityForResult(toAskQuestionActivity,REQUESTCODEFORCHOOSE);
 		}
 	};
 

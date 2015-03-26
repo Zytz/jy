@@ -19,6 +19,7 @@ import com.dxt.CustomApplication;
 import com.dxt.QuestionDetailActivity;
 import com.dxt.R;
 import com.dxt.adapter.ListViewQuestionsAdapter;
+import com.dxt.adapter.ListViewUserCenterMyQuestionsAdapter;
 import com.dxt.constant.StringConstant;
 import com.dxt.model.OnlineQuestion;
 import com.dxt.model.SearchOnlineQuestionBean;
@@ -35,7 +36,7 @@ public class UserCenterMyQuestion extends Activity {
 	final static String TAG = "dxt";
 	private List<OnlineQuestion> listItems = new ArrayList<OnlineQuestion>();
 	private PullToRefreshListView mPullRefreshListView;
-	private ListViewQuestionsAdapter mAdapter;
+	private ListViewUserCenterMyQuestionsAdapter mAdapter;
 	private CustomApplication application ;
 	private SearchOnlineQuestionBean searchBean;
 	private User u;
@@ -93,7 +94,7 @@ public class UserCenterMyQuestion extends Activity {
 					}
 				});
 		
-		mAdapter = new ListViewQuestionsAdapter(getApplicationContext(), listItems, R.layout.usercentermyquestion_item);
+		mAdapter = new ListViewUserCenterMyQuestionsAdapter(getApplicationContext(), listItems, R.layout.usercentermyquestion_item);
 		
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
 		
@@ -129,11 +130,11 @@ public class UserCenterMyQuestion extends Activity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		searchBean.setPageNum(0);
+	/*	searchBean.setPageNum(0);
 		searchBean.setGrade(-1);
 		searchBean.setSubject(-1);
 		application.setGrade(-1);
-		application.setSubject(-1);
+		application.setSubject(-1);*/
 	}
 
 	
@@ -145,7 +146,7 @@ public class UserCenterMyQuestion extends Activity {
 		protected List<OnlineQuestion> doInBackground(Void... params) {
 			// Simulates a background job.
 			u=JSONObject.parseObject(application.getValue(),User.class);
-			List<OnlineQuestion> ques = WebPostUtil.getOnlineQuestions(SERVICE_URL, "getOnlineMyQuestionList", u.getId());
+			List<OnlineQuestion> ques = WebPostUtil.getOnlineMyQuestions(SERVICE_URL, "getOnlineMyQuestionList", u.getId());
 			
 			return ques;
 		}

@@ -117,7 +117,38 @@ public class WebPostUtil {
 		}
 		return ret;
 	}
-	
+	public static LinkedList<OnlineQuestion> getOnlineMyQuestions(String url, String methodName,
+			String studentId){
+		LinkedList<OnlineQuestion> ret =new LinkedList<OnlineQuestion>();
+		List<OnlineQuestion> questions =new ArrayList<OnlineQuestion>();
+		HttpTransportSE ht = new HttpTransportSE(url);
+		ht.debug = true;
+		SoapObject request = new SoapObject(SERVICE_NS, methodName);
+		request.addProperty("studentId", studentId);
+		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+				SoapEnvelope.VER11);
+		envelope.bodyOut = request;
+		try {
+			ht.call(null, envelope);
+			if (envelope.getResponse() != null) {
+				Log.v("getOnlineMyQuestions---", "ok!!");
+				SoapObject result = (SoapObject) envelope.bodyIn;
+				String name = result.getProperty(0).toString();
+				questions = JSON.parseArray(name, OnlineQuestion.class);
+				for (OnlineQuestion onlineQuestion : questions) {
+					Log.v("com.dxt", onlineQuestion.toString());
+				}
+				ret.addAll(0, questions);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XmlPullParserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ret;
+	}
 	public static int getOnlineQuestionSize(String url, String methodName,String searchBean){
 		HttpTransportSE ht = new HttpTransportSE(url);
 		ht.debug = true;

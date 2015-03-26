@@ -132,6 +132,7 @@ public class QuestionActivity extends Activity {
 		searchBean.setPageNum(0);
 		searchBean.setGrade(-1);
 		searchBean.setSubject(-1);
+		searchBean.setNumber(0);
 		application.setGrade(-1);
 		application.setSubject(-1);
 	}
@@ -158,14 +159,14 @@ public class QuestionActivity extends Activity {
 			// 通知程序数据集已经改变，如果不做通知，那么将不会刷新mListItems的集合
 			if(result.size()!=0){
 				if(searchBean.getGrade()==application.getGrade()&&searchBean.getSubject()==application.getSubject()){
-					searchBean.setPageNum(searchBean.getPageNum()+1);
+					searchBean.setNumber(searchBean.getNumber()+result.size());
 					listItems.addAll(0, result);
 				}else{
 					listItems.clear();;
 					listItems.addAll(result);
+					searchBean.setNumber(result.size());
 					application.setGrade(searchBean.getGrade());
 					application.setSubject(searchBean.getSubject());
-					searchBean.setPageNum(1);
 				}
 			}else{
 				Toast.makeText(getApplicationContext(), "没有更多的数据了", 150).show();

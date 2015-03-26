@@ -2,13 +2,14 @@ package com.dxt;
 
 import static com.dxt.util.StringUtil.int2IDOfGrade;
 import static com.dxt.util.StringUtil.int2IDOfSubject;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -16,13 +17,17 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.dxt.constant.StringConstant;
 import com.dxt.model.SearchOnlineQuestionBean;
+import com.dxt.util.WebPostUtil;
 import com.dxt.view.BadgeView;
 
 @SuppressWarnings("deprecation")
 public class MainActivity extends TabActivity {
-	
+	final static String SERVICE_URL = StringConstant.SERVICE_URL+ "services/OnlineQuestionService?wsdl";
 	private static final int REQUESTCODEFORCHOOSE=1;
 	private static final int REQUESTCODEFORASKQUESTION=2;
 	private TabHost tabHost;
@@ -54,8 +59,6 @@ public class MainActivity extends TabActivity {
 
 		main_footbar_news =(RadioButton) this.findViewById(R.id.main_footbar_news);
 		bgNews = new BadgeView(getApplicationContext(), main_footbar_news);
-		bgNews.setText("1");
-		bgNews.show();
 		main_footbar_question =(RadioButton) this.findViewById(R.id.main_footbar_question);
 		main_footbar_tweet =(RadioButton) this.findViewById(R.id.main_footbar_tweet);
 		
@@ -82,29 +85,53 @@ public class MainActivity extends TabActivity {
 				.setIndicator("问老师  "+"有五个老师在线",
 						this.getResources().getDrawable(R.color.red)));
 		tabHost.setCurrentTab(0);
+		
+		startGetCountThread();
 	}
 
+	 @SuppressLint("HandlerLeak")
+	private Handler handler =new Handler(){
 
+			@Override
+			public void handleMessage(Message msg) {
+				// TODO Auto-generated method stub
+				int count = msg.what;
+				if(count>0){
+					bgNews.setText(count+"");
+					bgNews.show();
+				}else{
+					bgNews.hide();
+				}
+			}
+	    };
 	
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+	private void startGetCountThread() {
+		// TODO Auto-generated method stub
+		 new Thread(){
+
+	        	
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					while(true){
+						try{
+							sleep(15*1000);
+						}catch(InterruptedException e){
+							Thread.currentThread().interrupt();
+						}	        	
+						int count = WebPostUtil.getOnlineQuestionSize(SERVICE_URL, "getOnlineQuestionListCount", JSON.toJSONString(application.getSearchBean()));
+						Message message = new Message();
+						message.what=count;
+						handler.sendMessage(message);
+					}
+				}
+	        	
+	        }.start();
+	        
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+
 	
 	//进入选择年级activity
 	
@@ -142,7 +169,9 @@ public class MainActivity extends TabActivity {
 				txt_chooseGrade.setText(title);
 				searchBean.setGrade(int2IDOfGrade(grade));
 				searchBean.setSubject(int2IDOfSubject(subject));
+				searchBean.setNumber(0);
 				searchBean.setPageNum(0);
+				bgNews.hide();
 				application.setFirstLoad(true);
 				tabHost.invalidate();
 			}
@@ -175,8 +204,8 @@ public class MainActivity extends TabActivity {
 			// TODO Auto-generated method stub
 			switch(v.getId()){
 				case R.id.main_footbar_news:
+					Toast.makeText(getApplicationContext(), "下拉产生更多数据", 150).show();
 					bgNews.hide();
-					tabHost.setCurrentTab(0);
 					break;
 				case R.id.main_footbar_question:
 					Intent toVideoActivity=new Intent();

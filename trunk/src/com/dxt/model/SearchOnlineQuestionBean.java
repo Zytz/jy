@@ -4,6 +4,7 @@ public class SearchOnlineQuestionBean {
 	private int grade=-1;
 	private int subject=-1;
 	private int orderWay=-1;
+	private int number =0;
 	private int pageNum=0;
 	private int pageSize=2;
 	
@@ -30,6 +31,14 @@ public class SearchOnlineQuestionBean {
 	public void setOrderWay(int orderWay) {
 		this.orderWay = orderWay;
 	}
+	
+	public int getNumber() {
+		return number;
+	}
+	public void setNumber(int number) {
+		this.number = number;
+	}
+	
 	public int getPageNum() {
 		return pageNum;
 	}

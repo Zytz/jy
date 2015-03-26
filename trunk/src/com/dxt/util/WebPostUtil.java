@@ -11,6 +11,7 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
+import android.R.integer;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
@@ -115,6 +116,32 @@ public class WebPostUtil {
 			e.printStackTrace();
 		}
 		return ret;
+	}
+	
+	public static int getOnlineQuestionSize(String url, String methodName,String searchBean){
+		HttpTransportSE ht = new HttpTransportSE(url);
+		ht.debug = true;
+		SoapObject request = new SoapObject(SERVICE_NS, methodName);
+		request.addProperty("searchBean", searchBean);
+		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+				SoapEnvelope.VER11);
+		envelope.bodyOut = request;
+		try {
+			ht.call(null, envelope);
+			if (envelope.getResponse() != null) {
+				Log.v("lll---", "ok!!");
+				SoapObject result = (SoapObject) envelope.bodyIn;
+				String name = result.getProperty(0).toString();
+				return Integer.parseInt(name);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XmlPullParserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 	public static List<OnlineQuestionAnswer> getOnlineQuestionAnswer(String url, String methodName,

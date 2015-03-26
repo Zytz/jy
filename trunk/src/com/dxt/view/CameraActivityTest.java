@@ -477,10 +477,8 @@ public class CameraActivityTest extends Activity {
 	private String createOnLineQuestion() {
 
 		OnlineQuestion onlinequestionInApp = new OnlineQuestion();
-		Date date = new Date(System.currentTimeMillis());
-		SimpleDateFormat dateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd HH:mm:ss");
-		dateFormat.format(date);
+		//Date date = new Date(System.currentTimeMillis());
+		//dateFormat.format(date);
 		//Log.i("com.dxt", grade+" first");
 		
 		//Log.i("com.dxt", x+" jkjk");
@@ -494,7 +492,7 @@ public class CameraActivityTest extends Activity {
 		onlinequestionInApp.setSubject(StringUtil.int2IDOfSubject(subject));
 		onlinequestionInApp.setRewardPoint(rewardPoint);
 		onlinequestionInApp.setQuestionImage(getPhotoFileName());
-		onlinequestionInApp.setCreated(date);
+		//onlinequestionInApp.setCreated(date);
 		onlinequestionInApp.setStudentId(u.getId());
 		onlinequestionInApp.setStudentName(u.getNickName());// nickname
 		onlinequestionInApp.setStudentIcon(u.getIcon());

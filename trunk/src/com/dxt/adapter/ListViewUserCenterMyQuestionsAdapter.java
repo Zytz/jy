@@ -74,7 +74,8 @@ public class ListViewUserCenterMyQuestionsAdapter extends BaseAdapter {
 			listItemView.questionImage = (MyImageView) convertView.findViewById(R.id.usercentermyquestion_picture);
 			//listItemView.studentIcon = (MyImageView) convertView.findViewById(R.id.homework_question_item_iv_user_picture);
 			//listItemView.studentName = (TextView) convertView.findViewById(R.id.homework_question_item_tv_user_name);
-			listItemView.answerCount = (TextView) convertView.findViewById(R.id.homework_questionlist_item_bottom_ans_num_text_id);
+			//listItemView.answerStatus=(TextView) convertView.findViewById();
+			listItemView.answerCount = (TextView) convertView.findViewById(R.id.usercentermyquestionlist_item_bottom_ans_now_txt_id);
 			convertView.setTag(listItemView);
 		}else{
 			listItemView = (ListItemView)convertView.getTag();

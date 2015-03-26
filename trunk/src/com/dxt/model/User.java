@@ -78,6 +78,8 @@ private String id;// 主键
 	private Date updated;
 	
 	private Date deleted;//删除时间
+	
+	private int hasPublishRight;//发布权限（教师）
 
 	public String getId() {
 		return id;
@@ -367,6 +369,14 @@ private String id;// 主键
 		this.deleted = deleted;
 	}
 
+	public int getHasPublishRight() {
+		return hasPublishRight;
+	}
 
+	public void setHasPublishRight(int hasPublishRight) {
+		this.hasPublishRight = hasPublishRight;
+	}
+
+	
 
 }

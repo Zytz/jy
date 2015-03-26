@@ -1,5 +1,8 @@
 package com.dxt;
 
+import static com.dxt.util.StringUtil.int2StringOfGrade;
+import static com.dxt.util.StringUtil.int2StringOfSubject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -52,8 +55,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-import static com.dxt.util.StringUtil.*;
-
 public class QuestionDetailActivity extends Activity {
 
 	final static String SERVICE_URL = StringConstant.SERVICE_URL
@@ -64,9 +65,8 @@ public class QuestionDetailActivity extends Activity {
 	private static final int PHOTO_REQUEST_TAKEPHOTO = 1;// 拍照
 	private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
 	private static final int PHOTO_REQUEST_CUT = 3;// 结果
-	private File tempFile = new File(Environment.getExternalStorageDirectory(),
-			getPhotoFileName());
-	String fileName;
+	private File tempFile;
+	private String fileName ="answer_default.png" ;//答案的默认图片
 
 	private String TAG = "dxt";
 	private ImageView img = null;
@@ -107,7 +107,9 @@ public class QuestionDetailActivity extends Activity {
 				case 1:
 					Toast.makeText(getApplicationContext(), "回答成功", 150).show();
 					bvAnswer.setText(onlineQuestion.getAnswerCount()+1+"");
+					bvAnswer.show();
 					initialAnswerData();
+					break;
 				default:
 					Toast.makeText(getApplicationContext(), "回答失败", 150).show();
 			}
@@ -346,14 +348,13 @@ public class QuestionDetailActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			fileName = getPhotoFileName();
 			if(application.isIslogin()){
 				new Thread() {
 					
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						uploadOnlineQuestionAnswerImage();
+						if(tempFile!=null) uploadOnlineQuestionAnswerImage();
 						int flag = createOnLineQuestionAnswer();
 						Message message = new Message();
 						message.what=flag;
@@ -373,6 +374,7 @@ public class QuestionDetailActivity extends Activity {
 
 		try {
 			String imageViewPath = tempFile.getAbsolutePath();
+			fileName = getPhotoFileName();
 			FileInputStream fis = new FileInputStream(imageViewPath);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			byte[] buffer = new byte[1024];
@@ -397,7 +399,7 @@ public class QuestionDetailActivity extends Activity {
 		OnlineQuestionAnswer answer = new OnlineQuestionAnswer();
 		User u = JSONObject.parseObject(application.getValue(), User.class);
 		answer.setTextAnswer(mFootEditer.getText().toString());
-		answer.setImageAnswer("static/images/" + fileName);
+		answer.setImageAnswer("static/onlineQuestionImages/" + fileName);
 		answer.setCreated(new Date());
 		answer.setAnswerAuthor(u.getNickName());
 		answer.setAnswerAuthorId(u.getId());
@@ -428,6 +430,8 @@ public class QuestionDetailActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
+			tempFile = new File(Environment.getExternalStorageDirectory(),
+				 getPhotoFileName());
 			Intent cameraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			// 指定调用相机拍照后照片的储存路径
 			cameraintent.putExtra(MediaStore.EXTRA_OUTPUT,

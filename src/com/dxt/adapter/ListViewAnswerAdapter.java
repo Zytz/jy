@@ -20,12 +20,14 @@ import com.dxt.util.ImageUtil;
 import com.dxt.util.WebPostUtil;
 
 public class ListViewAnswerAdapter extends BaseAdapter {
-	final static String SERVICE_URL = StringConstant.SERVICE_URL+ "services/UserService?wsdl";
+	final static String SERVICE_URL = StringConstant.SERVICE_URL
+			+ "services/UserService?wsdl";
 	private Context context;// 运行上下文
 	private List<OnlineQuestionAnswer> listItems;// 数据集合
 	private LayoutInflater listContainer;// 视图容器
 	private int itemViewResource;// 自定义项视图源
 	private static User u = new User();
+
 	static class ListitemView {
 		private ImageView authorPicture;
 		private TextView authorName;
@@ -81,33 +83,40 @@ public class ListViewAnswerAdapter extends BaseAdapter {
 		} else {
 			listitemView = (ListitemView) convertView.getTag();
 		}
-		
+
 		OnlineQuestionAnswer answer = listItems.get(position);
 		String authorId = answer.getAnswerAuthorId();
 		Thread thread = new Thread(new Helper(authorId));
 		thread.start();
+		if (u.getIcon() == null)
+			ImageUtil.LoadImage(context, "static/userimages/8fee3a5dba884a1f9be8faf468b0f689.png",
+					listitemView.authorPicture);
 		ImageUtil.LoadImage(context, u.getIcon(), listitemView.authorPicture);
 		listitemView.authorName.setText(answer.getAnswerAuthor());
 		listitemView.answerContent.setText(answer.getTextAnswer());
+		if (u.getIcon() == null)
+			ImageUtil.LoadImage(context, "static/onlineQuestionImages/answer_default.png",
+					listitemView.answerPicture);
 		ImageUtil.LoadImage(context, answer.getImageAnswer(),
-				listitemView.answerPicture);
+					listitemView.answerPicture);
 		listitemView.date.setText(DateFormat.format("yyyy-MM-dd hh:mm:ss",
 				answer.getCreated()));
 		return convertView;
 	}
-	
-	static class Helper implements Runnable{
+
+	static class Helper implements Runnable {
 
 		private String id;
+
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			 u = WebPostUtil.getUserById(SERVICE_URL, "getUserByID", id);
+			u = WebPostUtil.getUserById(SERVICE_URL, "getUserByID", id);
 		}
 
 		public Helper(String id) {
 			this.id = id;
 		}
-		
+
 	}
 }

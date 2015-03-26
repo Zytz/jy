@@ -233,29 +233,18 @@ public class WebPostUtil {
 	
 	public static boolean uploadImage(String methodName,String fileName, String imageBuffer,String SERVICE_URL) {  
 		// TODO Auto-generated method stub
-		//String namespace = "http://134.192.44.105:8080/SSH2/service/IService"; // 命名空间，即服务器端得接口，注：后缀没加
-		//String namespace = StringConstant.SERVICE_URL+"service"; 																		// .wsdl，
-		// 服务器端我是用x-fire实现webservice接口的
-		//String url = "http://134.192.44.105:8080/SSH2/service/IService"; // 对应的url
-		// 以下就是 调用过程了，不明白的话 请看相关webservice文档
 		SoapObject soapObject = new SoapObject(SERVICE_NS, methodName);
 		soapObject.addProperty("filename", fileName); // 参数1 图片名
 		soapObject.addProperty("image", imageBuffer); // 参数2 图片字符串
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 				SoapEnvelope.VER10);
-		//envelope.dotNet = false;
-		//envelope.setOutputSoapObject(soapObject);
 		envelope.bodyOut = soapObject;
 		HttpTransportSE httpTranstation = new HttpTransportSE(SERVICE_URL);
 		try {
 			httpTranstation.call(null, envelope); // 这一步内存溢出
 			if(envelope.getResponse() != null){
-				//SoapObject result = (SoapObject) envelope.bodyIn;
-				//String name = result.getProperty(0).toString();
-				//Log.i(TAG, name);
 				return true;
 			}else{
-			//	Log.i(StringConstant.SERVICE, "Connection failure");
 				return false;
 			}
 			

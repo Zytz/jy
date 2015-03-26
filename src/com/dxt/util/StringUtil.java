@@ -118,7 +118,7 @@ public class StringUtil {
 	 * 1:woman
 	 */
 	public static String int2StringOfGender(int gender) {
-		if (gender == 0) {
+		if (gender == 1) {
 			return "ÄĞ";
 		} else {
 			return "Å®";
@@ -132,9 +132,9 @@ public class StringUtil {
 	 */
 	public static int string2IntOfGender(String gender) {
 		if (gender == "ÄĞ") {
-			return 0;
-		} else {
 			return 1;
+		} else {
+			return 0;
 		}
 	}
 

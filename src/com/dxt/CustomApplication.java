@@ -24,9 +24,9 @@ public class CustomApplication extends Application
     
     private String questionId="";
     
+   
     
-    
-    public boolean isFirstLoad() {
+	public boolean isFirstLoad() {
 		return firstLoad;
 	}
 
@@ -50,15 +50,16 @@ public class CustomApplication extends Application
 		this.subject = subject;
 	}
 
-	private SearchOnlineQuestionBean searchBean;
+	private SearchOnlineQuestionBean searchBean = new SearchOnlineQuestionBean();
     
     @Override
     public void onCreate()
     {
         super.onCreate();
         setValue(VALUE); // 初始化全局变量
-        setSearchBean(new SearchOnlineQuestionBean());
     }
+    
+    
     
     @SuppressWarnings("static-access")
 	public void showDialog(View view){

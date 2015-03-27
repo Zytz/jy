@@ -44,21 +44,15 @@ public class LoginActivity extends Activity {
 	@SuppressLint("HandlerLeak")
 	private final class UIHander extends Handler {
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub
 			switch (msg.what) {
+			
 			case SUCCESS:
 				//登录成功之后，保存user对象
-				new Thread(){
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						retMessage = WebPostUtil.getMessage(SERVICE_URL1,
-								"UseCenterInformation", username);
-						app.setValue(retMessage.getMessage());
-					}
-				}.start();
+				th_user.start();
 				//保存用户登录状态
 				app.setIslogin(true);
 				//保存用户名
@@ -131,6 +125,22 @@ public class LoginActivity extends Activity {
 		
 
 	}
+	protected void onDestroy() {
+		super.onDestroy();
+		if(thLogin.isAlive()){
+			
+			thLogin.stop();
+		}
+		if(th_user.isAlive()){
+			try {
+				th_user.wait(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			th_user.stop();
+		}
+	};
 	Thread thLogin=new Thread(){
 		public void run() {
 			retMessage = WebPostUtil.getMessage(SERVICE_URL,
@@ -139,5 +149,13 @@ public class LoginActivity extends Activity {
 			handler.sendMessage(message);	
 		};
 	};
-	
+	Thread th_user=	new Thread(){
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			retMessage = WebPostUtil.getMessage(SERVICE_URL1,
+					"UseCenterInformation", username);
+			app.setValue(retMessage.getMessage());
+		}
+	};
 }

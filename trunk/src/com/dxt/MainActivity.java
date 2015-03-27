@@ -78,11 +78,11 @@ public class MainActivity extends TabActivity {
 				.setContent(new Intent(this,HighScoreQuestion.class))
 				.setIndicator("高分悬赏",
 						this.getResources().getDrawable(R.color.blue)));
-		tabHost.addTab(tabHost
+		/*tabHost.addTab(tabHost
 				.newTabSpec("tab_3")
 				.setContent(new Intent(this,QuestionActivityList.class))
 				.setIndicator("问老师  "+"有五个老师在线",
-						this.getResources().getDrawable(R.color.red)));
+						this.getResources().getDrawable(R.color.red)));*/
 		tabHost.setCurrentTab(0);
 		
 		startGetCountThread();
@@ -189,7 +189,7 @@ public class MainActivity extends TabActivity {
 			Intent toAskQuestionActivity=new Intent();
 			toAskQuestionActivity.setClass(getApplicationContext(), com.dxt.view.CameraActivityTest.class);
 			startActivity(toAskQuestionActivity);
-			finish();
+			//finish();
 			//startActivityForResult(toAskQuestionActivity,REQUESTCODEFORCHOOSE);
 		}
 	};

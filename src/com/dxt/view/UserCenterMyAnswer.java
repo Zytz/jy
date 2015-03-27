@@ -36,7 +36,7 @@ public class UserCenterMyAnswer extends Activity {
 	private CustomApplication application;
 	private SearchOnlineQuestionBean searchBean;
 	private User u;
-	private boolean flag=true;
+	private boolean flag;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -73,10 +73,6 @@ public class UserCenterMyAnswer extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-	/*	if(application.isFirstLoad()){
-			new GetDataTask().execute();
-			application.setFirstLoad(false);
-		}*/
 	}
 
 	@Override
@@ -98,11 +94,11 @@ public class UserCenterMyAnswer extends Activity {
 		protected List<OnlineQuestion> doInBackground(Void... params) {
 			// Simulates a background job.
 			List<OnlineQuestion> myques=null;
+			flag=false;
 			if(flag){
 			u = JSONObject.parseObject(application.getValue(), User.class);
 			 myques = WebPostUtil.getOnlineQuestions(
 					SERVICE_URL, "getOnlineMyQuestionList", u.getId());
-			 flag=false;
 			}
 			return myques;
 		}
@@ -123,7 +119,7 @@ public class UserCenterMyAnswer extends Activity {
 			 * application.setSubject(searchBean.getSubject());
 			 * searchBean.setPageNum(1); }
 			 */
-			//listItems.clear();
+			listItems.clear();
 			listItems.addAll(result);
 			mAdapter.notifyDataSetChanged();
 			// Call onRefreshComplete when the list has been refreshed.

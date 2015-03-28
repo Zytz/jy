@@ -51,7 +51,7 @@ public class UserCenterMyQuestion extends Activity {
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list_usercenter);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		// Set a listener to be invoked when the list should be refreshed.
-		mPullRefreshListView
+		/*mPullRefreshListView
 				.setOnRefreshListener(new OnRefreshListener2<ListView>() {
 
 					@Override
@@ -92,7 +92,7 @@ public class UserCenterMyQuestion extends Activity {
 						new GetDataTask().execute();
 
 					}
-				});
+				});*/
 		
 		mAdapter = new ListViewUserCenterMyQuestionsAdapter(getApplicationContext(), listItems, R.layout.usercentermyquestion_item);
 		

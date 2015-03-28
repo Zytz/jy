@@ -1,15 +1,24 @@
 package com.dxt;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateUtils;
-import android.widget.ArrayAdapter;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.dxt.adapter.ListViewQuestionsAdapter;
+import com.dxt.constant.StringConstant;
+import com.dxt.model.OnlineQuestion;
+import com.dxt.model.SearchOnlineQuestionBean;
+import com.dxt.util.WebPostUtil;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
@@ -17,97 +26,156 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 public class HighScoreQuestion extends Activity {
 
-	private String[] mStrings = { "Abbaye de Belloc", "Abbaye du Mont des Cats", "Abertam", "Abondance", "Ackawi",
-			"Acorn", "Adelost", "Affidelice au Chablis", "Afuega'l Pitu", "Airag", "Airedale", "Aisy Cendre",
-			"Allgauer Emmentaler", "Abbaye de Belloc", "Abbaye du Mont des Cats", "Abertam", "Abondance", "Ackawi",
-			"Acorn", "Adelost", "Affidelice au Chablis", "Afuega'l Pitu", "Airag", "Airedale", "Aisy Cendre",
-			"Allgauer Emmentaler" };
-	private LinkedList<String> mListItems;
+	final static String SERVICE_URL = StringConstant.SERVICE_URL+ "services/OnlineQuestionService?wsdl";
+	final static String TAG = "dxt";
+	private LinkedList<OnlineQuestion> listItems = new LinkedList<OnlineQuestion>();
 	private PullToRefreshListView mPullRefreshListView;
-	private ArrayAdapter<String> mAdapter;
-
+	private ListViewQuestionsAdapter mAdapter;
+	private CustomApplication application ;
+	private SearchOnlineQuestionBean searchBean;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.highscoreissue_activity);
+		setContentView(R.layout.highscore_question_activity);
+
+		application = (CustomApplication) getApplication();
 		
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list);
-
 		mPullRefreshListView.setMode(Mode.BOTH);
 		// Set a listener to be invoked when the list should be refreshed.
-		mPullRefreshListView.setOnRefreshListener(new OnRefreshListener2<ListView>() {
+		mPullRefreshListView
+				.setOnRefreshListener(new OnRefreshListener2<ListView>() {
+
+					@Override
+					public void onPullDownToRefresh(
+							PullToRefreshBase<ListView> refreshView) {
+						// TODO Auto-generated method stub
+						String label = DateUtils.formatDateTime(
+								getApplicationContext(),
+								System.currentTimeMillis(),
+								DateUtils.FORMAT_SHOW_TIME
+										| DateUtils.FORMAT_SHOW_DATE
+										| DateUtils.FORMAT_ABBREV_ALL);
+
+						// Update the LastUpdatedLabel
+						refreshView.getLoadingLayoutProxy()
+								.setLastUpdatedLabel(label);
+
+						// Do work to refresh the list here.
+						new GetDataTask().execute();
+					}
+
+					@Override
+					public void onPullUpToRefresh(
+							PullToRefreshBase<ListView> refreshView) {
+
+						String label = DateUtils.formatDateTime(
+								getApplicationContext(),
+								System.currentTimeMillis(),
+								DateUtils.FORMAT_SHOW_TIME
+										| DateUtils.FORMAT_SHOW_DATE
+										| DateUtils.FORMAT_ABBREV_ALL);
+
+						// Update the LastUpdatedLabel
+						refreshView.getLoadingLayoutProxy()
+								.setLastUpdatedLabel(label);
+
+						// Do work to refresh the list here.
+						new GetDataTask().execute();
+
+					}
+				});
+		
+		mAdapter = new ListViewQuestionsAdapter(getApplicationContext(), listItems, R.layout.highscore_question_item);
+		
+		ListView actualListView = mPullRefreshListView.getRefreshableView();
+		
+		actualListView.setAdapter(mAdapter);
+		
+		
+		mPullRefreshListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onPullDownToRefresh(
-					PullToRefreshBase<ListView> refreshView) {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				// TODO Auto-generated method stub
-				String label = DateUtils.formatDateTime(getApplicationContext(), System.currentTimeMillis(),
-						DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-
-				// Update the LastUpdatedLabel
-				refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-
-				// Do work to refresh the list here.
-				new GetDataTask().execute();
-			}
-
-			@Override
-			public void onPullUpToRefresh(
-					PullToRefreshBase<ListView> refreshView) {
-				
-				String label = DateUtils.formatDateTime(getApplicationContext(), System.currentTimeMillis(),
-						DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-
-				// Update the LastUpdatedLabel
-				refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-
-				// Do work to refresh the list here.
-				new GetDataTask().execute();
-				
+				Intent intent = new Intent(getApplicationContext(),QuestionDetailActivity.class);
+				String ques = JSON.toJSONString(listItems.get(position-1));
+				intent.putExtra("question", ques);
+				startActivity(intent);
 			}
 		});
-
-		mListItems = new LinkedList<String>();
-		mListItems.addAll(Arrays.asList(mStrings));
-
-		mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mListItems);
-
-		//这两个绑定方法用其一
-		// 方法一
-//		 mPullRefreshListView.setAdapter(mAdapter);
-		//方法二
-		ListView actualListView = mPullRefreshListView.getRefreshableView();
-		actualListView.setAdapter(mAdapter);
 	}
 
-	private class GetDataTask extends AsyncTask<Void, Void, String> {
+	
 
-		//后台处理部分
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		if(application.isFirstLoad()){
+			new GetDataTask().execute();
+			application.setFirstLoad(false);
+		}
+	}
+
+	
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		searchBean.setPageNum(0);
+		searchBean.setGrade(-1);
+		searchBean.setSubject(-1);
+		searchBean.setNumber(0);
+		application.setGrade(-1);
+		application.setSubject(-1);
+	}
+
+	
+
+	private class GetDataTask extends AsyncTask<Void, Void, LinkedList<OnlineQuestion>> {
+
+		// 后台处理部分
 		@Override
-		protected String doInBackground(Void... params) {
+		protected LinkedList<OnlineQuestion> doInBackground(Void... params) {
 			// Simulates a background job.
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-			}
-			String str="Added after refresh...I add";
-			return str;
+			searchBean = application.getSearchBean();
+			LinkedList<OnlineQuestion> ques = WebPostUtil.getOnlineQuestions(SERVICE_URL, "getOnlineQuestionList", JSON.toJSONString(searchBean));
+			
+			return ques;
 		}
 
-		//这里是对刷新的响应，可以利用addFirst（）和addLast()函数将新加的内容加到LISTView中
-		//根据AsyncTask的原理，onPostExecute里的result的值就是doInBackground()的返回值
+		// 这里是对刷新的响应，可以利用addFirst（）和addLast()函数将新加的内容加到LISTView中
+		// 根据AsyncTask的原理，onPostExecute里的result的值就是doInBackground()的返回值
 		@Override
-		protected void onPostExecute(String result) {
-			//在头部增加新添内容
-			mListItems.addFirst(result);
-			
-			//通知程序数据集已经改变，如果不做通知，那么将不会刷新mListItems的集合
+		protected void onPostExecute(LinkedList<OnlineQuestion> result) {
+			// 在头部增加新添内容
+			// 通知程序数据集已经改变，如果不做通知，那么将不会刷新mListItems的集合
+			if(result.size()!=0){
+				if(searchBean.getGrade()==application.getGrade()&&searchBean.getSubject()==application.getSubject()){
+					searchBean.setNumber(searchBean.getNumber()+result.size());
+					listItems.addAll(0, result);
+				}else{
+					listItems.clear();;
+					listItems.addAll(result);
+					searchBean.setNumber(result.size());
+					application.setGrade(searchBean.getGrade());
+					application.setSubject(searchBean.getSubject());
+				}
+			}else{
+				Toast.makeText(getApplicationContext(), "没有更多的数据了", 150).show();
+			}
 			mAdapter.notifyDataSetChanged();
 			// Call onRefreshComplete when the list has been refreshed.
 			mPullRefreshListView.onRefreshComplete();
-
 			super.onPostExecute(result);
 		}
+		
+		
 	}
+
 	
 }

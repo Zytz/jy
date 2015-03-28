@@ -108,13 +108,21 @@ public class LoginActivity extends Activity {
 						.toString().trim();
 				password = ((EditText) findViewById(R.id.password)).getText()
 						.toString().trim();
+				
 				if (!ValidateUtil.isValid(username)
 						|| !ValidateUtil.isValid(password)) {
 					Toast.makeText(getApplicationContext(),
 							R.string.login_label_usernameOrPasswordIsNotNull, 0)
 							.show();
-				} else {
+				}else if(ValidateUtil.isEmail(username)){
 					user.setEmail(username);
+					user.setPassword(password);
+					userInfo = JSON.toJSONString(user);
+					Log.v(TAG, userInfo);
+					thLogin.start();
+				}
+				else if(ValidateUtil.isMobileNO(username)){
+					user.setMobilePhone(username);
 					user.setPassword(password);
 					userInfo = JSON.toJSONString(user);
 					Log.v(TAG, userInfo);
@@ -125,11 +133,12 @@ public class LoginActivity extends Activity {
 		
 
 	}
+	@SuppressWarnings("deprecation")
 	protected void onDestroy() {
 		super.onDestroy();
 		if(thLogin.isAlive()){
-			
 			thLogin.stop();
+			thLogin.destroy();
 		}
 		if(th_user.isAlive()){
 			try {
@@ -139,6 +148,7 @@ public class LoginActivity extends Activity {
 				e.printStackTrace();
 			}
 			th_user.stop();
+			th_user.destroy();
 		}
 	};
 	Thread thLogin=new Thread(){

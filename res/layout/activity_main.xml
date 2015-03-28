@@ -37,13 +37,13 @@
             android:layout_toRightOf="@id/circle_tv_title_name"
             android:background="@drawable/homework_questionlist_circle_button_normal" />
 
-        <ImageButton
+<!--         <ImageButton
             android:id="@+id/img_askquestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:background="@drawable/ask_icon_normal" />
+            android:background="@drawable/ask_icon_normal" /> -->
     </RelativeLayout>
 
     <TabHost

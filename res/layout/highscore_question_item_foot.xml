@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/circle_article_disable_action_layout_id"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4.0dip"
+        android:paddingTop="4.0dip" >
+
+        <com.dxt.MyImageView
+            android:id="@+id/highscore_question_item_iv_user_picture"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12.0dip"
+            android:layout_marginRight="6.0dip"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
+            android:id="@+id/highscore_questionlist_item_bottom_ans_now_layout_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/homework_questionlist_item_bottom_btn_bg"
+            android:orientation="horizontal"
+            android:paddingBottom="7.0dip"
+            android:paddingLeft="9.0dip"
+            android:paddingRight="12.0dip"
+            android:paddingTop="7.0dip" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="3.0dip"
+                android:layout_marginTop="1.0dip"
+                android:src="@drawable/homework_queslist_item_bottom_ans_now_pressed" />
+
+            <TextView
+                android:id="@+id/highscore_questionlist_item_bottom_ans_now_txt_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="1.0dip"
+                android:text="立刻回答"
+                android:textColor="#ff3ab2ff"
+                android:textSize="@dimen/common_text_size_18" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/highscore_queslist_item_bottom_view_div"
+            android:layout_width="1.0dip"
+            android:layout_height="20.0dip"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="5.0dip"
+            android:layout_marginTop="5.0dip"
+            android:layout_toLeftOf="@id/highscore_questionlist_item_bottom_ans_now_layout_id"
+            android:background="#ffe5e5e5" />
+
+        <TextView
+            android:id="@+id/highscore_questionlist_item_bottom_ans_num_text_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/highscore_queslist_item_bottom_view_div"
+            android:background="@drawable/homework_questionlist_item_bottom_btn_bg"
+            android:gravity="center"
+            android:paddingBottom="7.0dip"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip"
+            android:paddingTop="7.0dip"
+            android:text="@string/homework_question_item_reply_number"
+            android:textColor="#ff999999"
+            android:textSize="@dimen/common_text_size_18" />
+
+        <TextView
+            android:id="@+id/highscore_question_item_tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/highscore_questionlist_item_bottom_ans_num_text_id"
+            android:layout_toRightOf="@id/highscore_question_item_iv_user_picture"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:paddingBottom="7.0dip"
+            android:paddingTop="7.0dip"
+            android:singleLine="true"
+            android:text="用户名"
+            android:textColor="#ff888888"
+            android:textSize="@dimen/common_text_size_18" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1.0px"
+        android:background="#ffe5e5e5" />
+
+</RelativeLayout>

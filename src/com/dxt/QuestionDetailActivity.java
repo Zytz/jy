@@ -276,6 +276,8 @@ public class QuestionDetailActivity extends Activity {
 		bvAnswer.setTextSize(8f);
 		bvAnswer.setTextColor(Color.WHITE);
 
+		
+		
 		bootCamera = (ImageView) findViewById(R.id.friend_ib_camera);
 		bootCamera.setOnClickListener(bootCameraClickListener);
 		imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);

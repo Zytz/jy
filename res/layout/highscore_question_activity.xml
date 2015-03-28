@@ -6,7 +6,7 @@
     
 <!--     The PullToRefreshListView replaces a standard ListView widget. -->
     <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/highscore_pull_refresh_list"
+        android:id="@+id/pull_refresh_list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:cacheColorHint="#00000000"
@@ -16,6 +16,7 @@
         android:fastScrollEnabled="false"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
-        android:smoothScrollbar="true" />
+        android:smoothScrollbar="true" 
+        />
 
 </LinearLayout>

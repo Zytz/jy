@@ -19,13 +19,13 @@
             android:textColor="@color/white"
             android:textSize="15dp" />
 
-        <TextView
+<!--         <TextView
             android:id="@+id/onlinequesion_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="30dp"
-            android:text="@string/camera_label_submit" />
+            android:text="@string/camera_label_submit" /> -->
     </LinearLayout>
 
     <LinearLayout
@@ -44,13 +44,13 @@
             android:background="@drawable/ask_camera_with_text_pressed"
             android:scaleType="fitXY" />
 
-        <TextView
+<!--         <TextView
             android:id="@+id/text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/img_camera"
             android:background="#22000000"
-            android:textSize="16sp" />
+            android:textSize="16sp" /> -->
 
         <EditText
             android:id="@+id/edit_textDescription"

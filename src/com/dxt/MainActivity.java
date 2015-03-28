@@ -54,7 +54,7 @@ public class MainActivity extends TabActivity {
 		txt_chooseGrade=(TextView) this.findViewById(R.id.circle_tv_title_name);
 		txt_chooseGrade.setOnClickListener(chooseGradeListener);
 		
-		askquestion.setOnClickListener(questionListener);
+		//askquestion.setOnClickListener(questionListener);
 
 		main_footbar_news =(RadioButton) this.findViewById(R.id.main_footbar_news);
 		bgNews = new BadgeView(getApplicationContext(), main_footbar_news);
@@ -209,7 +209,7 @@ public class MainActivity extends TabActivity {
 					break;
 				case R.id.main_footbar_question:
 					Intent toVideoActivity=new Intent();
-					toVideoActivity.setClass(getApplicationContext(), com.dxt.view.MediaPlayerActivity.class);
+					toVideoActivity.setClass(getApplicationContext(), com.dxt.view.CameraActivityTest.class);
 					startActivity(toVideoActivity);
 					break;
 				case R.id.main_footbar_tweet:

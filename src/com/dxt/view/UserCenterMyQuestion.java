@@ -44,7 +44,7 @@ public class UserCenterMyQuestion extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.usercentermyanswer);
+		setContentView(R.layout.usercentermyquestion);
 
 		application = (CustomApplication) getApplication();
 		
@@ -113,6 +113,7 @@ public class UserCenterMyQuestion extends Activity {
 				startActivity(intent);
 			}
 		});
+		new GetDataTask().execute();
 	}
 
 	
@@ -121,7 +122,6 @@ public class UserCenterMyQuestion extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		new GetDataTask().execute();
 	}
 
 	
@@ -167,6 +167,7 @@ public class UserCenterMyQuestion extends Activity {
 				application.setSubject(searchBean.getSubject());
 				searchBean.setPageNum(1);
 			}*/
+			listItems.clear();
 			listItems.addAll(result);
 			mAdapter.notifyDataSetChanged();
 			// Call onRefreshComplete when the list has been refreshed.

@@ -3,6 +3,7 @@ package com.dxt.model;
 import java.util.Date;
 
 public class OnlineQuestionAnswer {
+	
 	private String id;
 	
 	private String answerAuthor;

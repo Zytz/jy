@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dxt.CustomApplication;
 import com.dxt.QuestionDetailActivity;
 import com.dxt.R;
+import com.dxt.adapter.ListViewUserCenterMyAnswersAdapter;
 import com.dxt.adapter.ListViewUserCenterMyQuestionsAdapter;
 import com.dxt.constant.StringConstant;
 import com.dxt.model.OnlineQuestion;
@@ -32,7 +33,7 @@ public class UserCenterMyAnswer extends Activity {
 	final static String TAG = "dxt";
 	private List<OnlineQuestion> listItems = new ArrayList<OnlineQuestion>();
 	private PullToRefreshListView mPullRefreshListView;
-	private ListViewUserCenterMyQuestionsAdapter mAdapter;
+	private ListViewUserCenterMyAnswersAdapter mAdapter;
 	private CustomApplication application;
 	private SearchOnlineQuestionBean searchBean;
 	private User u;
@@ -44,16 +45,17 @@ public class UserCenterMyAnswer extends Activity {
 
 		application = (CustomApplication) getApplication();
 		
-		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list_usercenter);
+		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list_myanswer);
 
-		mAdapter = new ListViewUserCenterMyQuestionsAdapter(
+		mAdapter = new ListViewUserCenterMyAnswersAdapter(
 				getApplicationContext(), listItems,
-				R.layout.usercentermyquestion_item);
+				R.layout.usercentermyanswer_item);
 
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
 
 		actualListView.setAdapter(mAdapter);
 
+		mPullRefreshListView.setEnabled(false);
 		mPullRefreshListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -73,6 +75,7 @@ public class UserCenterMyAnswer extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
+		new GetDataTask().execute();
 	}
 
 	@Override
@@ -94,12 +97,11 @@ public class UserCenterMyAnswer extends Activity {
 		protected List<OnlineQuestion> doInBackground(Void... params) {
 			// Simulates a background job.
 			List<OnlineQuestion> myques=null;
-			flag=false;
-			if(flag){
 			u = JSONObject.parseObject(application.getValue(), User.class);
+			searchBean=application.getSearchBean();
+			searchBean.setStudentId(u.getId());
 			 myques = WebPostUtil.getOnlineQuestions(
-					SERVICE_URL, "getOnlineMyQuestionList", u.getId());
-			}
+					SERVICE_URL, "getOnlineQuestionAnswerList", JSON.toJSONString(searchBean));
 			return myques;
 		}
 
@@ -119,16 +121,13 @@ public class UserCenterMyAnswer extends Activity {
 			 * application.setSubject(searchBean.getSubject());
 			 * searchBean.setPageNum(1); }
 			 */
-			listItems.clear();
+			if (listItems != null)
+				listItems.clear();
 			listItems.addAll(result);
 			mAdapter.notifyDataSetChanged();
 			// Call onRefreshComplete when the list has been refreshed.
 			mPullRefreshListView.onRefreshComplete();
-
 			super.onPostExecute(result);
-			
-			
-			
 		}
 	}
 

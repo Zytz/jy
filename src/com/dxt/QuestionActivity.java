@@ -114,9 +114,10 @@ public class QuestionActivity extends Activity {
 	
 
 	@Override
-	protected void onStart() {
+	protected void onResume() {
 		// TODO Auto-generated method stub
-		super.onStart();
+		super.onResume();
+		application.flag=0;
 		if(application.isFirstLoad()){
 			new GetDataTask().execute();
 			application.setFirstLoad(false);
@@ -146,6 +147,7 @@ public class QuestionActivity extends Activity {
 		protected LinkedList<OnlineQuestion> doInBackground(Void... params) {
 			// Simulates a background job.
 			searchBean = application.getSearchBean();
+			searchBean.setOrderWay(1);
 			LinkedList<OnlineQuestion> ques = WebPostUtil.getOnlineQuestions(SERVICE_URL, "getOnlineQuestionList", JSON.toJSONString(searchBean));
 			
 			return ques;

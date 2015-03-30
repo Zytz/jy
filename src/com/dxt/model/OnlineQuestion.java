@@ -15,6 +15,8 @@ private String id;
 	
 	private int answerCount;//问题解答数
 	
+	private int adopted;
+	
 	private String textDescription;//问题描述
 	
 	private String questionImage;//问题图片 
@@ -78,6 +80,14 @@ private String id;
 
 	public void setAnswerCount(int answerCount) {
 		this.answerCount = answerCount;
+	}
+	
+	public int getAdopted() {
+		return adopted;
+	}
+
+	public void setAdopted(int adopted) {
+		this.adopted = adopted;
 	}
 
 	public String getTextDescription() {

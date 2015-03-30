@@ -40,7 +40,6 @@ public class MainActivity extends TabActivity {
 	private RadioButton main_footbar_tweet;
 	
 	private CustomApplication application;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,7 +66,6 @@ public class MainActivity extends TabActivity {
 	
 		tabHost = getTabHost();
 		tabHost.setup();
-
 		tabHost.addTab(tabHost
 				.newTabSpec("tab_1")
 				.setContent(new Intent(this,QuestionActivity.class))
@@ -84,6 +82,7 @@ public class MainActivity extends TabActivity {
 				.setIndicator("问老师  "+"有五个老师在线",
 						this.getResources().getDrawable(R.color.red)));*/
 		tabHost.setCurrentTab(0);
+		
 		
 		startGetCountThread();
 	}
@@ -131,7 +130,6 @@ public class MainActivity extends TabActivity {
 	}
 
 
-	
 	//进入选择年级activity
 	
 	private OnClickListener chooseGradeListener = new OnClickListener() {
@@ -165,13 +163,17 @@ public class MainActivity extends TabActivity {
 				}else{
 					title ="全部问题";
 				}
-				txt_chooseGrade.setText(title);
 				searchBean.setGrade(int2IDOfGrade(grade));
 				searchBean.setSubject(int2IDOfSubject(subject));
 				searchBean.setNumber(0);
 				searchBean.setPageNum(0);
 				bgNews.hide();
-				application.setFirstLoad(true);
+				if(application.flag==0){
+					application.setFirstLoad(true);
+				}else if(application.flag==1){
+					application.firstLoadToHigh=true;
+				}
+				txt_chooseGrade.setText(title);
 				tabHost.invalidate();
 			}
 		}
@@ -194,9 +196,7 @@ public class MainActivity extends TabActivity {
 		}
 	};
 
-	
 
-	
 	private OnClickListener footerListener =new OnClickListener() {
 		
 		@Override

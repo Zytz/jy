@@ -8,7 +8,8 @@ private String id;// 主键
 	
 	private String email;// 用户邮箱
 	
-	private int balance;//余额
+	private double balance;//余额
+
 	
 	private String icon;//头像
 	
@@ -97,11 +98,11 @@ private String id;// 主键
 		this.email = email;
 	}
 
-	public int getBalance() {
+	public double getBalance() {
 		return balance;
 	}
 
-	public void setBalance(int balance) {
+	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 

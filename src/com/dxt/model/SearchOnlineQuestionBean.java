@@ -3,7 +3,7 @@ package com.dxt.model;
 public class SearchOnlineQuestionBean {
 	private int grade=-1;
 	private int subject=-1;
-	private int orderWay=-1;
+	private int orderWay=0;
 	private int number =0;
 	private int pageNum=0;
 	private int pageSize=2;

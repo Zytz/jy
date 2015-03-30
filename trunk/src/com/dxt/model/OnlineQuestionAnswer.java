@@ -14,6 +14,8 @@ public class OnlineQuestionAnswer {
 	
 	private String imageAnswer;
 	
+	private int adopted;
+	
 	private String onlineQuestionId;
 	
 	private Date created;
@@ -62,6 +64,14 @@ public class OnlineQuestionAnswer {
 
 	public void setImageAnswer(String imageAnswer) {
 		this.imageAnswer = imageAnswer;
+	}
+	
+	public int getAdopted() {
+		return adopted;
+	}
+
+	public void setAdopted(int adopted) {
+		this.adopted = adopted;
 	}
 
 	public String getOnlineQuestionId() {

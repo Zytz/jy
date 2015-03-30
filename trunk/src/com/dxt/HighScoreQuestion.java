@@ -87,7 +87,7 @@ public class HighScoreQuestion extends Activity {
 					}
 				});
 		
-		mAdapter = new ListViewQuestionsAdapter(getApplicationContext(), listItems, R.layout.highscore_question_item);
+		mAdapter = new ListViewQuestionsAdapter(getApplicationContext(), listItems, R.layout.question_item);
 		
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
 		
@@ -111,13 +111,16 @@ public class HighScoreQuestion extends Activity {
 	
 
 	@Override
-	protected void onStart() {
+	protected void onResume() {
 		// TODO Auto-generated method stub
-		super.onStart();
-		if(application.isFirstLoad()){
+		super.onResume();
+		application.flag=1;
+		if(application.firstLoadToHigh){
+			application.getSearchBean().setNumber(0);
 			new GetDataTask().execute();
-			application.setFirstLoad(false);
+			application.firstLoadToHigh =false;
 		}
+		
 	}
 
 	
@@ -143,6 +146,7 @@ public class HighScoreQuestion extends Activity {
 		protected LinkedList<OnlineQuestion> doInBackground(Void... params) {
 			// Simulates a background job.
 			searchBean = application.getSearchBean();
+			searchBean.setOrderWay(0);
 			LinkedList<OnlineQuestion> ques = WebPostUtil.getOnlineQuestions(SERVICE_URL, "getOnlineQuestionList", JSON.toJSONString(searchBean));
 			
 			return ques;

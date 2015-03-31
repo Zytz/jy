@@ -40,6 +40,7 @@ public class HighScoreQuestion extends Activity {
 		setContentView(R.layout.highscore_question_activity);
 
 		application = (CustomApplication) getApplication();
+		searchBean = application.searchBeanForHigh;
 		
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list);
 		mPullRefreshListView.setMode(Mode.BOTH);
@@ -116,7 +117,8 @@ public class HighScoreQuestion extends Activity {
 		super.onResume();
 		application.flag=1;
 		if(application.firstLoadToHigh){
-			application.getSearchBean().setNumber(0);
+			application.searchBeanForHigh.setNumber(0);
+			application.searchBeanForHigh.setOrderWay(2);
 			new GetDataTask().execute();
 			application.firstLoadToHigh =false;
 		}
@@ -132,6 +134,7 @@ public class HighScoreQuestion extends Activity {
 		searchBean.setPageNum(0);
 		searchBean.setGrade(-1);
 		searchBean.setSubject(-1);
+		searchBean.setOrderWay(2);
 		searchBean.setNumber(0);
 		application.setGrade(-1);
 		application.setSubject(-1);
@@ -145,10 +148,8 @@ public class HighScoreQuestion extends Activity {
 		@Override
 		protected LinkedList<OnlineQuestion> doInBackground(Void... params) {
 			// Simulates a background job.
-			searchBean = application.getSearchBean();
-			searchBean.setOrderWay(0);
-			LinkedList<OnlineQuestion> ques = WebPostUtil.getOnlineQuestions(SERVICE_URL, "getOnlineQuestionList", JSON.toJSONString(searchBean));
 			
+			LinkedList<OnlineQuestion> ques = WebPostUtil.getOnlineQuestions(SERVICE_URL, "getOnlineQuestionList", JSON.toJSONString(searchBean));
 			return ques;
 		}
 

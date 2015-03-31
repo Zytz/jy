@@ -43,7 +43,8 @@ public class QuestionActivity extends Activity {
 		setContentView(R.layout.question_activity);
 
 		application = (CustomApplication) getApplication();
-		
+		searchBean = application.getSearchBean();
+		searchBean.setOrderWay(0);
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		// Set a listener to be invoked when the list should be refreshed.
@@ -96,7 +97,6 @@ public class QuestionActivity extends Activity {
 		
 		actualListView.setAdapter(mAdapter);
 		
-		
 		mPullRefreshListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -124,8 +124,6 @@ public class QuestionActivity extends Activity {
 		}
 	}
 
-	
-
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
@@ -146,8 +144,7 @@ public class QuestionActivity extends Activity {
 		@Override
 		protected LinkedList<OnlineQuestion> doInBackground(Void... params) {
 			// Simulates a background job.
-			searchBean = application.getSearchBean();
-			searchBean.setOrderWay(1);
+
 			LinkedList<OnlineQuestion> ques = WebPostUtil.getOnlineQuestions(SERVICE_URL, "getOnlineQuestionList", JSON.toJSONString(searchBean));
 			
 			return ques;

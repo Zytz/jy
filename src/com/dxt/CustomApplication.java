@@ -52,6 +52,8 @@ public class CustomApplication extends Application
 	}
 
 	private SearchOnlineQuestionBean searchBean = new SearchOnlineQuestionBean();
+	
+	public SearchOnlineQuestionBean searchBeanForHigh = new SearchOnlineQuestionBean();
     
     @Override
     public void onCreate()
@@ -105,6 +107,7 @@ public class CustomApplication extends Application
 	public void setSearchBean(SearchOnlineQuestionBean searchBean) {
 		this.searchBean = searchBean;
 	}
+	
 
 	public String getQuestionId() {
 		return questionId;

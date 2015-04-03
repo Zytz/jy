@@ -35,11 +35,11 @@ public class UserCenterMyMoney extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.usercenterinformation);
+		setContentView(R.layout.usercentermymoney);
 		init();
 	}
 	private void init() {
-		lv_usercenterinf = (ListView) this.findViewById(R.id.lv_usercenterinf);
+		lv_usercenterinf = (ListView) this.findViewById(R.id.lv_usercentermymoenyinf);
 		data = getData();
 		lv_usercenterinf.setAdapter(new MyBaseAdapter());
 		lv_usercenterinf.setOnItemClickListener(usecenterlitenerinf);
@@ -83,7 +83,7 @@ public class UserCenterMyMoney extends Activity {
 			if (convertView == null) {
 				viewHolder = new ViewHolder();
 				convertView = View.inflate(UserCenterMyMoney.this,
-						R.layout.usercenterinf_row, null);
+						R.layout.usercentermymoney_row, null);
 				viewHolder.iconIV = (ImageView) convertView
 						.findViewById(R.id.iv_item_image_inf);
 				viewHolder.nameTV = (TextView) convertView
@@ -120,6 +120,7 @@ public class UserCenterMyMoney extends Activity {
 				Intent intentUserCenterInf = new Intent();
 				intentUserCenterInf.setClass(getApplicationContext(),
 						UserCenterMyMoney.class);
+				
 				//startActivity(intentUserCenterInf);
 				//setResult(Activity.RESULT_OK,intentUserCenterInf);
 				

@@ -227,8 +227,8 @@ public class QuestionDetailActivity extends Activity {
 	private void initialData() {
 		// TODO Auto-generated method stub
 		String ques = getIntent().getStringExtra("question");
-		onlineQuestion = JSON.parseObject(ques, OnlineQuestion.class);
-		Log.v("com.dxt", onlineQuestion.toString());
+		onlineQuestion = JSON.parseObject(ques, OnlineQuestion.class);  //获取问题的详细信息
+
 		ImageUtil.LoadImage(getApplicationContext(),
 				onlineQuestion.getStudentIcon(), studentIcon);
 		studentName.setText(onlineQuestion.getStudentName());
@@ -351,8 +351,12 @@ public class QuestionDetailActivity extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			if(application.isIslogin()){
+				User user = (User) JSONObject.parseObject(application.getValue(), User.class);
+				if(user.getId().equals(onlineQuestion.getStudentId())){
+					Toast.makeText(getApplicationContext(), "不能回答自己的问题!", 150).show();
+					return;
+				}
 				new Thread() {
-					
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub

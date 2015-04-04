@@ -148,6 +148,7 @@ public class MainActivity extends TabActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		SearchOnlineQuestionBean searchBean = application.getSearchBean();
+		SearchOnlineQuestionBean searchBeanForHigh = application.searchBeanForHigh;
 		if(resultCode==Activity.RESULT_OK&&requestCode==REQUESTCODEFORCHOOSE){
 			Bundle bundle = data.getExtras();
 			boolean canceled = false;
@@ -163,15 +164,20 @@ public class MainActivity extends TabActivity {
 				}else{
 					title ="全部问题";
 				}
-				searchBean.setGrade(int2IDOfGrade(grade));
-				searchBean.setSubject(int2IDOfSubject(subject));
-				searchBean.setNumber(0);
-				searchBean.setPageNum(0);
+				
 				bgNews.hide();
 				if(application.flag==0){
 					application.setFirstLoad(true);
+					searchBean.setGrade(int2IDOfGrade(grade));
+					searchBean.setSubject(int2IDOfSubject(subject));
+					searchBean.setNumber(0);
+					searchBean.setPageNum(0);
 				}else if(application.flag==1){
 					application.firstLoadToHigh=true;
+					searchBeanForHigh.setGrade(int2IDOfGrade(grade));
+					searchBeanForHigh.setSubject(int2IDOfSubject(subject));
+					searchBeanForHigh.setNumber(0);
+					searchBeanForHigh.setPageNum(0);
 				}
 				txt_chooseGrade.setText(title);
 				tabHost.invalidate();

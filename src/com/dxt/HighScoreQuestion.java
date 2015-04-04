@@ -117,7 +117,6 @@ public class HighScoreQuestion extends Activity {
 		super.onResume();
 		application.flag=1;
 		if(application.firstLoadToHigh){
-			application.searchBeanForHigh.setNumber(0);
 			application.searchBeanForHigh.setOrderWay(2);
 			new GetDataTask().execute();
 			application.firstLoadToHigh =false;

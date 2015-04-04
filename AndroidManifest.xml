@@ -39,10 +39,11 @@
         <activity android:name=".view.UserCenterInformation"/>
         <activity android:name=".view.UserCenterMyAnswer"/>
         <activity android:name=".view.UserCenterMyQuestion"/>
-        <activity android:name=".view.UserCenterMyMney"/>
+        <activity android:name=".view.UserCenterMyMoney"/>
         <activity android:name=".ChooseGrade" />
         <activity android:name=".PreviewActivity"/>
         <activity android:name=".QuestionDetailActivity"></activity>
-        <activity android:name=".OnlineQuestionAnswerActivity"></activity>
+        <activity android:name=".OnlineQuestionAnswerActivity"/>
+        
     </application>
 </manifest>

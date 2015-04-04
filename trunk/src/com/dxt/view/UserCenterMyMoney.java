@@ -85,9 +85,9 @@ public class UserCenterMyMoney extends Activity {
 				convertView = View.inflate(UserCenterMyMoney.this,
 						R.layout.usercentermymoney_row, null);
 				viewHolder.iconIV = (ImageView) convertView
-						.findViewById(R.id.iv_item_image_inf);
+						.findViewById(R.id.iv_item_image_mymoney);
 				viewHolder.nameTV = (TextView) convertView
-						.findViewById(R.id.iv_item_inf_inf);
+						.findViewById(R.id.iv_item_inf_mymoney);
 	/*s*/
 				convertView.setTag(viewHolder);
 			} else {

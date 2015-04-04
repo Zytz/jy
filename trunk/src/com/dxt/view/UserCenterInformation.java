@@ -76,7 +76,7 @@ public class UserCenterInformation extends Activity {
 
 		List<CommonListViewModel_itt> list = new ArrayList<CommonListViewModel_itt>();
 		String[] usercenter_inf = { "昵称", "学校名称","年级","性别", "电话","邮箱"};
-		String[] userInf={u.getNickName(),u.getSchool(),StringUtil.int2StringOfGrade(u.getGrade()),StringUtil.int2StringOfGender(u.getGrade()),u.getMobilePhone(),u.getEmail()};
+		String[] userInf={u.getNickName(),u.getSchool(),StringUtil.int2StringOfGrade(u.getGrade()),StringUtil.int2StringOfGender(u.getGender()),u.getMobilePhone(),u.getEmail()};
 		for (int i = 1; i <= 6; i++) {
 			CommonListViewModel_itt info = new CommonListViewModel_itt(
 					R.drawable.usercenter1, usercenter_inf[i - 1],

@@ -45,12 +45,13 @@ public class UserCenterMyQuestion extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.usercentermyquestion);
-
 		application = (CustomApplication) getApplication();
 		
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list_usercenter);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		// Set a listener to be invoked when the list should be refreshed.
+		
+		new GetDataTask().execute();
 		/*mPullRefreshListView
 				.setOnRefreshListener(new OnRefreshListener2<ListView>() {
 
@@ -122,6 +123,7 @@ public class UserCenterMyQuestion extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
+		//new GetDataTask().execute();
 	}
 
 	
@@ -176,7 +178,5 @@ public class UserCenterMyQuestion extends Activity {
 			super.onPostExecute(result);
 		}
 	}
-
-
 
 }

@@ -118,11 +118,15 @@ public class StringUtil {
 	 * 1:woman
 	 */
 	public static String int2StringOfGender(int gender) {
-		if (gender == -1) {
-			return "男";
-		} else {
-			return "女";
+		String str="";
+		
+		if (gender == 0) {
+			str ="男";
+		} 
+		if(gender==1){
+			str ="女";
 		}
+		return str;
 	}
 	/**
 	 * 逆向获得性别
@@ -131,11 +135,13 @@ public class StringUtil {
 	 * 1:woman
 	 */
 	public static int string2IntOfGender(String gender) {
+		int ret=-1;
 		if (gender == "男") {
-			return -1;
-		} else {
+			return 0;
+		} else if(gender == "女"){
 			return 1;
 		}
+		return ret;
 	}
 
 	/**

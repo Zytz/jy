@@ -91,7 +91,8 @@ public class QuestionDetailActivity extends Activity {
 	private ImageView onlineQuestionAnswer;
 	private BadgeView bvAnswer;
 	private ImageView bootCamera;
-
+	
+	
 	private PullToRefreshListView mPullRefreshListView;
 	private List<OnlineQuestionAnswer> listitems = new ArrayList<OnlineQuestionAnswer>();
 	private ListViewAnswerAdapter adapter;
@@ -180,8 +181,8 @@ public class QuestionDetailActivity extends Activity {
 					}
 
 				});
-		adapter = new ListViewAnswerAdapter(getApplicationContext(), listitems,
-				R.layout.online_question_answer_listitem);
+		adapter = new ListViewAnswerAdapter(QuestionDetailActivity.this, listitems,
+				R.layout.online_question_answer_listitem,onlineQuestion,application.getValue());
 		ListView actualListView = mPullRefreshListView.getRefreshableView();
 		actualListView.setAdapter(adapter);
 
@@ -315,7 +316,8 @@ public class QuestionDetailActivity extends Activity {
 				return false;
 			}
 		});
-
+		
+		
 	}
 
 	// 隐藏输入发表回帖状态

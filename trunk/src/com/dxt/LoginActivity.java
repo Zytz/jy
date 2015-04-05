@@ -57,6 +57,12 @@ public class LoginActivity extends Activity {
 				app.setIslogin(true);
 				//保存用户名
 				app.setUsername(username);
+				try {
+					th_user.join();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				Intent intentReturn = new Intent();
 				intentReturn
 						.setClass(getApplicationContext(), UserCenter.class);
@@ -64,8 +70,7 @@ public class LoginActivity extends Activity {
 				
 				
 				finish();
-				Toast.makeText(getApplicationContext(),
-						app.getValue() + "链接成功", Toast.LENGTH_LONG)
+				Toast.makeText(getApplicationContext(), "链接成功", Toast.LENGTH_LONG)
 						.show();
 				
 				break;
@@ -128,29 +133,21 @@ public class LoginActivity extends Activity {
 					Log.v(TAG, userInfo);
 					thLogin.start();
 				}
+				try {
+					thLogin.join();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		
 
 	}
-	@SuppressWarnings("deprecation")
 	protected void onDestroy() {
 		super.onDestroy();
-		if(thLogin.isAlive()){
-			thLogin.stop();
-			thLogin.destroy();
-		}
-		if(th_user.isAlive()){
-			try {
-				th_user.wait(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			th_user.stop();
-			th_user.destroy();
-		}
-	};
+	
+	}
 	Thread thLogin=new Thread(){
 		public void run() {
 			retMessage = WebPostUtil.getMessage(SERVICE_URL,

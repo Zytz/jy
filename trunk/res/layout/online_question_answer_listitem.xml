@@ -3,64 +3,77 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <ImageView 
-    	android:id="@+id/answer_listitem_userface"
-    	android:layout_width="30dp"
-        android:layout_height="30dp"
-      	style="@style/user_face_image"/>
+	<RelativeLayout 
+	     android:layout_width="match_parent"
+    	 android:layout_height="wrap_content"
+	    >
+	   <ImageView
+        android:id="@+id/answer_listitem_userface"
+        style="@style/user_face_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
 
-	<LinearLayout
-    	android:layout_width="fill_parent" 
-    	android:layout_height="wrap_content"
-    	android:orientation="vertical"
-    	android:layout_marginLeft="6dip"> 
-	       	
-       	<TextView 
-       		android:id="@+id/answer_listitem_username"  
-    		android:layout_width="wrap_content" 
-           	android:layout_height="wrap_content"
-       	    android:includeFontPadding="false"
-           	android:textSize="@dimen/text_size_14"
-            android:textColor="@color/listitem_blue"/>	         	
-        
+    	<ImageView
+        android:id="@+id/answer_listitem_adopt"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/common_selector_small_adopted_gray" />
 	    
-		<LinearLayout
-			android:id="@+id/answer_listitem_relies"
-    		android:layout_width="fill_parent" 
-    		android:layout_height="wrap_content"
-    		android:layout_marginTop="8dip"
-    		android:orientation="vertical"
-    		android:background="@drawable/review_bg_top">
-    			<TextView
-    			 android:id="@+id/asnwer_listitem_content" 
-	            android:layout_width="wrap_content" 
-	         	android:layout_height="wrap_content"
-	         	android:textSize="@dimen/text_size_10"
-	         	android:textColor="@color/listitem_gray">
-    			</TextView>
-    			<com.dxt.MyImageView
-			            android:id="@+id/answer_listitem_picture"
-			            android:layout_width="match_parent"
-			            android:layout_height="225dp"
-			            android:layout_marginBottom="10.0dip"
-			            android:layout_marginTop="8.0dip"
-			            />
-    	</LinearLayout>
-    	
-		<LinearLayout 
-	    	android:orientation="horizontal" 
-	        android:layout_width="fill_parent"  
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="8dip"> 
-			
-	       	<TextView 
-	        	android:id="@+id/answer_listitem_date" 
-	            android:layout_width="wrap_content" 
-	         	android:layout_height="wrap_content"
-	         	android:textSize="@dimen/text_size_10"
-	         	android:textColor="@color/listitem_gray"/> 
+	</RelativeLayout>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dip"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/answer_listitem_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:textColor="@color/listitem_blue"
+            android:textSize="@dimen/text_size_14" />
+
+        <LinearLayout
+            android:id="@+id/answer_listitem_relies"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dip"
+            android:background="@drawable/review_bg_top"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/asnwer_listitem_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/listitem_gray"
+                android:textSize="@dimen/text_size_10" >
+            </TextView>
+
+            <com.dxt.MyImageView
+                android:id="@+id/answer_listitem_picture"
+                android:layout_width="match_parent"
+                android:layout_height="225dp"
+                android:layout_marginBottom="10.0dip"
+                android:layout_marginTop="8.0dip" />
         </LinearLayout>
-			        
-	</LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/answer_listitem_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/listitem_gray"
+                android:textSize="@dimen/text_size_10" />
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

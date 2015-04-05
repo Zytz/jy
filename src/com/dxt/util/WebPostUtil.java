@@ -253,4 +253,26 @@ public class WebPostUtil {
 		}
 		return false;
 	}
+	
+	public static String processOrder(String url,String methodName,String question,String answer){
+		SoapObject soapObject = new SoapObject(SERVICE_NS, methodName);
+		soapObject.addProperty("userId", question); // 提出问题者
+		soapObject.addProperty("answerId", answer); // 回答问题者
+		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+				SoapEnvelope.VER10);
+		envelope.bodyOut = soapObject;
+		HttpTransportSE httpTranstation = new HttpTransportSE(url);
+		try {
+			httpTranstation.call(null, envelope); 
+			if(envelope.getResponse() != null){
+				SoapObject result = (SoapObject) envelope.bodyIn;
+				String ret = result.getProperty(0).toString();
+				return ret;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

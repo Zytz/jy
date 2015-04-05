@@ -170,7 +170,14 @@ public class HighScoreQuestion extends Activity {
 					application.setSubject(searchBean.getSubject());
 				}
 			}else{
-				Toast.makeText(getApplicationContext(), "没有更多的数据了", 150).show();
+				if(searchBean.getGrade()==application.getGrade()&&searchBean.getSubject()==application.getSubject()){
+					Toast.makeText(getApplicationContext(), "没有更多的数据了", 150).show();
+				}else{
+					listItems.clear();
+					searchBean.setNumber(result.size());
+					application.setGrade(searchBean.getGrade());
+					application.setSubject(searchBean.getSubject());
+				}
 			}
 			mAdapter.notifyDataSetChanged();
 			// Call onRefreshComplete when the list has been refreshed.

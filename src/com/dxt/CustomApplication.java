@@ -8,8 +8,10 @@ import com.dxt.model.SearchOnlineQuestionBean;
 
 public class CustomApplication extends Application
 {
-    private static final String VALUE = "";
-    public int flag =0; //用于标志显示第几个Activity
+    
+	private static final String VALUE = "";
+    public int reward =0 ;//用于保存用户点击问题的奖励分数
+	public int flag =0; //用于标志显示第几个Activity
     public boolean  firstLoadToHigh = true;
     private boolean firstLoad = true; //是否第一次加载问题列表，过滤产生的列表也属于第一次
     

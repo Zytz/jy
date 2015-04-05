@@ -106,6 +106,7 @@ public class QuestionActivity extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(getApplicationContext(),QuestionDetailActivity.class);
 				String ques = JSON.toJSONString(listItems.get(position-1));
+				application.reward = listItems.get(position-1).getRewardPoint();
 				intent.putExtra("question", ques);
 				startActivity(intent);
 			}
@@ -162,14 +163,22 @@ public class QuestionActivity extends Activity {
 					searchBean.setNumber(searchBean.getNumber()+result.size());
 					listItems.addAll(0, result);
 				}else{
-					listItems.clear();;
+					listItems.clear();
 					listItems.addAll(result);
 					searchBean.setNumber(result.size());
 					application.setGrade(searchBean.getGrade());
 					application.setSubject(searchBean.getSubject());
 				}
 			}else{
-				Toast.makeText(getApplicationContext(), "没有更多的数据了", 150).show();
+				if(searchBean.getGrade()==application.getGrade()&&searchBean.getSubject()==application.getSubject()){
+					Toast.makeText(getApplicationContext(), "没有更多的数据了", 150).show();
+				}else{
+					listItems.clear();
+					searchBean.setNumber(result.size());
+					application.setGrade(searchBean.getGrade());
+					application.setSubject(searchBean.getSubject());
+				}
+				
 			}
 			mAdapter.notifyDataSetChanged();
 			// Call onRefreshComplete when the list has been refreshed.

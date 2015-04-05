@@ -52,7 +52,6 @@ public class SubjecAdapter extends BaseAdapter {
 	}
 	
 	private static final int[] subjects = {R.string.quanbu,R.string.shuxue,R.string.yuwen,R.string.yingyu,
-										   R.string.wuli,R.string.huaxue,R.string.shengwu,R.string.zhengzhi,
-										   R.string.lishi,R.string.dili};
+										   R.string.wuli,R.string.huaxue};
 
 }

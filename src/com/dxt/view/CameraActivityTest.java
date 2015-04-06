@@ -86,7 +86,7 @@ public class CameraActivityTest extends Activity{
 
 	private String grade;
 	private String subject;
-	private int rewardPoint;
+	private int rewardPoint=0;
 
 	private Message message = new Message();
 	private ReturnMessage retMessage;
@@ -279,10 +279,17 @@ public class CameraActivityTest extends Activity{
 				if (ValidateUtil.isValid(app.getValue())) {
 
 					u = JSONObject.parseObject(app.getValue(), User.class);
+					//扣除积分
 					
-
-					showSelectDialog(CameraActivityTest.this, "选择所在年级和学科",
-							category1, category2);
+					if(rewardPoint<=u.getBalance()){
+						double balance= (u.getBalance()-rewardPoint);
+						u.setBalance(balance);
+						showSelectDialog(CameraActivityTest.this, "选择所在年级和学科",
+								category1, category2);
+					}else{
+						Toast.makeText(getApplicationContext(), "余额不足", 0).show();
+					}
+					
 				} else {
 					Toast.makeText(getApplicationContext(), "亲，请先登录", 0).show();
 				}
@@ -363,7 +370,7 @@ public class CameraActivityTest extends Activity{
 	/*
 	 * 1:完成更新数据库 2：完成将数据提交到服务器中
 	 */
-	Thread th = new Thread() {
+	Thread th_uploadImage = new Thread() {
 		public void run() {
 			uploadOnlineQuestion();
 		};
@@ -382,7 +389,7 @@ public class CameraActivityTest extends Activity{
 			}
 			String uploadBuffer = new String(Base64.encode(baos.toByteArray())); // 进行Base64编码
 			String methodName = "uploadImage";
-			Log.i(TAG, methodName + " " + getPhotoFileName() + " "
+			Log.i(TAG+"zhouwenwei", methodName + " " + getPhotoFileName() + " "
 					+ uploadBuffer);
 			// WebPostUtil.(methodName, getPhotoFileName(),
 			// uploadBuffer,SERVICE_URL); // 调用webservice
@@ -437,21 +444,21 @@ public class CameraActivityTest extends Activity{
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						Log.v("com.dxt", rewPoint+" ");
-						if(rewardPoint<=u.getBalance()){
+						//Log.v("com.dxt", rewardPoint+" "+u.getBalance());
+						
 							//提问扣除相应的积分
-							u.setBalance(u.getBalance()-rewardPoint);
+						//	u.setBalance(u.getBalance()-rewardPoint);
 						
 						int leftPosition = wheelLeft.getCurrentItem();
 						grade = left[leftPosition].trim().toString();
 						//grade=grade1[leftPosition];
 						subject = right[leftPosition][wheelRight.getCurrentItem()].trim().toString();
 						// btn.setText(vLeft + "-" + vRight);
-						Log.v("com.dxt", grade+":fd "+subject+":");
+						Log.v("com.dxt", grade+":fd "+subject+":"+u.getBalance());
 						
-						createOnLineQuestion();
-						dialog.dismiss();
-						th.start();
+						
+						
+						th_uploadImage.start();
 						new Thread(){
 							@Override
 							public void run() {
@@ -462,9 +469,11 @@ public class CameraActivityTest extends Activity{
 								handler.sendMessage(message);
 							}
 						}.start();
-						}else{
+						//createOnLineQuestion();
+						dialog.dismiss();
+						/*}else{
 							Toast.makeText(getApplicationContext(), "余额不足", 0).show();
-						}
+						}*/
 					}
 				});
 		dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消",

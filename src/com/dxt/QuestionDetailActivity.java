@@ -406,7 +406,7 @@ public class QuestionDetailActivity extends Activity {
 		OnlineQuestionAnswer answer = new OnlineQuestionAnswer();
 		User u = JSONObject.parseObject(application.getValue(), User.class);
 		answer.setTextAnswer(mFootEditer.getText().toString());
-		answer.setImageAnswer("static/onlineQuestionImages/" + fileName);
+		answer.setImageAnswer("static/onlineQuestionAndAnswerImages/" + fileName);
 		answer.setCreated(new Date());
 		answer.setAnswerAuthor(u.getNickName());
 		answer.setAnswerAuthorId(u.getId());

@@ -69,7 +69,6 @@ public class QuestionDetailActivity extends Activity {
 	private String fileName ="answer_default.png" ;//答案的默认图片
 
 	private String TAG = "dxt";
-	private ImageView img = null;
 
 	private TextView headerText;
 	private TextView grade;
@@ -134,7 +133,6 @@ public class QuestionDetailActivity extends Activity {
 
 	private void initialAnswerView() {
 		// TODO Auto-generated method stub
-		img = new ImageView(getApplicationContext());
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		mPullRefreshListView
@@ -452,7 +450,11 @@ public class QuestionDetailActivity extends Activity {
 
 		switch (requestCode) {
 		case PHOTO_REQUEST_TAKEPHOTO:// 当选择拍照时调用
-			startPhotoZoom(Uri.fromFile(tempFile));
+			if(resultCode==-1){
+				startPhotoZoom(Uri.fromFile(tempFile));
+			}else{
+				tempFile = null;
+			}
 			break;
 		case PHOTO_REQUEST_GALLERY:// 当选择从本地获取图片时
 			// 做非空判断，当我们觉得不满意想重新剪裁的时候便不会报异常，下同

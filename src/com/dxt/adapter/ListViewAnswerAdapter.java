@@ -15,13 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dxt.CustomApplication;
 import com.dxt.MyImageView;
 import com.dxt.R;
 import com.dxt.constant.StringConstant;
@@ -137,7 +135,7 @@ public class ListViewAnswerAdapter extends BaseAdapter {
 		ImageUtil.LoadImage(context, answerAuthor.getIcon(), listitemView.authorPicture);
 		listitemView.authorName.setText(answer.getAnswerAuthor());
 		listitemView.answerContent.setText(answer.getTextAnswer());
-		if (answerAuthor.getIcon() == null)
+		if (answer.getImageAnswer() == null)
 			ImageUtil.LoadImage(context, "static/onlineQuestionImages/answer_default.png",
 					listitemView.answerPicture);
 		ImageUtil.LoadImage(context, answer.getImageAnswer(),

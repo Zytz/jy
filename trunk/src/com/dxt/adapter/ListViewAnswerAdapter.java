@@ -130,13 +130,13 @@ public class ListViewAnswerAdapter extends BaseAdapter {
 		Thread thread = new Thread(new Helper(authorId));
 		thread.start();
 		if (answerAuthor.getIcon() == null)
-			ImageUtil.LoadImage(context, "static/userimages/8fee3a5dba884a1f9be8faf468b0f689.png",
+			ImageUtil.LoadImage(context, "static/avatarimages/logo.png",
 					listitemView.authorPicture);
 		ImageUtil.LoadImage(context, answerAuthor.getIcon(), listitemView.authorPicture);
 		listitemView.authorName.setText(answer.getAnswerAuthor());
 		listitemView.answerContent.setText(answer.getTextAnswer());
 		if (answer.getImageAnswer() == null)
-			ImageUtil.LoadImage(context, "static/onlineQuestionImages/answer_default.png",
+			ImageUtil.LoadImage(context, "static/onlineQuestionAndAnswerImages/answer_default.png",
 					listitemView.answerPicture);
 		ImageUtil.LoadImage(context, answer.getImageAnswer(),
 					listitemView.answerPicture);

@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -21,13 +22,14 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -37,6 +39,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,7 +49,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.dxt.CustomApplication;
 import com.dxt.MainActivity;
 import com.dxt.R;
-import com.dxt.R.drawable;
 import com.dxt.adapter.ArrayWheelAdapter;
 import com.dxt.adapter.OnWheelChangedListener;
 import com.dxt.adapter.WheelView;
@@ -58,7 +60,7 @@ import com.dxt.util.StringUtil;
 import com.dxt.util.ValidateUtil;
 import com.dxt.util.WebPostUtil;
 
-public class CameraActivityTest extends Activity {
+public class CameraActivityTest extends Activity{
 
 	private static final String SERVICE_URL = StringConstant.SERVICE_URL
 			+ "services/OnlineQuestionService?wsdl";;
@@ -109,11 +111,32 @@ public class CameraActivityTest extends Activity {
 			};
 	private Integer[] rewPoint = { 0, 5, 6, 7, 8, 9, 10, 15, 20 };
 	private String fileName="";
+	
+	
+	
+	//手指向右滑动时的最小速度
+		private static final int XSPEED_MIN = 200;
+		
+		//手指向右滑动时的最小距离
+		private static final int XDISTANCE_MIN = 150;
+		
+		//记录手指按下时的横坐标。
+		private float xDown;
+		
+		//记录手指移动时的横坐标。
+		private float xMove;
+		
+		//用于计算手指滑动的速度。
+		private VelocityTracker mVelocityTracker;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.cameraactivitytest);
+		RelativeLayout ll = (RelativeLayout) findViewById(R.id.camera_sliding);
+		
+		ll.setOnTouchListener(slidingListener);
 		init();
 		Log.i(TAG, "" + Environment.getExternalStorageDirectory());
 	}
@@ -414,6 +437,11 @@ public class CameraActivityTest extends Activity {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						Log.v("com.dxt", rewPoint+" ");
+						if(rewardPoint<=u.getBalance()){
+							//提问扣除相应的积分
+							u.setBalance(u.getBalance()-rewardPoint);
+						
 						int leftPosition = wheelLeft.getCurrentItem();
 						grade = left[leftPosition].trim().toString();
 						//grade=grade1[leftPosition];
@@ -434,6 +462,9 @@ public class CameraActivityTest extends Activity {
 								handler.sendMessage(message);
 							}
 						}.start();
+						}else{
+							Toast.makeText(getApplicationContext(), "余额不足", 0).show();
+						}
 					}
 				});
 		dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消",
@@ -496,8 +527,62 @@ public class CameraActivityTest extends Activity {
 		onlinequestionInApp.setStudentId(u.getId());
 		onlinequestionInApp.setStudentName(u.getNickName());// nickname
 		onlinequestionInApp.setStudentIcon(u.getIcon());
-		onlinequestionInApp.setQuestionImage("static/onlineQuestionImages/"+fileName);
+		onlinequestionInApp.setQuestionImage("static/onlineQuestionAndAnswerImages/"+fileName);
 		return  JSON.toJSONString(onlinequestionInApp);
 	}
+	OnTouchListener slidingListener=new OnTouchListener() {
+		
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			// TODO Auto-generated method stub
+			createVelocityTracker(event);
+			switch (event.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				xDown = event.getRawX();
+				break;
+			case MotionEvent.ACTION_MOVE:
+				xMove = event.getRawX();
+				//活动的距离
+				int distanceX = (int) (xMove - xDown);
+				//获取顺时速度
+				int xSpeed = getScrollVelocity();
+				//当滑动的距离大于我们设定的最小距离且滑动的瞬间速度大于我们设定的速度时，返回到上一个activity
+				if(distanceX > XDISTANCE_MIN && xSpeed > XSPEED_MIN) {
+					finish();
+					//设置切换动画，从右边进入，左边退出
+					overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
+				}
+				break;
+			case MotionEvent.ACTION_UP:
+				recycleVelocityTracker();
+				break;
+			default:
+				break;
+			}
+			return true;
+		}
+
+		private void createVelocityTracker(MotionEvent event) {
+			// TODO Auto-generated method stub
+			if (mVelocityTracker == null) {
+				mVelocityTracker = VelocityTracker.obtain();
+			}
+			mVelocityTracker.addMovement(event);
+		}
+
+		private int getScrollVelocity() {
+			// TODO Auto-generated method stub
+			mVelocityTracker.computeCurrentVelocity(1000);
+			int velocity = (int) mVelocityTracker.getXVelocity();
+			return Math.abs(velocity);
+		}
+
+		private void recycleVelocityTracker() {
+			// TODO Auto-generated method stub
+			mVelocityTracker.recycle();
+			mVelocityTracker = null;
+		}
+	};
+	
 
 }

@@ -30,6 +30,7 @@ public class UserCenterMyAnswer extends Activity {
 
 	final static String SERVICE_URL = StringConstant.SERVICE_URL
 			+ "services/OnlineQuestionService?wsdl";
+	
 	final static String TAG = "dxt";
 	private List<OnlineQuestion> listItems = new ArrayList<OnlineQuestion>();
 	private PullToRefreshListView mPullRefreshListView;
@@ -38,6 +39,7 @@ public class UserCenterMyAnswer extends Activity {
 	private SearchOnlineQuestionBean searchBean;
 	private User u;
 	private boolean flag;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -101,10 +103,9 @@ public class UserCenterMyAnswer extends Activity {
 			searchBean=application.getSearchBean();
 			searchBean.setStudentId(u.getId());
 			 myques = WebPostUtil.getOnlineQuestions(
-					SERVICE_URL, "getOnlineQuestionAnswerList", JSON.toJSONString(searchBean));
+					SERVICE_URL, "getOnlineMyAnswerList", JSON.toJSONString(searchBean));
 			return myques;
 		}
-
 		// 这里是对刷新的响应，可以利用addFirst（）和addLast()函数将新加的内容加到LISTView中
 		// 根据AsyncTask的原理，onPostExecute里的result的值就是doInBackground()的返回值
 		@Override

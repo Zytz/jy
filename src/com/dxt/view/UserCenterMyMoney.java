@@ -75,7 +75,7 @@ public class UserCenterMyMoney extends Activity {
 	private List<CommonListViewModel_itt> getData() {
 
 		List<CommonListViewModel_itt> list = new ArrayList<CommonListViewModel_itt>();
-		String[] usercenter_inf = { "êÇ³Æ"};
+		String[] usercenter_inf = { "½ð±Ò"};
 		String[] userInf={u.getBalance()+" "};
 		for (int i = 1; i <=1; i++) {
 			CommonListViewModel_itt info = new CommonListViewModel_itt(

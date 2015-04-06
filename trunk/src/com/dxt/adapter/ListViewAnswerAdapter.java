@@ -1,5 +1,6 @@
 package com.dxt.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -39,10 +40,12 @@ public class ListViewAnswerAdapter extends BaseAdapter {
 	private String userInfo;
 	private Context context;// 运行上下文
 	private List<OnlineQuestionAnswer> listItems;// 数据集合
+	private List<ImageView> views = new ArrayList<ImageView>();
 	private LayoutInflater listContainer;// 视图容器
 	private int itemViewResource;// 自定义项视图源
 	private static User answerAuthor = new User();
 	private ReturnMessage m = new ReturnMessage();
+	private boolean flag =false;
 	static class ListitemView {
 		private ImageView adopted;
 		private ImageView authorPicture;
@@ -119,7 +122,9 @@ public class ListViewAnswerAdapter extends BaseAdapter {
 			listitemView.date = (TextView) convertView
 					.findViewById(R.id.answer_listitem_date);
 			listitemView.adopted = (ImageView) convertView.findViewById(R.id.answer_listitem_adopt);
-			listitemView.adopted.setOnClickListener(new AdoptedListener(position));
+			ImageView v = listitemView.adopted;
+			views.add(v);
+			listitemView.adopted.setOnClickListener(new AdoptedListener(position,v));
 			convertView.setTag(listitemView);
 		} else {
 			listitemView = (ListitemView) convertView.getTag();
@@ -142,6 +147,15 @@ public class ListViewAnswerAdapter extends BaseAdapter {
 					listitemView.answerPicture);
 		listitemView.date.setText(DateFormat.format("yyyy-MM-dd hh:mm:ss",
 				answer.getCreated()));
+		if(!flag){
+			if(answer.getAdopted()==1) {
+				listitemView.adopted.setPressed(true);
+				listitemView.adopted.setEnabled(false);
+				flag = true;
+			}
+		}else{
+			listitemView.adopted.setEnabled(false);
+		}
 		return convertView;
 	}
 
@@ -170,8 +184,6 @@ public class ListViewAnswerAdapter extends BaseAdapter {
 			// TODO Auto-generated method stub
 			Message message = new Message();
 			OnlineQuestionAnswer answer = listItems.get(position);
-			Log.v("dxt ojaogjdoag",onlineQuestion.toString());
-			Log.v("dxt ojaogjdoag",answer.toString());
 			if(userInfo.equals("")) {
 				message.what =-1;
 				handler.sendMessage(message);
@@ -207,8 +219,10 @@ public class ListViewAnswerAdapter extends BaseAdapter {
 	 class AdoptedListener implements View.OnClickListener{
 		 
 		private final int position;
-		public AdoptedListener(int position) {
+		private ImageView view;
+		public AdoptedListener(int position,ImageView v) {
 			this.position = position;
+			this.view =v;
 		}
 		 	
 		@Override
@@ -222,6 +236,11 @@ public class ListViewAnswerAdapter extends BaseAdapter {
 				 public void onClick(DialogInterface dialog, int which) {
 					 Thread t = new Thread(new Helper1(position));
 					 t.start();
+					 view.setPressed(true);
+					 view.setEnabled(false);
+					 for(ImageView t1:views){
+						 t1.setEnabled(false);
+					 }
 					 dialog.dismiss();
 				 }
 		     });

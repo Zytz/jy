@@ -19,6 +19,7 @@
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:clickable="true"
         android:src="@drawable/common_selector_small_adopted_gray" />
 	    
 	</RelativeLayout>

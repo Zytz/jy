@@ -4,5 +4,4 @@
     <item android:state_pressed="true" android:drawable="@drawable/widget_bar_comment_over" />
     <item android:state_enabled="true" android:drawable="@drawable/widget_bar_comment_nor" />
     <item android:state_enabled="false" android:drawable="@drawable/widget_bar_comment_over" />
-    <item android:drawable="@drawable/widget_bar_comment_nor" />
 </selector>

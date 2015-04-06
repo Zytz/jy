@@ -396,7 +396,6 @@ public class QuestionDetailActivity extends Activity {
 					+ uploadBuffer);
 			WebPostUtil.uploadImage(methodName, fileName, uploadBuffer,
 					SERVICE_URL);
-
 			fis.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -462,7 +461,7 @@ public class QuestionDetailActivity extends Activity {
 			break;
 		case PHOTO_REQUEST_CUT:// 返回的结果
 			if (data != null)
-				sentPicToNext(data);
+				Toast.makeText(QuestionDetailActivity.this,"图片剪切成功", 150).show();
 			break;
 		}
 		super.onActivityResult(requestCode, resultCode, data);
@@ -473,7 +472,7 @@ public class QuestionDetailActivity extends Activity {
 		intent.setDataAndType(uri, "image/*");
 		// crop为true是设置在开启的intent中设置显示的view可以剪裁
 		intent.putExtra("crop", "true");
-
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
 		// aspectX aspectY 是宽高的比例
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
@@ -481,43 +480,12 @@ public class QuestionDetailActivity extends Activity {
 		// outputX,outputY 是剪裁图片的宽高
 		intent.putExtra("outputX", 300);
 		intent.putExtra("outputY", 300);
-		intent.putExtra("return-data", true);
+		intent.putExtra("scale", true);
+		intent.putExtra("return-data", false);
 		intent.putExtra("noFaceDetection", true);
 		startActivityForResult(intent, PHOTO_REQUEST_CUT);
 	}
 
-	// 将进行剪裁后的图片传递到下一个界面上
-	private void sentPicToNext(Intent picdata) {
-		Bundle bundle = picdata.getExtras();
-		if (bundle != null) {
-			Bitmap photo = bundle.getParcelable("data");
-			if (photo == null) {
-				Log.v(TAG, "photo is null");
-			} else {
-				Log.v(TAG, photo.toString());
-				img.setImageBitmap(photo);
-			}
-
-			ByteArrayOutputStream baos = null;
-			try {
-				baos = new ByteArrayOutputStream();
-				photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-				byte[] photodata = baos.toByteArray();
-				System.out.println(photodata.toString());
-
-			} catch (Exception e) {
-				e.getStackTrace();
-			} finally {
-				if (baos != null) {
-					try {
-						baos.close();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-	}
 
 	// 使用系统当前日期加以调整作为照片的名称
 	private String getPhotoFileName() {

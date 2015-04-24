@@ -11,11 +11,11 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Handler;
 import android.os.Message;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +52,7 @@ public class ListViewAnswerAdapter extends BaseAdapter {
 		private TextView authorName;
 		private TextView answerContent;
 		private MyImageView answerPicture;
+		private Button video;
 		private TextView date;
 	}
 	private Handler handler = new Handler(){
@@ -119,6 +120,18 @@ public class ListViewAnswerAdapter extends BaseAdapter {
 					.findViewById(R.id.asnwer_listitem_content);
 			listitemView.answerPicture = (MyImageView) convertView
 					.findViewById(R.id.answer_listitem_picture);
+			listitemView.video = (Button) convertView.findViewById(R.id.answer_listitem_video);
+			if(listItems.get(position).getVideoAnswer()!=null){
+				final String str = listItems.get(position).getVideoAnswer();
+				listitemView.video.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Toast.makeText(context, str, 200).show();
+					}
+				});
+			}
 			listitemView.date = (TextView) convertView
 					.findViewById(R.id.answer_listitem_date);
 			listitemView.adopted = (ImageView) convertView.findViewById(R.id.answer_listitem_adopt);

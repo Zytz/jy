@@ -10,21 +10,21 @@ public class OnlineQuestionAnswer {
 	
 	private String answerAuthorId;
 	
-	private String textAnswer;
+	private String textAnswer;//文字解答
 	
-	private String imageAnswer;
+	private String imageAnswer;//图片解答
 	
-	private int adopted;
+	private String videoAnswer;//视频解答
 	
 	private String onlineQuestionId;
+	
+	private int adopted;
 	
 	private Date created;
 	
 	private Date updated;
 	
 	private Date deleted;
-
-	
 
 	public String getId() {
 		return id;
@@ -65,13 +65,13 @@ public class OnlineQuestionAnswer {
 	public void setImageAnswer(String imageAnswer) {
 		this.imageAnswer = imageAnswer;
 	}
-	
-	public int getAdopted() {
-		return adopted;
+
+	public String getVideoAnswer() {
+		return videoAnswer;
 	}
 
-	public void setAdopted(int adopted) {
-		this.adopted = adopted;
+	public void setVideoAnswer(String videoAnswer) {
+		this.videoAnswer = videoAnswer;
 	}
 
 	public String getOnlineQuestionId() {
@@ -105,14 +105,25 @@ public class OnlineQuestionAnswer {
 	public void setDeleted(Date deleted) {
 		this.deleted = deleted;
 	}
-	
+
+	public int getAdopted() {
+		return adopted;
+	}
+
+	public void setAdopted(int adopted) {
+		this.adopted = adopted;
+	}
+
 	@Override
 	public String toString() {
 		return "OnlineQuestionAnswer [id=" + id + ", answerAuthor="
 				+ answerAuthor + ", answerAuthorId=" + answerAuthorId
 				+ ", textAnswer=" + textAnswer + ", imageAnswer=" + imageAnswer
-				+ ", onlineQuestionId=" + onlineQuestionId + ", created="
+				+ ", videoAnswer=" + videoAnswer + ", onlineQuestionId="
+				+ onlineQuestionId + ", adopted=" + adopted + ", created="
 				+ created + ", updated=" + updated + ", deleted=" + deleted
 				+ "]";
 	}
+	
+	
 }

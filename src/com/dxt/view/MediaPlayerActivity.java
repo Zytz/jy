@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnPreparedListener;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dxt.R;
+import com.dxt.constant.StringConstant;
 import com.dxt.util.DisplayUtil;
 import com.dxt.util.SDCardMedia;
 import com.dxt.util.TimeFormate;
@@ -42,17 +44,11 @@ public class MediaPlayerActivity extends ListActivity {
 	private SeekBar timebar;
 	private String path;
 	private String filepath;
-	//private String[] filepaths;
-	//private Map<String, Object> videoMap;
+
 	private MediaPlayer mediaPlayer;
-	//private AudioManager audioManager;
 	private SurfaceView surfaceView;
-	//private ProgressDialog dialog;
 	private boolean pause, filechanged, Handlerpost;
 	private int position;
-	//private int Index;
-	//private int count;
-	//private int maxVolume, curVolume, i;
 	private boolean isComeFromList;//volumeBarVisible,isMute, hasFile;
 	//private static final int LIST = 1, UPDATELIST = 2, ABOUT = 3, EXIT = 4;
 
@@ -80,6 +76,11 @@ public class MediaPlayerActivity extends ListActivity {
         surfaceView.getHolder().addCallback(new SurfaceCallback());
 		//显示媒体列表
 		ShowMediaList();
+		Intent intent =getIntent();
+		if((filepath = intent.getStringExtra("path"))!=null){
+			filepath = StringConstant.SERVICE_URL+filepath;
+			playMedia();
+		}
 	}
 	
 	
@@ -278,7 +279,7 @@ public class MediaPlayerActivity extends ListActivity {
 	private void play(int position)// 设置mediaPlayer播放视频
 	{
 		try {
-			mediaPlayer.reset();
+			//mediaPlayer.reset();
 			mediaPlayer.setDataSource(path);
 			mediaPlayer.setDisplay(surfaceView.getHolder());
 			mediaPlayer.prepare();// 缓冲

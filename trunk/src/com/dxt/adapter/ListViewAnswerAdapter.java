@@ -8,6 +8,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.text.format.DateFormat;
@@ -30,6 +31,7 @@ import com.dxt.model.User;
 import com.dxt.util.ImageUtil;
 import com.dxt.util.ReturnMessage;
 import com.dxt.util.WebPostUtil;
+import com.dxt.view.MediaPlayerActivity;
 
 public class ListViewAnswerAdapter extends BaseAdapter {
 	final static String SERVICE_URL = StringConstant.SERVICE_URL
@@ -128,7 +130,9 @@ public class ListViewAnswerAdapter extends BaseAdapter {
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						Toast.makeText(context, str, 200).show();
+						Intent intent = new Intent(context, MediaPlayerActivity.class);
+						intent.putExtra("path", str);
+						context.startActivity(intent);
 					}
 				});
 			}

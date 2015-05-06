@@ -54,7 +54,6 @@ public class MainActivity extends TabActivity {
 
 		mDoubleClickExitHelper = new DoubleClickExitHelper(this);
 		application = (CustomApplication) getApplication();
-		askquestion = (ImageButton) this.findViewById(R.id.img_askquestion);
 
 		txt_chooseGrade = (TextView) this
 				.findViewById(R.id.circle_tv_title_name);

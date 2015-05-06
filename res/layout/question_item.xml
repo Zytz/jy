@@ -26,22 +26,12 @@
             android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/waitforanswer_question_item_user_grade"
+                android:id="@+id/waitforanswer_question_item_user_grade_course"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="1.5dip"
                 android:gravity="center"
-                android:text="初一"
-                android:textColor="#ff3ab2ff"
-                android:textSize="@dimen/common_text_size_18" />
-
-            <TextView
-                android:id="@+id/waitforanswer_question_item_question_course"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="3.5dip"
-                android:gravity="center"
-                android:text="数学"
+                android:text="初一  数学"
                 android:textColor="#ff3ab2ff"
                 android:textSize="@dimen/common_text_size_18" />
 
@@ -53,7 +43,7 @@
                 android:gravity="center"
                 android:singleLine="true"
                 android:text="59分钟前"
-                android:textColor="#ffc6c6c6"
+                android:textColor="#ff999999"
                 android:textSize="@dimen/common_text_size_15" />
         </LinearLayout>
 		    

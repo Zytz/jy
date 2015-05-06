@@ -70,12 +70,12 @@
             android:background="@drawable/homework_questionlist_item_bottom_btn_bg"
             android:gravity="center"
             android:paddingBottom="7.0dip"
-            android:paddingLeft="10.0dip"
-            android:paddingRight="10.0dip"
+            android:paddingRight="5.0dip"
             android:paddingTop="7.0dip"
             android:text="@string/homework_question_item_reply_number"
             android:textColor="#ff999999"
             android:textSize="@dimen/common_text_size_18" />
+
 
         <TextView
             android:id="@+id/homework_question_item_tv_user_name"

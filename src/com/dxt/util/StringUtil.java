@@ -11,7 +11,10 @@ public class StringUtil {
 	static Map<String,Integer> subjects = new HashMap<String,Integer>();
 	static{
 		grades.put("全部", -1);
-		grades.put("小学", 101);
+		grades.put("小学", 0);
+		grades.put("小学", 1);
+		grades.put("小学", 2);
+		grades.put("小考", 3);
 		grades.put("七年级", 4);
 		grades.put("八年级", 5);
 		grades.put("九年级", 6);
@@ -33,6 +36,10 @@ public class StringUtil {
 	static{
 		gradeReverse.put(-1,"全部");
 		gradeReverse.put(101, "小学");
+		gradeReverse.put(0, "小学");
+		gradeReverse.put(1, "小学");
+		gradeReverse.put(2, "小学");
+		gradeReverse.put(3, "小考");
 		gradeReverse.put(4,"七年级");
 		gradeReverse.put(5,"八年级");
 		gradeReverse.put(6,"九年级");

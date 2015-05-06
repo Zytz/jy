@@ -11,7 +11,6 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.R.integer;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
@@ -236,6 +235,29 @@ public class WebPostUtil {
 		SoapObject soapObject = new SoapObject(SERVICE_NS, methodName);
 		soapObject.addProperty("filename", fileName); // 参数1 图片名
 		soapObject.addProperty("image", imageBuffer); // 参数2 图片字符串
+		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+				SoapEnvelope.VER10);
+		envelope.bodyOut = soapObject;
+		HttpTransportSE httpTranstation = new HttpTransportSE(SERVICE_URL);
+		try {
+			httpTranstation.call(null, envelope); // 这一步内存溢出
+			if(envelope.getResponse() != null){
+				return true;
+			}else{
+				return false;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public static boolean uploadVideo(String methodName,String fileName, String videoBuffer,String SERVICE_URL) {  
+		// TODO Auto-generated method stub
+		SoapObject soapObject = new SoapObject(SERVICE_NS, methodName);
+		soapObject.addProperty("filename", fileName); // 参数1 图片名
+		soapObject.addProperty("video", videoBuffer); // 参数2 图片字符串
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 				SoapEnvelope.VER10);
 		envelope.bodyOut = soapObject;

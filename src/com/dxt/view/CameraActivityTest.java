@@ -340,13 +340,8 @@ public class CameraActivityTest extends Activity{
 			String methodName = "uploadImage";
 			/*Log.i(TAG+"zhouwenwei", methodName + " " + getPhotoFileName() + " "
 					+ uploadBuffer);*/
-			// WebPostUtil.(methodName, getPhotoFileName(),
-			// uploadBuffer,SERVICE_URL); // µ÷ÓÃwebservice
 			WebPostUtil.uploadImage(methodName, fileName,
 					uploadBuffer, SERVICE_URL);
-			// retMessage=WebPostUtil.getMessage(StringConstant.SERVICE_URL,
-			// methodName, uploadBuffer);
-			// retMessage.getStatus();
 
 			fis.close();
 		} catch (Exception e) {
@@ -466,11 +461,6 @@ public class CameraActivityTest extends Activity{
 	private String createOnLineQuestion() {
 
 		OnlineQuestion onlinequestionInApp = new OnlineQuestion();
-		//Date date = new Date(System.currentTimeMillis());
-		//dateFormat.format(date);
-		//Log.i("com.dxt", grade+" first");
-		
-		//Log.i("com.dxt", x+" jkjk");
 		onlinequestionInApp.setGrade(StringUtil.int2IDOfGrade(grade));
 		onlinequestionInApp.setTextDescription(edit_Description.getText()
 				.toString());

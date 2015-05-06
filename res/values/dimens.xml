@@ -4,7 +4,7 @@
     <dimen name="list_time_size">12.0sp</dimen>
     <dimen name="common_text_size_20">20dp</dimen>
     <dimen name="common_text_size_18">13.0sp</dimen>
-     <dimen name="common_text_size_15">11.0sp</dimen>
+     <dimen name="common_text_size_15">13.0sp</dimen>
      <dimen name="text_size_14">14.0dip</dimen>
      <dimen name="text_size_15">15.0dip</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>

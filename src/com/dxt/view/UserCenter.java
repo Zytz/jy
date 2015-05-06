@@ -119,6 +119,7 @@ public class UserCenter extends Activity implements OnTouchListener{
 		}
 		else{
 		toLogin.setOnClickListener(toLoginListener);
+		
 		}
 		lv_usercenter = (ListView) this.findViewById(R.id.lv_usercenter);
 		data = getData();
@@ -213,13 +214,16 @@ public class UserCenter extends Activity implements OnTouchListener{
 			// TODO Auto-generated method stub
 			CommonListViewModel userInfo = data.get(position);
 			//Toast.makeText(UserCenter.this, userInfo.getName(), 0).show();
-			
+			Intent intentUserCenterInf = new Intent();
 			if(!app.isIslogin()){
 				Toast.makeText(getApplicationContext(), "Î´µÇÂ¼", 0).show();
+				intentUserCenterInf.setClass(getApplicationContext(),
+						LoginActivity.class);
+				startActivityForResult(intentUserCenterInf, RequestIntentToLogin);
 			}else{
 			/*	budle.putString("user", retMessage.getMessage());
 				intentUserCenterInf.putExtras(budle);*/
-				Intent intentUserCenterInf = new Intent();
+				
 			switch(position){
 			case 0:
 				intentUserCenterInf.setClass(getApplicationContext(),

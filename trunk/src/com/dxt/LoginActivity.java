@@ -165,4 +165,5 @@ public class LoginActivity extends Activity {
 			app.setValue(retMessage.getMessage());
 		}
 	};
+	
 }

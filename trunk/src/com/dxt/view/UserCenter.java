@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -36,6 +37,7 @@ import com.dxt.R;
 import com.dxt.constant.StringConstant;
 import com.dxt.model.CommonListViewModel;
 import com.dxt.model.User;
+import com.dxt.util.ImageUtil;
 import com.dxt.util.ReturnMessage;
 import com.dxt.util.ValidateUtil;
 import com.dxt.util.WebPostUtil;
@@ -115,11 +117,15 @@ public class UserCenter extends Activity implements OnTouchListener{
 			//u=JSONObject.parseObject(app.getValue(),User.class);
 				toLogin.setText(app.getUsername());
 				toLogin.setEnabled(false);
+				ImageUtil.LoadImage(getApplicationContext(), u.getIcon(), img);
+				u=JSONObject.parseObject(app.getValue(),User.class);
+				u.getIcon();
+				//img.setBackground(Bitmap());
 				//th.start();
 		}
 		else{
 		toLogin.setOnClickListener(toLoginListener);
-		
+		//img.setBackground();
 		}
 		lv_usercenter = (ListView) this.findViewById(R.id.lv_usercenter);
 		data = getData();

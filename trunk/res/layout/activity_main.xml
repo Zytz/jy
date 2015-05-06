@@ -16,8 +16,8 @@
             android:id="@+id/circle_tv_title_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/img_askquestion"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:ellipsize="middle"
             android:maxWidth="188.0dip"
             android:paddingRight="7.0dip"
@@ -37,13 +37,6 @@
             android:layout_toRightOf="@id/circle_tv_title_name"
             android:background="@drawable/homework_questionlist_circle_button_normal" />
 
-<!--         <ImageButton
-            android:id="@+id/img_askquestion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/ask_icon_normal" /> -->
     </RelativeLayout>
 
     <TabHost

@@ -6,16 +6,17 @@ import static com.dxt.util.StringUtil.int2StringOfSubject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.http.Header;
 import org.kobjects.base64.Base64;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -54,6 +55,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 public class QuestionDetailActivity extends Activity {
 
@@ -90,6 +94,7 @@ public class QuestionDetailActivity extends Activity {
 	private ImageView onlineQuestionAnswer;
 	private BadgeView bvAnswer;
 	private ImageView bootCamera;
+	private ImageView bootvideo;
 	
 	
 	private PullToRefreshListView mPullRefreshListView;
@@ -279,6 +284,45 @@ public class QuestionDetailActivity extends Activity {
 		
 		bootCamera = (ImageView) findViewById(R.id.friend_ib_camera);
 		bootCamera.setOnClickListener(bootCameraClickListener);
+		bootvideo = (ImageView) findViewById(R.id.friend_ib_video);
+		bootvideo.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				RequestParams params = new RequestParams();
+				Log.v("size:", " "+new File(Environment.getExternalStorageDirectory(),"video2.mp4").length());
+				try {
+					params.put("video", new FileInputStream(new File(Environment.getExternalStorageDirectory(),"video2.mp4")));
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				AsyncHttpClient client = new AsyncHttpClient();
+				client.post(StringConstant.SERVICE_URL+"UploadVideoServlet",params, new AsyncHttpResponseHandler() {
+				    @Override
+				    public void onStart() {
+				        // called before request is started
+				    }
+
+				    @Override
+				    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+				        // called when response HTTP status is "200 OK"
+				    }
+
+				    @Override
+				    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+				        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+				    }
+
+				    @Override
+				    public void onRetry(int retryNo) {
+				        // called when request is retried
+					}
+
+				});
+			}
+		});
 		imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
 		mFootViewSwitcher = (ViewSwitcher) findViewById(R.id.question_detail_foot_viewswitcher);
@@ -496,5 +540,5 @@ public class QuestionDetailActivity extends Activity {
 				"'IMG'_yyyyMMdd_HHmmss");
 		return dateFormat.format(date) + ".jpg";
 	}
-
+	
 }

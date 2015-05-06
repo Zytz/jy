@@ -313,7 +313,6 @@ public class MediaPlayerActivity extends ListActivity {
 				if (mediaPlayer.isPlaying()){
 					mediaPlayer.pause();
 					pause = true;
-
 					goView.setVisibility(ViewGroup.VISIBLE);
 				}
 				return true;

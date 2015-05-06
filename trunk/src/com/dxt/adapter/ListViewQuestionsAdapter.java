@@ -15,6 +15,7 @@ import com.dxt.R;
 import com.dxt.model.OnlineQuestion;
 import com.dxt.util.ImageUtil;
 import com.dxt.util.StringUtil;
+import com.dxt.util.TimeUtil;
 
 public class ListViewQuestionsAdapter extends BaseAdapter {
 	private Context 					context;//运行上下文
@@ -23,8 +24,7 @@ public class ListViewQuestionsAdapter extends BaseAdapter {
 	private int 						itemViewResource;//自定义项视图源 
 	
 	static class ListItemView{				//自定义控件集合  
-        public TextView grade;
-        public TextView subject;
+        public TextView grade_subject;
 	    public TextView date;  
 	    public TextView rewardPoint;
 	    public TextView textDescription;
@@ -67,8 +67,7 @@ public class ListViewQuestionsAdapter extends BaseAdapter {
 			convertView = listContainer.inflate(this.itemViewResource, null);
 			
 			listItemView = new ListItemView();
-			listItemView.grade = (TextView) convertView.findViewById(R.id.waitforanswer_question_item_user_grade);
-			listItemView.subject = (TextView) convertView.findViewById(R.id.waitforanswer_question_item_question_course);
+			listItemView.grade_subject = (TextView) convertView.findViewById(R.id.waitforanswer_question_item_user_grade_course);
 			listItemView.date	=(TextView) convertView.findViewById(R.id.waitforanswer_question_item_question_time);
 			listItemView.rewardPoint = (TextView) convertView.findViewById(R.id.waitforanswer_question_rewrad);
 			listItemView.textDescription = (TextView) convertView.findViewById(R.id.waitforanswer_question_name);
@@ -81,20 +80,18 @@ public class ListViewQuestionsAdapter extends BaseAdapter {
 			listItemView = (ListItemView)convertView.getTag();
 		}
 		OnlineQuestion onlineQuestion = listItems.get(position);
-		listItemView.grade.setText(StringUtil.int2StringOfGrade(onlineQuestion.getGrade()));
-		listItemView.subject.setText(StringUtil.int2StringOfGrade(onlineQuestion.getSubject()));
-		listItemView.date.setText(DateFormat.format("yyyy-MM-dd hh:mm:ss", onlineQuestion.getCreated()));
+		listItemView.grade_subject.setText(StringUtil.int2StringOfGrade(onlineQuestion.getGrade())+"  "+StringUtil.int2StringOfSubject(onlineQuestion.getSubject()));
+		//listItemView.date.setText(DateFormat.format("yyyy-MM-dd hh:mm:ss", onlineQuestion.getCreated()));
+		listItemView.date.setText(TimeUtil.spanTime(onlineQuestion.getCreated()));
 		listItemView.rewardPoint.setText(String.valueOf(onlineQuestion.getRewardPoint()));
 		listItemView.textDescription.setText(onlineQuestion.getTextDescription());
 		ImageUtil.LoadImage(context, onlineQuestion.getQuestionImage(), listItemView.questionImage);
-		//ImageLoader.getInstance().displayImage(StringConstant.SERVICE_URL+onlineQuestion.getQuestionImage(), listItemView.questionImage, options, animateFirstListener);
 		listItemView.questionImage.setUri(onlineQuestion.getQuestionImage());
-		//ImageLoader.getInstance().displayImage(StringConstant.SERVICE_URL+onlineQuestion.getStudentIcon(), listItemView.studentIcon, options, animateFirstListener);
 		ImageUtil.LoadImage(context, onlineQuestion.getStudentIcon(), listItemView.studentIcon);
 		listItemView.studentIcon.setUri(onlineQuestion.getStudentIcon());
 		
 		listItemView.studentName.setText(onlineQuestion.getStudentName());
-		listItemView.answerCount.setText(String.valueOf(onlineQuestion.getAnswerCount()));
+		listItemView.answerCount.setText(String.valueOf(onlineQuestion.getAnswerCount())+" 回答");
 		return convertView;
 	}
 }

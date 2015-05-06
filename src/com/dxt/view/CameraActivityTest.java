@@ -3,6 +3,8 @@ package com.dxt.view;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -11,11 +13,15 @@ import org.kobjects.base64.Base64;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.SharedPreferences.Editor;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -55,6 +61,7 @@ import com.dxt.adapter.WheelView;
 import com.dxt.constant.StringConstant;
 import com.dxt.model.OnlineQuestion;
 import com.dxt.model.User;
+import com.dxt.util.ImageTools;
 import com.dxt.util.ReturnMessage;
 import com.dxt.util.StringUtil;
 import com.dxt.util.ValidateUtil;
@@ -73,15 +80,21 @@ public class CameraActivityTest extends Activity{
 	private Spinner spin_rewardpoint;
 	private TextView onlinequesion_submit;
 	private EditText edit_Description;
-	private File tempFile = new File(Environment.getExternalStorageDirectory(),
-			getPhotoFileName());
+
 	private Button askGoodStudent;
 
 	// private
-
+/*
 	private static final int PHOTO_REQUEST_TAKEPHOTO = 1;// 拍照
 	private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
 	private static final int PHOTO_REQUEST_CUT = 3;// 结果
+	*/
+	private static final int TAKE_PICTURE = 0;
+	private static final int CHOOSE_PICTURE = 1;
+	private static final int CROP = 2;
+	private static final int CROP_PICTURE = 3;
+	
+	private static final int SCALE = 5;//照片缩小比例
 	private boolean canSubmit = false;
 
 	private String grade;
@@ -111,7 +124,8 @@ public class CameraActivityTest extends Activity{
 			};
 	private Integer[] rewPoint = { 0, 5, 6, 7, 8, 9, 10, 15, 20 };
 	private String fileName="";
-	
+	private File tempFile = new File(Environment.getExternalStorageDirectory(),
+			fileName);
 	
 	
 	//手指向右滑动时的最小速度
@@ -180,7 +194,7 @@ public class CameraActivityTest extends Activity{
 		 */
 	}
 
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	/*protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		switch (requestCode) {
 		case PHOTO_REQUEST_TAKEPHOTO:// 当选择拍照时调用
@@ -199,7 +213,7 @@ public class CameraActivityTest extends Activity{
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
-
+*/
 	// 使用数组形式操作
 	class SpinnerSelectedListener implements OnItemSelectedListener {
 
@@ -260,12 +274,12 @@ public class CameraActivityTest extends Activity{
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 
-			Intent cameraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+	/*		Intent cameraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			// 指定调用相机拍照后照片的储存路径
 			cameraintent.putExtra(MediaStore.EXTRA_OUTPUT,
-					Uri.fromFile(tempFile));
-			startActivityForResult(cameraintent, PHOTO_REQUEST_TAKEPHOTO);
-
+					Uri.fromFile(tempFile));*/
+		//	startActivityForResult(cameraintent, PHOTO_REQUEST_TAKEPHOTO);
+			showPicturePicker(CameraActivityTest.this,true);
 		}
 	};
 	// 问学霸事件
@@ -275,7 +289,7 @@ public class CameraActivityTest extends Activity{
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			if (canSubmit) {
-				fileName=getPhotoFileName();
+				//fileName=getPhotoFileName();
 				if (ValidateUtil.isValid(app.getValue())) {
 
 					u = JSONObject.parseObject(app.getValue(), User.class);
@@ -300,72 +314,7 @@ public class CameraActivityTest extends Activity{
 		}
 	};
 
-	private void startPhotoZoom(Uri uri) {
-		Intent intent = new Intent("com.android.camera.action.CROP");
-		intent.setDataAndType(uri, "image/*");
-		// crop为true是设置在开启的intent中设置显示的view可以剪裁
-		intent.putExtra("crop", "true");
-
-		// aspectX aspectY 是宽高的比例
-		intent.putExtra("aspectX", 1);
-		intent.putExtra("aspectY", 1);
-
-		// outputX,outputY 是剪裁图片的宽高
-		intent.putExtra("outputX", 300);
-		intent.putExtra("outputY", 300);
-		intent.putExtra("return-data", true);
-		intent.putExtra("noFaceDetection", true);
-		startActivityForResult(intent, PHOTO_REQUEST_CUT);
-	}
-
-	// 将进行剪裁后的图片传递到下一个界面上
-	private void sentPicToNext(Intent picdata) {
-		Bundle bundle = picdata.getExtras();
-		if (bundle != null) {
-			Bitmap photo = bundle.getParcelable("data");
-			if (photo == null) {
-				// img.setImageResource(R.drawable.abc_ic_clear_normal);
-				Log.v(TAG, "photo is null");
-			} else {
-				img.setImageBitmap(photo);
-				// 设置文本内容为 图片绝对路径和名字
-				// onlinequesion_submit.setOnClickListener(submitListener);
-				askGoodStudent.setOnClickListener(askGoodListener);
-				canSubmit = true;
-			}
-
-			ByteArrayOutputStream baos = null;
-			try {
-				baos = new ByteArrayOutputStream();
-				photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-				byte[] photodata = baos.toByteArray();
-				System.out.println(photodata.toString());
-				// Intent intent = new Intent();
-				// intent.setClass(RegisterActivity.this, ShowActivity.class);
-				// intent.putExtra("photo", photodata);
-				// startActivity(intent);
-				// finish();
-			} catch (Exception e) {
-				e.getStackTrace();
-			} finally {
-				if (baos != null) {
-					try {
-						baos.close();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-	}
-
-	// 使用系统当前日期加以调整作为照片的名称
-	private String getPhotoFileName() {
-		Date date = new Date(System.currentTimeMillis());
-		SimpleDateFormat dateFormat = new SimpleDateFormat(
-				"'IMG'_yyyyMMdd_HHmmss");
-		return dateFormat.format(date) + ".jpg";
-	}
+	
 
 	/*
 	 * 1:完成更新数据库 2：完成将数据提交到服务器中
@@ -389,8 +338,8 @@ public class CameraActivityTest extends Activity{
 			}
 			String uploadBuffer = new String(Base64.encode(baos.toByteArray())); // 进行Base64编码
 			String methodName = "uploadImage";
-			Log.i(TAG+"zhouwenwei", methodName + " " + getPhotoFileName() + " "
-					+ uploadBuffer);
+			/*Log.i(TAG+"zhouwenwei", methodName + " " + getPhotoFileName() + " "
+					+ uploadBuffer);*/
 			// WebPostUtil.(methodName, getPhotoFileName(),
 			// uploadBuffer,SERVICE_URL); // 调用webservice
 			WebPostUtil.uploadImage(methodName, fileName,
@@ -531,7 +480,7 @@ public class CameraActivityTest extends Activity{
 		Log.i("com.dxt", x+" jkjk");
 		onlinequestionInApp.setSubject(StringUtil.int2IDOfSubject(subject));
 		onlinequestionInApp.setRewardPoint(rewardPoint);
-		onlinequestionInApp.setQuestionImage(getPhotoFileName());
+		onlinequestionInApp.setQuestionImage(fileName);
 		//onlinequestionInApp.setCreated(date);
 		onlinequestionInApp.setStudentId(u.getId());
 		onlinequestionInApp.setStudentName(u.getNickName());// nickname
@@ -594,4 +543,152 @@ public class CameraActivityTest extends Activity{
 	};
 	
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == RESULT_OK) {
+			switch (requestCode) {
+			case TAKE_PICTURE:
+				//将保存在本地的图片取出并缩小后显示在界面上
+				Bitmap bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory()+"/image.jpg");
+				Bitmap newBitmap = ImageTools.zoomBitmap(bitmap, bitmap.getWidth() / SCALE, bitmap.getHeight() / SCALE);
+				//由于Bitmap内存占用较大，这里需要回收内存，否则会报out of memory异常
+				bitmap.recycle();
+				
+				//将处理过的图片显示在界面上，并保存到本地
+				img.setImageBitmap(newBitmap);
+				ImageTools.savePhotoToSDCard(newBitmap, Environment.getExternalStorageDirectory().getAbsolutePath(), String.valueOf(System.currentTimeMillis()));
+				
+				break;
+
+			case CHOOSE_PICTURE:
+				ContentResolver resolver = getContentResolver();
+				//照片的原始资源地址
+				Uri originalUri = data.getData(); 
+	            try {
+	            	//使用ContentProvider通过URI获取原始图片
+					Bitmap photo = MediaStore.Images.Media.getBitmap(resolver, originalUri);
+					if (photo != null) {
+						//为防止原始图片过大导致内存溢出，这里先缩小原图显示，然后释放原始Bitmap占用的内存
+						Bitmap smallBitmap = ImageTools.zoomBitmap(photo, photo.getWidth() / SCALE, photo.getHeight() / SCALE);
+						//释放原始图片占用的内存，防止out of memory异常发生
+						photo.recycle();
+						
+						img.setImageBitmap(smallBitmap);
+					}
+				} catch (FileNotFoundException e) {
+				    e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+				
+			case CROP:
+				Uri uri = null;
+				if (data != null) {
+					uri = data.getData();
+					System.out.println("Data");
+				}else {
+					System.out.println("File");
+					String fileName = getSharedPreferences("temp",Context.MODE_WORLD_WRITEABLE).getString("tempName", "");
+					uri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),fileName));
+				}
+				cropImage(uri, 200, 500, CROP_PICTURE);
+				break;
+			
+			case CROP_PICTURE:
+				Bitmap photo = null;
+				Uri photoUri = data.getData();
+				if (photoUri != null) {
+					photo = BitmapFactory.decodeFile(photoUri.getPath());
+				}
+				if (photo == null) {
+					Bundle extra = data.getExtras();
+					if (extra != null) {
+		                photo = (Bitmap)extra.get("data");  
+		                ByteArrayOutputStream stream = new ByteArrayOutputStream();  
+		                photo.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+		            }  
+				}
+				img.setImageBitmap(photo);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	
+	public void showPicturePicker(Context context,boolean isCrop){
+		final boolean crop = isCrop;
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setTitle("图片来源");
+		builder.setNegativeButton("取消", null);
+		builder.setItems(new String[]{"拍照","相册"}, new DialogInterface.OnClickListener() {
+			//类型码
+			int REQUEST_CODE;
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				switch (which) {
+				case TAKE_PICTURE:
+					Uri imageUri = null;
+					//String fileName = null;
+					Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					if (crop) {
+						REQUEST_CODE = CROP;
+						//删除上一次截图的临时文件
+						SharedPreferences sharedPreferences = getSharedPreferences("temp",Context.MODE_WORLD_WRITEABLE);
+						ImageTools.deletePhotoAtPathAndName(Environment.getExternalStorageDirectory().getAbsolutePath(), sharedPreferences.getString("tempName", ""));
+						
+						//保存本次截图临时文件名字
+						fileName = String.valueOf(System.currentTimeMillis()) + ".jpg";
+						Editor editor = sharedPreferences.edit();
+						editor.putString("tempName", fileName);
+						askGoodStudent.setOnClickListener(askGoodListener);
+						canSubmit = true;
+						editor.commit();
+					}else {
+						REQUEST_CODE = TAKE_PICTURE;
+						fileName = "image.jpg";
+					}
+					imageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),fileName));
+					//指定照片保存路径（SD卡），image.jpg为一个临时文件，每次拍照后这个图片都会被替换
+					openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+					startActivityForResult(openCameraIntent, REQUEST_CODE);
+					break;
+					
+				case CHOOSE_PICTURE:
+					Intent openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
+					if (crop) {
+						REQUEST_CODE = CROP;
+					}else {
+						REQUEST_CODE = CHOOSE_PICTURE;
+					}
+					openAlbumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+					startActivityForResult(openAlbumIntent, REQUEST_CODE);
+					break;
+
+				default:
+					break;
+				}
+			}
+		});
+		builder.create().show();
+	}
+
+	//截取图片
+	public void cropImage(Uri uri, int outputX, int outputY, int requestCode){
+		Intent intent = new Intent("com.android.camera.action.CROP");  
+        intent.setDataAndType(uri, "image/*");  
+        intent.putExtra("crop", "true");  
+        intent.putExtra("aspectX", 1);  
+        intent.putExtra("aspectY", 1);  
+        intent.putExtra("outputX", outputX);   
+        intent.putExtra("outputY", outputY); 
+        intent.putExtra("outputFormat", "JPEG");
+        intent.putExtra("noFaceDetection", true);
+        intent.putExtra("return-data", true);  
+	    startActivityForResult(intent, requestCode);
+	}
+	
 }

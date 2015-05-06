@@ -15,7 +15,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="120dp"
             android:text="@string/camera_label_myquestion"
             android:textColor="@color/white"
             android:textSize="15dp" />
@@ -82,7 +81,7 @@
             android:id="@+id/ask_goodStudent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="问学霸" />
+            android:text="立即回答" />
     </LinearLayout>
 
 </RelativeLayout>

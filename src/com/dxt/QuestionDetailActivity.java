@@ -16,7 +16,13 @@ import org.apache.http.Header;
 import org.kobjects.base64.Base64;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -48,9 +54,13 @@ import com.dxt.constant.StringConstant;
 import com.dxt.model.OnlineQuestion;
 import com.dxt.model.OnlineQuestionAnswer;
 import com.dxt.model.User;
+import com.dxt.util.ImageTools;
 import com.dxt.util.ImageUtil;
 import com.dxt.util.WebPostUtil;
 import com.dxt.view.BadgeView;
+import com.dxt.view.video.FFmpegFrameRecorder;
+import com.dxt.view.video.FFmpegPreviewActivity;
+import com.dxt.view.video.FFmpegRecorderActivity;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
@@ -69,6 +79,10 @@ public class QuestionDetailActivity extends Activity {
 	private static final int PHOTO_REQUEST_TAKEPHOTO = 1;// 拍照
 	private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
 	private static final int PHOTO_REQUEST_CUT = 3;// 结果
+	
+	
+	private static final int TAKE_PICTURE = 0;
+	private static final int TAKE_VIDEO = 1;
 	private File tempFile;
 	private String fileName ="answer_default.png" ;//答案的默认图片
 
@@ -479,13 +493,14 @@ public class QuestionDetailActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			tempFile = new File(Environment.getExternalStorageDirectory(),
+			/*tempFile = new File(Environment.getExternalStorageDirectory(),
 				 getPhotoFileName());
 			Intent cameraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			// 指定调用相机拍照后照片的储存路径
 			cameraintent.putExtra(MediaStore.EXTRA_OUTPUT,
 					Uri.fromFile(tempFile));
-			startActivityForResult(cameraintent, PHOTO_REQUEST_TAKEPHOTO);
+			startActivityForResult(cameraintent, PHOTO_REQUEST_TAKEPHOTO);*/
+			showPicturePicker(QuestionDetailActivity.this,true);
 		}
 	};
 
@@ -540,5 +555,64 @@ public class QuestionDetailActivity extends Activity {
 				"'IMG'_yyyyMMdd_HHmmss");
 		return dateFormat.format(date) + ".jpg";
 	}
-	
+	public void showPicturePicker(Context context,boolean isCrop){
+		final boolean crop = isCrop;
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setTitle("回答问题方式");
+		builder.setNegativeButton("取消", null);
+		builder.setItems(new String[]{"拍照","录制视频"}, new DialogInterface.OnClickListener() {
+			//类型码
+			int REQUEST_CODE;
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				switch (which) {
+				case TAKE_PICTURE:
+					/*Uri imageUri = null;
+					String fileName = null;
+					Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					if (crop) {
+						REQUEST_CODE = 2;
+						//删除上一次截图的临时文件
+						SharedPreferences sharedPreferences = getSharedPreferences("temp",Context.MODE_WORLD_WRITEABLE);
+						ImageTools.deletePhotoAtPathAndName(Environment.getExternalStorageDirectory().getAbsolutePath(), sharedPreferences.getString("tempName", ""));
+						
+						//保存本次截图临时文件名字
+						fileName = String.valueOf(System.currentTimeMillis()) + ".jpg";
+						Editor editor = sharedPreferences.edit();
+						editor.putString("tempName", fileName);
+						editor.commit();
+					}else {
+						REQUEST_CODE = TAKE_PICTURE;
+						fileName = "image.jpg";
+					}
+					imageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),fileName));
+					//指定照片保存路径（SD卡），image.jpg为一个临时文件，每次拍照后这个图片都会被替换
+					openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+					startActivityForResult(openCameraIntent, REQUEST_CODE);*/
+					
+					
+					tempFile = new File(Environment.getExternalStorageDirectory(),
+							 getPhotoFileName());
+						Intent cameraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+						// 指定调用相机拍照后照片的储存路径
+						cameraintent.putExtra(MediaStore.EXTRA_OUTPUT,
+								Uri.fromFile(tempFile));
+						startActivityForResult(cameraintent, PHOTO_REQUEST_TAKEPHOTO);
+					break;
+					
+				case TAKE_VIDEO:
+					Intent openAlbumIntent = new Intent();
+					//openAlbumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+					openAlbumIntent.setClass(getApplicationContext(), FFmpegRecorderActivity.class);
+					startActivityForResult(openAlbumIntent, REQUEST_CODE);
+					break;
+
+				default:
+					break;
+				}
+			}
+		});
+		builder.create().show();
+	}
 }

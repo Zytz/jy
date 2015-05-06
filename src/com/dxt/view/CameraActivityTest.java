@@ -122,7 +122,7 @@ public class CameraActivityTest extends Activity{
 			new String[] { "数学 ", "物理 ", "化学 " , "英语 ", "语文 " },
 			new String[] { "数学 ", "物理 ", "化学 ", "英语 ", "语文 " },
 			};
-	private Integer[] rewPoint = { 0, 5, 6, 7, 8, 9, 10, 15, 20 };
+	private Integer[] rewPoint = { 0,2,3,5, 6, 7, 8, 9, 10, 15, 20 };
 	private String fileName="";
 	private File tempFile = new File(Environment.getExternalStorageDirectory(),
 			fileName);
@@ -328,8 +328,8 @@ public class CameraActivityTest extends Activity{
 	private void uploadOnlineQuestion() {
 
 		try {
-			String imageViewPath = tempFile.getAbsolutePath();
-			FileInputStream fis = new FileInputStream(imageViewPath);
+			//String imageViewPath = tempFile.getAbsolutePath();
+			FileInputStream fis = new FileInputStream(new File(Environment.getExternalStorageDirectory(),fileName));
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			byte[] buffer = new byte[1024];
 			int count = 0;
@@ -634,8 +634,7 @@ public class CameraActivityTest extends Activity{
 						fileName = String.valueOf(System.currentTimeMillis()) + ".jpg";
 						Editor editor = sharedPreferences.edit();
 						editor.putString("tempName", fileName);
-						askGoodStudent.setOnClickListener(askGoodListener);
-						canSubmit = true;
+						
 						editor.commit();
 					}else {
 						REQUEST_CODE = TAKE_PICTURE;
@@ -663,6 +662,8 @@ public class CameraActivityTest extends Activity{
 				}
 			}
 		});
+		askGoodStudent.setOnClickListener(askGoodListener);
+		canSubmit = true;
 		builder.create().show();
 	}
 

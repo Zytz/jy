@@ -90,7 +90,7 @@ public class ListViewUserCenterMyQuestionsAdapter extends BaseAdapter {
 		listItemView.textDescription.setText(onlineQuestion.getTextDescription());
 		ImageUtil.LoadImage(context, onlineQuestion.getQuestionImage(), listItemView.questionImage);
 		//ImageLoader.getInstance().displayImage(StringConstant.SERVICE_URL+onlineQuestion.getQuestionImage(), listItemView.questionImage, options, animateFirstListener);
-		//listItemView.questionImage.setUri(onlineQuestion.getQuestionImage());
+		listItemView.questionImage.setUri(onlineQuestion.getQuestionImage());
 		//ImageLoader.getInstance().displayImage(StringConstant.SERVICE_URL+onlineQuestion.getStudentIcon(), listItemView.studentIcon, options, animateFirstListener);
 		//ImageUtil.LoadImage(context, onlineQuestion.getStudentIcon(), listItemView.studentIcon);
 		//listItemView.studentIcon.setUri(onlineQuestion.getStudentIcon());

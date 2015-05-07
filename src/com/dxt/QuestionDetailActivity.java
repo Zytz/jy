@@ -17,6 +17,7 @@ import org.kobjects.base64.Base64;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -78,6 +79,8 @@ public class QuestionDetailActivity extends Activity {
 	
 	private static final int TAKE_PICTURE = 0;
 	private static final int TAKE_VIDEO = 1;
+	private int xh_count = 0; 
+	private ProgressDialog xh_pDialog; 
 	private File tempFile;
 	private String fileName ="answer_default.png" ;//答案的默认图片
 
@@ -580,6 +583,30 @@ public class QuestionDetailActivity extends Activity {
 	}
 	
 	private void uploadVideo(String path){
+		// 创建ProgressDialog对象  
+        xh_pDialog = new ProgressDialog(QuestionDetailActivity.this);  
+
+        // 设置进度条风格，风格为圆形，旋转的  
+        xh_pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);  
+
+        // 设置ProgressDialog 标题  
+        xh_pDialog.setTitle("上传");  
+
+        // 设置ProgressDialog提示信息  
+        xh_pDialog.setMessage("正在上传!");  
+
+        // 设置ProgressDialog标题图标  
+        xh_pDialog.setIcon(R.drawable.logo_72);  
+
+        // 设置ProgressDialog 的进度条是否不明确 false 就是不设置为不明确  
+        xh_pDialog.setIndeterminate(false);  
+
+        // 设置ProgressDialog 是否可以按退回键取消  
+        xh_pDialog.setCancelable(true);  
+
+        // 让ProgressDialog显示  
+        xh_pDialog.show();  
+		
 		RequestParams params = new RequestParams();
 		Log.v("size:", " "+new File(path).length());
 		try {
@@ -598,9 +625,23 @@ public class QuestionDetailActivity extends Activity {
 		    @Override
 		    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
 		        // called when response HTTP status is "200 OK"
+		    	Toast.makeText(QuestionDetailActivity.this, "上传成功", 300).show();
+		    	xh_pDialog.dismiss();
 		    }
+		    
+		    
 
 		    @Override
+			public void onProgress(int bytesWritten, int totalSize) {
+				// TODO Auto-generated method stub
+				super.onProgress(bytesWritten, totalSize);
+				xh_count = (int) ((bytesWritten * 1.0 / totalSize) * 100);  
+	            // 上传进度显示  
+	            xh_pDialog.setProgress(xh_count);  
+	            Log.e("上传 Progress>>>>>", bytesWritten + " / " + totalSize);
+			}
+
+			@Override
 		    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
 		        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
 		    }

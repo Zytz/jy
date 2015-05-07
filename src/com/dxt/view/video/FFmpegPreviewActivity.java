@@ -129,7 +129,6 @@ public class FFmpegPreviewActivity extends Activity implements TextureView.Surfa
 			}
 			break;
 		case R.id.play_next:
-			//to doaaaa path
 			break;
 		default:
 			break;

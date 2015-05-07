@@ -58,4 +58,5 @@
     <string name="camera_label_ask_superscholar">问学霸</string>
     <string name="camera_label_ask_teacher">问老师</string>
     <string name="login_label_usernameOrPasswordIsNotNull">帐号或者密码不能为空</string>
+    <string name="login_label_usernameOrPasswordIsNotValid">帐号无效,请用邮箱或电话</string>
 </resources>

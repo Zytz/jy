@@ -7,6 +7,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ public class ListViewUserCenterMyQuestionsAdapter extends BaseAdapter {
         public TextView grade;
         public TextView subject;
 	    public TextView date;  
-	   // public TextView rewardPoint;
+	    public TextView rewardPoint;
 	    public TextView textDescription;
 	    public MyImageView questionImage;
 	   // public MyImageView studentIcon;
@@ -72,6 +73,7 @@ public class ListViewUserCenterMyQuestionsAdapter extends BaseAdapter {
 			listItemView.date	=(TextView) convertView.findViewById(R.id.usercentermyquestion_item_question_time);
 			listItemView.textDescription = (TextView) convertView.findViewById(R.id.usercentermyquestion_name);
 			listItemView.questionImage = (MyImageView) convertView.findViewById(R.id.usercentermyquestion_picture);
+			listItemView.rewardPoint=(TextView) convertView.findViewById(R.id.usercentermyquestion_rewrad);
 			//listItemView.studentIcon = (MyImageView) convertView.findViewById(R.id.homework_question_item_iv_user_picture);
 			//listItemView.studentName = (TextView) convertView.findViewById(R.id.homework_question_item_tv_user_name);
 			//listItemView.answerStatus=(TextView) convertView.findViewById();
@@ -84,7 +86,7 @@ public class ListViewUserCenterMyQuestionsAdapter extends BaseAdapter {
 		listItemView.grade.setText(StringUtil.int2StringOfGrade(onlineQuestion.getGrade()));
 		listItemView.subject.setText(StringUtil.int2StringOfGrade(onlineQuestion.getSubject()));
 		listItemView.date.setText(DateFormat.format("yyyy-MM-dd hh:mm:ss", onlineQuestion.getCreated()));
-		//listItemView.rewardPoint.setText(String.valueOf(onlineQuestion.getRewardPoint()));
+		listItemView.rewardPoint.setText(String.valueOf(onlineQuestion.getRewardPoint()));
 		listItemView.textDescription.setText(onlineQuestion.getTextDescription());
 		ImageUtil.LoadImage(context, onlineQuestion.getQuestionImage(), listItemView.questionImage);
 		//ImageLoader.getInstance().displayImage(StringConstant.SERVICE_URL+onlineQuestion.getQuestionImage(), listItemView.questionImage, options, animateFirstListener);

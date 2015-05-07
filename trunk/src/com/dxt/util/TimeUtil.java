@@ -1,6 +1,8 @@
 package com.dxt.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import android.text.format.DateFormat;
 
@@ -27,6 +29,22 @@ public class TimeUtil {
 			span=DateFormat.format("yyyy-MM-dd", updateTime).toString();
 		}
 		return span;
+	}
+	
+	/**
+	 * 用于获得指定格式的当前日期
+	 * 
+	 * @param format
+	 *            字符串时间格式 eg:yyyy-MM-dd hh:mm:ss
+	 * @return String 字符串时间
+	 */
+	public static String getCurrentDate(String format) {
+		Date utilDate = new java.util.Date();
+		SimpleDateFormat myFmt = new SimpleDateFormat(format);
+		TimeZone timeZoneChina = TimeZone.getTimeZone("Asia/Shanghai");// 获取中国的时区
+		myFmt.setTimeZone(timeZoneChina);// 设置系统时区
+		return myFmt.format(utilDate);
+
 	}
 
 }

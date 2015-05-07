@@ -75,7 +75,7 @@ public class MediaPlayerActivity extends ListActivity {
         surfaceView.getHolder().setKeepScreenOn(true);
         surfaceView.getHolder().addCallback(new SurfaceCallback());
 		//显示媒体列表
-		ShowMediaList();
+		//ShowMediaList();
 		Intent intent =getIntent();
 		if((filepath = intent.getStringExtra("path"))!=null){
 			filepath = StringConstant.SERVICE_URL+filepath;

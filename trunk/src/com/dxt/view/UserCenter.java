@@ -119,11 +119,9 @@ public class UserCenter extends Activity implements OnTouchListener{
 				toLogin.setEnabled(false);
 				u=JSONObject.parseObject(app.getValue(),User.class);
 				if(u.getIcon()!=null){
-					
 					ImageUtil.LoadImage(getApplicationContext(), u.getIcon(), img);
 					}else{
 						ImageUtil.LoadImage(getApplicationContext(), "static/avatarimages/logo.png", img);
-						
 					}
 		}
 		else{

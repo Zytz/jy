@@ -152,7 +152,7 @@ public class FFmpegRecorderActivity extends Activity implements OnClickListener,
 	//视频帧率
 	private int frameRate = 30;
 	//录制的最长时间
-	private int recordingTime = 80000;
+	private int recordingTime = 180000;
 	//录制的最短时间
 	private int recordingMinimumTime = 6000;
 	//提示换个场景
@@ -1128,6 +1128,9 @@ public class FFmpegRecorderActivity extends Activity implements OnClickListener,
 				saveRecording();
 			}else
 				initiateRecording(false);
+				
+			
+			
 		}else if(v.getId() == R.id.recorder_flashlight){
 			if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)){
 				//showToast(this, "不能开启闪光灯");
@@ -1164,7 +1167,14 @@ public class FFmpegRecorderActivity extends Activity implements OnClickListener,
 				showCancellDialog();
 			else
 				videoTheEnd(false);
+			
+			Intent intent = new Intent(this,QuestionDetailActivity.class);
+			intent.putExtra("path", " ");
+			//intent.putExtra("imagePath", imagePath);
+			//startActivity(intent);
+			setResult(RESULT_CANCELED, intent);
 		}
+		
 	}
 
 	
@@ -1192,7 +1202,10 @@ public class FFmpegRecorderActivity extends Activity implements OnClickListener,
 			if(valid){
 				Intent intent = new Intent(this,QuestionDetailActivity.class);
 				intent.putExtra("path", strVideoPath);
+				//intent.putExtra("imagePath", imagePath);
+				//startActivity(intent);
 				setResult(RESULT_OK, intent);
+				
 			}
 		} catch (Throwable e)
 		{

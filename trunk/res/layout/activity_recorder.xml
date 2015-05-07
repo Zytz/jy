@@ -86,7 +86,7 @@
             android:layout_alignParentRight="true"
             android:background="@drawable/btn_recorder_next"
             android:enabled="false"
-            android:text="下一步"
+            android:text="上传"
             android:textColor="#444444"
             android:textSize="14dp" />
 

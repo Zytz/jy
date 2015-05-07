@@ -484,9 +484,13 @@ public class QuestionDetailActivity extends Activity {
 				Toast.makeText(QuestionDetailActivity.this,"Õº∆¨ºÙ«–≥…π¶", 150).show();
 			break;
 		case VIDEO_REQUEST:
-			Bundle bundle = data.getExtras();
-			String path = bundle.getString("path");
-			uploadVideo(path);
+			
+			if (resultCode == Activity.RESULT_OK ) {
+				Bundle bundle = data.getExtras();
+				String path = bundle.getString("path");
+				uploadVideo(path);
+			}
+			
 			break;
 		default:
 			break;

@@ -117,11 +117,14 @@ public class UserCenter extends Activity implements OnTouchListener{
 			//u=JSONObject.parseObject(app.getValue(),User.class);
 				toLogin.setText(app.getUsername());
 				toLogin.setEnabled(false);
-				ImageUtil.LoadImage(getApplicationContext(), u.getIcon(), img);
 				u=JSONObject.parseObject(app.getValue(),User.class);
-				u.getIcon();
-				//img.setBackground(Bitmap());
-				//th.start();
+				if(u.getIcon()!=null){
+					
+					ImageUtil.LoadImage(getApplicationContext(), u.getIcon(), img);
+					}else{
+						ImageUtil.LoadImage(getApplicationContext(), "static/avatarimages/logo.png", img);
+						
+					}
 		}
 		else{
 		toLogin.setOnClickListener(toLoginListener);
@@ -139,11 +142,10 @@ public class UserCenter extends Activity implements OnTouchListener{
 
 		List<CommonListViewModel> list = new ArrayList<CommonListViewModel>();
 		String[] usercenter_inf = { "个人中心", "我的提问", "我的回答", "我的金币" };
-
+		int[] showdatas={R.drawable.usercenter_myinf,R.drawable.usercenter_myquestion,R.drawable.usercenter_myanswer,R.drawable.usercenter_mycount};;
 		for (int i = 1; i <= 4; i++) {
-			CommonListViewModel info = new CommonListViewModel(
-					R.drawable.usercenter1, usercenter_inf[i - 1],
-					R.drawable.usercenter2 + i);
+			CommonListViewModel info = new CommonListViewModel(showdatas[i-1], usercenter_inf[i - 1]);
+			//CommonListViewModel info=new 
 			list.add(info);
 		}
 		return list;
@@ -179,8 +181,8 @@ public class UserCenter extends Activity implements OnTouchListener{
 						.findViewById(R.id.iv_item_image);
 				viewHolder.nameTV = (TextView) convertView
 						.findViewById(R.id.iv_item_inf);
-				viewHolder.messageTV = (ImageView) convertView
-						.findViewById(R.id.iv_item_imagetogo);
+				/*viewHolder.messageTV = (ImageView) convertView
+						.findViewById(R.id.iv_item_imagetogo);*/
 				convertView.setTag(viewHolder);
 			} else {
 				viewHolder = (ViewHolder) convertView.getTag();
@@ -188,7 +190,7 @@ public class UserCenter extends Activity implements OnTouchListener{
 			CommonListViewModel userInfo = data.get(position);
 			viewHolder.iconIV.setImageResource(userInfo.getIcon());
 			viewHolder.nameTV.setText(userInfo.getName());
-			viewHolder.messageTV.setImageResource(userInfo.getMessage());
+			//viewHolder.messageTV.setImageResource(userInfo.getMessage());
 
 			return convertView;
 		}
@@ -196,7 +198,7 @@ public class UserCenter extends Activity implements OnTouchListener{
 		class ViewHolder {
 			public ImageView iconIV;
 			public TextView nameTV;
-			public ImageView messageTV;
+			//public ImageView messageTV;
 		}
 	}
 

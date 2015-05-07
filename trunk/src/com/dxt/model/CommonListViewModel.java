@@ -5,17 +5,15 @@ public class CommonListViewModel {
 
 	private int icon;
 	private String name;
-	private int message;
 
 	public CommonListViewModel() {
 		super();
 	}
 
-	public CommonListViewModel(int icon, String name, int message) {
+	public CommonListViewModel(int icon, String name) {
 		super();
 		this.icon = icon;
 		this.name = name;
-		this.message = message;
 	}
 
 	public int getIcon() {
@@ -34,19 +32,12 @@ public class CommonListViewModel {
 		this.name = name;
 	}
 
-
-
-	public int getMessage() {
-		return message;
-	}
-
-	public void setMessage(int message) {
-		this.message = message;
-	}
-
+/*
 	@Override
 	public String toString() {
 		return "UserInfo [icon=" + icon + ", name=" + name + ", message="
 				+ message + "]";
-	}
+	}*/
+	
+	
 }

@@ -19,16 +19,9 @@
 		    android:id="@+id/iv_item_inf"
 		    android:layout_gravity="center_vertical"
 		    android:layout_width="235dp"
+		    android:layout_marginLeft="20dp"
 		    android:layout_height="wrap_content" 
 		    android:textColor="@color/white"
 		  />
-  <ImageView
-      		android:id="@+id/iv_item_imagetogo"
-	      	android:layout_width="30dp"
-	      	android:layout_height="30dp"
-	      	android:paddingTop="10dp"
-	      	android:layout_gravity="right"
-	      	android:src="@drawable/watch"
-	      	android:contentDescription="@string/app_name" 
-	      />
+
   </LinearLayout>

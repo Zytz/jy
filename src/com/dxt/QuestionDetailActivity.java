@@ -53,6 +53,7 @@ import com.dxt.model.OnlineQuestion;
 import com.dxt.model.OnlineQuestionAnswer;
 import com.dxt.model.User;
 import com.dxt.util.ImageUtil;
+import com.dxt.util.TimeUtil;
 import com.dxt.util.WebPostUtil;
 import com.dxt.view.BadgeView;
 import com.dxt.view.video.FFmpegRecorderActivity;
@@ -83,7 +84,7 @@ public class QuestionDetailActivity extends Activity {
 	private ProgressDialog xh_pDialog; 
 	private File tempFile;
 	private String fileName ="answer_default.png" ;//答案的默认图片
-
+	private String videoName;
 	private String TAG = "dxt";
 
 	private TextView headerText;
@@ -422,6 +423,7 @@ public class QuestionDetailActivity extends Activity {
 		User u = JSONObject.parseObject(application.getValue(), User.class);
 		answer.setTextAnswer(mFootEditer.getText().toString());
 		answer.setImageAnswer("static/onlineQuestionAndAnswerImages/" + fileName);
+		if(videoName!=null)answer.setVideoAnswer("static/attachments/"+TimeUtil.getCurrentDate("yyyyMMdd")+"/"+videoName);
 		answer.setCreated(new Date());
 		answer.setAnswerAuthor(u.getNickName());
 		answer.setAnswerAuthorId(u.getId());
@@ -452,13 +454,6 @@ public class QuestionDetailActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			/*tempFile = new File(Environment.getExternalStorageDirectory(),
-				 getPhotoFileName());
-			Intent cameraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-			// 指定调用相机拍照后照片的储存路径
-			cameraintent.putExtra(MediaStore.EXTRA_OUTPUT,
-					Uri.fromFile(tempFile));
-			startActivityForResult(cameraintent, PHOTO_REQUEST_TAKEPHOTO);*/
 			showPicturePicker(QuestionDetailActivity.this,true);
 		}
 	};
@@ -484,13 +479,12 @@ public class QuestionDetailActivity extends Activity {
 				Toast.makeText(QuestionDetailActivity.this,"图片剪切成功", 150).show();
 			break;
 		case VIDEO_REQUEST:
-			
-			if (resultCode == Activity.RESULT_OK ) {
+			if(resultCode==RESULT_OK){
 				Bundle bundle = data.getExtras();
 				String path = bundle.getString("path");
+				if(path==null) break;
 				uploadVideo(path);
 			}
-			
 			break;
 		default:
 			break;
@@ -526,6 +520,14 @@ public class QuestionDetailActivity extends Activity {
 		return dateFormat.format(date) + ".jpg";
 	}
 	
+	// 使用系统当前日期加以调整作为照片的名称
+	private String getVideoFileName() {
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"'Video'_yyyyMMdd_HHmmss");
+		return dateFormat.format(date) + ".mp4";
+		}
+	
 	
 	public void showPicturePicker(Context context,boolean isCrop){
 		final boolean crop = isCrop;
@@ -538,29 +540,6 @@ public class QuestionDetailActivity extends Activity {
 			public void onClick(DialogInterface dialog, int which) {
 				switch (which) {
 				case TAKE_PICTURE:
-					/*Uri imageUri = null;
-					String fileName = null;
-					Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-					if (crop) {
-						REQUEST_CODE = 2;
-						//删除上一次截图的临时文件
-						SharedPreferences sharedPreferences = getSharedPreferences("temp",Context.MODE_WORLD_WRITEABLE);
-						ImageTools.deletePhotoAtPathAndName(Environment.getExternalStorageDirectory().getAbsolutePath(), sharedPreferences.getString("tempName", ""));
-						
-						//保存本次截图临时文件名字
-						fileName = String.valueOf(System.currentTimeMillis()) + ".jpg";
-						Editor editor = sharedPreferences.edit();
-						editor.putString("tempName", fileName);
-						editor.commit();
-					}else {
-						REQUEST_CODE = TAKE_PICTURE;
-						fileName = "image.jpg";
-					}
-					imageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),fileName));
-					//指定照片保存路径（SD卡），image.jpg为一个临时文件，每次拍照后这个图片都会被替换
-					openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-					startActivityForResult(openCameraIntent, REQUEST_CODE);*/
-					
 					
 					tempFile = new File(Environment.getExternalStorageDirectory(),
 							 getPhotoFileName());
@@ -612,9 +591,13 @@ public class QuestionDetailActivity extends Activity {
         xh_pDialog.show();  
 		
 		RequestParams params = new RequestParams();
-		Log.v("size:", " "+new File(path).length());
+		File file =new File(path);
+		if(!file.exists()) return;
+		videoName = getVideoFileName();
+		Log.v("size:", " "+file.length());
 		try {
-			params.put("video", new FileInputStream(new File(path)));
+			params.put("path", videoName);
+			params.put("video", new FileInputStream(file));
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

@@ -9,12 +9,13 @@
         android:id="@+id/myquestion"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
+        android:orientation="vertical"
+        android:gravity="center" 
         android:background="@android:color/holo_blue_light" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:text="@string/camera_label_myquestion"
             android:textColor="@color/white"
             android:textSize="15dp" />

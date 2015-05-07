@@ -33,7 +33,6 @@ public class MainActivity extends TabActivity {
 	private static final int REQUESTCODEFORCHOOSE = 1;
 	private static final int REQUESTCODEFORASKQUESTION = 2;
 	private TabHost tabHost;
-	private ImageButton askquestion;
 
 	private TextView txt_chooseGrade;
 

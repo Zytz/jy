@@ -20,9 +20,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -54,12 +51,9 @@ import com.dxt.constant.StringConstant;
 import com.dxt.model.OnlineQuestion;
 import com.dxt.model.OnlineQuestionAnswer;
 import com.dxt.model.User;
-import com.dxt.util.ImageTools;
 import com.dxt.util.ImageUtil;
 import com.dxt.util.WebPostUtil;
 import com.dxt.view.BadgeView;
-import com.dxt.view.video.FFmpegFrameRecorder;
-import com.dxt.view.video.FFmpegPreviewActivity;
 import com.dxt.view.video.FFmpegRecorderActivity;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -79,6 +73,7 @@ public class QuestionDetailActivity extends Activity {
 	private static final int PHOTO_REQUEST_TAKEPHOTO = 1;// 拍照
 	private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
 	private static final int PHOTO_REQUEST_CUT = 3;// 结果
+	private static final int VIDEO_REQUEST = 4;// 视频路径
 	
 	
 	private static final int TAKE_PICTURE = 0;
@@ -108,7 +103,6 @@ public class QuestionDetailActivity extends Activity {
 	private ImageView onlineQuestionAnswer;
 	private BadgeView bvAnswer;
 	private ImageView bootCamera;
-	private ImageView bootvideo;
 	
 	
 	private PullToRefreshListView mPullRefreshListView;
@@ -298,45 +292,7 @@ public class QuestionDetailActivity extends Activity {
 		
 		bootCamera = (ImageView) findViewById(R.id.friend_ib_camera);
 		bootCamera.setOnClickListener(bootCameraClickListener);
-		bootvideo = (ImageView) findViewById(R.id.friend_ib_video);
-		bootvideo.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				RequestParams params = new RequestParams();
-				Log.v("size:", " "+new File(Environment.getExternalStorageDirectory(),"video2.mp4").length());
-				try {
-					params.put("video", new FileInputStream(new File(Environment.getExternalStorageDirectory(),"video2.mp4")));
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				AsyncHttpClient client = new AsyncHttpClient();
-				client.post(StringConstant.SERVICE_URL+"UploadVideoServlet",params, new AsyncHttpResponseHandler() {
-				    @Override
-				    public void onStart() {
-				        // called before request is started
-				    }
-
-				    @Override
-				    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-				        // called when response HTTP status is "200 OK"
-				    }
-
-				    @Override
-				    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-				        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-				    }
-
-				    @Override
-				    public void onRetry(int retryNo) {
-				        // called when request is retried
-					}
-
-				});
-			}
-		});
+		
 		imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
 		mFootViewSwitcher = (ViewSwitcher) findViewById(R.id.question_detail_foot_viewswitcher);
@@ -524,6 +480,13 @@ public class QuestionDetailActivity extends Activity {
 			if (data != null)
 				Toast.makeText(QuestionDetailActivity.this,"图片剪切成功", 150).show();
 			break;
+		case VIDEO_REQUEST:
+			Bundle bundle = data.getExtras();
+			String path = bundle.getString("path");
+			uploadVideo(path);
+			break;
+		default:
+			break;
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
@@ -555,14 +518,14 @@ public class QuestionDetailActivity extends Activity {
 				"'IMG'_yyyyMMdd_HHmmss");
 		return dateFormat.format(date) + ".jpg";
 	}
+	
+	
 	public void showPicturePicker(Context context,boolean isCrop){
 		final boolean crop = isCrop;
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		builder.setTitle("回答问题方式");
 		builder.setNegativeButton("取消", null);
 		builder.setItems(new String[]{"拍照","录制视频"}, new DialogInterface.OnClickListener() {
-			//类型码
-			int REQUEST_CODE;
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -605,7 +568,7 @@ public class QuestionDetailActivity extends Activity {
 					Intent openAlbumIntent = new Intent();
 					//openAlbumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 					openAlbumIntent.setClass(getApplicationContext(), FFmpegRecorderActivity.class);
-					startActivityForResult(openAlbumIntent, REQUEST_CODE);
+					startActivityForResult(openAlbumIntent, VIDEO_REQUEST);
 					break;
 
 				default:
@@ -614,5 +577,39 @@ public class QuestionDetailActivity extends Activity {
 			}
 		});
 		builder.create().show();
+	}
+	
+	private void uploadVideo(String path){
+		RequestParams params = new RequestParams();
+		Log.v("size:", " "+new File(path).length());
+		try {
+			params.put("video", new FileInputStream(new File(path)));
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.post(StringConstant.SERVICE_URL+"UploadVideoServlet",params, new AsyncHttpResponseHandler() {
+		    @Override
+		    public void onStart() {
+		        // called before request is started
+		    }
+
+		    @Override
+		    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+		        // called when response HTTP status is "200 OK"
+		    }
+
+		    @Override
+		    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+		        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+		    }
+
+		    @Override
+		    public void onRetry(int retryNo) {
+		        // called when request is retried
+			}
+
+		});
 	}
 }

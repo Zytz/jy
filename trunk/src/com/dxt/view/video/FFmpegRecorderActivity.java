@@ -58,6 +58,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dxt.QuestionDetailActivity;
 import com.dxt.R;
 import com.dxt.view.video.ProgressView.State;
 import com.googlecode.javacv.FrameRecorder;
@@ -1189,10 +1190,9 @@ public class FFmpegRecorderActivity extends Activity implements OnClickListener,
 		try{
 			setActivityResult(valid);
 			if(valid){
-				Intent intent = new Intent(this,FFmpegPreviewActivity.class);
+				Intent intent = new Intent(this,QuestionDetailActivity.class);
 				intent.putExtra("path", strVideoPath);
-				intent.putExtra("imagePath", imagePath);
-				startActivity(intent);
+				setResult(RESULT_OK, intent);
 			}
 		} catch (Throwable e)
 		{

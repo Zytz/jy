@@ -38,7 +38,7 @@ public class LoginActivity extends Activity {
 	private User user = new User();
 	private String userInfo = null;
 	private Handler handler = new UIHander();
-	
+	private Thlogin thLogin;
 	private CustomApplication app;
 
 	@SuppressLint("HandlerLeak")
@@ -52,23 +52,16 @@ public class LoginActivity extends Activity {
 			
 			case SUCCESS:
 				//登录成功之后，保存user对象
-				th_user.start();
+				app.setValue(retMessage.getData());
 				//保存用户登录状态
 				app.setIslogin(true);
 				//保存用户名
 				app.setUsername(username);
-				try {
-					th_user.join();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 				Intent intentReturn = new Intent();
 				intentReturn
 						.setClass(getApplicationContext(), UserCenter.class);
 				setResult(RESULT_OK, intentReturn);
-				
-				
 				finish();
 				Toast.makeText(getApplicationContext(), "链接成功", Toast.LENGTH_LONG)
 						.show();
@@ -78,6 +71,12 @@ public class LoginActivity extends Activity {
 				Toast.makeText(getApplicationContext(),
 						retMessage.getMessage() + "和服务器没有链接", Toast.LENGTH_LONG)
 						.show();
+				try {
+					thLogin.join();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			}
 		}
@@ -113,7 +112,7 @@ public class LoginActivity extends Activity {
 						.toString().trim();
 				password = ((EditText) findViewById(R.id.password)).getText()
 						.toString().trim();
-				
+				thLogin = new Thlogin();
 				if (!ValidateUtil.isValid(username)
 						|| !ValidateUtil.isValid(password)) {
 					Toast.makeText(getApplicationContext(),
@@ -123,47 +122,34 @@ public class LoginActivity extends Activity {
 					user.setEmail(username);
 					user.setPassword(password);
 					userInfo = JSON.toJSONString(user);
-					Log.v(TAG, userInfo);
 					thLogin.start();
 				}
 				else if(ValidateUtil.isMobileNO(username)){
 					user.setMobilePhone(username);
 					user.setPassword(password);
 					userInfo = JSON.toJSONString(user);
-					Log.v(TAG, userInfo);
 					thLogin.start();
-				}
-				try {
-					thLogin.join();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				}else{
+					Toast.makeText(getApplicationContext(),
+							R.string.login_label_usernameOrPasswordIsNotValid, 0)
+							.show();
 				}
 			}
 		});
-		
-
 	}
-	protected void onDestroy() {
-		super.onDestroy();
 	
-	}
-	Thread thLogin=new Thread(){
-		public void run() {
-			retMessage = WebPostUtil.getMessage(SERVICE_URL,
-					"login", userInfo);
-			message.what = retMessage.getStatus();
-			handler.sendMessage(message);	
-		};
-	};
-	Thread th_user=	new Thread(){
+	private class Thlogin extends Thread{
+
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			retMessage = WebPostUtil.getMessage(SERVICE_URL1,
-					"UseCenterInformation", username);
-			app.setValue(retMessage.getMessage());
+			retMessage = WebPostUtil.getMessage(SERVICE_URL,
+					"login", userInfo);
+			Log.v("dxt",retMessage.toString());
+			message.what = retMessage.getStatus();
+			handler.sendMessage(message);
 		}
-	};
+		
+	}
 	
 }

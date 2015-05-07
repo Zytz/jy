@@ -70,6 +70,7 @@ public class WebPostUtil {
 				int status = ob.getIntValue("status");
 				retMessage.setStatus(status);
 				retMessage.setMessage(ob.getString("message"));
+				retMessage.setData(ob.getString("data"));
 			}else{
 				retMessage.setStatus(0);
 				retMessage.setMessage("Connection failure");

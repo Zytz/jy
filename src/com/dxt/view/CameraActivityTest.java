@@ -557,20 +557,30 @@ public class CameraActivityTest extends Activity{
 				if (data != null) {
 					uri = data.getData();
 					System.out.println("Data");
+					String[] proj = {MediaStore.Images.Media.DATA};
+					Cursor cursor = managedQuery(uri, proj, null, null, null); 
+					//按我个人理解 这个是获得用户选择的图片的索引值 
+					int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA); 
+					cursor.moveToFirst(); 
+					//最后根据索引值获取图片路径 
+					imagePath = cursor.getString(column_index); 
 				}else {
 					System.out.println("File");
 					String fileName = getSharedPreferences("temp",Context.MODE_WORLD_WRITEABLE).getString("tempName", "");
 					uri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),fileName));
+				
 				}
 				
 				
-				String[] proj = {MediaStore.Images.Media.DATA}; 
-				Cursor cursor = managedQuery(uri, proj, null, null, null); 
-				//按我个人理解 这个是获得用户选择的图片的索引值 
-				int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA); 
-				cursor.moveToFirst(); 
-				//最后根据索引值获取图片路径 
-				imagePath = cursor.getString(column_index); 
+				/*if(data.equals(Intent.ACTION_GET_CONTENT)){
+					
+					Cursor cursor = managedQuery(uri, proj, null, null, null); 
+					//按我个人理解 这个是获得用户选择的图片的索引值 
+					int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA); 
+					cursor.moveToFirst(); 
+					//最后根据索引值获取图片路径 
+					imagePath = cursor.getString(column_index); 
+				}*/
 				
 				
 				System.out.println("~~~~~~~~~~~~"+imagePath);
@@ -628,6 +638,7 @@ public class CameraActivityTest extends Activity{
 						
 						//保存本次截图临时文件名字
 						fileName = String.valueOf(System.currentTimeMillis()) + ".jpg";
+						
 						Editor editor = sharedPreferences.edit();
 						editor.putString("tempName", fileName);
 						
@@ -637,6 +648,7 @@ public class CameraActivityTest extends Activity{
 						fileName = "image.jpg";
 					}
 					imageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),fileName));
+					imagePath=imageUri.getPath();
 					//指定照片保存路径（SD卡），image.jpg为一个临时文件，每次拍照后这个图片都会被替换
 					openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
 					startActivityForResult(openCameraIntent, REQUEST_CODE);

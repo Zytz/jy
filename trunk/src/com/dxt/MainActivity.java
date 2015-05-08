@@ -13,7 +13,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TabHost;
 import android.widget.TextView;

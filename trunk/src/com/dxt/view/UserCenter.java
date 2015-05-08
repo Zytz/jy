@@ -56,11 +56,7 @@ public class UserCenter extends Activity implements OnTouchListener{
 	//private Handler handler = new UIHander();
 	private User u=new User();
 	private CustomApplication app;
-	
-	
-	
-	
-	
+
 	private TextView toLogin;
 
 	private ImageView img = null;
@@ -100,15 +96,7 @@ public class UserCenter extends Activity implements OnTouchListener{
 		}
 	}
 	private void init() {
-		SharedPreferences preference = getSharedPreferences("dxtUser", MODE_PRIVATE);
 		app = (CustomApplication) getApplication();
-		boolean isLogin = preference.getBoolean("isLogin", false);
-		if(isLogin){
-			app.setIslogin(true);
-			app.setUsername(preference.getString("username", ""));
-			app.setValue(preference.getString("value", ""));
-		}
-		
 		img = (ImageView) findViewById(R.id.user_icon);
 		toLogin = (TextView) this.findViewById(R.id.user_notlogin);
 		if(app.isIslogin()){

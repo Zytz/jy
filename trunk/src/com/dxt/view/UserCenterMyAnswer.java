@@ -84,11 +84,6 @@ public class UserCenterMyAnswer extends Activity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-/*		searchBean.setPageNum(0);
-		searchBean.setGrade(-1);
-		searchBean.setSubject(-1);
-		application.setGrade(-1);
-		application.setSubject(-1);*/
 	}
 
 	private class GetDataTask extends
@@ -112,16 +107,7 @@ public class UserCenterMyAnswer extends Activity {
 		protected void onPostExecute(List<OnlineQuestion> result) {
 			// 在头部增加新添内容
 			// 通知程序数据集已经改变，如果不做通知，那么将不会刷新mListItems的集合
-			/*
-			 * if(searchBean.getGrade().equals(application.getGrade())&&searchBean
-			 * .getSubject().equals(application.getSubject())){
-			 * listItems.addAll(result);
-			 * searchBean.setPageNum(searchBean.getPageNum()+1); }else{
-			 * listItems.clear();; listItems.addAll(result);
-			 * application.setGrade(searchBean.getGrade());
-			 * application.setSubject(searchBean.getSubject());
-			 * searchBean.setPageNum(1); }
-			 */
+		
 			if (listItems != null)
 				listItems.clear();
 			listItems.addAll(result);

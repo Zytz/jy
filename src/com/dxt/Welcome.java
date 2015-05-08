@@ -13,6 +13,15 @@ public class Welcome extends Activity {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.welcome);
+		SharedPreferences preference = getSharedPreferences("dxtUser", MODE_PRIVATE);
+	    
+		CustomApplication app = (CustomApplication) getApplication();
+		boolean isLogin = preference.getBoolean("isLogin", false);
+		if(isLogin){
+			app.setIslogin(true);
+			app.setUsername(preference.getString("username", ""));
+			app.setValue(preference.getString("value", ""));
+		}
 		th_wait.start();
 	}
 

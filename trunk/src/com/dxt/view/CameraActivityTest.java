@@ -18,7 +18,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -27,7 +26,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.til.Log;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -63,7 +62,6 @@ import com.dxt.model.User;
 import com.dxt.util.ImageTools;
 import com.dxt.util.ReturnMessage;
 import com.dxt.util.StringUtil;
-import com.dxt.util.ValidateUtil;
 import com.dxt.util.WebPostUtil;
 
 public class CameraActivityTest extends Activity{

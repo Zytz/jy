@@ -17,6 +17,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.database.Cursor;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -25,7 +27,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.util.Log;
+import android.til.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -121,9 +123,9 @@ public class CameraActivityTest extends Activity{
 			};
 	private Integer[] rewPoint = { 0,2,3,5, 6, 7, 8, 9, 10, 15, 20 };
 	private String fileName="";
-	private File tempFile = new File(Environment.getExternalStorageDirectory(),
-			fileName);
-	
+	/*private File tempFile = new File(Environment.getExternalStorageDirectory(),
+			fileName);*/
+	private String imagePath;
 	
 	//手指向右滑动时的最小速度
 		private static final int XSPEED_MIN = 200;
@@ -191,26 +193,8 @@ public class CameraActivityTest extends Activity{
 		 */
 	}
 
-	/*protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	
 
-		switch (requestCode) {
-		case PHOTO_REQUEST_TAKEPHOTO:// 当选择拍照时调用
-			startPhotoZoom(Uri.fromFile(tempFile));
-			break;
-		case PHOTO_REQUEST_GALLERY:// 当选择从本地获取图片时
-			// 做非空判断，当我们觉得不满意想重新剪裁的时候便不会报异常，下同
-			if (data != null)
-				startPhotoZoom(data.getData());
-			break;
-		case PHOTO_REQUEST_CUT:// 返回的结果
-			if (data != null)
-				// setPicToView(data);
-				sentPicToNext(data);
-			break;
-		}
-		super.onActivityResult(requestCode, resultCode, data);
-	}
-*/
 	// 使用数组形式操作
 	class SpinnerSelectedListener implements OnItemSelectedListener {
 
@@ -287,7 +271,7 @@ public class CameraActivityTest extends Activity{
 			// TODO Auto-generated method stub
 			if (canSubmit) {
 				//fileName=getPhotoFileName();
-				if (ValidateUtil.isValid(app.getValue())) {
+				if (app.isIslogin()) {
 
 					u = JSONObject.parseObject(app.getValue(), User.class);
 					//扣除积分
@@ -326,7 +310,7 @@ public class CameraActivityTest extends Activity{
 
 		try {
 			//String imageViewPath = tempFile.getAbsolutePath();
-			FileInputStream fis = new FileInputStream(new File(Environment.getExternalStorageDirectory(),fileName));
+			FileInputStream fis = new FileInputStream(new File(imagePath));
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			byte[] buffer = new byte[1024];
 			int count = 0;
@@ -467,7 +451,7 @@ public class CameraActivityTest extends Activity{
 		Log.i("com.dxt", x+" jkjk");
 		onlinequestionInApp.setSubject(StringUtil.int2IDOfSubject(subject));
 		onlinequestionInApp.setRewardPoint(rewardPoint);
-		onlinequestionInApp.setQuestionImage(fileName);
+		//onlinequestionInApp.setQuestionImage(fileName);
 		//onlinequestionInApp.setCreated(date);
 		onlinequestionInApp.setStudentId(u.getId());
 		onlinequestionInApp.setStudentName(u.getNickName());// nickname
@@ -580,6 +564,22 @@ public class CameraActivityTest extends Activity{
 					String fileName = getSharedPreferences("temp",Context.MODE_WORLD_WRITEABLE).getString("tempName", "");
 					uri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),fileName));
 				}
+				
+				
+				String[] proj = {MediaStore.Images.Media.DATA}; 
+				Cursor cursor = managedQuery(uri, proj, null, null, null); 
+				//按我个人理解 这个是获得用户选择的图片的索引值 
+				int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA); 
+				cursor.moveToFirst(); 
+				//最后根据索引值获取图片路径 
+				imagePath = cursor.getString(column_index); 
+				
+				
+				System.out.println("~~~~~~~~~~~~"+imagePath);
+				
+				String[] pathss=imagePath.split("/");
+				fileName=pathss[pathss.length-1];
+				System.out.println("~~~~~~~~~~~~~~~"+fileName);
 				cropImage(uri, 200, 500, CROP_PICTURE);
 				break;
 			
@@ -588,6 +588,7 @@ public class CameraActivityTest extends Activity{
 				Uri photoUri = data.getData();
 				if (photoUri != null) {
 					photo = BitmapFactory.decodeFile(photoUri.getPath());
+
 				}
 				if (photo == null) {
 					Bundle extra = data.getExtras();

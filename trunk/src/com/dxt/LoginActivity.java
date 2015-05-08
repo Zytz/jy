@@ -3,6 +3,7 @@ package com.dxt;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,7 +27,8 @@ public class LoginActivity extends Activity {
 	final static String SERVICE_URL = StringConstant.SERVICE_URL+"services/UserService?wsdl";
 	final static String SERVICE_URL1=StringConstant.SERVICE_URL+"services/UserCenterService?wsdl";
 	final static String TAG = "dxt";
-
+	private SharedPreferences preference;
+	private SharedPreferences.Editor editor;
 	private static final int SUCCESS = 1;
 	private static final int ERROR = 0;
 	private String username;
@@ -57,7 +59,12 @@ public class LoginActivity extends Activity {
 				app.setIslogin(true);
 				//保存用户名
 				app.setUsername(username);
-				
+				preference = getSharedPreferences("dxtUser", MODE_PRIVATE);
+				editor = preference.edit();
+				editor.putString("username", app.getUsername());
+				editor.putString("value", app.getValue());
+				editor.putBoolean("isLogin", true);
+				editor.commit();
 				Intent intentReturn = new Intent();
 				intentReturn
 						.setClass(getApplicationContext(), UserCenter.class);

@@ -3,17 +3,11 @@ package com.dxt.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -39,12 +33,9 @@ import com.dxt.model.CommonListViewModel;
 import com.dxt.model.User;
 import com.dxt.util.ImageUtil;
 import com.dxt.util.ReturnMessage;
-import com.dxt.util.ValidateUtil;
-import com.dxt.util.WebPostUtil;
 
 public class UserCenter extends Activity implements OnTouchListener{
 
-	private String TAG = "dxt";
 	private final static int RequestIntentToLogin=1;
 	private final static int RequestUserCenterInformation=2;
 	private final static int RequestUserCenterMyQuestion=3;
@@ -109,9 +100,17 @@ public class UserCenter extends Activity implements OnTouchListener{
 		}
 	}
 	private void init() {
+		SharedPreferences preference = getSharedPreferences("dxtUser", MODE_PRIVATE);
+		app = (CustomApplication) getApplication();
+		boolean isLogin = preference.getBoolean("isLogin", false);
+		if(isLogin){
+			app.setIslogin(true);
+			app.setUsername(preference.getString("username", ""));
+			app.setValue(preference.getString("value", ""));
+		}
+		
 		img = (ImageView) findViewById(R.id.user_icon);
 		toLogin = (TextView) this.findViewById(R.id.user_notlogin);
-		app = (CustomApplication) getApplication();
 		if(app.isIslogin()){
 			
 			//u=JSONObject.parseObject(app.getValue(),User.class);
@@ -219,7 +218,6 @@ public class UserCenter extends Activity implements OnTouchListener{
 				long id) {
 			// TODO Auto-generated method stub
 			CommonListViewModel userInfo = data.get(position);
-			//Toast.makeText(UserCenter.this, userInfo.getName(), 0).show();
 			Intent intentUserCenterInf = new Intent();
 			if(!app.isIslogin()){
 				Toast.makeText(getApplicationContext(), "Î´µÇÂ¼", 0).show();

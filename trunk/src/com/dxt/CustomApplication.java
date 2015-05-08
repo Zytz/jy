@@ -2,13 +2,13 @@ package com.dxt;
 
 import android.app.Application;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 
 import com.dxt.model.SearchOnlineQuestionBean;
 
 public class CustomApplication extends Application
 {
-    
 	private static final String VALUE = "";
     public int reward =0 ;//用于保存用户点击问题的奖励分数
 	public int flag =0; //用于标志显示第几个Activity
